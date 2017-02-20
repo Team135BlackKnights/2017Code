@@ -22,7 +22,7 @@ private:
 
 	frc::RobotDrive* chassis;
 
-	static const int ENCODER_COUNTS = 256;
+	static const int ENCODER_COUNTS = 64;
 	static const int QUADRATURE_ENCODER_COUNTS = (ENCODER_COUNTS * 4);
 
 	static constexpr double DIAMETER_OF_WHEEL_IN = 4.0;

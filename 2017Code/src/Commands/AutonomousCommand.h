@@ -11,8 +11,14 @@ private:
 
 	static constexpr double ANGLE_TO_TURN_TO_FACE_SIDE_GEAR = 45.0;
 	static constexpr double ANGLE_FROM_SIDE_GEAR_TO_BASE_LINE_PATH = 75.0;
+	static constexpr double RIGHT_ANGLE_DEGREES = 90.0;
 
 	static constexpr double DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING = 12.0;
+
+	static constexpr double DISTANCE_TO_MOVE_AWAY_FROM_MIDDLE_GEAR_TO_PURSUE_BASELINE = 24.0;
+	static constexpr double DISTANCE_AWAY_FROM_MIDDLE_GEAR_LANE_TO_SIDE_LANE = 48.0;
+	static constexpr double DISTANCE_TO_TRAVEL_FOR_ROBOT_TO_CROSS_BASELINE = 48.0;
+
 	static constexpr double DISTANCE_TO_MOVE_AWAY_FROM_SIDE_GEAR_TO_PURSUE_BASELINE = 30.0;
 	static constexpr double DISTANCE_OF_SIDE_GEAR_BASE_LINE_PATH = 36.0;
 

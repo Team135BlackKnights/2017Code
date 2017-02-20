@@ -32,6 +32,28 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 		AddSequential(new WaitTime(1.0));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .3));
 		//  Go To Baseline
+		if (baseLinePath == BaseLinePath::MiddleGearLeft) {
+			AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_MIDDLE_GEAR_TO_PURSUE_BASELINE, .5));
+			AddSequential(new WaitTime(.25));
+			AddSequential(new TurnDriveTrainAngle(RIGHT_ANGLE_DEGREES, .5, TURN_LEFT));
+			AddSequential(new WaitTime(.15));
+			AddSequential(new DriveDistance(DISTANCE_AWAY_FROM_MIDDLE_GEAR_LANE_TO_SIDE_LANE, .5));
+			AddSequential(new WaitTime(.15));
+			AddSequential(new TurnDriveTrainAngle(RIGHT_ANGLE_DEGREES, .5, TURN_LEFT));
+			AddSequential(new WaitTime(.25));
+			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_FOR_ROBOT_TO_CROSS_BASELINE, .5));
+		}
+		else if (baseLinePath == BaseLinePath::MiddleGearRight) {
+			AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_MIDDLE_GEAR_TO_PURSUE_BASELINE, .5));
+			AddSequential(new WaitTime(.25));
+			AddSequential(new TurnDriveTrainAngle(RIGHT_ANGLE_DEGREES, .5, TURN_RIGHT));
+			AddSequential(new WaitTime(.15));
+			AddSequential(new DriveDistance(DISTANCE_AWAY_FROM_MIDDLE_GEAR_LANE_TO_SIDE_LANE, .5));
+			AddSequential(new WaitTime(.15));
+			AddSequential(new TurnDriveTrainAngle(RIGHT_ANGLE_DEGREES, .5, TURN_RIGHT));
+			AddSequential(new WaitTime(.25));
+			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_FOR_ROBOT_TO_CROSS_BASELINE, .5));
+		}
 	}
 	else if (this->autonomousSelection == AutonomousSelection::RightGear) {
 		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR, -.6));
@@ -42,19 +64,25 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 		AddSequential(new WaitTime(1.0));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .3));
 		if (this->baseLinePath == BaseLinePath::SideGear) {
-			AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_SIDE_GEAR_TO_PURSUE_BASELINE, -.5));
+			AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_SIDE_GEAR_TO_PURSUE_BASELINE, .5));
 			AddSequential(new WaitTime(.25));
 			AddSequential(new TurnDriveTrainAngle(ANGLE_FROM_SIDE_GEAR_TO_BASE_LINE_PATH, .5, TURN_LEFT));
 			AddSequential(new DriveDistance(DISTANCE_OF_SIDE_GEAR_BASE_LINE_PATH, .6));
 		}
 	}
 	else if (this->autonomousSelection == AutonomousSelection::LeftGear) {
-		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR, .6));
+		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR, -.6));
 		AddSequential(new WaitTime(.25));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_SIDE_GEAR, .5, TURN_RIGHT));
 		//  Camera Lines Up To Gear
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(1.0));
-		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, -.3));
+		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .3));
+		if (this->baseLinePath == BaseLinePath::SideGear) {
+			AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_SIDE_GEAR_TO_PURSUE_BASELINE, .5));
+			AddSequential(new WaitTime(.25));
+			AddSequential(new TurnDriveTrainAngle(ANGLE_FROM_SIDE_GEAR_TO_BASE_LINE_PATH, .5, TURN_RIGHT));
+			AddSequential(new DriveDistance(DISTANCE_OF_SIDE_GEAR_BASE_LINE_PATH, .6));
+		}
 	}
 }
