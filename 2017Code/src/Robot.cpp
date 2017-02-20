@@ -7,15 +7,22 @@
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 
-#include "Commands/ExampleCommand.h"
 #include "CommandBase.h"
 
 class Robot: public frc::IterativeRobot {
 public:
 	void RobotInit() override {
-		chooser.AddDefault("Default Auto", new ExampleCommand());
+		//chooser.AddDefault("Default Auto", new ExampleCommand());
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
+
+		CommandBase::agitator->InitializeAgitatorMotor(COMPETITION_BOT);
+		CommandBase::collection->InitializeCollectionMotor(COMPETITION_BOT);
+		CommandBase::driveTrain->InitializeDriveTrainMotors(COMPETITION_BOT);
+		CommandBase::gearHolder->InitializeGearHolderMotor(COMPETITION_BOT);
+		CommandBase::liftHang->InitializeLiftHang(COMPETITION_BOT);
+		CommandBase::shooter->InitializeShooterMotor(COMPETITION_BOT);
+		CommandBase::shooterHood->InitializeShooterHoodMotor(COMPETITION_BOT);
 	}
 
 	/**

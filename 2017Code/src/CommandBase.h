@@ -7,7 +7,13 @@
 #include <Commands/Command.h>
 
 #include "OI.h"
-#include "Subsystems/ExampleSubsystem.h"
+#include "Subsystems/DriveTrain.h"
+#include "Subsystems/Agitator.h"
+#include "Subsystems/Collection.h"
+#include "Subsystems/GearHolder.h"
+#include "Subsystems/LiftHang.h"
+#include "Subsystems/Shooter.h"
+#include "Subsystems/ShooterHood.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -21,8 +27,14 @@ public:
 	CommandBase() = default;
 
 	// Create a single static instance of all of your subsystems
-	static std::unique_ptr<ExampleSubsystem> exampleSubsystem;
 	static std::unique_ptr<OI> oi;
+	static std::unique_ptr<DriveTrain> driveTrain;
+	static std::unique_ptr<Agitator> agitator;
+	static std::unique_ptr<Collection> collection;
+	static std::unique_ptr<GearHolder> gearHolder;
+	static std::unique_ptr<LiftHang> liftHang;
+	static std::unique_ptr<Shooter> shooter;
+	static std::unique_ptr<ShooterHood> shooterHood;
 };
 
 #endif  // COMMAND_BASE_H
