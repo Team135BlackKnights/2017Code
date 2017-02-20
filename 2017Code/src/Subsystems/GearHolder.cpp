@@ -2,8 +2,7 @@
 #include "../RobotMap.h"
 
 GearHolder::GearHolder() : Subsystem("GearHolder") {
-	upperLimitSwitch = new frc::DigitalInput(UPPER_LIMIT_SWITCH_PORT);
-	lowerLimitSwitch = new frc::DigitalInput(LOWER_LIMIT_SWITCH_PORT);
+
 }
 
 void GearHolder::InitDefaultCommand() {
@@ -20,6 +19,8 @@ void GearHolder::InitializeGearHolderMotor(bool competitionBot) {
 		gearHolderMotor = new frc::VictorSP(PB_GEAR_VICTOR_PWM_PORT);
 		gearHolderMotor->SetInverted(PB_GEAR_HOLDER_INVERTED);
 	}
+	upperLimitSwitch = new frc::DigitalInput(UPPER_LIMIT_SWITCH_PORT);
+	lowerLimitSwitch = new frc::DigitalInput(LOWER_LIMIT_SWITCH_PORT);
 }
 
 void GearHolder::DriveGearHolder(double motorPower) {

@@ -3,7 +3,7 @@
 #include "Commands/DriveWithJoysticks.h"
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
-	navX = new AHRS(SerialPort::Port::kUSB);
+
 }
 
 void DriveTrain::InitDefaultCommand() {
@@ -18,27 +18,16 @@ void DriveTrain::InitializeDriveTrainMotors(bool competitionBot) {
 		driveTrainMotors[REAR_LEFT] = new CANTalon(CB_REAR_LEFT_TALON_ID);
 		driveTrainMotors[FRONT_RIGHT] = new CANTalon(CB_FRONT_RIGHT_TALON_ID);
 		driveTrainMotors[REAR_RIGHT] = new CANTalon(CB_REAR_RIGHT_TALON_ID);
-
-		chassis = new frc::RobotDrive(driveTrainMotors[FRONT_LEFT], driveTrainMotors[REAR_LEFT], driveTrainMotors[FRONT_RIGHT], driveTrainMotors[REAR_RIGHT]);
-
-		chassis->SetInvertedMotor(frc::RobotDrive::MotorType::kFrontLeftMotor, CB_DRIVE_TRAIN_FRONT_LEFT_INVERTED);
-		chassis->SetInvertedMotor(frc::RobotDrive::MotorType::kRearLeftMotor, CB_DRIVE_TRAIN_REAR_LEFT_INVERTED);
-		chassis->SetInvertedMotor(frc::RobotDrive::MotorType::kFrontRightMotor, CB_DRIVE_TRAIN_FRONT_RIGHT_INVERTED);
-		chassis->SetInvertedMotor(frc::RobotDrive::MotorType::kRearRightMotor, CB_DRIVE_TRAIN_REAR_RIGHT_INVERTED);
 	}
 	else if (competitionBot == false) {
 		driveTrainMotors[FRONT_LEFT] = new CANTalon(PB_FRONT_LEFT_TALON_ID);
 		driveTrainMotors[REAR_LEFT] = new CANTalon(PB_REAR_LEFT_TALON_ID);
 		driveTrainMotors[FRONT_RIGHT] = new CANTalon(PB_FRONT_RIGHT_TALON_ID);
 		driveTrainMotors[REAR_RIGHT] = new CANTalon(PB_REAR_RIGHT_TALON_ID);
-
-		chassis = new frc::RobotDrive(driveTrainMotors[FRONT_LEFT], driveTrainMotors[REAR_LEFT], driveTrainMotors[FRONT_RIGHT], driveTrainMotors[REAR_RIGHT]);
-
-		chassis->SetInvertedMotor(frc::RobotDrive::MotorType::kFrontLeftMotor, PB_DRIVE_TRAIN_FRONT_LEFT_INVERTED);
-		chassis->SetInvertedMotor(frc::RobotDrive::MotorType::kRearLeftMotor, PB_DRIVE_TRAIN_REAR_LEFT_INVERTED);
-		chassis->SetInvertedMotor(frc::RobotDrive::MotorType::kFrontRightMotor, PB_DRIVE_TRAIN_FRONT_RIGHT_INVERTED);
-		chassis->SetInvertedMotor(frc::RobotDrive::MotorType::kRearRightMotor, PB_DRIVE_TRAIN_REAR_RIGHT_INVERTED);
 	}
+	chassis = new frc::RobotDrive(driveTrainMotors[FRONT_LEFT], driveTrainMotors[REAR_LEFT], driveTrainMotors[FRONT_RIGHT], driveTrainMotors[REAR_RIGHT]);
+	chassis->SetSafetyEnabled(false);
+	//navX = new AHRS(SerialPort::Port::kUSB);
 }
 
 void DriveTrain::DriveTank(double leftMotorPower, double rightMotorPower) {
@@ -80,11 +69,12 @@ double DriveTrain::GetDistance(int motorEncoderPort) {
 }
 
 double DriveTrain::GetNavXAngle() {
-	return navX->GetAngle();
+	//return navX->GetAngle();
+	return 0.0;
 }
 
 void DriveTrain::ZeroNavXAngle() {
-	navX->ZeroYaw();
+	//navX->ZeroYaw();
 }
 
 // Put methods for controlling this subsystem

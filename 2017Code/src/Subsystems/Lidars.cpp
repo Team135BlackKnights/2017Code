@@ -2,21 +2,25 @@
 #include "../RobotMap.h"
 
 Lidars::Lidars() : Subsystem("Lidar") {
-	lidar = new I2C(MXP_PORT, LIDAR_DEVICE_ADDRESS);
+
+}
+
+void Lidars::InitDefaultCommand() {
+	// Set the default command for a subsystem here.
+	// SetDefaultCommand(new MySpecialCommand());
+}
+
+void Lidars::InitializeLidars() {
+	lidar = new frc::I2C(MXP_PORT, LIDAR_DEVICE_ADDRESS);
 
 	upperByteDataPointer = new uint8_t;
 	lowerByteDataPointer = new uint8_t;
 
 	charPointerConvertedData = new char;
 
-	i2CMultiplexer = new I2C(MXP_PORT, I2C_MULTIPLEXER_DEVICE_ADDRESS);
+	i2CMultiplexer = new frc::I2C(MXP_PORT, I2C_MULTIPLEXER_DEVICE_ADDRESS);
 
 	convertedValueToSendToI2CMultiplexer = new uint8_t;
-}
-
-void Lidars::InitDefaultCommand() {
-	// Set the default command for a subsystem here.
-	// SetDefaultCommand(new MySpecialCommand());
 }
 
 void Lidars::OpenCloseI2CChannelLines(int openCloseLidars) {

@@ -21,7 +21,7 @@ OI::OI() {
 }
 
 double OI::GetYAxis(int joystickNumber) {
-	joystickYAxisValue = joystick[joystickNumber]->GetAxis(frc::Joystick::AxisType::kYAxis);
+	joystickYAxisValue = (-1 * joystick[joystickNumber]->GetAxis(frc::Joystick::AxisType::kYAxis));
 	return this->DeadbandJoystickValue(joystickYAxisValue);
 }
 

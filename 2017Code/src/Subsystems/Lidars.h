@@ -68,6 +68,8 @@ public:
 	Lidars();
 	void InitDefaultCommand();
 
+	void InitializeLidars();
+
 	void OpenCloseI2CChannelLines(int);
 	void ConfigureLidar();
 	int GetUpperByte();

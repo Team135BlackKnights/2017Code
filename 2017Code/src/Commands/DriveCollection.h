@@ -6,7 +6,7 @@
 class DriveCollection : public CommandBase {
 private:
 	bool driveForwards;
-	static constexpr double COLLECTION_MOTOR_POWER = .6;
+	static constexpr double COLLECTION_MOTOR_POWER = 1.0;
 public:
 	DriveCollection(bool);
 	void Initialize();

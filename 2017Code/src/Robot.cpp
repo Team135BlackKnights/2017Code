@@ -29,9 +29,12 @@ public:
 		CommandBase::collection->InitializeCollectionMotor(COMPETITION_BOT);
 		CommandBase::driveTrain->InitializeDriveTrainMotors(COMPETITION_BOT);
 		CommandBase::gearHolder->InitializeGearHolderMotor(COMPETITION_BOT);
+		CommandBase::lidars->InitializeLidars();
 		CommandBase::liftHang->InitializeLiftHang(COMPETITION_BOT);
 		CommandBase::shooter->InitializeShooterMotor(COMPETITION_BOT);
+		CommandBase::shooter->ConfigureShooterMotorEncoder();
 		CommandBase::shooterHood->InitializeShooterHoodMotor(COMPETITION_BOT);
+		CommandBase::shooterHood->ConfigureShooterHoodEncoder();
 	}
 
 	/**

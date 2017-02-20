@@ -18,14 +18,14 @@
 // constexpr int RANGE_FINDER_PORT = 1;
 // constexpr int RANGE_FINDER_MODULE = 1;
 
-	const bool COMPETITION_BOT = false;
+	const bool COMPETITION_BOT = true;
 
 	//  Practice Bot Motor Ports
 	//VictorSP motor ports
 	const int PB_COLLECTION_VICTOR_PWM_PORT = 3;
 	const int PB_HANG_VICTOR_PWM_PORT = 2;
-	const int PB_GEAR_VICTOR_PWM_PORT = 1;
-	const int PB_AGITATOR_VICTOR_PWM_PORT = 0;
+	const int PB_GEAR_VICTOR_PWM_PORT = 0;
+	const int PB_AGITATOR_VICTOR_PWM_PORT = 1;
 
 	//CANTalon motor ports
 	const int PB_FRONT_LEFT_TALON_ID = 3;

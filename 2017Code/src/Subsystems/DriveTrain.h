@@ -5,7 +5,7 @@
 #include <CANTalon.h>
 #include <RobotDrive.h>
 #include <math.h>
-#include <AHRS.h>
+//#include <AHRS.h>
 
 class DriveTrain : public Subsystem {
 private:
@@ -33,7 +33,7 @@ private:
 	int encoderValue = 0;
 	double distanceTraveled = 0.0;
 
-	AHRS* navX;
+	//AHRS* navX;
 
 public:
 	DriveTrain();
