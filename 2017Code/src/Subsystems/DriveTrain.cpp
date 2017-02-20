@@ -4,6 +4,12 @@
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 	navX = new AHRS(SerialPort::Port::kUSB);
+	turnController = new PIDController(kP, kI, kD, kF, navX, this);
+	turnController->SetInputRange(-90.0f,  90.0f);
+	turnController->SetOutputRange(-1.0, 1.0);
+	turnController->SetAbsoluteTolerance(kToleranceDegrees);
+	turnController->SetContinuous(true);
+	turnController->Disable();
 }
 
 void DriveTrain::InitDefaultCommand() {
@@ -87,5 +93,17 @@ void DriveTrain::ZeroNavXAngle() {
 	navX->ZeroYaw();
 }
 
+
+void DriveTrain::TurnPIDEnable(double angleToTurn)
+{
+	this->ZeroNavXAngle();
+	turnController->SetSetpoint(angleToTurn);
+	turnController->Enable();
+}
+
+void DriveTrain::TurnPIDDisable()
+{
+	turnController->Disable();
+}
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

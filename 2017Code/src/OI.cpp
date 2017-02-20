@@ -6,6 +6,7 @@
 #include "Commands/DriveGearHolder.h"
 #include "Commands/DriveLiftHang.h"
 #include "Commands/DriveShooterHood.h"
+#include "Commands/Aimbot.h"
 
 OI::OI() {
 	// Process operator interface input here.
@@ -53,4 +54,24 @@ void OI::ConfigureButtonMapping() {
 
 	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_INCREASE_ANGLE_BUTTON]->WhileHeld(new DriveShooterHood(true));
 	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_DECREASE_ANGLE_BUTTON]->WhileHeld(new DriveShooterHood(false));
+
+	//Just for now
+	joystickButton[LEFT_DRIVE_JOYSTICK][10]->WhenPressed(new AimBot(0));
+}
+
+bool OI::GetAction(int JoyException, int ButtonException)
+{
+	for(int i = 0; i < NUM_OF_JOYSTICKS; i++)
+	{
+		if(abs(joystick[i]->GetY()) > .15)
+			return true;
+		for(int j = 0; j < NUM_OF_BUTTONS; j++)
+		{
+				if(i == JoyException && j == ButtonException)
+					continue;
+				if(joystickButton[i][j]->Get())
+					return true;
+			}
+	}
+	return false;
 }

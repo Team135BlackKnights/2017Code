@@ -34,6 +34,12 @@ private:
 	double distanceTraveled = 0.0;
 
 	AHRS* navX;
+	PIDController* turnController;
+	double kToleranceDegrees = .5f;
+	double kP = 0.0625;
+	double kI = 0.0f;
+	double kD = 0.1f;
+	double kF = 0.0f;
 
 public:
 	DriveTrain();
@@ -45,6 +51,8 @@ public:
 
 	void ConfigureDriveTrainEncoders();
 	void ZeroDriveTrainEncoder(int);
+	void TurnPIDEnable(double angleToTurn);
+	void TurnPIDDisable();
 	int GetEncoderPosition(int);
 	double GetDistance(int);
 

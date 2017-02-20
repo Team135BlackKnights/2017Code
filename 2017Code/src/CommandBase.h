@@ -37,6 +37,7 @@ public:
 	static std::unique_ptr<LiftHang> liftHang;
 	static std::unique_ptr<Shooter> shooter;
 	static std::unique_ptr<ShooterHood> shooterHood;
+	std::unique_ptr<Server> CommandBase::server;
 };
 
 #endif  // COMMAND_BASE_H
