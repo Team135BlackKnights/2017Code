@@ -9,6 +9,8 @@
 
 #include "CommandBase.h"
 
+#include "RobotMap.h"
+
 class Robot: public frc::IterativeRobot {
 public:
 	void RobotInit() override {

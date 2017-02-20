@@ -10,6 +10,7 @@ std::unique_ptr<DriveTrain> CommandBase::driveTrain = std::make_unique<DriveTrai
 std::unique_ptr<Agitator> CommandBase::agitator = std::make_unique<Agitator>();
 std::unique_ptr<Collection> CommandBase::collection = std::make_unique<Collection>();
 std::unique_ptr<GearHolder> CommandBase::gearHolder = std::make_unique<GearHolder>();
+std::unique_ptr<Lidars> CommandBase::lidars = std::make_unique<Lidars>();
 std::unique_ptr<LiftHang> CommandBase::liftHang = std::make_unique<LiftHang>();
 std::unique_ptr<Shooter> CommandBase::shooter = std::make_unique<Shooter>();
 std::unique_ptr<ShooterHood> CommandBase::shooterHood = std::make_unique<ShooterHood>();

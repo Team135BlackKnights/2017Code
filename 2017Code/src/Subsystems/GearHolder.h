@@ -15,13 +15,12 @@ private:
 	frc::DigitalInput* upperLimitSwitch;
 	frc::DigitalInput* lowerLimitSwitch;
 
-	static const int UPPER_LIMIT_SWITCH_PORT = 1;
-	static const int LOWER_LIMIT_SWITCH_PORT = 2;
-
 	bool upperLimitSwitchValue = false;
 	bool lowerLimitSwitchValue = false;
 
 	double gearHolderMotorPower = 0.0;
+
+	bool limitSwitchValue = false;
 
 public:
 	GearHolder();
@@ -30,6 +29,11 @@ public:
 	void InitializeGearHolderMotor(bool);
 
 	void DriveGearHolder(double);
+
+	bool GetLimitSwitchValue(int);
+
+	static const int UPPER_LIMIT_SWITCH_PORT = 1;
+	static const int LOWER_LIMIT_SWITCH_PORT = 2;
 };
 
 #endif  // GearHolder_H

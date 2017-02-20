@@ -11,6 +11,7 @@
 #include "Subsystems/Agitator.h"
 #include "Subsystems/Collection.h"
 #include "Subsystems/GearHolder.h"
+#include "Subsystems/Lidars.h"
 #include "Subsystems/LiftHang.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/ShooterHood.h"
@@ -32,6 +33,7 @@ public:
 	static std::unique_ptr<Agitator> agitator;
 	static std::unique_ptr<Collection> collection;
 	static std::unique_ptr<GearHolder> gearHolder;
+	static std::unique_ptr<Lidars> lidars;
 	static std::unique_ptr<LiftHang> liftHang;
 	static std::unique_ptr<Shooter> shooter;
 	static std::unique_ptr<ShooterHood> shooterHood;

@@ -38,5 +38,15 @@ void GearHolder::DriveGearHolder(double motorPower) {
 	gearHolderMotor->Set(gearHolderMotorPower);
 }
 
+bool GearHolder::GetLimitSwitchValue(int limitSwitchDigitalInputNumber) {
+	if (limitSwitchDigitalInputNumber == 1) {
+		limitSwitchValue = !upperLimitSwitch->Get();
+	}
+	else if (limitSwitchDigitalInputNumber == 2) {
+		limitSwitchValue = !lowerLimitSwitch->Get();
+	}
+	return limitSwitchValue;
+}
+
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
