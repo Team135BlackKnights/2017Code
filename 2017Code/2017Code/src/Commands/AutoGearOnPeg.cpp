@@ -33,9 +33,9 @@ void AutoGearOnPeg::Execute() {
 
 	if (startMovingTowardsGear) {
 		if (gearLidarValueInCentimeters > DISTANCE_AWAY_FROM_PEG_TO_DROP_GEAR_CM) {
-			CommandBase::driveTrain->DriveTank(DRIVE_TRAIN_MOTOR_POWER, DRIVE_TRAIN_MOTOR_POWER);
+			CommandBase::driveTrain->DriveTank(-DRIVE_TRAIN_MOTOR_POWER, -DRIVE_TRAIN_MOTOR_POWER);
 		}
-		else if (gearLidarValueInCentimeters<= DISTANCE_AWAY_FROM_PEG_TO_DROP_GEAR_CM) {
+		else if (gearLidarValueInCentimeters <= DISTANCE_AWAY_FROM_PEG_TO_DROP_GEAR_CM) {
 			CommandBase::driveTrain->DriveTank(0.0, 0.0);
 			startMeasuringLidarValue = false;
 			startMovingTowardsGear = false;

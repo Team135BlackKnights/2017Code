@@ -79,4 +79,17 @@
 	const bool CB_SHOOTER_MOTOR_INVERTED = false;
 	const bool CB_SHOOTER_HOOD_MOTOR_INVERTED = false;
 
+	enum AutonomousSelection {
+		MiddleGear,
+		RightGear,
+		LeftGear
+	};
+
+	enum BaseLinePath {
+		SideGear,
+		MiddleGearRight,
+		MiddleGearLeft,
+		NoBaseLine
+	};
+
 #endif  // ROBOTMAP_H
