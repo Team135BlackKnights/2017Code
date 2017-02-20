@@ -3,7 +3,7 @@
 #include "Commands/DriveWithJoysticks.h"
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
-
+	navX = new AHRS(SerialPort::Port::kUSB);
 }
 
 void DriveTrain::InitDefaultCommand() {
@@ -45,6 +45,15 @@ void DriveTrain::DriveTank(double leftMotorPower, double rightMotorPower) {
 	chassis->TankDrive(leftMotorPower, rightMotorPower);
 }
 
+void DriveTrain::RotateTank(double motorPower, bool turnRight) {
+	if (turnRight) {
+		this->DriveTank(motorPower, -motorPower);
+	}
+	else if (turnRight == false) {
+		this->DriveTank(-motorPower, motorPower);
+	}
+}
+
 void DriveTrain::ConfigureDriveTrainEncoders() {
 	driveTrainMotors[LEFT_SIDE_ENCODER]->ConfigEncoderCodesPerRev(ENCODER_COUNTS);
 	driveTrainMotors[RIGHT_SIDE_ENCODER]->ConfigEncoderCodesPerRev(ENCODER_COUNTS);
@@ -68,6 +77,14 @@ double DriveTrain::GetDistance(int motorEncoderPort) {
 	encoderValue = this->GetEncoderPosition(motorEncoderPort);
 	distanceTraveled = (encoderValue * ENCODER_COUNT_TO_DISTANCE_CONSTANT);
 	return distanceTraveled;
+}
+
+double DriveTrain::GetNavXAngle() {
+	return navX->GetAngle();
+}
+
+void DriveTrain::ZeroNavXAngle() {
+	navX->ZeroYaw();
 }
 
 // Put methods for controlling this subsystem
