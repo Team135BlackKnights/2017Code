@@ -5,7 +5,7 @@
 #include <CANTalon.h>
 #include <RobotDrive.h>
 #include <math.h>
-//#include <AHRS.h>
+#include <AHRS.h>
 
 class DriveTrain : public Subsystem {
 private:
@@ -34,7 +34,6 @@ private:
 	double distanceTraveled = 0.0;
 
 	AHRS* navX;
-	PIDController* turnController;
 	double kToleranceDegrees = .5f;
 	double kP = 0.0625;
 	double kI = 0.0f;
@@ -62,6 +61,8 @@ public:
 
 	static const int LEFT_SIDE_ENCODER = FRONT_LEFT;
 	static const int RIGHT_SIDE_ENCODER = FRONT_RIGHT;
+
+	frc::PIDController* turnController;
 };
 
 #endif  // DriveTrain_H

@@ -70,7 +70,7 @@ double DriveTrain::GetDistance(int motorEncoderPort) {
 
 void DriveTrain::InitializeDriveTrainPID() {
 	navX = new AHRS(SerialPort::Port::kUSB);
-	turnController = new PIDController(kP, kI, kD, kF, navX, this);
+	turnController = new frc::PIDController(kP, kI, kD, kF, navX, this);
 	turnController->SetInputRange(-90.0f,  90.0f);
 	turnController->SetOutputRange(-1.0, 1.0);
 	turnController->SetAbsoluteTolerance(kToleranceDegrees);
