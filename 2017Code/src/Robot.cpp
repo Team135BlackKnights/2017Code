@@ -7,15 +7,35 @@
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 
-#include "Commands/ExampleCommand.h"
 #include "CommandBase.h"
+
+#include "Commands/AutonomousCommand.h"
+
+#include "RobotMap.h"
 
 class Robot: public frc::IterativeRobot {
 public:
 	void RobotInit() override {
-		chooser.AddDefault("Default Auto", new ExampleCommand());
-		// chooser.AddObject("My Auto", new MyAutoCommand());
-		frc::SmartDashboard::PutData("Auto Modes", &chooser);
+		autonomousChooser.AddDefault("Middle Gear No BaseLine", new AutonomousCommand(AutonomousSelection::MiddleGear, BaseLinePath::NoBaseLine));
+		autonomousChooser.AddObject("Middle Gear BaseLine to the Right", new AutonomousCommand(AutonomousSelection::MiddleGear, BaseLinePath::MiddleGearRight));
+		autonomousChooser.AddObject("Middle Gear BaseLine to the Left", new AutonomousCommand(AutonomousSelection::MiddleGear, BaseLinePath::MiddleGearLeft));
+		autonomousChooser.AddObject("Right Gear with No BaseLine", new AutonomousCommand(AutonomousSelection::RightGear, BaseLinePath::NoBaseLine));
+		autonomousChooser.AddObject("Right Gear with BaseLine", new AutonomousCommand(AutonomousSelection::RightGear, BaseLinePath::SideGear));
+		autonomousChooser.AddObject("Left Gear with No BaseLine", new AutonomousCommand(AutonomousSelection::LeftGear, BaseLinePath::NoBaseLine));
+		autonomousChooser.AddObject("Left Gear with BaseLine", new AutonomousCommand(AutonomousSelection::LeftGear, BaseLinePath::SideGear));
+		frc::SmartDashboard::PutData("Auto Modes", &autonomousChooser);
+
+		CommandBase::agitator->InitializeAgitatorMotor(COMPETITION_BOT);
+		CommandBase::collection->InitializeCollectionMotor(COMPETITION_BOT);
+		CommandBase::driveTrain->InitializeDriveTrainMotors(COMPETITION_BOT);
+		CommandBase::gearHolder->InitializeGearHolderMotor(COMPETITION_BOT);
+		CommandBase::lidars->InitializeLidars();
+		CommandBase::liftHang->InitializeLiftHang(COMPETITION_BOT);
+		CommandBase::shooter->InitializeShooterMotor(COMPETITION_BOT);
+		CommandBase::shooter->ConfigureShooterMotorEncoder();
+		CommandBase::shooterHood->InitializeShooterHoodMotor(COMPETITION_BOT);
+		//CommandBase::shooterHood->ConfigureShooterHoodEncoder();
+		CommandBase::ultrasonicSensor->InitializeUltrasonicSensor();
 	}
 
 	/**
@@ -43,19 +63,19 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-		/* std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
+		/*std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
 		if (autoSelected == "My Auto") {
-			autonomousCommand.reset(new MyAutoCommand());
+			//autonomousCommand.reset(new MyAutoCommand());
 		}
 		else {
-			autonomousCommand.reset(new ExampleCommand());
-		} */
+			//autonomousCommand.reset(new ExampleCommand());
+		}
 
-		autonomousCommand.reset(chooser.GetSelected());
+		//autonomousCommand.reset(autonomousChooser.GetSelected());
 
 		if (autonomousCommand.get() != nullptr) {
 			autonomousCommand->Start();
-		}
+		} */
 	}
 
 	void AutonomousPeriodic() override {
@@ -82,7 +102,7 @@ public:
 
 private:
 	std::unique_ptr<frc::Command> autonomousCommand;
-	frc::SendableChooser<frc::Command*> chooser;
+	frc::SendableChooser<frc::Command*> autonomousChooser;
 };
 
 START_ROBOT_CLASS(Robot)
