@@ -12,7 +12,7 @@ private:
 	int shooterMotorNUPer100Ms = 0;
 
 	bool initializePID = false;
-	bool initializeVoltageMode = true;
+	bool initializeVoltageMode = false;
 
 	bool shooterForwardsButtonPressed = false;
 	bool shooterBackwardsButtonPressed = false;
@@ -20,6 +20,8 @@ private:
 	static constexpr double SHOOTER_BACKWARDS_MOTOR_VOLTAGE = 7.0;
 
 	static constexpr double MAX_PERCENT_OF_SETPOINT_TO_RAMP_VOLTAGE = .65;
+
+	double shooterOutputCurrent = 0.0;
 public:
 	DriveShooter();
 	void Initialize();

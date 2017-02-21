@@ -32,7 +32,7 @@ void Shooter::ConfigureShooterPID() {
 	shooterMotor->SetControlMode(CANTalon::ControlMode::kSpeed);
 	shooterMotor->Set(0.0);
 	shooterMotor->ConfigNominalOutputVoltage(0.0, -0.0);
-	shooterMotor->ConfigPeakOutputVoltage(12.0, 6.0);
+	shooterMotor->ConfigPeakOutputVoltage(12.0, -6.0);
 }
 
 void Shooter::DriveShooterMotor(double motorPower) {
@@ -46,10 +46,11 @@ void Shooter::ConfigureShooterMotorEncoder() {
 	shooterMotor->SetPosition(0.0);
 	shooterMotor->SetNominalClosedLoopVoltage(SHOOTER_MAX_VOLTAGE);
 	shooterMotor->SelectProfileSlot(0);
-	//shooterMotor->SetP();
-	//shooterMotor->SetI();
-	//shooterMotor->SetD();
-	//shooterMotor->SetF();
+	shooterMotor->SetP(.4);
+	shooterMotor->SetI(.0008);
+	shooterMotor->SetD(10.0);
+	shooterMotor->SetF(0.0);
+	shooterMotor->SetIzone(2500.0);
 }
 
 int Shooter::GetShooterWheelRPM() {

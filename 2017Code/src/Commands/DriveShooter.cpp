@@ -8,9 +8,12 @@ DriveShooter::DriveShooter() {
 
 // Called just before this Command runs the first time
 void DriveShooter::Initialize() {
-	setpointRPM = Preferences::GetInstance()->GetDouble("Shooter PID Setpoint", 2400.0);
-	CommandBase::shooter->ConfigureShooterVoltageMode();
+	//setpointRPM = Preferences::GetInstance()->GetDouble("Shooter PID Setpoint", 2400.0);
+	setpointRPM = 2400.0;
+	//CommandBase::shooter->ConfigureShooterVoltageMode();
 	CommandBase::shooter->ConfigureShooterMotorEncoder();
+	initializeVoltageMode = false;
+	initializePID = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -18,12 +21,26 @@ void DriveShooter::Execute() {
 	shooterForwardsButtonPressed = oi->GetButtonPressed(OI::MANIPULATOR_JOYSTICK, OI::TRIGGER_BUTTON);
 	shooterBackwardsButtonPressed = oi->GetButtonPressed(OI::MANIPULATOR_JOYSTICK, OI::THUMB_BUTTON);
 
+	//std::cout << "Shooter Trigger Pressed" << shooterForwardsButtonPressed << std::endl;
+
 	shooterMotorRPM = CommandBase::shooter->GetShooterWheelRPM();
 	shooterMotorNUPer100Ms = CommandBase::shooter->GetShooterWheelNUPer100Ms();
 
 	if (shooterForwardsButtonPressed) {
+		CommandBase::shooter->DriveShooterMotor(1.0);
+	}
+	else {
+		CommandBase::shooter->DriveShooterMotor(0.0);
+	}
+
+	shooterOutputCurrent = CommandBase::shooter->GetShooterMotorOutputCurrent();
+
+	frc::SmartDashboard::PutNumber("Shooter Output Current", shooterOutputCurrent);
+	/*if (shooterForwardsButtonPressed) {
+		std::cout << "Button Pressed" << std::endl;
 		if (shooterMotorRPM < (MAX_PERCENT_OF_SETPOINT_TO_RAMP_VOLTAGE * setpointRPM)) {
 			if (initializeVoltageMode == false) {
+				std::cout << "Ramping Up Voltageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
 				CommandBase::shooter->ConfigureShooterVoltageMode();
 				CommandBase::shooter->DriveShooterMotor(RAMP_UP_OUTPUT_VOLTAGE);
 				initializeVoltageMode = true;
@@ -31,9 +48,11 @@ void DriveShooter::Execute() {
 			}
 			else if (initializeVoltageMode) {
 				CommandBase::shooter->DriveShooterMotor(RAMP_UP_OUTPUT_VOLTAGE);
+				std::cout << "Ramping Ramping Up Voltage" << std::endl;
 			}
 		}
 		else {
+			std::cout << "Running PID" << std::endl;
 			if (initializePID == false) {
 				CommandBase::shooter->ConfigureShooterPID();
 				CommandBase::shooter->DriveShooterMotor(setpointRPM);
@@ -61,7 +80,7 @@ void DriveShooter::Execute() {
 		CommandBase::shooter->DriveShooterMotor(0.0);
 		initializeVoltageMode = true;
 		initializePID = false;
-	}
+	} */
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -71,9 +90,9 @@ bool DriveShooter::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveShooter::End() {
-	CommandBase::shooter->ConfigureShooterVoltageMode();
+	//CommandBase::shooter->ConfigureShooterVoltageMode();
 	CommandBase::shooter->DriveShooterMotor(0.0);
-	initializeVoltageMode = true;
+	initializeVoltageMode = false;
 	initializePID = false;
 }
 

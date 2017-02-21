@@ -69,7 +69,7 @@
 	//  Motor Inversions
 	//  To Be Determined
 	const bool CB_AGITATOR_INVERTED = true;
-	const bool CB_COLLECTION_INVERTED = false;
+	const bool CB_COLLECTION_INVERTED = true;
 	const bool CB_DRIVE_TRAIN_FRONT_LEFT_INVERTED = false;
 	const bool CB_DRIVE_TRAIN_REAR_RIGHT_INVERTED = true;
 	const bool CB_DRIVE_TRAIN_FRONT_RIGHT_INVERTED = true;

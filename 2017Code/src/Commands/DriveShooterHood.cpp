@@ -15,13 +15,13 @@ void DriveShooterHood::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DriveShooterHood::Execute() {
 	if (this->driveUpwards) {
-		CommandBase::shooter->DriveShooterMotor(SHOOTER_HOOD_MOTOR_POWER);
+		CommandBase::shooterHood->DriveShooterHoodMotor(SHOOTER_HOOD_MOTOR_POWER);
 	}
 	else if (this->driveUpwards == false) {
-		CommandBase::shooter->DriveShooterMotor(-SHOOTER_HOOD_MOTOR_POWER);
+		CommandBase::shooterHood->DriveShooterHoodMotor(-SHOOTER_HOOD_MOTOR_POWER);
 	}
 	else {
-		CommandBase::shooter->DriveShooterMotor(0.0);
+		CommandBase::shooterHood->DriveShooterHoodMotor(0.0);
 	}
 }
 
@@ -32,7 +32,7 @@ bool DriveShooterHood::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveShooterHood::End() {
-	CommandBase::shooter->DriveShooterMotor(0.0);
+	CommandBase::shooterHood->DriveShooterHoodMotor(0.0);
 }
 
 // Called when another command which requires one or more of the same
