@@ -7,6 +7,7 @@ class DriveShooter : public CommandBase {
 private:
 	static constexpr double SHOOTER_BACKWARDS_VOLTAGE = 8.0;
 	double setpointRPM = 0.0;
+	double desiredShooterVoltage = 0.0;
 
 	int shooterMotorRPM = 0;
 	int shooterMotorNUPer100Ms = 0;

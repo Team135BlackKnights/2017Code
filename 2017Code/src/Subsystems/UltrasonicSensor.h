@@ -15,8 +15,8 @@ private:
 	frc::DigitalOutput* pingSignal;
 	frc::DigitalInput* echoSignal;
 
-	static const int DIO_PING_PORT = 3;
-	static const int DIO_ECHO_PORT = 4;
+	static const int DIO_PING_PORT = 8;
+	static const int DIO_ECHO_PORT = 9;
 
 public:
 	UltrasonicSensor();
@@ -25,6 +25,7 @@ public:
 	void InitializeUltrasonicSensor();
 
 	double GetUltrasonicSensorValueInches();
+	void SendPing();
 };
 
 #endif  // UltrasonicSensor_H
