@@ -15,6 +15,7 @@
 #include "Subsystems/LiftHang.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/ShooterHood.h"
+#include "Subsystems/UltrasonicSensor.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -37,6 +38,7 @@ public:
 	static std::unique_ptr<LiftHang> liftHang;
 	static std::unique_ptr<Shooter> shooter;
 	static std::unique_ptr<ShooterHood> shooterHood;
+	static std::unique_ptr<UltrasonicSensor> ultrasonicSensor;
 };
 
 #endif  // COMMAND_BASE_H
