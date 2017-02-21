@@ -33,7 +33,13 @@ private:
 	int encoderValue = 0;
 	double distanceTraveled = 0.0;
 
-	//AHRS* navX;
+	AHRS* navX;
+	PIDController* turnController;
+	double kToleranceDegrees = .5f;
+	double kP = 0.0625;
+	double kI = 0.0f;
+	double kD = 0.1f;
+	double kF = 0.0f;
 
 public:
 	DriveTrain();
@@ -48,8 +54,11 @@ public:
 	int GetEncoderPosition(int);
 	double GetDistance(int);
 
+	void InitializeDriveTrainPID();
 	double GetNavXAngle();
 	void ZeroNavXAngle();
+	void TurnPIDEnable(double angleToTurn);
+	void TurnPIDDisable();
 
 	static const int LEFT_SIDE_ENCODER = FRONT_LEFT;
 	static const int RIGHT_SIDE_ENCODER = FRONT_RIGHT;

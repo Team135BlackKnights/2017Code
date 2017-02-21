@@ -37,6 +37,8 @@ public:
 
 	void ConfigureButtonMapping();
 
+	bool GetAction(int joyException, int ButtonException);
+
 	static const int LEFT_DRIVE_JOYSTICK = 0;
 	static const int RIGHT_DRIVE_JOYSTICK = 1;
 	static const int MANIPULATOR_JOYSTICK = 2;

@@ -39,6 +39,7 @@ public:
 	static std::unique_ptr<Shooter> shooter;
 	static std::unique_ptr<ShooterHood> shooterHood;
 	static std::unique_ptr<UltrasonicSensor> ultrasonicSensor;
+	static std::unique_ptr<Server> CommandBase::server;
 };
 
 #endif  // COMMAND_BASE_H

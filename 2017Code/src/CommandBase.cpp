@@ -15,7 +15,7 @@ std::unique_ptr<LiftHang> CommandBase::liftHang = std::make_unique<LiftHang>();
 std::unique_ptr<Shooter> CommandBase::shooter = std::make_unique<Shooter>();
 std::unique_ptr<ShooterHood> CommandBase::shooterHood = std::make_unique<ShooterHood>();
 std::unique_ptr<UltrasonicSensor> CommandBase::ultrasonicSensor = std::make_unique<UltrasonicSensor>;
-
+std::unique_ptr<Server> CommandBase::server = std::make_unique<Server>();
 CommandBase::CommandBase(const std::string &name) :
 		frc::Command(name) {
 
