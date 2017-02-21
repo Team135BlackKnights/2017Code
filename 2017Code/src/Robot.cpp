@@ -32,7 +32,7 @@ public:
 		CommandBase::lidars->InitializeLidars();
 		CommandBase::liftHang->InitializeLiftHang(COMPETITION_BOT);
 		CommandBase::shooter->InitializeShooterMotor(COMPETITION_BOT);
-		//CommandBase::shooter->ConfigureShooterMotorEncoder();
+		CommandBase::shooter->ConfigureShooterMotorEncoder();
 		CommandBase::shooterHood->InitializeShooterHoodMotor(COMPETITION_BOT);
 		//CommandBase::shooterHood->ConfigureShooterHoodEncoder();
 	}

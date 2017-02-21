@@ -54,7 +54,7 @@ void Shooter::ConfigureShooterMotorEncoder() {
 }
 
 int Shooter::GetShooterWheelRPM() {
-	return shooterMotor->GetSpeed();
+	return shooterMotor->Get();
 }
 
 int Shooter::GetShooterWheelNUPer100Ms() {

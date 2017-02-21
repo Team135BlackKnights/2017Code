@@ -55,7 +55,7 @@
 	const int CB_COLLECTION_VICTOR_PWM_PORT = 11;
 	const int CB_HANG_VICTOR_PWM_PORT = 10;
 	const int CB_GEAR_VICTOR_PWM_PORT = 17;
-	const int CB_AGITATOR_VICTOR_PWM_PORT = 18;
+	const int CB_AGITATOR_VICTOR_PWM_PORT = 19;
 
 	//  CANTalon Motor Ports
 	const int CB_FRONT_LEFT_TALON_ID = 1;

@@ -5,7 +5,7 @@
 
 class DriveShooter : public CommandBase {
 private:
-	static constexpr double RAMP_UP_OUTPUT_VOLTAGE = 8.0;
+	static constexpr double SHOOTER_BACKWARDS_VOLTAGE = 8.0;
 	double setpointRPM = 0.0;
 
 	int shooterMotorRPM = 0;
