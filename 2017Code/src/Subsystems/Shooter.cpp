@@ -46,11 +46,11 @@ void Shooter::ConfigureShooterMotorEncoder() {
 	shooterMotor->SetPosition(0.0);
 	shooterMotor->SetNominalClosedLoopVoltage(SHOOTER_MAX_VOLTAGE);
 	shooterMotor->SelectProfileSlot(0);
-	shooterMotor->SetP(.4);
-	shooterMotor->SetI(.0008);
-	shooterMotor->SetD(10.0);
-	shooterMotor->SetF(0.0);
-	shooterMotor->SetIzone(2500.0);
+	//shooterMotor->SetP(.4);
+	//shooterMotor->SetI(.0008);
+	//shooterMotor->SetD(10.0);
+	//shooterMotor->SetF(0.0);
+	//shooterMotor->SetIzone(2500.0);
 }
 
 int Shooter::GetShooterWheelRPM() {
