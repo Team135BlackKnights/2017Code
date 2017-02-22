@@ -12,7 +12,7 @@ private:
 	bool startPuttingGearOnPeg = false;
 	bool gearOnPeg = false;
 
-	static constexpr double DISTANCE_AWAY_FROM_PEG_TO_DROP_GEAR_IN = 10.0;
+	static constexpr double DISTANCE_AWAY_FROM_PEG_TO_DROP_GEAR_IN = 8.0;
 
 	static constexpr double DRIVE_TRAIN_MOTOR_POWER = .35;
 

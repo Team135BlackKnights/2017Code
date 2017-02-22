@@ -1,5 +1,6 @@
 #include "GearHolder.h"
 #include "../RobotMap.h"
+#include <iostream>
 
 GearHolder::GearHolder() : Subsystem("GearHolder") {
 
@@ -24,8 +25,10 @@ void GearHolder::InitializeGearHolderMotor(bool competitionBot) {
 }
 
 void GearHolder::DriveGearHolder(double motorPower) {
-	upperLimitSwitchValue = !upperLimitSwitch->Get();
-	lowerLimitSwitchValue = !lowerLimitSwitch->Get();
+	upperLimitSwitchValue = this->GetLimitSwitchValue(UPPER_LIMIT_SWITCH_PORT);
+	lowerLimitSwitchValue = this->GetLimitSwitchValue(LOWER_LIMIT_SWITCH_PORT);
+
+	std::cout << "Lower Limit Switch Value: " << lowerLimitSwitchValue << std::endl;
 
 	if (upperLimitSwitchValue) {
 		gearHolderMotorPower = fmin(0.0, motorPower);
@@ -40,10 +43,10 @@ void GearHolder::DriveGearHolder(double motorPower) {
 }
 
 bool GearHolder::GetLimitSwitchValue(int limitSwitchDigitalInputNumber) {
-	if (limitSwitchDigitalInputNumber == 1) {
+	if (limitSwitchDigitalInputNumber == UPPER_LIMIT_SWITCH_PORT) {
 		limitSwitchValue = !upperLimitSwitch->Get();
 	}
-	else if (limitSwitchDigitalInputNumber == 2) {
+	else if (limitSwitchDigitalInputNumber == LOWER_LIMIT_SWITCH_PORT) {
 		limitSwitchValue = !lowerLimitSwitch->Get();
 	}
 	return limitSwitchValue;

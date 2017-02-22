@@ -51,6 +51,15 @@ void Shooter::ConfigureShooterMotorEncoder() {
 	//shooterMotor->SetD(10.0);
 	//shooterMotor->SetF(0.0);
 	//shooterMotor->SetIzone(2500.0);
+
+	//feedforwardTerm = this->ConfigureFeedForwardTerm();
+	//shooterMotor->SetF(feedforwardTerm);
+}
+
+double Shooter::ConfigureFeedForwardTerm() {
+	motorOutputCloseShot = (percentVoltageCloseShot * MAX_MOTOR_OUTPUT_VALUE);
+	calculatedFeedforwardTerm = (motorOutputCloseShot/SHOOTER_SETPOINT_NU_PER_100MS_CLOSE_SHOT);
+	return calculatedFeedforwardTerm;
 }
 
 int Shooter::GetShooterWheelRPM() {
@@ -63,6 +72,10 @@ int Shooter::GetShooterWheelNUPer100Ms() {
 
 double Shooter::GetShooterMotorOutputCurrent() {
 	return shooterMotor->GetOutputCurrent();
+}
+
+void Shooter::ZeroAccumulatedError() {
+	shooterMotor->ClearIaccum();
 }
 
 // Put methods for controlling this subsystem

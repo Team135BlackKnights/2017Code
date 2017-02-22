@@ -14,8 +14,8 @@ void ReadUltrasonicSensorValue::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void ReadUltrasonicSensorValue::Execute() {
 	//CommandBase::ultrasonicSensor->SendPing();
-	//ultrasonicSensorValueInches = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches();
-	//std::cout << "Ultrasonic Sensor Value: " << ultrasonicSensorValueInches << std::endl;
+	ultrasonicSensorValueInches = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches();
+	std::cout << "Ultrasonic Sensor Value: " << ultrasonicSensorValueInches << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()

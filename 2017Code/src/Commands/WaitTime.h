@@ -12,6 +12,8 @@ private:
 	double currentTimerValue = 0.0;
 
 	bool doneWaiting = false;
+
+	bool startTimer = false;
 public:
 	WaitTime(double);
 	void Initialize();

@@ -10,10 +10,11 @@ DriveShooter::DriveShooter() {
 void DriveShooter::Initialize() {
 	setpointRPM = Preferences::GetInstance()->GetDouble("Shooter PID Setpoint", 2400.0);
 	desiredShooterVoltage = Preferences::GetInstance()->GetDouble("Shooter Voltage", 8.0);
-	CommandBase::shooter->ConfigureShooterVoltageMode();
-	//CommandBase::shooter->ConfigureShooterPID();
+	//CommandBase::shooter->ConfigureShooterVoltageMode();
+	CommandBase::shooter->ConfigureShooterPID();
 	initializeVoltageMode = false;
-	initializePID = false;
+	initializePID = true;
+	zeroAccumulatedError = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -24,25 +25,14 @@ void DriveShooter::Execute() {
 	shooterMotorRPM = CommandBase::shooter->GetShooterWheelRPM();
 	shooterMotorNUPer100Ms = CommandBase::shooter->GetShooterWheelNUPer100Ms();
 
-	std::cout << "Shooter RPM: " << shooterMotorRPM << std::endl;
-	std::cout << "Shooter NU Per 100ms: " << shooterMotorNUPer100Ms << std::endl;
+	//std::cout << "Shooter RPM: " << shooterMotorRPM << std::endl;
+	//std::cout << "Shooter NU Per 100ms: " << shooterMotorNUPer100Ms << std::endl;
 	frc::SmartDashboard::PutNumber("Shooter Motor RPM", shooterMotorRPM);
 
-	if (shooterForwardsButtonPressed) {
-		CommandBase::shooter->DriveShooterMotor(desiredShooterVoltage);
-	}
-	else if (shooterBackwardsButtonPressed) {
-		CommandBase::shooter->DriveShooterMotor(-desiredShooterVoltage);
-	}
-	else {
-		CommandBase::shooter->DriveShooterMotor(0.0);
-	}
-
 	shooterOutputCurrent = CommandBase::shooter->GetShooterMotorOutputCurrent();
-
 	frc::SmartDashboard::PutNumber("Shooter Output Current", shooterOutputCurrent);
 
-	/*if (shooterForwardsButtonPressed) {
+	if (shooterForwardsButtonPressed) {
 		if (initializePID == false) {
 			CommandBase::shooter->ConfigureShooterPID();
 			CommandBase::shooter->DriveShooterMotor(setpointRPM);
@@ -59,6 +49,7 @@ void DriveShooter::Execute() {
 			CommandBase::shooter->DriveShooterMotor(SHOOTER_BACKWARDS_VOLTAGE);
 			initializePID = false;
 			initializeVoltageMode = true;
+			zeroAccumulatedError = false;
 		}
 		else {
 			CommandBase::shooter->DriveShooterMotor(SHOOTER_BACKWARDS_VOLTAGE);
@@ -70,11 +61,30 @@ void DriveShooter::Execute() {
 			CommandBase::shooter->DriveShooterMotor(0.0);
 			initializePID = false;
 			initializeVoltageMode = true;
+			zeroAccumulatedError = false;
 		}
 		else {
 			CommandBase::shooter->DriveShooterMotor(0.0);
 		}
+	}
+
+	if (shooterMotorRPM >= setpointRPM) {
+		if (zeroAccumulatedError == false) {
+			CommandBase::shooter->ZeroAccumulatedError();
+			zeroAccumulatedError = true;
+		}
+	}
+
+	/*if (shooterForwardsButtonPressed) {
+		CommandBase::shooter->DriveShooterMotor(desiredShooterVoltage);
+	}
+	else if (shooterBackwardsButtonPressed) {
+		CommandBase::shooter->DriveShooterMotor(-desiredShooterVoltage);
+	}
+	else {
+		CommandBase::shooter->DriveShooterMotor(0.0);
 	} */
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -88,6 +98,7 @@ void DriveShooter::End() {
 	CommandBase::shooter->DriveShooterMotor(0.0);
 	initializeVoltageMode = false;
 	initializePID = false;
+	zeroAccumulatedError = false;
 }
 
 // Called when another command which requires one or more of the same

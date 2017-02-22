@@ -27,7 +27,7 @@ void DriveTrain::InitializeDriveTrainMotors(bool competitionBot) {
 	}
 	chassis = new frc::RobotDrive(driveTrainMotors[FRONT_LEFT], driveTrainMotors[REAR_LEFT], driveTrainMotors[FRONT_RIGHT], driveTrainMotors[REAR_RIGHT]);
 	chassis->SetSafetyEnabled(false);
-	//navX = new AHRS(SerialPort::Port::kUSB);
+	navX = new AHRS(I2C::Port::kOnboard);
 }
 
 void DriveTrain::DriveTank(double leftMotorPower, double rightMotorPower) {
@@ -52,6 +52,9 @@ void DriveTrain::ConfigureDriveTrainEncoders() {
 
 	driveTrainMotors[LEFT_SIDE_ENCODER]->SetStatusFrameRateMs(CANTalon::StatusFrameRate::StatusFrameRateQuadEncoder, 10);
 	driveTrainMotors[RIGHT_SIDE_ENCODER]->SetStatusFrameRateMs(CANTalon::StatusFrameRate::StatusFrameRateQuadEncoder, 10);
+
+	driveTrainMotors[LEFT_SIDE_ENCODER]->SetSensorDirection(true);
+	driveTrainMotors[RIGHT_SIDE_ENCODER]->SetSensorDirection(false);
 }
 
 void DriveTrain::ZeroDriveTrainEncoder(int motorEncoderPort) {
@@ -69,12 +72,11 @@ double DriveTrain::GetDistance(int motorEncoderPort) {
 }
 
 double DriveTrain::GetNavXAngle() {
-	//return navX->GetAngle();
-	return 0.0;
+	return navX->GetAngle();
 }
 
 void DriveTrain::ZeroNavXAngle() {
-	//navX->ZeroYaw();
+	navX->ZeroYaw();
 }
 
 // Put methods for controlling this subsystem

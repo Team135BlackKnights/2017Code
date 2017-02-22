@@ -11,6 +11,8 @@ private:
 
 	CANTalon* shooterHoodMotor;
 
+	double shooterHoodMotorPower = 0.0;
+
 	//  Shooter Hood Encoder Count To Be Determined
 	static const int SHOOTER_HOOD_ENCODER_COUNTS = 497;
 	static const int SHOOTER_HOOD_QUADRATURE_ENCODER_COUNTS = (SHOOTER_HOOD_ENCODER_COUNTS * 4);
@@ -46,9 +48,13 @@ public:
 
 	void ConfigureShooterHoodEncoder();
 	int GetShooterHoodEncoderPosition();
+	void SetShooterHoodEncoder(int);
 	void ZeroShooterHoodEncoder();
 	double GetAngleOfShooterHoodGivenEncoderPosition(int);
 	bool DriveShooterHoodMotorToDesiredAngle(double, double);
+
+	int GetMaxAngleLimitSwitch();
+	int GetMinAngleLimitSwitch();
 };
 
 #endif  // ShooterHood_H

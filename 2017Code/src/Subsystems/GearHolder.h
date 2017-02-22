@@ -33,7 +33,7 @@ public:
 	bool GetLimitSwitchValue(int);
 
 	static const int UPPER_LIMIT_SWITCH_PORT = 1;
-	static const int LOWER_LIMIT_SWITCH_PORT = 2;
+	static const int LOWER_LIMIT_SWITCH_PORT = 0;
 };
 
 #endif  // GearHolder_H

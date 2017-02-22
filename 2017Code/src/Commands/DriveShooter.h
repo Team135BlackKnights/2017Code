@@ -18,11 +18,11 @@ private:
 	bool shooterForwardsButtonPressed = false;
 	bool shooterBackwardsButtonPressed = false;
 
-	static constexpr double SHOOTER_BACKWARDS_MOTOR_VOLTAGE = 7.0;
-
 	static constexpr double MAX_PERCENT_OF_SETPOINT_TO_RAMP_VOLTAGE = .65;
 
 	double shooterOutputCurrent = 0.0;
+
+	bool zeroAccumulatedError = false;
 public:
 	DriveShooter();
 	void Initialize();

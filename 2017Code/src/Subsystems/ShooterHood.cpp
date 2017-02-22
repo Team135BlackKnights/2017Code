@@ -22,7 +22,20 @@ void ShooterHood::InitializeShooterHoodMotor(bool competitionBot) {
 }
 
 void ShooterHood::DriveShooterHoodMotor(double motorPower) {
-	shooterHoodMotor->Set(motorPower);
+	/*if (this->GetMinAngleLimitSwitch() == 1) {
+		this->ZeroShooterHoodEncoder();
+		shooterHoodMotorPower = fmin(0.0, motorPower);
+	}
+	else if (this->GetMaxAngleLimitSwitch() == 1) {
+		this->SetShooterHoodEncoder(MAX_ENCODER_VALUE);
+		shooterHoodMotorPower = fmax(0.0, motorPower);
+	}
+	else {
+		shooterHoodMotorPower = motorPower;
+	} */
+
+	shooterHoodMotorPower = motorPower;
+	shooterHoodMotor->Set(shooterHoodMotorPower);
 }
 
 void ShooterHood::ConfigureShooterHoodEncoder() {
@@ -34,6 +47,10 @@ void ShooterHood::ConfigureShooterHoodEncoder() {
 
 int ShooterHood::GetShooterHoodEncoderPosition() {
 	return shooterHoodMotor->GetEncPosition();
+}
+
+void ShooterHood::SetShooterHoodEncoder(int encoderPosition) {
+	shooterHoodMotor->SetEncPosition(encoderPosition);
 }
 
 void ShooterHood::ZeroShooterHoodEncoder() {
@@ -83,6 +100,14 @@ bool ShooterHood::DriveShooterHoodMotorToDesiredAngle(double desiredAngle, doubl
 		}
 	}
 	return drivenToAngle;
+}
+
+int ShooterHood::GetMaxAngleLimitSwitch() {
+	return shooterHoodMotor->IsRevLimitSwitchClosed();
+}
+
+int ShooterHood::GetMinAngleLimitSwitch() {
+	return shooterHoodMotor->IsFwdLimitSwitchClosed();
 }
 
 // Put methods for controlling this subsystem

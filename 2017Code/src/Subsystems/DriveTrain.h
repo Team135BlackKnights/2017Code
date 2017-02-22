@@ -5,7 +5,7 @@
 #include <CANTalon.h>
 #include <RobotDrive.h>
 #include <math.h>
-//#include <AHRS.h>
+#include <AHRS.h>
 
 class DriveTrain : public Subsystem {
 private:
@@ -22,10 +22,10 @@ private:
 
 	frc::RobotDrive* chassis;
 
-	static const int ENCODER_COUNTS = 64;
+	static const int ENCODER_COUNTS = 256;
 	static const int QUADRATURE_ENCODER_COUNTS = (ENCODER_COUNTS * 4);
 
-	static constexpr double DIAMETER_OF_WHEEL_IN = 4.0;
+	static constexpr double DIAMETER_OF_WHEEL_IN = 4.1;
 	static constexpr double CIRCUMFERENCE_OF_WHEEL = (DIAMETER_OF_WHEEL_IN * M_PI);
 
 	static constexpr double ENCODER_COUNT_TO_DISTANCE_CONSTANT = (CIRCUMFERENCE_OF_WHEEL/((double)QUADRATURE_ENCODER_COUNTS));
@@ -33,7 +33,7 @@ private:
 	int encoderValue = 0;
 	double distanceTraveled = 0.0;
 
-	//AHRS* navX;
+	AHRS* navX;
 
 public:
 	DriveTrain();
@@ -51,8 +51,8 @@ public:
 	double GetNavXAngle();
 	void ZeroNavXAngle();
 
-	static const int LEFT_SIDE_ENCODER = FRONT_LEFT;
-	static const int RIGHT_SIDE_ENCODER = FRONT_RIGHT;
+	static const int LEFT_SIDE_ENCODER = REAR_LEFT;
+	static const int RIGHT_SIDE_ENCODER = REAR_RIGHT;
 };
 
 #endif  // DriveTrain_H

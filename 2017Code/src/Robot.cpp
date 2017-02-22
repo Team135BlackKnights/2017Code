@@ -16,13 +16,13 @@
 class Robot: public frc::IterativeRobot {
 public:
 	void RobotInit() override {
-		/*autonomousChooser.AddDefault("Middle Gear No BaseLine", new AutonomousCommand(AutonomousSelection::MiddleGear, BaseLinePath::NoBaseLine));
+		autonomousChooser.AddDefault("Middle Gear No BaseLine", new AutonomousCommand(AutonomousSelection::MiddleGear, BaseLinePath::NoBaseLine));
 		autonomousChooser.AddObject("Middle Gear BaseLine to the Right", new AutonomousCommand(AutonomousSelection::MiddleGear, BaseLinePath::MiddleGearRight));
 		autonomousChooser.AddObject("Middle Gear BaseLine to the Left", new AutonomousCommand(AutonomousSelection::MiddleGear, BaseLinePath::MiddleGearLeft));
 		autonomousChooser.AddObject("Right Gear with No BaseLine", new AutonomousCommand(AutonomousSelection::RightGear, BaseLinePath::NoBaseLine));
 		autonomousChooser.AddObject("Right Gear with BaseLine", new AutonomousCommand(AutonomousSelection::RightGear, BaseLinePath::SideGear));
 		autonomousChooser.AddObject("Left Gear with No BaseLine", new AutonomousCommand(AutonomousSelection::LeftGear, BaseLinePath::NoBaseLine));
-		autonomousChooser.AddObject("Left Gear with BaseLine", new AutonomousCommand(AutonomousSelection::LeftGear, BaseLinePath::SideGear)); */
+		autonomousChooser.AddObject("Left Gear with BaseLine", new AutonomousCommand(AutonomousSelection::LeftGear, BaseLinePath::SideGear));
 		frc::SmartDashboard::PutData("Auto Modes", &autonomousChooser);
 
 		CommandBase::agitator->InitializeAgitatorMotor(COMPETITION_BOT);
@@ -69,13 +69,13 @@ public:
 		}
 		else {
 			//autonomousCommand.reset(new ExampleCommand());
-		}
+		} */
 
-		//autonomousCommand.reset(autonomousChooser.GetSelected());
+		autonomousCommand.reset(autonomousChooser.GetSelected());
 
 		if (autonomousCommand.get() != nullptr) {
 			autonomousCommand->Start();
-		} */
+		}
 	}
 
 	void AutonomousPeriodic() override {

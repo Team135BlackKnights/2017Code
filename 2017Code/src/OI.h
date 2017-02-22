@@ -25,8 +25,8 @@ private:
 	static const int GEAR_HOLDER_UPWARDS_BUTTON = 6;
 	static const int GEAR_HOLDER_DOWNWARDS_BUTTON = 4;
 
-	static const int SHOOTER_HOOD_INCREASE_ANGLE_BUTTON = 5;
-	static const int SHOOTER_HOOD_DECREASE_ANGLE_BUTTON = 3;
+	static const int SHOOTER_HOOD_INCREASE_ANGLE_BUTTON = 3;
+	static const int SHOOTER_HOOD_DECREASE_ANGLE_BUTTON = 5;
 public:
 	OI();
 

@@ -22,6 +22,10 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 
+	Requires(CommandBase::driveTrain.get());
+
+	//AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_GEAR, -.6));
+
 	this->autonomousSelection = autonomousSelection;
 	this->baseLinePath = baseLinePath;
 	if (this->autonomousSelection == AutonomousSelection::MiddleGear) {
@@ -59,6 +63,8 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR, -.6));
 		AddSequential(new WaitTime(.25));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_SIDE_GEAR, .5, TURN_LEFT));
+		AddSequential(new WaitTime(.25));
+		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.5));
 		//  Camera Lines Up To Gear
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(1.0));
@@ -74,6 +80,8 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR, -.6));
 		AddSequential(new WaitTime(.25));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_SIDE_GEAR, .5, TURN_RIGHT));
+		AddSequential(new WaitTime(.25));
+		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.5));
 		//  Camera Lines Up To Gear
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(1.0));
