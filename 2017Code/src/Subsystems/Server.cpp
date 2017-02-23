@@ -61,7 +61,7 @@ void Server::Run()
 			fprintf(stderr,"accept: %s\n",gai_strerror(new_conn_fd));
 			return;
 		}
-		inet_ntop(client_addr.ss_family, get_in_addr((struct sockaddr *) &client_addr),s ,sizeof s);
+		inet_ntop(client_addr.ss_family, this->get_in_addr((struct sockaddr *) &client_addr),s ,sizeof s);
 	}
 	else{
 		int i = get_angle(0);
@@ -88,6 +88,12 @@ int Server::accept_connections()
 	return 0;
 }
 
+void * Server::get_in_addr(struct sockaddr * sa)
+{
+	if(sa->sa_family==AF_INET)
+		return &(((struct sockaddr_in*)sa)->sin_addr);
+	return &(((struct sockaddr_in6*)sa)->sin6_addr);
+}
 
 int Server::get_angle(int cameraNumber)
 {

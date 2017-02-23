@@ -15,6 +15,7 @@ public:
 	void End();
 	void Interrupted();
 	int cameraNumber = 0;
+	Timer time;
 };
 
 #endif  // AimBot_H

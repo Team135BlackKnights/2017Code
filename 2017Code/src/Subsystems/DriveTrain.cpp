@@ -2,14 +2,16 @@
 #include "../RobotMap.h"
 #include "Commands/DriveWithJoysticks.h"
 
-DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
+DriveTrain::DriveTrain() : frc::PIDOutput(), Subsystem("DriveTrain") {
 
 }
+
+
 
 void DriveTrain::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new DriveWithJoysticks());
+	//SetDefaultCommand(new DriveWithJoysticks());
 }
 
 void DriveTrain::InitializeDriveTrainMotors(bool competitionBot) {
@@ -71,6 +73,8 @@ double DriveTrain::GetDistance(int motorEncoderPort) {
 void DriveTrain::InitializeDriveTrainPID() {
 	navX = new AHRS(SerialPort::Port::kUSB);
 	turnController = new frc::PIDController(kP, kI, kD, kF, navX, this);
+
+
 	turnController->SetInputRange(-90.0f,  90.0f);
 	turnController->SetOutputRange(-1.0, 1.0);
 	turnController->SetAbsoluteTolerance(kToleranceDegrees);
@@ -89,7 +93,8 @@ void DriveTrain::ZeroNavXAngle() {
 
 void DriveTrain::TurnPIDEnable(double angleToTurn)
 {
-	this->ZeroNavXAngle();
+	navX->ZeroYaw();
+	std::cout <<"navx angle: " << navX->GetAngle() << "\n";
 	turnController->SetSetpoint(angleToTurn);
 	turnController->Enable();
 }
@@ -97,6 +102,13 @@ void DriveTrain::TurnPIDEnable(double angleToTurn)
 void DriveTrain::TurnPIDDisable()
 {
 	turnController->Disable();
+}
+
+void DriveTrain::PIDTurning()
+{
+	std::cout << "navx angle: " << navX->GetAngle();
+	std::cout << "rot rate: " << rotateToAngleRate << "\n";
+	this->RotateTank(rotateToAngleRate, 1);
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

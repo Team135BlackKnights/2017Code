@@ -7,7 +7,7 @@
 #include <math.h>
 #include <AHRS.h>
 
-class DriveTrain : public Subsystem {
+class DriveTrain : public frc::PIDOutput, public frc::Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
@@ -23,6 +23,7 @@ private:
 	frc::RobotDrive* chassis;
 
 	static const int ENCODER_COUNTS = 64;
+
 	static const int QUADRATURE_ENCODER_COUNTS = (ENCODER_COUNTS * 4);
 
 	static constexpr double DIAMETER_OF_WHEEL_IN = 4.0;
@@ -35,9 +36,10 @@ private:
 
 	AHRS* navX;
 	double kToleranceDegrees = .5f;
-	double kP = 0.0625;
-	double kI = 0.0f;
-	double kD = 0.1f;
+	double kP = .1;
+	double kI = 0.0;
+	double kD = .0f;
+
 	double kF = 0.0f;
 
 public:
@@ -57,11 +59,16 @@ public:
 	double GetNavXAngle();
 	void ZeroNavXAngle();
 	void TurnPIDEnable(double angleToTurn);
+	void PIDTurning();
 	void TurnPIDDisable();
-
 	static const int LEFT_SIDE_ENCODER = FRONT_LEFT;
 	static const int RIGHT_SIDE_ENCODER = FRONT_RIGHT;
 
+	double rotateToAngleRate = 0;
+	virtual void PIDWrite(double output) {
+			std::cout << "output: " << output << "\n";
+	        this->rotateToAngleRate = output;
+	    }
 	frc::PIDController* turnController;
 };
 

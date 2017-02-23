@@ -10,22 +10,28 @@ AimBot::AimBot(int camNumber) {
 
 // Called just before this Command runs the first time
 void AimBot::Initialize() {
-	CommandBase::driveTrain->TurnPIDEnable(server->get_angle(cameraNumber));
+	std::cout << "running \n\n\n:";
+	CommandBase::driveTrain->TurnPIDEnable(10);//server->get_angle(cameraNumber))
+	time.Start();
+	time.Reset();
+	std::cout <<"initialized \n\n";
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AimBot::Execute() {
 	frc::SmartDashboard::PutNumber("Angle: ", CommandBase::driveTrain->GetNavXAngle());
+	CommandBase::driveTrain->PIDTurning();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AimBot::IsFinished() {
-	return !CommandBase::driveTrain->turnController->IsEnabled() || CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10);
+	return false; // CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10);
 }
 
 // Called once after isFinished returns true
 void AimBot::End() {
-
+	time.Stop();
+	time.Reset();
 }
 
 // Called when another command which requires one or more of the same
