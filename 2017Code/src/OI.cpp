@@ -61,11 +61,11 @@ void OI::ConfigureButtonMapping() {
 
 bool OI::GetAction(int JoyException, int ButtonException)
 {
-	for(int i = 0; i < NUM_OF_JOYSTICKS; i++)
+	for(int i = 0; i < NUM_OF_JOYSTICKS-1; i++)
 	{
 		if(abs(joystick[i]->GetY()) > .15)
 			return true;
-		for(int j = 0; j < NUM_OF_BUTTONS; j++)
+		for(int j = 0; j < NUM_OF_BUTTONS-1; j++)
 		{
 				if(i == JoyException && j == ButtonException)
 					continue;

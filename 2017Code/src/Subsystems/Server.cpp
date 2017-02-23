@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <cstring>
-#include <string>
+#include <string.h>
 
 Server::Server() : Subsystem("Server") {
 	std::cout << "constructor" << "\n\n\n";
@@ -101,11 +101,19 @@ int Server::get_angle(int cameraNumber)
 	char buf[20];
 	std::string str = std::to_string(cameraNumber);
 	std::strcpy( buf, str.c_str());
+	double angle = 0;
 	send(new_conn_fd, buf, 20, 0);
 	numbytes = recv(new_conn_fd, buf, 20, 0);
 	if(numbytes < 1)
 		new_conn_fd = -1;
 	std::cout << "received: " << buf << "\n";
-	return atof(buf);
+	char * st;
+	st = strtok(buf, ",");
+	std::cout << "first angle: " <<st << std::endl;
+	if(cameraNumber == 0) angle = atof(st);
+	st = strtok(NULL, ",");
+	std::cout << "second angle: " << st << std::endl;
+	if(cameraNumber == 1) angle = atof(st);
+	return angle;
 }
 
