@@ -2,7 +2,6 @@
 #define Agitator_H
 
 #include <Commands/Subsystem.h>
-
 #include <VictorSP.h>
 
 class Agitator : public Subsystem {

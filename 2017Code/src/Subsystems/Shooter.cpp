@@ -9,7 +9,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
 void Shooter::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new DriveShooter());
+	SetDefaultCommand(new DriveShooter(shooterPIDSelection));
 }
 
 void Shooter::InitializeShooterMotor(bool competitionBot) {
@@ -57,7 +57,7 @@ void Shooter::ConfigureShooterMotorEncoder() {
 }
 
 double Shooter::ConfigureFeedForwardTerm() {
-	motorOutputCloseShot = (percentVoltageCloseShot * MAX_MOTOR_OUTPUT_VALUE);
+	motorOutputCloseShot = (PERCENT_VOLTAGE_CLOSE_SHOT * MAX_MOTOR_OUTPUT_VALUE);
 	calculatedFeedforwardTerm = (motorOutputCloseShot/SHOOTER_SETPOINT_NU_PER_100MS_CLOSE_SHOT);
 	return calculatedFeedforwardTerm;
 }

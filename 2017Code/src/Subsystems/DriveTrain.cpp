@@ -43,18 +43,33 @@ void DriveTrain::RotateTank(double motorPower, bool turnRight) {
 	}
 }
 
-void DriveTrain::ConfigureDriveTrainEncoders() {
-	driveTrainMotors[LEFT_SIDE_ENCODER]->ConfigEncoderCodesPerRev(ENCODER_COUNTS);
-	driveTrainMotors[RIGHT_SIDE_ENCODER]->ConfigEncoderCodesPerRev(ENCODER_COUNTS);
+void DriveTrain::ConfigureDriveTrainEncoders(bool competitionBot) {
+	if (competitionBot) {
+		driveTrainMotors[LEFT_SIDE_ENCODER]->ConfigEncoderCodesPerRev(CB_ENCODER_COUNTS);
+		driveTrainMotors[RIGHT_SIDE_ENCODER]->ConfigEncoderCodesPerRev(CB_ENCODER_COUNTS);
+
+		driveTrainMotors[LEFT_SIDE_ENCODER]->SetSensorDirection(CB_LEFT_ENCODER_SENSOR_DIRECTION);
+		driveTrainMotors[RIGHT_SIDE_ENCODER]->SetSensorDirection(CB_RIGHT_ENCODER_SENSOR_DIRECTION);
+
+		quadratureCountOfEncoder = (CB_ENCODER_COUNTS * 4);
+	}
+	else if (competitionBot == false) {
+		driveTrainMotors[LEFT_SIDE_ENCODER]->ConfigEncoderCodesPerRev(PB_ENCODER_COUNTS);
+		driveTrainMotors[RIGHT_SIDE_ENCODER]->ConfigEncoderCodesPerRev(PB_ENCODER_COUNTS);
+
+		driveTrainMotors[LEFT_SIDE_ENCODER]->SetSensorDirection(PB_LEFT_ENCODER_SENSOR_DIRECTION);
+		driveTrainMotors[RIGHT_SIDE_ENCODER]->SetSensorDirection(PB_RIGHT_ENCODER_SENSOR_DIRECTION);
+
+		quadratureCountOfEncoder = (PB_ENCODER_COUNTS * 4);
+	}
+
+	encoderCountToDistanceConstant = (CIRCUMFERENCE_OF_WHEEL/((double)quadratureCountOfEncoder));
 
 	driveTrainMotors[LEFT_SIDE_ENCODER]->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
 	driveTrainMotors[RIGHT_SIDE_ENCODER]->SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
 
 	driveTrainMotors[LEFT_SIDE_ENCODER]->SetStatusFrameRateMs(CANTalon::StatusFrameRate::StatusFrameRateQuadEncoder, 10);
 	driveTrainMotors[RIGHT_SIDE_ENCODER]->SetStatusFrameRateMs(CANTalon::StatusFrameRate::StatusFrameRateQuadEncoder, 10);
-
-	driveTrainMotors[LEFT_SIDE_ENCODER]->SetSensorDirection(true);
-	driveTrainMotors[RIGHT_SIDE_ENCODER]->SetSensorDirection(false);
 }
 
 void DriveTrain::ZeroDriveTrainEncoder(int motorEncoderPort) {
@@ -67,7 +82,7 @@ int DriveTrain::GetEncoderPosition(int motorEncoderPort) {
 
 double DriveTrain::GetDistance(int motorEncoderPort) {
 	encoderValue = this->GetEncoderPosition(motorEncoderPort);
-	distanceTraveled = (encoderValue * ENCODER_COUNT_TO_DISTANCE_CONSTANT);
+	distanceTraveled = (encoderValue * encoderCountToDistanceConstant);
 	return distanceTraveled;
 }
 

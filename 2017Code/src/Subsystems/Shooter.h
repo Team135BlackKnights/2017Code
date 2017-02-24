@@ -22,7 +22,7 @@ private:
 
 	static constexpr double DESIRED_VOLTAGE_CLOSE_SHOT = 7.7;
 	static constexpr double SHOOTER_SETPOINT_NU_PER_100MS_CLOSE_SHOT = 19450.0;
-	double percentVoltageCloseShot = (DESIRED_VOLTAGE_CLOSE_SHOT/SHOOTER_MAX_VOLTAGE);
+	static constexpr double PERCENT_VOLTAGE_CLOSE_SHOT = (DESIRED_VOLTAGE_CLOSE_SHOT/SHOOTER_MAX_VOLTAGE);
 	static constexpr double MAX_MOTOR_OUTPUT_VALUE = 1023.0;
 
 	double motorOutputCloseShot = 0.0;

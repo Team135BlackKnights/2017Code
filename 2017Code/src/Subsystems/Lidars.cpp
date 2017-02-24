@@ -23,8 +23,8 @@ void Lidars::InitializeLidars() {
 	convertedValueToSendToI2CMultiplexer = new uint8_t;
 }
 
-void Lidars::OpenCloseI2CChannelLines(int openCloseLidars) {
-	convertedValueToSendToI2CMultiplexer = this->ConvertUint8_t_To_Uint8_tPointer(openCloseLidars);
+void Lidars::OpenLidarChannelOnMultplexer() {
+	convertedValueToSendToI2CMultiplexer = this->ConvertUint8_t_To_Uint8_tPointer(VALUE_TO_OPEN_LIDAR_CHANNEL_7_SHOOTER);
 	i2CMultiplexer->WriteBulk(convertedValueToSendToI2CMultiplexer, 1);
 }
 
@@ -52,6 +52,10 @@ int Lidars::GetLidarValue(int lowerByte, int upperByte) {
 
 double Lidars::ConvertCentimetersToInches(int valueInCM) {
 	return (((double)valueInCM)/2.54);
+}
+
+double Lidars::ConvertCentimetersToMeters(int valueinCM) {
+	return (valueinCM/100.0);
 }
 
 int Lidars::ConvertUint8_tPointer_To_Int(uint8_t* data) {

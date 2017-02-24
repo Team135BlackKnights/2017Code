@@ -23,11 +23,12 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 	// arm.
 
 	Requires(CommandBase::driveTrain.get());
-
-	//AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_GEAR, -.6));
+	Requires(CommandBase::gearHolder.get());
+	Requires(CommandBase::ultrasonicSensor.get());
 
 	this->autonomousSelection = autonomousSelection;
 	this->baseLinePath = baseLinePath;
+
 	if (this->autonomousSelection == AutonomousSelection::MiddleGear) {
 		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_GEAR, -.6));
 		AddSequential(new WaitTime(.25));

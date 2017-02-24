@@ -23,9 +23,5 @@ double UltrasonicSensor::GetUltrasonicSensorValueInches() {
 	return ultrasonicSensor->GetRangeInches();
 }
 
-void UltrasonicSensor::SendPing() {
-	ultrasonicSensor->Ping();
-}
-
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

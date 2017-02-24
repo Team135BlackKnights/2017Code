@@ -19,9 +19,6 @@ private:
 
 	static const int CONFIGURE_REGISTER_ADDRESS = 0x00;
 	static const int CONFIGURE_VALUE_TO_WRITE = 0x04;
-	//static const int CONFIGURE_VALUE_TO_WRITE_RESET = 0x00;
-
-	bool configureTransactionTerminated = false;
 
 	static const int UPPER_BYTE_REGISTER_ADDRESS = 0x0f;
 	static const int LOWER_BYTE_REGISTER_ADDRESS = 0x10;
@@ -33,9 +30,6 @@ private:
 
 	int convertedUpperByteData = 0;
 	int convertedLowerByteData = 0;
-
-	int lowerByte = 0;
-	int upperByte = 0;
 
 	int shiftedUpperByte = 0;
 
@@ -70,17 +64,17 @@ public:
 
 	void InitializeLidars();
 
-	void OpenCloseI2CChannelLines(int);
+	void OpenLidarChannelOnMultplexer();
 	void ConfigureLidar();
 	int GetUpperByte();
 	int GetLowerByte();
 	int GetLidarValue(int, int);
 
 	double ConvertCentimetersToInches(int);
+	double ConvertCentimetersToMeters(int);
 	int ConvertUint8_tPointer_To_Int(uint8_t*);
 	uint8_t* ConvertUint8_t_To_Uint8_tPointer(uint8_t);
 
-	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_6_GEAR = 0b01000000;
 	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_7_SHOOTER = 0b10000000;
 };
 

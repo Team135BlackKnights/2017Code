@@ -25,7 +25,6 @@ public:
 	void InitializeUltrasonicSensor();
 
 	double GetUltrasonicSensorValueInches();
-	void SendPing();
 };
 
 #endif  // UltrasonicSensor_H
