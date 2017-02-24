@@ -17,8 +17,6 @@ void AutoGearOnPeg::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AutoGearOnPeg::Execute() {
-	std::cout << "Auto Gear On Peg" << std::endl;
-
 	ultrasonicValue = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches();
 	std::cout << "Ultrasonic Sensor Value: " << ultrasonicValue << std::endl;
 
@@ -35,7 +33,6 @@ void AutoGearOnPeg::Execute() {
 
 	if (startPuttingGearOnPeg) {
 		lowerLimitSwitchValue = CommandBase::gearHolder->GetLimitSwitchValue(GearHolder::LOWER_LIMIT_SWITCH_PORT);
-		std::cout << "Limit Switch Value: " << lowerLimitSwitchValue << std::endl;
 		if (lowerLimitSwitchValue) {
 			CommandBase::gearHolder->DriveGearHolder(0);
 			startPuttingGearOnPeg = false;
@@ -59,7 +56,6 @@ void AutoGearOnPeg::End() {
 	gearOnPeg = false;
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
 	CommandBase::gearHolder->DriveGearHolder(0.0);
-	std::cout << "Add On Gear Endeddddddddddddddddddddd" << std::endl;
 }
 
 // Called when another command which requires one or more of the same
