@@ -10,8 +10,8 @@ DriveShooter::DriveShooter() {
 void DriveShooter::Initialize() {
 	setpointRPM = Preferences::GetInstance()->GetDouble("Shooter PID Setpoint", 2400.0);
 	desiredShooterVoltage = Preferences::GetInstance()->GetDouble("Shooter Voltage", 8.0);
-	//CommandBase::shooter->ConfigureShooterVoltageMode();
-	CommandBase::shooter->ConfigureShooterPID();
+	CommandBase::shooter->ConfigureShooterVoltageMode();
+	//CommandBase::shooter->ConfigureShooterPID();
 	initializeVoltageMode = false;
 	initializePID = true;
 	zeroAccumulatedError = false;
@@ -20,6 +20,31 @@ void DriveShooter::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DriveShooter::Execute() {
 	shooterForwardsButtonPressed = oi->GetButtonPressed(OI::MANIPULATOR_JOYSTICK, OI::TRIGGER_BUTTON);
+	shooterBackwardsButtonPressed = oi->GetButtonPressed(OI::MANIPULATOR_JOYSTICK, OI::THUMB_BUTTON);
+
+	shooterMotorRPM = CommandBase::shooter->GetShooterWheelRPM();
+
+	if (shooterForwardsButtonPressed) {
+		if (shooterMotorRPM < (.4 * setpointRPM)) {
+			CommandBase::shooter->DriveShooterMotor(.65 * desiredShooterVoltage);
+		}
+		else if (shooterMotorRPM < (.65 * setpointRPM)) {
+			CommandBase::shooter->DriveShooterMotor(desiredShooterVoltage);
+		}
+		else {
+			CommandBase::shooter->DriveShooterMotor(desiredShooterVoltage);
+		}
+	}
+	else if (shooterBackwardsButtonPressed) {
+		CommandBase::shooter->DriveShooterMotor(-desiredShooterVoltage);
+	}
+	else {
+		CommandBase::shooter->DriveShooterMotor(0.0);
+	}
+
+	std::cout << "Shooter RPM: " << shooterMotorRPM << std::endl;
+
+	/*shooterForwardsButtonPressed = oi->GetButtonPressed(OI::MANIPULATOR_JOYSTICK, OI::TRIGGER_BUTTON);
 	shooterBackwardsButtonPressed = oi->GetButtonPressed(OI::MANIPULATOR_JOYSTICK, OI::THUMB_BUTTON);
 
 	shooterMotorRPM = CommandBase::shooter->GetShooterWheelRPM();
