@@ -27,6 +27,8 @@ private:
 
 	static const int SHOOTER_HOOD_INCREASE_ANGLE_BUTTON = 3;
 	static const int SHOOTER_HOOD_DECREASE_ANGLE_BUTTON = 5;
+
+	static const int SWITCH_SHOOTER_SETPOINT_BUTTON = 11;
 public:
 	OI();
 

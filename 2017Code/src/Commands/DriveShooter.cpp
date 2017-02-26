@@ -50,7 +50,7 @@ void DriveShooter::Execute() {
 				initializeVoltageMode = true;
 				zeroAccumulatedError = false;
 			}
-			CommandBase::shooter->DriveShooterMotor(SHOOTER_BACKWARDS_VOLTAGE);
+			CommandBase::shooter->DriveShooterMotor(desiredShooterVoltage);
 		}
 		else {
 			if (initializeVoltageMode == false) {

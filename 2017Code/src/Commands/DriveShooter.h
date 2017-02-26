@@ -8,7 +8,6 @@ class DriveShooter : public CommandBase {
 private:
 	ShooterPIDSelection shooterMode;
 
-	static constexpr double SHOOTER_BACKWARDS_VOLTAGE = 8.0;
 	double setpointRPM = 0.0;
 	double desiredShooterVoltage = 0.0;
 

@@ -6,6 +6,7 @@
 #include "Commands/DriveGearHolder.h"
 #include "Commands/DriveLiftHang.h"
 #include "Commands/DriveShooterHood.h"
+#include "Commands/SwitchShooterPIDProfileSlot.h"
 
 OI::OI() {
 	// Process operator interface input here.
@@ -53,4 +54,6 @@ void OI::ConfigureButtonMapping() {
 
 	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_DECREASE_ANGLE_BUTTON]->WhileHeld(new DriveShooterHood(true));
 	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_INCREASE_ANGLE_BUTTON]->WhileHeld(new DriveShooterHood(false));
+
+	joystickButton[MANIPULATOR_JOYSTICK][SWITCH_SHOOTER_SETPOINT_BUTTON]->WhenPressed(new SwitchShooterPIDProfileSlot());
 }
