@@ -29,9 +29,6 @@ private:
 	double calculatedFeedforwardTerm = 0.0;
 	double feedforwardTerm = 0.0;
 
-	static const int CLOSE_SHOT_PID_VALUES = 0;
-	static const int FAR_SHOT_PID_VALUES = 1;
-
 	bool closeShotPIDProfileSlot = false;
 public:
 	Shooter();
@@ -49,12 +46,16 @@ public:
 	int GetShooterWheelRPM();
 	int GetShooterWheelNUPer100Ms();
 	void ZeroAccumulatedError();
+
 	void SelectPIDProfileSlot(int);
 	bool GetPIDProfileSlot();
 
 	double GetShooterMotorOutputCurrent();
 
 	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2850.0;
+
+	static const int CLOSE_SHOT_PID_VALUES = 0;
+	static const int FAR_SHOT_PID_VALUES = 1;
 };
 
 #endif  // Shooter_H

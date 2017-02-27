@@ -6,7 +6,6 @@
 #include "Commands/DriveGearHolder.h"
 #include "Commands/DriveLiftHang.h"
 #include "Commands/DriveShooterHood.h"
-#include "Commands/SwitchShooterPIDProfileSlot.h"
 
 OI::OI() {
 	// Process operator interface input here.
@@ -40,6 +39,54 @@ bool OI::GetButtonPressed(int joystickNumber, int joystickButtonNumber) {
 	return joystickButton[joystickNumber][joystickButtonNumber]->Get();
 }
 
+double OI::GetThrottleValue(int joystickNumber) {
+	return joystick[joystickNumber]->GetThrottle();
+}
+
+int OI::GetAngleOfPOV(int joystickNumber) {
+	return joystick[joystickNumber]->GetPOV(POV_NUMBER);
+}
+
+bool OI::POVDirectionPressed(int joystickNumber, int povDirection) {
+	povValue = this->GetAngleOfPOV(joystickNumber);
+
+	switch(povDirection) {
+	case (TOP_POV):
+		if (povValue <= 45.0 || povValue >= 315.0) {
+			povDirectionPressed = true;
+		}
+		else {
+			povDirectionPressed = false;
+		}
+		break;
+	case (RIGHT_POV):
+		if (povValue >= 45.0 && povValue <= 135.0) {
+			povDirectionPressed = true;
+		}
+		else {
+			povDirectionPressed = false;
+		}
+		break;
+	case (BOTTOM_POV):
+		if (povValue >= 135.0 && povValue <= 225.0) {
+			povDirectionPressed = true;
+		}
+		else {
+			LEFT_POV = false;
+		}
+		break;
+	case (LEFT_POV):
+		if (povValue >= 225.0 && povValue <= 315.0) {
+			povDirectionPressed = true;
+		}
+		else {
+			povDirectionPressed = false;
+		}
+		break;
+	}
+	return povDirectionPressed;
+}
+
 void OI::ConfigureButtonMapping() {
 	joystickButton[MANIPULATOR_JOYSTICK][AGITATOR_FORWARD_BUTTON]->WhileHeld(new DriveAgitator(true));
 	joystickButton[MANIPULATOR_JOYSTICK][AGITATOR_BACKWARDS_BUTTON]->WhileHeld(new DriveAgitator(false));
@@ -54,6 +101,4 @@ void OI::ConfigureButtonMapping() {
 
 	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_DECREASE_ANGLE_BUTTON]->WhileHeld(new DriveShooterHood(true));
 	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_INCREASE_ANGLE_BUTTON]->WhileHeld(new DriveShooterHood(false));
-
-	joystickButton[MANIPULATOR_JOYSTICK][SWITCH_SHOOTER_SETPOINT_BUTTON]->WhenPressed(new SwitchShooterPIDProfileSlot());
 }

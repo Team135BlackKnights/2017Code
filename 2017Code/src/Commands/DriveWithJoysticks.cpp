@@ -19,19 +19,18 @@ void DriveWithJoysticks::Execute() {
 	rightJoystickValue = oi->GetYAxis(OI::RIGHT_DRIVE_JOYSTICK);
 	CommandBase::driveTrain->DriveTank(leftJoystickValue, rightJoystickValue);
 
-	leftEncoderValue = CommandBase::driveTrain->GetEncoderPosition(DriveTrain::LEFT_SIDE_ENCODER);
-	rightEncoderValue = CommandBase::driveTrain->GetEncoderPosition(DriveTrain::RIGHT_SIDE_ENCODER);
-
-	leftEncoderDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::LEFT_SIDE_ENCODER);
-	rightEncoderDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
-
-	std::cout << "Left Encoder Value: " << leftEncoderValue << std::endl;
-	std::cout << "Right Encoder Value: " << rightEncoderValue << std::endl;
-	std::cout << "Left Encoder Distance Traveled: " << leftEncoderDistanceTraveled << std::endl;
-	std::cout << "Right Encoder Distance Traveled: " << rightEncoderDistanceTraveled << std::endl;
-
-	navXAngle = CommandBase::driveTrain->GetNavXAngle();
-	std::cout << "NavX Angle: " << navXAngle << std::endl;
+	if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::TOP_POV)) {
+		CommandBase::driveTrain->DriveTank(POV_DRIVE_TRAIN_MOTOR_POWER, POV_DRIVE_TRAIN_MOTOR_POWER);
+	}
+	else if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::RIGHT_POV)) {
+		CommandBase::driveTrain->DriveTank(POV_DRIVE_TRAIN_MOTOR_POWER, -POV_DRIVE_TRAIN_MOTOR_POWER);
+	}
+	else if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::BOTTOM_POV)) {
+		CommandBase::driveTrain->DriveTank(-POV_DRIVE_TRAIN_MOTOR_POWER, -POV_DRIVE_TRAIN_MOTOR_POWER);
+	}
+	else if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::LEFT_POV)) {
+		CommandBase::driveTrain->DriveTank(-POV_DRIVE_TRAIN_MOTOR_POWER, POV_DRIVE_TRAIN_MOTOR_POWER);
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

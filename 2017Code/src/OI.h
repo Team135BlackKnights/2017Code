@@ -28,7 +28,10 @@ private:
 	static const int SHOOTER_HOOD_INCREASE_ANGLE_BUTTON = 3;
 	static const int SHOOTER_HOOD_DECREASE_ANGLE_BUTTON = 5;
 
-	static const int SWITCH_SHOOTER_SETPOINT_BUTTON = 11;
+	static const int POV_NUMBER = 0;
+
+	double povValue = 0.0;
+	bool povDirectionPressed = false;
 public:
 	OI();
 
@@ -36,6 +39,9 @@ public:
 	double DeadbandJoystickValue(double);
 
 	bool GetButtonPressed(int, int);
+	double GetThrottleValue(int);
+	int GetAngleOfPOV(int);
+	bool POVDirectionPressed(int, int);
 
 	void ConfigureButtonMapping();
 
@@ -45,6 +51,11 @@ public:
 
 	static const int TRIGGER_BUTTON = 1;
 	static const int THUMB_BUTTON = 2;
+
+	static const int TOP_POV = 0;
+	static const int RIGHT_POV = 1;
+	static const int BOTTOM_POV = 2;
+	static const int LEFT_POV = 3;
 };
 
 #endif  // OI_H

@@ -19,7 +19,6 @@
 // constexpr int RANGE_FINDER_MODULE = 1;
 
 	const bool COMPETITION_BOT = false;
-	ShooterPIDSelection SHOOTER_PID_SELECTION = ShooterPIDSelection::PID_Practice;
 
 	//  Practice Bot Motor Ports
 	//VictorSP motor ports
@@ -98,5 +97,7 @@
 		PID_PracticeBot,
 		Voltage
 	};
+
+	const ShooterPIDSelection SHOOTER_PID_SELECTION = ShooterPIDSelection::PID_PracticeBot;
 
 #endif  // ROBOTMAP_H

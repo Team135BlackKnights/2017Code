@@ -15,6 +15,8 @@ private:
 	double rightEncoderDistanceTraveled = 0.0;
 
 	double navXAngle = 0.0;
+
+	static constexpr double POV_DRIVE_TRAIN_MOTOR_POWER = .7;
 public:
 	DriveWithJoysticks();
 	void Initialize();
