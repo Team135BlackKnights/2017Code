@@ -16,7 +16,7 @@ void DriveWithJoysticks::Execute() {
 	leftJoystickValue = oi->GetYAxis(OI::LEFT_DRIVE_JOYSTICK);
 	rightJoystickValue = oi->GetYAxis(OI::RIGHT_DRIVE_JOYSTICK);
 	CommandBase::driveTrain->DriveTank(leftJoystickValue, rightJoystickValue);
-	frc::SmartDashboard::PutNumber("Angle: ", CommandBase::driveTrain->GetNavXAngle());
+	frc::SmartDashboard::PutNumber("Angle: ", CommandBase::driveTrain->GetGyroAngle());
 }
 
 // Make this return true when this Command no longer needs to run execute()

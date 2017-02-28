@@ -29,7 +29,6 @@ void DriveTrain::InitializeDriveTrainMotors(bool competitionBot) {
 	}
 	chassis = new frc::RobotDrive(driveTrainMotors[FRONT_LEFT], driveTrainMotors[REAR_LEFT], driveTrainMotors[FRONT_RIGHT], driveTrainMotors[REAR_RIGHT]);
 	chassis->SetSafetyEnabled(false);
-	//navX = new AHRS(SerialPort::Port::kUSB);
 }
 
 void DriveTrain::DriveTank(double leftMotorPower, double rightMotorPower) {
@@ -71,8 +70,8 @@ double DriveTrain::GetDistance(int motorEncoderPort) {
 }
 
 void DriveTrain::InitializeDriveTrainPID() {
-	navX = new AHRS(SerialPort::Port::kUSB);
-	turnController = new frc::PIDController(kP, kI, kD, kF, navX, this);
+	gyro = new ADXRS450_Gyro(); //maybe?
+	turnController = new frc::PIDController(kP, kI, kD, kF, gyro, this);
 
 
 	turnController->SetInputRange(-90.0f,  90.0f);
@@ -82,19 +81,19 @@ void DriveTrain::InitializeDriveTrainPID() {
 	turnController->Disable();
 }
 
-double DriveTrain::GetNavXAngle() {
-	return navX->GetAngle();
+double DriveTrain::GetGyroAngle() {
+	return gyro->GetAngle();
 }
 
-void DriveTrain::ZeroNavXAngle() {
-	navX->ZeroYaw();
+void DriveTrain::ZeroGyroAngle() {
+	gyro->Reset();
 }
 
 
 void DriveTrain::TurnPIDEnable(double angleToTurn)
 {
-	navX->ZeroYaw();
-	std::cout <<"navx angle: " << navX->GetAngle() << "\n";
+	ZeroGyroAngle();
+	std::cout <<"navx angle: " << gyro->GetAngle() << "\n";
 	turnController->SetSetpoint(angleToTurn);
 	turnController->Enable();
 }
@@ -106,7 +105,7 @@ void DriveTrain::TurnPIDDisable()
 
 void DriveTrain::PIDTurning()
 {
-	std::cout << "navx angle: " << navX->GetAngle();
+	std::cout << "navx angle: " << gyro->GetAngle();
 	std::cout << "rot rate: " << rotateToAngleRate << "\n";
 	this->RotateTank(rotateToAngleRate, 1);
 }

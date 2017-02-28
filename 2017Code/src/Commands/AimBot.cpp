@@ -19,7 +19,7 @@ void AimBot::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AimBot::Execute() {
-	frc::SmartDashboard::PutNumber("Angle: ", CommandBase::driveTrain->GetNavXAngle());
+	frc::SmartDashboard::PutNumber("Angle: ", CommandBase::driveTrain->GetGyroAngle());
 	CommandBase::driveTrain->PIDTurning();
 }
 

@@ -5,8 +5,8 @@
 #include <CANTalon.h>
 #include <RobotDrive.h>
 #include <math.h>
-#include <AHRS.h>
-
+#include <PIDController.h>
+#include <ADXRS450_Gyro.h>
 class DriveTrain : public frc::PIDOutput, public frc::Subsystem {
 private:
 	// It's desirable that everything possible under private except
@@ -31,10 +31,11 @@ private:
 
 	static constexpr double ENCODER_COUNT_TO_DISTANCE_CONSTANT = (CIRCUMFERENCE_OF_WHEEL/((double)QUADRATURE_ENCODER_COUNTS));
 
+	ADXRS450_Gyro* gyro;
+
 	int encoderValue = 0;
 	double distanceTraveled = 0.0;
 
-	AHRS* navX;
 	double kToleranceDegrees = .5f;
 	double kP = .1;
 	double kI = 0.0;
@@ -56,8 +57,8 @@ public:
 	double GetDistance(int);
 
 	void InitializeDriveTrainPID();
-	double GetNavXAngle();
-	void ZeroNavXAngle();
+	double GetGyroAngle();
+	void ZeroGyroAngle();
 	void TurnPIDEnable(double angleToTurn);
 	void PIDTurning();
 	void TurnPIDDisable();
@@ -66,10 +67,9 @@ public:
 
 	double rotateToAngleRate = 0;
 	virtual void PIDWrite(double output) {
-			std::cout << "output: " << output << "\n";
 	        this->rotateToAngleRate = output;
 	    }
-	frc::PIDController* turnController;
+	PIDController* turnController;
 };
 
 #endif  // DriveTrain_H
