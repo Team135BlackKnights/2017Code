@@ -52,7 +52,7 @@ bool OI::POVDirectionPressed(int joystickNumber, int povDirection) {
 
 	switch(povDirection) {
 	case (TOP_POV):
-		if (povValue <= 45.0 || povValue >= 315.0) {
+		if (povValue >= 315.0 || (povValue <= 45.0 && povValue != -1)) {
 			povDirectionPressed = true;
 		}
 		else {
@@ -72,7 +72,7 @@ bool OI::POVDirectionPressed(int joystickNumber, int povDirection) {
 			povDirectionPressed = true;
 		}
 		else {
-			LEFT_POV = false;
+			povDirectionPressed = false;
 		}
 		break;
 	case (LEFT_POV):

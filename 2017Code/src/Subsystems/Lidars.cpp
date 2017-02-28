@@ -1,5 +1,6 @@
 #include "Lidars.h"
 #include "../RobotMap.h"
+#include "Commands/ReadLidarValue.h"
 
 Lidars::Lidars() : Subsystem("Lidar") {
 
@@ -8,6 +9,7 @@ Lidars::Lidars() : Subsystem("Lidar") {
 void Lidars::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new ReadLidarValue());
 }
 
 void Lidars::InitializeLidars() {
@@ -24,7 +26,7 @@ void Lidars::InitializeLidars() {
 }
 
 void Lidars::OpenLidarChannelOnMultplexer() {
-	convertedValueToSendToI2CMultiplexer = this->ConvertUint8_t_To_Uint8_tPointer(VALUE_TO_OPEN_LIDAR_CHANNEL_7_SHOOTER);
+	convertedValueToSendToI2CMultiplexer = this->ConvertUint8_t_To_Uint8_tPointer(VALUE_TO_OPEN_LIDAR_CHANNEL_6_SHOOTER);
 	i2CMultiplexer->WriteBulk(convertedValueToSendToI2CMultiplexer, 1);
 }
 

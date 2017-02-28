@@ -18,7 +18,7 @@ private:
 	static const int LIDAR_DEVICE_ADDRESS = 0x62;
 
 	static const int CONFIGURE_REGISTER_ADDRESS = 0x00;
-	static const int CONFIGURE_VALUE_TO_WRITE = 0x04;
+	static const int CONFIGURE_VALUE_TO_WRITE = 0x00;
 
 	static const int UPPER_BYTE_REGISTER_ADDRESS = 0x0f;
 	static const int LOWER_BYTE_REGISTER_ADDRESS = 0x10;
@@ -75,7 +75,7 @@ public:
 	int ConvertUint8_tPointer_To_Int(uint8_t*);
 	uint8_t* ConvertUint8_t_To_Uint8_tPointer(uint8_t);
 
-	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_7_SHOOTER = 0b10000000;
+	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_6_SHOOTER = 0b01000000;
 };
 
 #endif  // Lidars_H
