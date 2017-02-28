@@ -49,7 +49,10 @@ int Lidars::GetLowerByte() {
 int Lidars::GetLidarValue(int lowerByte, int upperByte) {
 	shiftedUpperByte = upperByte << 8;
 	finalValue = (shiftedUpperByte + lowerByte);
-	return finalValue;
+	if (finalValue != 0.0) {
+		finalNonZeroLidarValue = finalValue;
+	}
+	return finalNonZeroLidarValue;
 }
 
 double Lidars::ConvertCentimetersToInches(int valueInCM) {

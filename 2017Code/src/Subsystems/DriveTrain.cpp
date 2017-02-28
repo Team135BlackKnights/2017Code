@@ -27,7 +27,7 @@ void DriveTrain::InitializeDriveTrainMotors(bool competitionBot) {
 	}
 	chassis = new frc::RobotDrive(driveTrainMotors[FRONT_LEFT], driveTrainMotors[REAR_LEFT], driveTrainMotors[FRONT_RIGHT], driveTrainMotors[REAR_RIGHT]);
 	chassis->SetSafetyEnabled(false);
-	navX = new AHRS(frc::SerialPort::Port::kUSB);
+	//navX = new AHRS(frc::SerialPort::Port::kUSB);
 }
 
 void DriveTrain::DriveTank(double leftMotorPower, double rightMotorPower) {
@@ -87,11 +87,12 @@ double DriveTrain::GetDistance(int motorEncoderPort) {
 }
 
 double DriveTrain::GetNavXAngle() {
-	return navX->GetAngle();
+	//return navX->GetAngle();
+	return 0.0;
 }
 
 void DriveTrain::ZeroNavXAngle() {
-	navX->ZeroYaw();
+	//navX->ZeroYaw();
 }
 
 // Put methods for controlling this subsystem

@@ -18,7 +18,7 @@ private:
 	static const int LIDAR_DEVICE_ADDRESS = 0x62;
 
 	static const int CONFIGURE_REGISTER_ADDRESS = 0x00;
-	static const int CONFIGURE_VALUE_TO_WRITE = 0x00;
+	static const int CONFIGURE_VALUE_TO_WRITE = 0x04;
 
 	static const int UPPER_BYTE_REGISTER_ADDRESS = 0x0f;
 	static const int LOWER_BYTE_REGISTER_ADDRESS = 0x10;
@@ -58,6 +58,8 @@ private:
 	int differenceBetweenLIDARValues = 0.0;
 	double angleBetweenLIDARValues = 0.0;
 	double extraDistanceOfLIDAR_M = 0.0;
+
+	int finalNonZeroLidarValue = 0;
 public:
 	Lidars();
 	void InitDefaultCommand();

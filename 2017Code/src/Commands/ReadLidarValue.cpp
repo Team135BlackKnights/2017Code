@@ -8,27 +8,21 @@ ReadLidarValue::ReadLidarValue() {
 
 // Called just before this Command runs the first time
 void ReadLidarValue::Initialize() {
-	//CommandBase::lidars->OpenLidarChannelOnMultplexer();
-	openLidarChannel = true;
 	configuredLidar = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ReadLidarValue::Execute() {
-	if (openLidarChannel == false) {
-		//CommandBase::lidars->OpenLidarChannelOnMultplexer();
-		openLidarChannel = true;
-	}
-	else if (openLidarChannel && configuredLidar == false) {
+	if (configuredLidar == false) {
 		CommandBase::lidars->ConfigureLidar();
 		configuredLidar = true;
 	}
-	else if (openLidarChannel && configuredLidar) {
-		//lidarUpperByte = CommandBase::lidars->GetUpperByte();
-		//lidarLowerByte = CommandBase::lidars->GetLowerByte();
-		//lidarValue_CM = CommandBase::lidars->GetLidarValue(lidarLowerByte, lidarUpperByte);
-		//lidarValue_IN = CommandBase::lidars->ConvertCentimetersToInches(lidarValue_CM);
-		configuredLidar = true;
+	else if (configuredLidar) {
+		lidarUpperByte = CommandBase::lidars->GetUpperByte();
+		lidarLowerByte = CommandBase::lidars->GetLowerByte();
+		lidarValue_CM = CommandBase::lidars->GetLidarValue(lidarLowerByte, lidarUpperByte);
+		lidarValue_IN = CommandBase::lidars->ConvertCentimetersToInches(lidarValue_CM);
+		configuredLidar = false;
 	}
 
 	std::cout << "Lidar Value CM: " << lidarValue_CM << std::endl;
@@ -42,12 +36,11 @@ bool ReadLidarValue::IsFinished() {
 
 // Called once after isFinished returns true
 void ReadLidarValue::End() {
-	openLidarChannel = false;
 	configuredLidar = false;
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ReadLidarValue::Interrupted() {
-
+	End();
 }

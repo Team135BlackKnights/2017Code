@@ -2,6 +2,7 @@
 #define ReadLidarValue_H
 
 #include "../CommandBase.h"
+#include <Timer.h>
 
 class ReadLidarValue : public CommandBase {
 private:

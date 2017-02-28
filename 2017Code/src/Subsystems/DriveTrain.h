@@ -42,7 +42,7 @@ private:
 	int encoderValue = 0;
 	double distanceTraveled = 0.0;
 
-	AHRS* navX;
+	//AHRS* navX;
 
 public:
 	DriveTrain();
