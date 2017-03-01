@@ -40,10 +40,8 @@ void Shooter::ConfigureShooterMotorEncoder() {
 	//shooterMotor->SetP(.4);
 	//shooterMotor->SetI(.0008);
 	//shooterMotor->SetD(10.0);
-	//shooterMotor->SetF(0.0);
+	shooterMotor->SetF(FEEDFORWARD_TERM_CLOSE_SHOT);
 	//shooterMotor->SetIzone(2500.0);
-	//feedforwardTerm = this->ConfigureFeedForwardTerm();
-	//shooterMotor->SetF(feedforwardTerm);
 
 	this->SelectPIDProfileSlot(FAR_SHOT_PID_VALUES);
 	shooterMotor->ConfigPeakOutputVoltage(12.0, -6.0);
@@ -53,8 +51,6 @@ void Shooter::ConfigureShooterMotorEncoder() {
 	//shooterMotor->SetD(10.0);
 	//shooterMotor->SetF(0.0);
 	//shooterMotor->SetIzone(2500.0);
-	//feedforwardTerm = this->ConfigureFeedForwardTerm();
-	//shooterMotor->SetF(feedforwardTerm);
 
 	this->SelectPIDProfileSlot(CLOSE_SHOT_PID_VALUES);
 }
@@ -67,12 +63,6 @@ void Shooter::ConfigureShooterVoltageMode() {
 void Shooter::ConfigureShooterPID() {
 	shooterMotor->SetControlMode(CANTalon::ControlMode::kSpeed);
 	shooterMotor->Set(0.0);
-}
-
-double Shooter::ConfigureFeedForwardTerm() {
-	motorOutputCloseShot = (PERCENT_VOLTAGE_CLOSE_SHOT * MAX_MOTOR_OUTPUT_VALUE);
-	calculatedFeedforwardTerm = (motorOutputCloseShot/SHOOTER_SETPOINT_NU_PER_100MS_CLOSE_SHOT);
-	return calculatedFeedforwardTerm;
 }
 
 int Shooter::GetShooterWheelRPM() {

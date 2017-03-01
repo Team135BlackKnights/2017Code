@@ -20,14 +20,12 @@ private:
 
 	static constexpr double SHOOTER_GEAR_RATIO = (30.0/24.0);
 
-	static constexpr double DESIRED_VOLTAGE_CLOSE_SHOT = 7.7;
-	static constexpr double SHOOTER_SETPOINT_NU_PER_100MS_CLOSE_SHOT = 19450.0;
+	static constexpr double DESIRED_VOLTAGE_CLOSE_SHOT = 8.1;
+	static constexpr double SHOOTER_SETPOINT_NU_PER_100MS_CLOSE_SHOT = 17476.0;
 	static constexpr double PERCENT_VOLTAGE_CLOSE_SHOT = (DESIRED_VOLTAGE_CLOSE_SHOT/SHOOTER_MAX_VOLTAGE);
 	static constexpr double MAX_MOTOR_OUTPUT_VALUE = 1023.0;
-
-	double motorOutputCloseShot = 0.0;
-	double calculatedFeedforwardTerm = 0.0;
-	double feedforwardTerm = 0.0;
+	static constexpr double MOTOR_OUTPUT_VALUE_FEEDFORWARD_CLOSE_SHOT = (PERCENT_VOLTAGE_CLOSE_SHOT * MAX_MOTOR_OUTPUT_VALUE);
+	static constexpr double FEEDFORWARD_TERM_CLOSE_SHOT = (MOTOR_OUTPUT_VALUE_FEEDFORWARD_CLOSE_SHOT/SHOOTER_SETPOINT_NU_PER_100MS_CLOSE_SHOT);
 
 	bool closeShotPIDProfileSlot = false;
 public:
@@ -42,7 +40,6 @@ public:
 	void ConfigureShooterVoltageMode();
 	void ConfigureShooterPID();
 
-	double ConfigureFeedForwardTerm();
 	int GetShooterWheelRPM();
 	int GetShooterWheelNUPer100Ms();
 	void ZeroAccumulatedError();
@@ -52,7 +49,8 @@ public:
 
 	double GetShooterMotorOutputCurrent();
 
-	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2850.0;
+	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2560.0;
+	static constexpr double SHOOTER_SETPOINT_RPM_FAR_SHOT = 0;
 
 	static const int CLOSE_SHOT_PID_VALUES = 0;
 	static const int FAR_SHOT_PID_VALUES = 1;

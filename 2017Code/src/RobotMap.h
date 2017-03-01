@@ -98,6 +98,6 @@
 		Voltage
 	};
 
-	const ShooterPIDSelection SHOOTER_PID_SELECTION = ShooterPIDSelection::PID_PracticeBot;
+	const ShooterPIDSelection SHOOTER_PID_SELECTION = ShooterPIDSelection::Voltage;
 
 #endif  // ROBOTMAP_H

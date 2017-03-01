@@ -40,7 +40,18 @@ bool OI::GetButtonPressed(int joystickNumber, int joystickButtonNumber) {
 }
 
 double OI::GetThrottleValue(int joystickNumber) {
-	return joystick[joystickNumber]->GetThrottle();
+	return (-1 * joystick[joystickNumber]->GetThrottle());
+}
+
+bool OI::GetThrottleUp(int joystickNumber) {
+	throttleValue = this->GetThrottleValue(joystickNumber);
+	if (throttleValue >= 0) {
+		throttleUp = true;
+	}
+	else if (throttleValue < 0) {
+		throttleUp = false;
+	}
+	return throttleUp;
 }
 
 int OI::GetAngleOfPOV(int joystickNumber) {
@@ -93,9 +104,6 @@ void OI::ConfigureButtonMapping() {
 
 	joystickButton[MANIPULATOR_JOYSTICK][COLLECTION_FORWARD_BUTTON]->WhileHeld(new DriveCollection(true));
 	joystickButton[MANIPULATOR_JOYSTICK][COLLECTION_BACKWARDS_BUTTON]->WhileHeld(new DriveCollection(false));
-
-	joystickButton[MANIPULATOR_JOYSTICK][GEAR_HOLDER_UPWARDS_BUTTON]->WhileHeld(new DriveGearHolder(true));
-	joystickButton[MANIPULATOR_JOYSTICK][GEAR_HOLDER_DOWNWARDS_BUTTON]->WhileHeld(new DriveGearHolder(false));
 
 	joystickButton[RIGHT_DRIVE_JOYSTICK][TRIGGER_BUTTON]->WhileHeld(new DriveLiftHang());
 

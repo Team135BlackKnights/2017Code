@@ -11,6 +11,8 @@ private:
 	double setpointRPM = 0.0;
 	double desiredShooterVoltage = 0.0;
 
+	double chosenSetpoint = 0.0;
+
 	int shooterMotorRPM = 0;
 	int shooterMotorNUPer100Ms = 0;
 
@@ -25,6 +27,8 @@ private:
 	double shooterOutputCurrent = 0.0;
 
 	bool zeroAccumulatedError = false;
+
+	bool throttleUp = false;
 public:
 	DriveShooter(ShooterPIDSelection);
 	void Initialize();

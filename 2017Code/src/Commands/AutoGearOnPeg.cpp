@@ -34,12 +34,12 @@ void AutoGearOnPeg::Execute() {
 	if (startPuttingGearOnPeg) {
 		lowerLimitSwitchValue = CommandBase::gearHolder->GetLimitSwitchValue(GearHolder::LOWER_LIMIT_SWITCH_PORT);
 		if (lowerLimitSwitchValue) {
-			CommandBase::gearHolder->DriveGearHolder(0);
+			CommandBase::gearHolder->DriveGearHolderMotor(0);
 			startPuttingGearOnPeg = false;
 			gearOnPeg = true;
 		}
 		else {
-			CommandBase::gearHolder->DriveGearHolder(-GEAR_HOLDER_MOTOR_POWER);
+			CommandBase::gearHolder->DriveGearHolderMotor(-GEAR_HOLDER_MOTOR_POWER);
 		}
 	}
 }
@@ -55,7 +55,7 @@ void AutoGearOnPeg::End() {
 	startPuttingGearOnPeg = false;
 	gearOnPeg = false;
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
-	CommandBase::gearHolder->DriveGearHolder(0.0);
+	CommandBase::gearHolder->DriveGearHolderMotor(0.0);
 }
 
 // Called when another command which requires one or more of the same

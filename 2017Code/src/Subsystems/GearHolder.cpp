@@ -1,6 +1,7 @@
 #include "GearHolder.h"
 #include "../RobotMap.h"
 #include <iostream>
+#include "Commands/DriveGearHolder.h"
 
 GearHolder::GearHolder() : Subsystem("GearHolder") {
 
@@ -9,6 +10,8 @@ GearHolder::GearHolder() : Subsystem("GearHolder") {
 void GearHolder::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
+
+	SetDefaultCommand(new DriveGearHolder());
 }
 
 void GearHolder::InitializeGearHolderMotor(bool competitionBot) {
@@ -22,9 +25,11 @@ void GearHolder::InitializeGearHolderMotor(bool competitionBot) {
 	}
 	upperLimitSwitch = new frc::DigitalInput(UPPER_LIMIT_SWITCH_PORT);
 	lowerLimitSwitch = new frc::DigitalInput(LOWER_LIMIT_SWITCH_PORT);
+
+	gearHolderServo = new frc::Servo(GEAR_HOLDER_SERVO_PWM_PORT);
 }
 
-void GearHolder::DriveGearHolder(double motorPower) {
+void GearHolder::DriveGearHolderMotor(double motorPower) {
 	upperLimitSwitchValue = this->GetLimitSwitchValue(UPPER_LIMIT_SWITCH_PORT);
 	lowerLimitSwitchValue = this->GetLimitSwitchValue(LOWER_LIMIT_SWITCH_PORT);
 
@@ -48,6 +53,14 @@ bool GearHolder::GetLimitSwitchValue(int limitSwitchDigitalInputNumber) {
 		limitSwitchValue = !lowerLimitSwitch->Get();
 	}
 	return limitSwitchValue;
+}
+
+double GearHolder::GetGearHolderServoValue() {
+	return gearHolderServo->GetAngle();
+}
+
+void GearHolder::SetGearHolderServoValue(double servoPosition) {
+	gearHolderServo->SetAngle(servoPosition);
 }
 
 // Put methods for controlling this subsystem
