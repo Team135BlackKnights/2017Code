@@ -6,6 +6,7 @@
 #include <RobotDrive.h>
 #include <math.h>
 #include <PIDController.h>
+#include <Preferences.h>
 #include <ADXRS450_Gyro.h>
 class DriveTrain : public frc::PIDOutput, public frc::Subsystem {
 private:
@@ -37,9 +38,9 @@ private:
 	double distanceTraveled = 0.0;
 
 	double kToleranceDegrees = .5f;
-	double kP = .1;
-	double kI = 0.0;
-	double kD = .0f;
+	double kP = .09f;
+	double kI = 0;
+	double kD = .2f;
 
 	double kF = 0.0f;
 

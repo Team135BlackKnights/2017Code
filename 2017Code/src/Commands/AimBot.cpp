@@ -11,7 +11,7 @@ AimBot::AimBot(int camNumber) {
 // Called just before this Command runs the first time
 void AimBot::Initialize() {
 	std::cout << "running \n\n\n:";
-	CommandBase::driveTrain->TurnPIDEnable(10);//server->get_angle(cameraNumber))
+	CommandBase::driveTrain->TurnPIDEnable(5);//server->get_angle(cameraNumber))
 	time.Start();
 	time.Reset();
 	std::cout <<"initialized \n\n";
@@ -25,7 +25,7 @@ void AimBot::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AimBot::IsFinished() {
-	return CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10);
+	return time.Get() > 3 || CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10);
 }
 
 // Called once after isFinished returns true

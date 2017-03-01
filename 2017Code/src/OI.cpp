@@ -7,6 +7,7 @@
 #include "Commands/DriveLiftHang.h"
 #include "Commands/DriveShooterHood.h"
 #include "Commands/Aimbot.h"
+#include <iostream>
 
 OI::OI() {
 	// Process operator interface input here.
@@ -65,7 +66,7 @@ bool OI::GetAction(int JoyException, int ButtonException)
 	{
 		if(abs(joystick[i]->GetY()) > .15)
 			return true;
-		for(int j = 0; j < NUM_OF_BUTTONS-1; j++)
+		for(int j = 1; j < NUM_OF_BUTTONS; j++)
 		{
 				if(i == JoyException && j == ButtonException)
 					continue;
