@@ -35,16 +35,16 @@ void Shooter::ConfigureShooterMotorEncoder() {
 	shooterMotor->SetNominalClosedLoopVoltage(SHOOTER_MAX_VOLTAGE);
 
 	this->SelectPIDProfileSlot(CLOSE_SHOT_PID_VALUES);
-	shooterMotor->ConfigPeakOutputVoltage(12.0, -6.0);
+	shooterMotor->ConfigPeakOutputVoltage(10.0, -6.0);
 	shooterMotor->ConfigNominalOutputVoltage(0.0, -0.0);
 	//shooterMotor->SetP(.4);
 	//shooterMotor->SetI(.0008);
 	//shooterMotor->SetD(10.0);
-	shooterMotor->SetF(FEEDFORWARD_TERM_CLOSE_SHOT);
+	//shooterMotor->SetF(FEEDFORWARD_TERM_CLOSE_SHOT);
 	//shooterMotor->SetIzone(2500.0);
 
 	this->SelectPIDProfileSlot(FAR_SHOT_PID_VALUES);
-	shooterMotor->ConfigPeakOutputVoltage(12.0, -6.0);
+	shooterMotor->ConfigPeakOutputVoltage(10.0, -6.0);
 	shooterMotor->ConfigNominalOutputVoltage(0.0, -0.0);
 	//shooterMotor->SetP(.4);
 	//shooterMotor->SetI(.0008);
