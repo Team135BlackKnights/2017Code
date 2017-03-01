@@ -11,6 +11,7 @@ DriveShooter::DriveShooter(ShooterPIDSelection shooterMode) {
 // Called just before this Command runs the first time
 void DriveShooter::Initialize() {
 	setpointRPM = Preferences::GetInstance()->GetDouble("Shooter PID Setpoint", 2400.0);
+	chosenSetpoint = setpointRPM;
 	desiredShooterVoltage = Preferences::GetInstance()->GetDouble("Shooter Voltage", 8.0);
 	CommandBase::shooter->ConfigureShooterVoltageMode();
 	//CommandBase::shooter->ConfigureShooterPID();
@@ -21,19 +22,19 @@ void DriveShooter::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveShooter::Execute() {
-	throttleUp = CommandBase::oi->GetThrottleUp(OI::MANIPULATOR_JOYSTICK);
+	/*throttleUp = CommandBase::oi->GetThrottleUp(OI::MANIPULATOR_JOYSTICK);
 	if (throttleUp) {
 		chosenSetpoint = Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT;
 	}
 	else if (throttleUp == false) {
 		chosenSetpoint = Shooter::SHOOTER_SETPOINT_RPM_CLOSE_SHOT;
-	}
+	} */
 
 	shooterMotorRPM = CommandBase::shooter->GetShooterWheelRPM();
 	shooterMotorNUPer100Ms = CommandBase::shooter->GetShooterWheelNUPer100Ms();
 	shooterOutputCurrent = CommandBase::shooter->GetShooterMotorOutputCurrent();
 
-	//std::cout << "Shooter RPM: " << shooterMotorRPM << std::endl;
+	std::cout << "Shooter RPM: " << shooterMotorRPM << std::endl;
 	//std::cout << "Shooter NU Per 100ms: " << shooterMotorNUPer100Ms << std::endl;
 
 	frc::SmartDashboard::PutNumber("Shooter Motor RPM", shooterMotorRPM);
@@ -49,7 +50,7 @@ void DriveShooter::Execute() {
 				initializeVoltageMode = false;
 				initializePID = true;
 			}
-			CommandBase::shooter->DriveShooterMotor(setpointRPM);
+			CommandBase::shooter->DriveShooterMotor(chosenSetpoint);
 		}
 		else if (shooterBackwardsButtonPressed) {
 			if (initializeVoltageMode == false) {
@@ -101,7 +102,7 @@ void DriveShooter::Execute() {
 					initializeVoltageMode = false;
 					initializePID = true;
 				}
-				CommandBase::shooter->DriveShooterMotor(setpointRPM);
+				CommandBase::shooter->DriveShooterMotor(chosenSetpoint);
 			}
 		}
 		else if (shooterBackwardsButtonPressed) {
