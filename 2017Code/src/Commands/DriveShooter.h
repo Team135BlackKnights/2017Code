@@ -29,6 +29,8 @@ private:
 	bool zeroAccumulatedError = false;
 
 	bool throttleUp = false;
+
+	bool rampUpOnce = false;
 public:
 	DriveShooter(ShooterPIDSelection);
 	void Initialize();

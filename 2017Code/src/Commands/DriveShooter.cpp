@@ -11,24 +11,24 @@ DriveShooter::DriveShooter(ShooterPIDSelection shooterMode) {
 // Called just before this Command runs the first time
 void DriveShooter::Initialize() {
 	setpointRPM = Preferences::GetInstance()->GetDouble("Shooter PID Setpoint", 2400.0);
-	chosenSetpoint = setpointRPM;
 	desiredShooterVoltage = Preferences::GetInstance()->GetDouble("Shooter Voltage", 8.0);
 	CommandBase::shooter->ConfigureShooterVoltageMode();
 	//CommandBase::shooter->ConfigureShooterPID();
 	initializeVoltageMode = true;
 	initializePID = false;
 	zeroAccumulatedError = false;
+	rampUpOnce = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveShooter::Execute() {
-	/*throttleUp = CommandBase::oi->GetThrottleUp(OI::MANIPULATOR_JOYSTICK);
+	throttleUp = CommandBase::oi->GetThrottleUp(OI::MANIPULATOR_JOYSTICK);
 	if (throttleUp) {
 		chosenSetpoint = Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT;
 	}
 	else if (throttleUp == false) {
 		chosenSetpoint = Shooter::SHOOTER_SETPOINT_RPM_CLOSE_SHOT;
-	} */
+	}
 
 	shooterMotorRPM = CommandBase::shooter->GetShooterWheelRPM();
 	shooterMotorNUPer100Ms = CommandBase::shooter->GetShooterWheelNUPer100Ms();
@@ -80,29 +80,22 @@ void DriveShooter::Execute() {
 	}
 	else if (this->shooterMode == ShooterPIDSelection::PID_PracticeBot) {
 		if (shooterForwardsButtonPressed) {
-			if (shooterMotorRPM < (.4 * setpointRPM)) {
+			if (shooterMotorRPM < setpointRPM && rampUpOnce == false) {
 				if (initializeVoltageMode == false) {
 					CommandBase::shooter->ConfigureShooterVoltageMode();
 					initializePID = false;
 					initializeVoltageMode = true;
 				}
-				CommandBase::shooter->DriveShooterMotor(.65 * desiredShooterVoltage);
+				CommandBase::shooter->DriveShooterMotor(10.5);
 			}
-			else if (shooterMotorRPM < (.65 * setpointRPM)) {
+			else if (shooterMotorRPM >= setpointRPM) {
 				if (initializeVoltageMode == false) {
 					CommandBase::shooter->ConfigureShooterVoltageMode();
 					initializePID = false;
 					initializeVoltageMode = true;
 				}
+				rampUpOnce = true;
 				CommandBase::shooter->DriveShooterMotor(desiredShooterVoltage);
-			}
-			else {
-				if (initializePID == false) {
-					CommandBase::shooter->ConfigureShooterPID();
-					initializeVoltageMode = false;
-					initializePID = true;
-				}
-				CommandBase::shooter->DriveShooterMotor(chosenSetpoint);
 			}
 		}
 		else if (shooterBackwardsButtonPressed) {
