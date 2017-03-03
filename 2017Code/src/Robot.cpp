@@ -28,6 +28,7 @@ public:
 		CommandBase::agitator->InitializeAgitatorMotor(COMPETITION_BOT);
 		CommandBase::collection->InitializeCollectionMotor(COMPETITION_BOT);
 		CommandBase::driveTrain->InitializeDriveTrainMotors(COMPETITION_BOT);
+		CommandBase::driveTrain->ConfigureDriveTrainEncoders(COMPETITION_BOT);
 		CommandBase::gearHolder->InitializeGearHolderMotor(COMPETITION_BOT);
 		CommandBase::lidars->InitializeLidars();
 		CommandBase::liftHang->InitializeLiftHang(COMPETITION_BOT);
@@ -71,13 +72,13 @@ public:
 		}
 		else {
 			//autonomousCommand.reset(new ExampleCommand());
-		}
+		} */
 
-		//autonomousCommand.reset(autonomousChooser.GetSelected());
+		autonomousCommand.reset(autonomousChooser.GetSelected());
 
 		if (autonomousCommand.get() != nullptr) {
 			autonomousCommand->Start();
-		} */
+		}
 	}
 
 	void AutonomousPeriodic() override {

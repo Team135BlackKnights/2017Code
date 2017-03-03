@@ -3,19 +3,20 @@
 DriveDistance::DriveDistance(double desiredDistanceToTravel, double motorPower) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
+	Requires(CommandBase::driveTrain.get());
 	this->desiredDistanceToTravel = desiredDistanceToTravel;
 	this->motorPower = motorPower;
 }
 
 // Called just before this Command runs the first time
 void DriveDistance::Initialize() {
-	initialDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::LEFT_SIDE_ENCODER);
+	initialDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
 	distanceTraveled = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveDistance::Execute() {
-	measuredCurrentDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::LEFT_SIDE_ENCODER);
+	measuredCurrentDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
 	actualCurrentDistanceTraveled = (fabs(measuredCurrentDistanceTraveled - initialDistanceTraveled));
 	if (actualCurrentDistanceTraveled >= this->desiredDistanceToTravel) {
 		CommandBase::driveTrain->DriveTank(0.0, 0.0);
@@ -34,6 +35,7 @@ bool DriveDistance::IsFinished() {
 // Called once after isFinished returns true
 void DriveDistance::End() {
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
+	distanceTraveled = false;
 }
 
 // Called when another command which requires one or more of the same

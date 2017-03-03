@@ -19,9 +19,6 @@ private:
 
 	static const int CONFIGURE_REGISTER_ADDRESS = 0x00;
 	static const int CONFIGURE_VALUE_TO_WRITE = 0x04;
-	//static const int CONFIGURE_VALUE_TO_WRITE_RESET = 0x00;
-
-	bool configureTransactionTerminated = false;
 
 	static const int UPPER_BYTE_REGISTER_ADDRESS = 0x0f;
 	static const int LOWER_BYTE_REGISTER_ADDRESS = 0x10;
@@ -33,9 +30,6 @@ private:
 
 	int convertedUpperByteData = 0;
 	int convertedLowerByteData = 0;
-
-	int lowerByte = 0;
-	int upperByte = 0;
 
 	int shiftedUpperByte = 0;
 
@@ -64,24 +58,44 @@ private:
 	int differenceBetweenLIDARValues = 0.0;
 	double angleBetweenLIDARValues = 0.0;
 	double extraDistanceOfLIDAR_M = 0.0;
+
+	int finalNonZeroLidarValue = 0;
+
+	bool configuredLidar = false;
+	bool receivedUpperByte = false;
+	int lidarUpperByte = 0;
+	int lidarLowerByte = 0;
+	int lidarValue_CM = 0;
+	double lidarValue_IN = 0.0;
+	double lidarValue_M = 0.0;
+	double returnLidarValue = 0.0;
 public:
 	Lidars();
 	void InitDefaultCommand();
 
 	void InitializeLidars();
 
-	void OpenCloseI2CChannelLines(int);
+	void OpenLidarChannelOnMultplexer();
 	void ConfigureLidar();
 	int GetUpperByte();
 	int GetLowerByte();
 	int GetLidarValue(int, int);
+	void ResetLidarWholeProcessVariables();
+	double GetLidarValueWholeProcess(int);
 
 	double ConvertCentimetersToInches(int);
+	double ConvertCentimetersToMeters(int);
 	int ConvertUint8_tPointer_To_Int(uint8_t*);
 	uint8_t* ConvertUint8_t_To_Uint8_tPointer(uint8_t);
 
-	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_6_GEAR = 0b01000000;
-	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_7_SHOOTER = 0b10000000;
+	static const int NUM_OF_UNITS = 3;
+	static const int CENTIMETERS = 0;
+	static const int INCHES = 1;
+	static const int METERS = 2;
+
+	static constexpr int DISTANCE_UNIT_ARRAY[NUM_OF_UNITS] = {CENTIMETERS, INCHES, METERS};
+
+	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_6_SHOOTER = 0b01000000;
 };
 
 #endif  // Lidars_H

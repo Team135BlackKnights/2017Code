@@ -11,6 +11,8 @@ private:
 
 	CANTalon* shooterHoodMotor;
 
+	double shooterHoodMotorPower = 0.0;
+
 	//  Shooter Hood Encoder Count To Be Determined
 	static const int SHOOTER_HOOD_ENCODER_COUNTS = 497;
 	static const int SHOOTER_HOOD_QUADRATURE_ENCODER_COUNTS = (SHOOTER_HOOD_ENCODER_COUNTS * 4);
@@ -36,6 +38,29 @@ private:
 	bool initializeDirectionOfHoodToMove = false;
 	bool driveHoodToIncreaseAngle = false;
 	bool drivenToAngle = false;
+
+	//  Variables for Calculating Angle for Shooter Hood Given Lidar Value
+	static constexpr double ACCELERATION_OF_GRAVITY = 9.81;
+	static constexpr double ADDED_X_DISTANCE_MIN_INSIDE_BOILER_IN = 17.5;  //  Directly in front of boiler
+	static constexpr double ADDED_X_DISTANCE_MIN_INSIDE_BOILER_CM = (ADDED_X_DISTANCE_MIN_INSIDE_BOILER_IN * 2.54);
+	static constexpr double ADDED_X_DISTANCE_MIN_INSIDE_BOILER_M = (ADDED_X_DISTANCE_MIN_INSIDE_BOILER_CM/100.0);
+	static constexpr double ADDED_X_DISTANCE_MAX_INSIDE_BOILER_IN = 25.0;  //  Shooting from the side of the field //  Hypotenuse of Triangle is 27.3in.
+	static constexpr double ADDED_X_DISTANCE_MAX_INSIDE_BOILER_CM = (ADDED_X_DISTANCE_MAX_INSIDE_BOILER_IN * 2.54);
+	static constexpr double ADDED_X_DISTANCE_MAX_INSIDE_BOILER_M = (ADDED_X_DISTANCE_MAX_INSIDE_BOILER_CM/100.0);
+	static constexpr double SHOOTER_CLOSE_SHOT_M_PER_SEC = 5.0;  //  To Be Determined
+	static constexpr double SHOOTER_FAR_SHOT_M_PER_SEC = 6.5;  //  To Be Determined
+	static constexpr double BOILER_HEIGHT_IN = 97.0;
+	static constexpr double BOILER_HEIGHT_CM = (BOILER_HEIGHT_IN * 2.54);
+	static constexpr double BOILER_HEIGHT_M = (BOILER_HEIGHT_CM/100.0);
+	static constexpr double SHOOTER_HEIGHT_OFF_GROUND_IN = 10.0;
+	static constexpr double SHOOTER_HEIGHT_OFF_GROUND_CM = (SHOOTER_HEIGHT_OFF_GROUND_IN * 2.54);
+	static constexpr double SHOOTER_HEIGHT_OFF_GROUND_M = (SHOOTER_HEIGHT_OFF_GROUND_CM/100.0);
+	static constexpr double Y_DISTANCE_M = (BOILER_HEIGHT_M - SHOOTER_HEIGHT_OFF_GROUND_M);
+
+	double valueAngleForLoopHasToEqual = 0.0;
+	double xDistanceFromLidar_M = 0.0;
+	double totalXDistance_M = 0.0;
+	double chosenVelocityOfShooter = 0.0;
 public:
 	ShooterHood();
 	void InitDefaultCommand();
@@ -46,9 +71,20 @@ public:
 
 	void ConfigureShooterHoodEncoder();
 	int GetShooterHoodEncoderPosition();
+	void SetShooterHoodEncoder(int);
 	void ZeroShooterHoodEncoder();
 	double GetAngleOfShooterHoodGivenEncoderPosition(int);
 	bool DriveShooterHoodMotorToDesiredAngle(double, double);
+	double GetDesiredAngleOfShooterHood(double, bool, int);
+
+	int GetMaxAngleLimitSwitch();
+	int GetMinAngleLimitSwitch();
+
+	static const int NUM_OF_SHOOTER_ANGLED_POSITIONS = 2;
+	static const int STRAIGHT_ON = 0;
+	static const int FURTHEST_POINT_FROM_STRAIGHT_ON = 1;
+
+	static constexpr int SHOOTER_ANGLED_POSITION_ARRAY[NUM_OF_SHOOTER_ANGLED_POSITIONS] = {STRAIGHT_ON, FURTHEST_POINT_FROM_STRAIGHT_ON};
 };
 
 #endif  // ShooterHood_H

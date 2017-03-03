@@ -3,6 +3,7 @@
 #include "DriveDistance.h"
 #include "TurnDriveTrainAngle.h"
 #include "WaitTime.h"
+#include "DriveUntilRobotAgainstBoiler.h"
 
 AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, BaseLinePath baseLinePath) {
 	// Add Commands here:
@@ -22,9 +23,17 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 
+	Requires(CommandBase::driveTrain.get());
+	Requires(CommandBase::gearHolder.get());
+	Requires(CommandBase::ultrasonicSensor.get());
+
 	this->autonomousSelection = autonomousSelection;
 	this->baseLinePath = baseLinePath;
-	if (this->autonomousSelection == AutonomousSelection::MiddleGear) {
+
+	if (this->autonomousSelection == AutonomousSelection::BaseLine) {
+		AddSequential(new DriveDistance(BASE_LINE_PATH_DISTANCE, .7));
+	}
+	else if (this->autonomousSelection == AutonomousSelection::MiddleGear) {
 		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_GEAR, -.6));
 		AddSequential(new WaitTime(.25));
 		//  Camera Lines Up To Gear
@@ -59,6 +68,8 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR, -.6));
 		AddSequential(new WaitTime(.25));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_SIDE_GEAR, .5, TURN_LEFT));
+		AddSequential(new WaitTime(.25));
+		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.5));
 		//  Camera Lines Up To Gear
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(1.0));
@@ -74,6 +85,8 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR, -.6));
 		AddSequential(new WaitTime(.25));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_SIDE_GEAR, .5, TURN_RIGHT));
+		AddSequential(new WaitTime(.25));
+		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.5));
 		//  Camera Lines Up To Gear
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(1.0));
@@ -84,5 +97,19 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 			AddSequential(new TurnDriveTrainAngle(ANGLE_FROM_SIDE_GEAR_TO_BASE_LINE_PATH, .5, TURN_RIGHT));
 			AddSequential(new DriveDistance(DISTANCE_OF_SIDE_GEAR_BASE_LINE_PATH, .6));
 		}
+	}
+	else if (this->autonomousSelection == AutonomousSelection::CloseShotShooterTurnLeft) {
+		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_TURNING_POINT_FOR_BOILER, .7));
+		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_FOR_CLOSE_SHOT, .5, TURN_LEFT));
+		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_BOILER, .6));
+		//  Aim Bot
+		AddSequential(new DriveUntilRobotAgainstBoiler());
+	}
+	else if (this->autonomousSelection == AutonomousSelection::CloseShotShooterTurnRight) {
+		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_TURNING_POINT_FOR_BOILER, .7));
+		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_FOR_CLOSE_SHOT, .5, TURN_RIGHT));
+		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_BOILER, .6));
+		//  Aim Bot
+		AddSequential(new DriveUntilRobotAgainstBoiler());
 	}
 }

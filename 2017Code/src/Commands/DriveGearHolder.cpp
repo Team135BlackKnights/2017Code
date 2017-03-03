@@ -1,10 +1,9 @@
 #include "DriveGearHolder.h"
 
-DriveGearHolder::DriveGearHolder(bool driveUpwards) {
+DriveGearHolder::DriveGearHolder() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::gearHolder.get());
-	this->driveUpwards = driveUpwards;
 }
 
 // Called just before this Command runs the first time
@@ -14,11 +13,24 @@ void DriveGearHolder::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveGearHolder::Execute() {
-	if (driveUpwards) {
-		CommandBase::gearHolder->DriveGearHolder(GEAR_HOLDER_MOTOR_POWER);
+	gearHolderUpwardsButtonPressed = CommandBase::oi->GetButtonPressed(OI::MANIPULATOR_JOYSTICK, OI::GEAR_HOLDER_UPWARDS_BUTTON);
+	gearHolderDownwardsButtonPressed = CommandBase::oi->GetButtonPressed(OI::MANIPULATOR_JOYSTICK, OI::GEAR_HOLDER_DOWNWARDS_BUTTON);
+
+	if (gearHolderUpwardsButtonPressed) {
+		CommandBase::gearHolder->DriveGearHolderMotor(GEAR_HOLDER_MOTOR_POWER);
 	}
-	else if (driveUpwards == false) {
-		CommandBase::gearHolder->DriveGearHolder(-GEAR_HOLDER_MOTOR_POWER);
+	else if (gearHolderDownwardsButtonPressed) {
+		CommandBase::gearHolder->DriveGearHolderMotor(-GEAR_HOLDER_MOTOR_POWER);
+	}
+	else {
+		CommandBase::gearHolder->DriveGearHolderMotor(0.0);
+	}
+
+	if (CommandBase::oi->POVDirectionPressed(OI::MANIPULATOR_JOYSTICK, OI::TOP_POV)) {
+		CommandBase::gearHolder->SetGearHolderServoValue(GearHolder::SERVO_OUT_POSITION);
+	}
+	else if (CommandBase::oi->POVDirectionPressed(OI::MANIPULATOR_JOYSTICK, OI::BOTTOM_POV)) {
+		CommandBase::gearHolder->SetGearHolderServoValue(GearHolder::SERVO_IN_POSITION);
 	}
 }
 
@@ -29,7 +41,7 @@ bool DriveGearHolder::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveGearHolder::End() {
-	CommandBase::gearHolder->DriveGearHolder(0.0);
+	CommandBase::gearHolder->DriveGearHolderMotor(0.0);
 }
 
 // Called when another command which requires one or more of the same

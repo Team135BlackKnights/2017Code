@@ -10,17 +10,23 @@ WaitTime::WaitTime(double timeToWait) {
 
 // Called just before this Command runs the first time
 void WaitTime::Initialize() {
-	timer->Reset();
-	timer->Start();
 	doneWaiting = false;
+	startTimer = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void WaitTime::Execute() {
+	if (startTimer == false) {
+		timer->Reset();
+		timer->Start();
+		startTimer = true;
+	}
 	currentTimerValue = timer->Get();
 	if (currentTimerValue >= timeToWait) {
 		doneWaiting = true;
 	}
+
+	std::cout << "Timer Wait" << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -31,6 +37,7 @@ bool WaitTime::IsFinished() {
 // Called once after isFinished returns true
 void WaitTime::End() {
 	doneWaiting = false;
+	startTimer = false;
 	timer->Stop();
 	timer->Reset();
 }

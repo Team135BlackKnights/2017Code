@@ -5,7 +5,7 @@
 #include <CANTalon.h>
 #include <RobotDrive.h>
 #include <math.h>
-//#include <AHRS.h>
+#include <AHRS.h>
 
 class DriveTrain : public Subsystem {
 private:
@@ -22,13 +22,22 @@ private:
 
 	frc::RobotDrive* chassis;
 
-	static const int ENCODER_COUNTS = 64;
-	static const int QUADRATURE_ENCODER_COUNTS = (ENCODER_COUNTS * 4);
+	//  Drive Train Encoder Variables
+	static const bool CB_LEFT_ENCODER_SENSOR_DIRECTION = true;
+	static const bool CB_RIGHT_ENCODER_SENSOR_DIRECTION = false;
+	static const bool PB_LEFT_ENCODER_SENSOR_DIRECTION = true;
+	static const bool PB_RIGHT_ENCODER_SENSOR_DIRECTION = false;
 
-	static constexpr double DIAMETER_OF_WHEEL_IN = 4.0;
+	static const int CB_ENCODER_COUNTS = 256;
+	static const int CB_QUADRATURE_ENCODER_COUNTS = (CB_ENCODER_COUNTS * 4);
+	static const int PB_ENCODER_COUNTS = 64;
+	static const int PB_QUADRATURE_ENCODER_COUNTS = (PB_ENCODER_COUNTS * 4);
+
+	int quadratureCountOfEncoder = 0;
+	double encoderCountToDistanceConstant = 0;
+
+	static constexpr double DIAMETER_OF_WHEEL_IN = 4.1;
 	static constexpr double CIRCUMFERENCE_OF_WHEEL = (DIAMETER_OF_WHEEL_IN * M_PI);
-
-	static constexpr double ENCODER_COUNT_TO_DISTANCE_CONSTANT = (CIRCUMFERENCE_OF_WHEEL/((double)QUADRATURE_ENCODER_COUNTS));
 
 	int encoderValue = 0;
 	double distanceTraveled = 0.0;
@@ -43,7 +52,7 @@ public:
 	void DriveTank(double, double);
 	void RotateTank(double, bool);
 
-	void ConfigureDriveTrainEncoders();
+	void ConfigureDriveTrainEncoders(bool);
 	void ZeroDriveTrainEncoder(int);
 	int GetEncoderPosition(int);
 	double GetDistance(int);
@@ -51,8 +60,9 @@ public:
 	double GetNavXAngle();
 	void ZeroNavXAngle();
 
-	static const int LEFT_SIDE_ENCODER = FRONT_LEFT;
-	static const int RIGHT_SIDE_ENCODER = FRONT_RIGHT;
+	//  For Competition Bot
+	static const int LEFT_SIDE_ENCODER = REAR_LEFT;
+	static const int RIGHT_SIDE_ENCODER = REAR_RIGHT;
 };
 
 #endif  // DriveTrain_H

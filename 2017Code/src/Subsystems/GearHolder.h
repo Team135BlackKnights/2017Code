@@ -4,6 +4,7 @@
 #include <Commands/Subsystem.h>
 #include <VictorSP.h>
 #include <DigitalInput.h>
+#include <Servo.h>
 
 class GearHolder : public Subsystem {
 private:
@@ -22,18 +23,28 @@ private:
 
 	bool limitSwitchValue = false;
 
+	frc::Servo* gearHolderServo;
+
+	static const int GEAR_HOLDER_SERVO_PWM_PORT = 4;
+
 public:
 	GearHolder();
 	void InitDefaultCommand();
 
 	void InitializeGearHolderMotor(bool);
 
-	void DriveGearHolder(double);
+	void DriveGearHolderMotor(double);
 
 	bool GetLimitSwitchValue(int);
 
+	double GetGearHolderServoValue();
+	void SetGearHolderServoValue(double);
+
 	static const int UPPER_LIMIT_SWITCH_PORT = 1;
-	static const int LOWER_LIMIT_SWITCH_PORT = 2;
+	static const int LOWER_LIMIT_SWITCH_PORT = 0;
+
+	static constexpr double SERVO_OUT_POSITION = 0.0;
+	static constexpr double SERVO_IN_POSITION = 180.0;
 };
 
 #endif  // GearHolder_H

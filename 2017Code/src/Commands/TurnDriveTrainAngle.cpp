@@ -3,6 +3,7 @@
 TurnDriveTrainAngle::TurnDriveTrainAngle(double desiredAngleToTurn, double motorPower, bool turnRight) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
+	Requires(CommandBase::driveTrain.get());
 	this->desiredAngleToTurn = desiredAngleToTurn;
 	this->motorPower = motorPower;
 	this->turnRight = turnRight;

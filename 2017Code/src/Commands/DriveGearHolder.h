@@ -7,8 +7,13 @@ class DriveGearHolder : public CommandBase {
 private:
 	bool driveUpwards;
 	static constexpr double GEAR_HOLDER_MOTOR_POWER = .5;
+
+	double gearHolderServoValue = 0.0;
+
+	bool gearHolderUpwardsButtonPressed = false;
+	bool gearHolderDownwardsButtonPressed = false;
 public:
-	DriveGearHolder(bool);
+	DriveGearHolder();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

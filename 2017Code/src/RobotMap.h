@@ -18,7 +18,7 @@
 // constexpr int RANGE_FINDER_PORT = 1;
 // constexpr int RANGE_FINDER_MODULE = 1;
 
-	const bool COMPETITION_BOT = true;
+	const bool COMPETITION_BOT = false;
 
 	//  Practice Bot Motor Ports
 	//VictorSP motor ports
@@ -82,7 +82,10 @@
 	enum AutonomousSelection {
 		MiddleGear,
 		RightGear,
-		LeftGear
+		LeftGear,
+		CloseShotShooterTurnLeft,
+		CloseShotShooterTurnRight,
+		BaseLine
 	};
 
 	enum BaseLinePath {
@@ -91,5 +94,13 @@
 		MiddleGearLeft,
 		NoBaseLine
 	};
+
+	enum ShooterPIDSelection {
+		PID_CompetitionBot,
+		PID_Ramp_Up,
+		Voltage
+	};
+
+	const ShooterPIDSelection SHOOTER_PID_SELECTION = ShooterPIDSelection::PID_CompetitionBot;
 
 #endif  // ROBOTMAP_H

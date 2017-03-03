@@ -9,7 +9,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
 void Shooter::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new DriveShooter());
+	SetDefaultCommand(new DriveShooter(SHOOTER_PID_SELECTION));
 }
 
 void Shooter::InitializeShooterMotor(bool competitionBot) {
@@ -23,18 +23,6 @@ void Shooter::InitializeShooterMotor(bool competitionBot) {
 	}
 }
 
-void Shooter::ConfigureShooterVoltageMode() {
-	shooterMotor->SetControlMode(CANTalon::ControlMode::kVoltage);
-	shooterMotor->Set(0.0);
-}
-
-void Shooter::ConfigureShooterPID() {
-	shooterMotor->SetControlMode(CANTalon::ControlMode::kSpeed);
-	shooterMotor->Set(0.0);
-	shooterMotor->ConfigNominalOutputVoltage(0.0, -0.0);
-	shooterMotor->ConfigPeakOutputVoltage(12.0, -6.0);
-}
-
 void Shooter::DriveShooterMotor(double motorPower) {
 	shooterMotor->Set(motorPower);
 }
@@ -45,16 +33,40 @@ void Shooter::ConfigureShooterMotorEncoder() {
 	shooterMotor->SetSensorDirection(REVERSE_SHOOTER_ENCODER_DIRECTION);
 	shooterMotor->SetPosition(0.0);
 	shooterMotor->SetNominalClosedLoopVoltage(SHOOTER_MAX_VOLTAGE);
-	shooterMotor->SelectProfileSlot(0);
-	shooterMotor->SetP(.4);
-	shooterMotor->SetI(.0008);
-	shooterMotor->SetD(10.0);
-	shooterMotor->SetF(0.0);
-	shooterMotor->SetIzone(2500.0);
+
+	this->SelectPIDProfileSlot(CLOSE_SHOT_PID_VALUES);
+	shooterMotor->ConfigPeakOutputVoltage(10.0, -6.0);
+	shooterMotor->ConfigNominalOutputVoltage(0.0, -0.0);
+	//shooterMotor->SetP(.4);
+	//shooterMotor->SetI(.0008);
+	//shooterMotor->SetD(10.0);
+	//shooterMotor->SetF(FEEDFORWARD_TERM_CLOSE_SHOT);
+	//shooterMotor->SetIzone(2500.0);
+	//shooterMotor->SetAllowableClosedLoopErr(600.0);
+
+	this->SelectPIDProfileSlot(FAR_SHOT_PID_VALUES);
+	shooterMotor->ConfigPeakOutputVoltage(10.0, -6.0);
+	shooterMotor->ConfigNominalOutputVoltage(0.0, -0.0);
+	//shooterMotor->SetP(.4);
+	//shooterMotor->SetI(.0008);
+	//shooterMotor->SetD(10.0);
+	shooterMotor->SetF(FEEDFORWARD_TERM_FAR_SHOT);
+	//shooterMotor->SetIzone(2500.0);
+	//shooterMotor->SetAllowableClosedLoopErr(600.0);
+}
+
+void Shooter::ConfigureShooterVoltageMode() {
+	shooterMotor->SetControlMode(CANTalon::ControlMode::kVoltage);
+	shooterMotor->Set(0.0);
+}
+
+void Shooter::ConfigureShooterPID() {
+	shooterMotor->SetControlMode(CANTalon::ControlMode::kSpeed);
+	shooterMotor->Set(0.0);
 }
 
 int Shooter::GetShooterWheelRPM() {
-	return shooterMotor->Get();
+	return shooterMotor->GetSpeed();
 }
 
 int Shooter::GetShooterWheelNUPer100Ms() {
@@ -63,6 +75,14 @@ int Shooter::GetShooterWheelNUPer100Ms() {
 
 double Shooter::GetShooterMotorOutputCurrent() {
 	return shooterMotor->GetOutputCurrent();
+}
+
+void Shooter::ZeroAccumulatedError() {
+	shooterMotor->ClearIaccum();
+}
+
+void Shooter::SelectPIDProfileSlot(int profileSlot) {
+	shooterMotor->SelectProfileSlot(profileSlot);
 }
 
 // Put methods for controlling this subsystem
