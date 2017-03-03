@@ -9,7 +9,7 @@ Lidars::Lidars() : Subsystem("Lidar") {
 void Lidars::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	//SetDefaultCommand(new ReadLidarValue());
+	SetDefaultCommand(new ReadLidarValue());
 }
 
 void Lidars::InitializeLidars() {
@@ -53,6 +53,48 @@ int Lidars::GetLidarValue(int lowerByte, int upperByte) {
 		finalNonZeroLidarValue = finalValue;
 	}
 	return finalNonZeroLidarValue;
+}
+
+void Lidars::ResetLidarWholeProcessVariables() {
+	configuredLidar = false;
+	receivedUpperByte = false;
+	lidarUpperByte = 0;
+	lidarLowerByte = 0;
+	lidarValue_CM = 0;
+	lidarValue_IN = 0.0;
+	lidarValue_M = 0.0;
+	returnLidarValue = 0.0;
+}
+
+double Lidars::GetLidarValueWholeProcess(int distanceUnit) {
+	if (configuredLidar == false) {
+		this->ConfigureLidar();
+		configuredLidar = true;
+	}
+	else if (receivedUpperByte == false && configuredLidar) {
+		lidarUpperByte = this->GetUpperByte();
+		receivedUpperByte = true;
+	}
+	else if (receivedUpperByte && configuredLidar) {
+		lidarLowerByte = this->GetLowerByte();
+		lidarValue_CM = this->GetLidarValue(lidarLowerByte, lidarUpperByte);
+		lidarValue_IN = this->ConvertCentimetersToInches(lidarValue_CM);
+		lidarValue_M = this->ConvertCentimetersToMeters(lidarValue_CM);
+		configuredLidar = false;
+		receivedUpperByte = false;
+	}
+
+	if (distanceUnit == DISTANCE_UNIT_ARRAY[CENTIMETERS]) {
+		returnLidarValue = ((double)lidarValue_CM);
+	}
+	else if (distanceUnit == DISTANCE_UNIT_ARRAY[INCHES]) {
+		returnLidarValue = lidarValue_IN;
+	}
+	else if (distanceUnit == DISTANCE_UNIT_ARRAY[METERS]) {
+		returnLidarValue = lidarValue_M;
+	}
+
+	return returnLidarValue;
 }
 
 double Lidars::ConvertCentimetersToInches(int valueInCM) {

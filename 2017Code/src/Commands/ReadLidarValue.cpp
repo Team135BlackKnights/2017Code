@@ -25,8 +25,8 @@ void ReadLidarValue::Execute() {
 		configuredLidar = false;
 	}
 
-	std::cout << "Lidar Value CM: " << lidarValue_CM << std::endl;
-	std::cout << "Lidar Value IN: " << lidarValue_IN << std::endl;
+	//std::cout << "Lidar Value CM: " << lidarValue_CM << std::endl;
+	//std::cout << "Lidar Value IN: " << lidarValue_IN << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()

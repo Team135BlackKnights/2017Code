@@ -102,12 +102,34 @@ bool ShooterHood::DriveShooterHoodMotorToDesiredAngle(double desiredAngle, doubl
 	return drivenToAngle;
 }
 
+double ShooterHood::GetDesiredAngleOfShooterHood(double xDistanceFromLidar_CM, bool closeShot, int shooterAngledPosition) {
+	if (shooterAngledPosition == SHOOTER_ANGLED_POSITION_ARRAY[FURTHEST_POINT_FROM_STRAIGHT_ON]) {
+		xDistanceFromLidar_M = (xDistanceFromLidar_CM/100.0);
+		totalXDistance_M = (xDistanceFromLidar_M + ADDED_X_DISTANCE_MAX_INSIDE_BOILER_M);
+	}
+	else if (shooterAngledPosition == SHOOTER_ANGLED_POSITION_ARRAY[STRAIGHT_ON]) {
+		xDistanceFromLidar_M = (xDistanceFromLidar_CM/100.0);
+		totalXDistance_M = (xDistanceFromLidar_M + ADDED_X_DISTANCE_MIN_INSIDE_BOILER_M);
+	}
+
+	if (closeShot) {
+		chosenVelocityOfShooter = SHOOTER_CLOSE_SHOT_M_PER_SEC;
+	}
+	else {
+		chosenVelocityOfShooter = SHOOTER_FAR_SHOT_M_PER_SEC;
+	}
+
+	//valueAngleForLoopHasToEqual = ((((-1) * ACCELERATION_OF_GRAVITY * totalXDistance_M)/((chosenVelocityOfShooter)^2)) - (Y_DISTANCE_M/totalXDistance_M));
+
+	return 0.0;
+}
+
 int ShooterHood::GetMaxAngleLimitSwitch() {
-	return shooterHoodMotor->IsRevLimitSwitchClosed();
+	return shooterHoodMotor->IsFwdLimitSwitchClosed();
 }
 
 int ShooterHood::GetMinAngleLimitSwitch() {
-	return shooterHoodMotor->IsFwdLimitSwitchClosed();
+	return shooterHoodMotor->IsRevLimitSwitchClosed();
 }
 
 // Put methods for controlling this subsystem

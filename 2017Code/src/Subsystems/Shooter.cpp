@@ -42,6 +42,7 @@ void Shooter::ConfigureShooterMotorEncoder() {
 	//shooterMotor->SetD(10.0);
 	//shooterMotor->SetF(FEEDFORWARD_TERM_CLOSE_SHOT);
 	//shooterMotor->SetIzone(2500.0);
+	//shooterMotor->SetAllowableClosedLoopErr(600.0);
 
 	this->SelectPIDProfileSlot(FAR_SHOT_PID_VALUES);
 	shooterMotor->ConfigPeakOutputVoltage(10.0, -6.0);
@@ -49,10 +50,9 @@ void Shooter::ConfigureShooterMotorEncoder() {
 	//shooterMotor->SetP(.4);
 	//shooterMotor->SetI(.0008);
 	//shooterMotor->SetD(10.0);
-	//shooterMotor->SetF(0.0);
+	shooterMotor->SetF(FEEDFORWARD_TERM_FAR_SHOT);
 	//shooterMotor->SetIzone(2500.0);
-
-	this->SelectPIDProfileSlot(CLOSE_SHOT_PID_VALUES);
+	//shooterMotor->SetAllowableClosedLoopErr(600.0);
 }
 
 void Shooter::ConfigureShooterVoltageMode() {
@@ -83,16 +83,6 @@ void Shooter::ZeroAccumulatedError() {
 
 void Shooter::SelectPIDProfileSlot(int profileSlot) {
 	shooterMotor->SelectProfileSlot(profileSlot);
-	if (profileSlot == FAR_SHOT_PID_VALUES) {
-		closeShotPIDProfileSlot = false;
-	}
-	else if (profileSlot == CLOSE_SHOT_PID_VALUES) {
-		closeShotPIDProfileSlot = true;
-	}
-}
-
-bool Shooter::GetPIDProfileSlot() {
-	return closeShotPIDProfileSlot;
 }
 
 // Put methods for controlling this subsystem

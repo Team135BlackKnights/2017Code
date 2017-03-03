@@ -82,7 +82,10 @@
 	enum AutonomousSelection {
 		MiddleGear,
 		RightGear,
-		LeftGear
+		LeftGear,
+		CloseShotShooterTurnLeft,
+		CloseShotShooterTurnRight,
+		BaseLine
 	};
 
 	enum BaseLinePath {
@@ -94,7 +97,7 @@
 
 	enum ShooterPIDSelection {
 		PID_CompetitionBot,
-		PID_PracticeBot,
+		PID_Ramp_Up,
 		Voltage
 	};
 
