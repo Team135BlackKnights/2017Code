@@ -11,8 +11,6 @@ private:
 
 	CANTalon* shooterHoodMotor;
 
-	double shooterHoodMotorPower = 0.0;
-
 	//  Shooter Hood Encoder Count To Be Determined
 	static const int SHOOTER_HOOD_ENCODER_COUNTS = 497;
 	static const int SHOOTER_HOOD_QUADRATURE_ENCODER_COUNTS = (SHOOTER_HOOD_ENCODER_COUNTS * 4);
@@ -20,7 +18,7 @@ private:
 	static const bool REVERSE_SHOOTER_HOOD_ENCODER_DIRECTION = false;
 
 	static const int MIN_ENCODER_VALUE = 0;
-	static const int MAX_ENCODER_VALUE = 80;
+	static const int MAX_ENCODER_VALUE = 15000;
 	static const int RANGE_OF_ENCODER_VALUES = (MAX_ENCODER_VALUE - MIN_ENCODER_VALUE);
 
 	static const int MIN_ANGLE_VALUE = 50;

@@ -1,5 +1,7 @@
 #include "ShooterHood.h"
 #include "../RobotMap.h"
+#include "Commands/ReadHoodEncoderValue.h"
+#include <iostream>
 
 ShooterHood::ShooterHood() : Subsystem("ShooterHood") {
 
@@ -8,6 +10,7 @@ ShooterHood::ShooterHood() : Subsystem("ShooterHood") {
 void ShooterHood::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new ReadHoodEncoderValue());
 }
 
 void ShooterHood::InitializeShooterHoodMotor(bool competitionBot) {
@@ -22,20 +25,16 @@ void ShooterHood::InitializeShooterHoodMotor(bool competitionBot) {
 }
 
 void ShooterHood::DriveShooterHoodMotor(double motorPower) {
-	/*if (this->GetMinAngleLimitSwitch() == 1) {
-		this->ZeroShooterHoodEncoder();
-		shooterHoodMotorPower = fmin(0.0, motorPower);
+	if (this->GetMinAngleLimitSwitch() == 1) {
+		this->SetShooterHoodEncoder(MAX_ENCODER_VALUE);
+		std::cout << "Min Angle Limit Switch Pressed" << std::endl;
 	}
 	else if (this->GetMaxAngleLimitSwitch() == 1) {
-		this->SetShooterHoodEncoder(MAX_ENCODER_VALUE);
-		shooterHoodMotorPower = fmax(0.0, motorPower);
+		this->ZeroShooterHoodEncoder();
+		std::cout << "Max Angle Limit Switch Pressed" << std::endl;
 	}
-	else {
-		shooterHoodMotorPower = motorPower;
-	} */
 
-	shooterHoodMotorPower = motorPower;
-	shooterHoodMotor->Set(shooterHoodMotorPower);
+	shooterHoodMotor->Set(motorPower);
 }
 
 void ShooterHood::ConfigureShooterHoodEncoder() {
