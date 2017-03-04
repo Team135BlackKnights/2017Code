@@ -35,24 +35,20 @@ void Shooter::ConfigureShooterMotorEncoder() {
 	shooterMotor->SetNominalClosedLoopVoltage(SHOOTER_MAX_VOLTAGE);
 
 	this->SelectPIDProfileSlot(CLOSE_SHOT_PID_VALUES);
-	shooterMotor->ConfigPeakOutputVoltage(10.0, -6.0);
+	shooterMotor->ConfigPeakOutputVoltage(9.0, -6.0);
 	shooterMotor->ConfigNominalOutputVoltage(0.0, -0.0);
-	//shooterMotor->SetP(.4);
-	//shooterMotor->SetI(.0008);
-	//shooterMotor->SetD(10.0);
-	//shooterMotor->SetF(FEEDFORWARD_TERM_CLOSE_SHOT);
-	//shooterMotor->SetIzone(2500.0);
-	shooterMotor->SetAllowableClosedLoopErr(600.0);
+	shooterMotor->SetP(1.0);
+	shooterMotor->SetI(0);
+	shooterMotor->SetD(9.5);
+	shooterMotor->SetF(.037);
 
 	this->SelectPIDProfileSlot(FAR_SHOT_PID_VALUES);
 	shooterMotor->ConfigPeakOutputVoltage(10.0, -6.0);
 	shooterMotor->ConfigNominalOutputVoltage(0.0, -0.0);
-	//shooterMotor->SetP(.4);
-	//shooterMotor->SetI(.0008);
-	//shooterMotor->SetD(10.0);
-	shooterMotor->SetF(FEEDFORWARD_TERM_FAR_SHOT);
-	//shooterMotor->SetIzone(2500.0);
-	//shooterMotor->SetAllowableClosedLoopErr(600.0);
+	shooterMotor->SetP(1.0);
+	shooterMotor->SetI(0.0);
+	shooterMotor->SetD(0.0);
+	shooterMotor->SetF(.0359);
 }
 
 void Shooter::ConfigureShooterVoltageMode() {
@@ -71,6 +67,10 @@ int Shooter::GetShooterWheelRPM() {
 
 int Shooter::GetShooterWheelNUPer100Ms() {
 	return shooterMotor->GetEncVel();
+}
+
+double Shooter::GetShooterVoltage() {
+	return shooterMotor->GetOutputVoltage();
 }
 
 double Shooter::GetShooterMotorOutputCurrent() {

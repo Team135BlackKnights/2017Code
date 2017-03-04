@@ -13,7 +13,7 @@ void AimBot::Initialize() {
 	std::cout << "running \n\n\n:";
 	double angleToTurn = -CommandBase::server->get_angle(cameraNumber);
 	std::cout << "angle: " << angleToTurn;
-	CommandBase::driveTrain->TurnPIDEnable(angleToTurn);
+	CommandBase::driveTrain->TurnPIDEnable(angleToTurn - 10);
 	time.Start();
 	time.Reset();
 	CommandBase::driveTrain->ZeroGyroAngle();

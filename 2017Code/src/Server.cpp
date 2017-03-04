@@ -76,7 +76,7 @@ void Server::Run()
 			inet_ntop(client_addr.ss_family, get_in_addr((struct sockaddr *) &client_addr),s ,sizeof s);
 		}
 		else{
-
+			std::cout << get_angle(0);
 
 		}
 

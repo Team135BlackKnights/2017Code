@@ -113,7 +113,7 @@ void OI::ConfigureButtonMapping() {
 	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_DECREASE_ANGLE_BUTTON]->WhileHeld(new DriveShooterHood(false));
 
 	//Just for now
-	joystickButton[LEFT_DRIVE_JOYSTICK][10]->WhenPressed(new AimBot(0));
+	joystickButton[LEFT_DRIVE_JOYSTICK][10]->WhenPressed(new AimBot(1));
 }
 
 bool OI::GetAction(int JoyException, int ButtonException)

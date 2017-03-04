@@ -28,6 +28,8 @@ private:
 	double shooterOutputCurrent = 0.0;
 
 	bool throttleUp = false;
+
+	double shooterVoltage = 0.0;
 public:
 	DriveShooter(ShooterPIDSelection);
 	void Initialize();
