@@ -75,12 +75,27 @@ private:
 	double valueAngleForLoopHasToEqual = 0.0;
 	double valueWithInputtedAngle = 0.0;
 	double radiansAngleValue = 0.0;
+	bool completeFirstForLoop = false;
 	bool firstAngleValueReceived = false;
 	double currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = 0.0;
 	double pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = 0.0;
-	double calculatedAngleFirstRound = 0.0;
+	double calculatedAngle = 0.0;
 	double maxPossibleAngleFirstRound = 0.0;
 	double minPossibleAngleFirstRound = 0.0;
+	int secondAngleCounter = 0;
+	bool incrementCounterWhenAngleIsClose = false;
+	bool startSecondForLoop = false;
+	bool secondLoopCompleted = false;
+	double desiredAngleValueFromSecondForLoop = 0.0;
+
+	//  Variables for TimeOfShotGreaterThanTimeOfMaxHeight()
+	double timeOfMaxHeight = 0.0;
+	double timeOfShot = 0.0;
+	double initialYVelocity = 0.0;
+	double initialXVelocity = 0.0;
+	double radiansDesiredAngleValue = 0.0;
+	double lidarValue_Meters = 0.0;
+	bool timeOfShotGreaterThanTimeOfMaxHeight = false;
 
 	//  Constant for ConvertDegreesToRadians()
 	static constexpr double DEGREES_TO_RADIANS_CONSTANT = (M_PI/180.0);
@@ -102,7 +117,9 @@ public:
 	double GetAngleOfShooterHoodGivenEncoderPosition(int);
 	int GetEncoderPositionOfShooterHoodGivenAngle(double);
 	bool DriveShooterHoodMotorToDesiredAngle(double, double);
+	void ResetDesiredAngleOfShooterHoodFunctionVariables();
 	double GetDesiredAngleOfShooterHood(double, bool, int);
+	bool TimeOfShotGreaterThanTimeOfMaxHeight(double, bool, double, int);
 
 	void CheckIfHoodHitsLimitSwitch();
 	int GetMaxAngleLimitSwitch();

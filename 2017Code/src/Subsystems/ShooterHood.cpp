@@ -11,7 +11,7 @@ ShooterHood::ShooterHood() : Subsystem("ShooterHood") {
 void ShooterHood::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new ReadHoodEncoderValue());
+	//SetDefaultCommand(new ReadHoodEncoderValue());
 }
 
 void ShooterHood::InitializeShooterHoodMotor(bool competitionBot) {
@@ -123,6 +123,21 @@ bool ShooterHood::DriveShooterHoodMotorToDesiredAngle(double desiredAngle, doubl
 	return drivenToAngle;
 }
 
+void ShooterHood::ResetDesiredAngleOfShooterHoodFunctionVariables() {
+	completeFirstForLoop = false;
+	incrementCounterWhenAngleIsClose = false;
+	firstAngleValueReceived = false;
+	secondAngleCounter = 0;
+	pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = 0.0;
+	currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = 0.0;
+	calculatedAngle = 0.0;
+	startSecondForLoop = false;
+	secondLoopCompleted = false;
+	maxPossibleAngleFirstRound = 0.0;
+	minPossibleAngleFirstRound = 0.0;
+	desiredAngleValueFromSecondForLoop = 0.0;
+}
+
 double ShooterHood::GetDesiredAngleOfShooterHood(double xDistanceFromLidar_CM, bool closeShot, int shooterAngledPosition) {
 	if (shooterAngledPosition == SHOOTER_ANGLED_POSITION_ARRAY[FURTHEST_POINT_FROM_STRAIGHT_ON]) {
 		xDistanceFromLidar_M = (xDistanceFromLidar_CM/100.0);
@@ -140,27 +155,112 @@ double ShooterHood::GetDesiredAngleOfShooterHood(double xDistanceFromLidar_CM, b
 		chosenVelocityOfShooter = SHOOTER_FAR_SHOT_M_PER_SEC;
 	}
 
-	valueAngleForLoopHasToEqual = ((((-1) * ACCELERATION_OF_GRAVITY * totalXDistance_M)/((chosenVelocityOfShooter)^2)) - (Y_DISTANCE_M/totalXDistance_M));
+	valueAngleForLoopHasToEqual = ((((-1.0) * ACCELERATION_OF_GRAVITY * totalXDistance_M)/(pow(chosenVelocityOfShooter, 2.0))) - (Y_DISTANCE_M/totalXDistance_M));
 
-	for (int i = 0; i <= 90; i++) {
-		radiansAngleValue = ConvertDegreesToRadians(((double)i));
-		valueWithInputtedAngle = (((Y_DISTANCE_M/totalXDistance_M) * cos((2.0 * radiansAngleValue))) - (sin((2.0 * radiansAngleValue))));
-		currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = (fabs(valueAngleForLoopHasToEqual - valueWithInputtedAngle));
-		if (firstAngleValueReceived == false) {
-			pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue;
-			calculatedAngleFirstRound = ((double)i);
-			firstAngleValueReceived = true;
-		}
-		else if (firstAngleValueReceived && currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue < pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue) {
-			pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue;
-			calculatedAngleFirstRound = ((double)i);
+
+	if (completeFirstForLoop == false) {
+		for (int i = 0; i <= 90; i++) {
+			radiansAngleValue = ConvertDegreesToRadians(((double)i));
+			valueWithInputtedAngle = (((Y_DISTANCE_M/totalXDistance_M) * cos((2.0 * radiansAngleValue))) - (sin((2.0 * radiansAngleValue))));
+			currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = (fabs(valueAngleForLoopHasToEqual - valueWithInputtedAngle));
+			if (currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue < .2) {
+				if (incrementCounterWhenAngleIsClose == false) {
+					secondAngleCounter++;
+					incrementCounterWhenAngleIsClose = true;
+				}
+
+				if (secondAngleCounter == 2) {
+					firstAngleValueReceived = false;
+					secondAngleCounter++;
+				}
+
+				if (firstAngleValueReceived == false) {
+					pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue;
+					calculatedAngle = ((double)i);
+					firstAngleValueReceived = true;
+				}
+				else if (firstAngleValueReceived && currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue < pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue) {
+					pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue;
+					calculatedAngle = ((double)i);
+				}
+			}
+			else {
+				incrementCounterWhenAngleIsClose = false;
+			}
+
+			if (i == 90) {
+				completeFirstForLoop = true;
+			}
 		}
 	}
+	else if (completeFirstForLoop && startSecondForLoop == false) {
+		maxPossibleAngleFirstRound = (calculatedAngle + 1.0);
+		minPossibleAngleFirstRound = (calculatedAngle - 1.0);
 
-	maxPossibleAngleFirstRound = (calculatedAngleFirstRound + 1.0);
-	minPossibleAngleFirstRound = (calculatedAngleFirstRound - 1.0);
+		currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = 0.0;
+		pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = 0.0;
+		calculatedAngle = 0.0;
+		firstAngleValueReceived = false;
+		startSecondForLoop = true;
+	}
+	else if (completeFirstForLoop && startSecondForLoop) {
+		for (double i = minPossibleAngleFirstRound; i <= maxPossibleAngleFirstRound; i = i + .1) {
+			radiansAngleValue = ConvertDegreesToRadians(((double)i));
+			valueWithInputtedAngle = (((Y_DISTANCE_M/totalXDistance_M) * cos((2.0 * radiansAngleValue))) - (sin((2.0 * radiansAngleValue))));
+			currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = (fabs(valueAngleForLoopHasToEqual - valueWithInputtedAngle));
+			if (firstAngleValueReceived == false) {
+				pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue;
+				calculatedAngle = ((double)i);
+				firstAngleValueReceived = true;
+			}
+			else if (firstAngleValueReceived && currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue < pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue) {
+				pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue;
+				calculatedAngle = ((double)i);
+			}
 
-	return 0.0;
+			if (i == maxPossibleAngleFirstRound) {
+				secondLoopCompleted = true;
+			}
+		}
+	}
+	else if (completeFirstForLoop && startSecondForLoop && secondLoopCompleted) {
+		desiredAngleValueFromSecondForLoop = calculatedAngle;
+	}
+
+	return desiredAngleValueFromSecondForLoop;
+}
+
+bool ShooterHood::TimeOfShotGreaterThanTimeOfMaxHeight(double desiredAngle, bool closeShot, double lidarValue_CM, int shooterAngledPosition) {
+	if (shooterAngledPosition == SHOOTER_ANGLED_POSITION_ARRAY[FURTHEST_POINT_FROM_STRAIGHT_ON]) {
+		lidarValue_Meters = (lidarValue_CM/100.0);
+		totalXDistance_M = (lidarValue_Meters + ADDED_X_DISTANCE_MAX_INSIDE_BOILER_M);
+	}
+	else if (shooterAngledPosition == SHOOTER_ANGLED_POSITION_ARRAY[STRAIGHT_ON]) {
+		lidarValue_Meters = (lidarValue_CM/100.0);
+		totalXDistance_M = (lidarValue_Meters + ADDED_X_DISTANCE_MIN_INSIDE_BOILER_M);
+	}
+
+	radiansDesiredAngleValue = this->ConvertDegreesToRadians(desiredAngle);
+	if (closeShot) {
+		initialYVelocity = (SHOOTER_CLOSE_SHOT_M_PER_SEC * (sin(radiansDesiredAngleValue)));
+		initialXVelocity = (SHOOTER_CLOSE_SHOT_M_PER_SEC * (cos(radiansDesiredAngleValue)));
+	}
+	else if (closeShot == false) {
+		initialYVelocity = (SHOOTER_FAR_SHOT_M_PER_SEC * (sin(radiansDesiredAngleValue)));
+		initialXVelocity = (SHOOTER_FAR_SHOT_M_PER_SEC * (cos(radiansDesiredAngleValue)));
+	}
+
+	timeOfMaxHeight = (initialYVelocity/ACCELERATION_OF_GRAVITY);
+	timeOfShot = (totalXDistance_M/initialXVelocity);
+
+	if (timeOfShot > timeOfMaxHeight) {
+		timeOfShotGreaterThanTimeOfMaxHeight = true;
+	}
+	else if (timeOfMaxHeight >= timeOfShot) {
+		timeOfShotGreaterThanTimeOfMaxHeight = false;
+	}
+
+	return timeOfShotGreaterThanTimeOfMaxHeight;
 }
 
 void ShooterHood::CheckIfHoodHitsLimitSwitch() {

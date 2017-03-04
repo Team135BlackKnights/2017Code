@@ -42,7 +42,7 @@ void Shooter::ConfigureShooterMotorEncoder() {
 	//shooterMotor->SetD(10.0);
 	//shooterMotor->SetF(FEEDFORWARD_TERM_CLOSE_SHOT);
 	//shooterMotor->SetIzone(2500.0);
-	//shooterMotor->SetAllowableClosedLoopErr(600.0);
+	shooterMotor->SetAllowableClosedLoopErr(600.0);
 
 	this->SelectPIDProfileSlot(FAR_SHOT_PID_VALUES);
 	shooterMotor->ConfigPeakOutputVoltage(10.0, -6.0);

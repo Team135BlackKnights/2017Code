@@ -6,8 +6,8 @@
 
 class Shooter : public Subsystem {
 public:
-	static constexpr double DESIRED_VOLTAGE_CLOSE_SHOT = 7.75;
-	static constexpr double DESIRED_VOLTAGE_FAR_SHOT = 8.9;
+	static constexpr double DESIRED_VOLTAGE_CLOSE_SHOT = 7.7;
+	static constexpr double DESIRED_VOLTAGE_FAR_SHOT = 9.125;
 
 	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2560.0;
 	static constexpr double SHOOTER_SETPOINT_RPM_FAR_SHOT = 3050.0;
