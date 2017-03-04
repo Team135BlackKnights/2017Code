@@ -14,6 +14,8 @@ void DriveShooterHood::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveShooterHood::Execute() {
+	CommandBase::shooterHood->CheckIfHoodHitsLimitSwitch();
+
 	if (this->driveUpwards) {
 		CommandBase::shooterHood->DriveShooterHoodMotor(SHOOTER_HOOD_MOTOR_POWER);
 	}

@@ -30,6 +30,7 @@ void DriveShooter::Execute() {
 		chosenSetpoint = Shooter::SHOOTER_SETPOINT_RPM_CLOSE_SHOT;
 		chosenVoltage = Shooter::DESIRED_VOLTAGE_CLOSE_SHOT;
 	}
+	chosenVoltage = desiredShooterVoltage;
 
 	shooterMotorRPM = CommandBase::shooter->GetShooterWheelRPM();
 	shooterOutputCurrent = CommandBase::shooter->GetShooterMotorOutputCurrent();
