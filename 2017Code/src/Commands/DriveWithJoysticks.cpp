@@ -14,6 +14,7 @@ void DriveWithJoysticks::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoysticks::Execute() {
+	if(CommandBase::driveTrain->is_aiming) return;
 	leftJoystickValue = oi->GetYAxis(OI::LEFT_DRIVE_JOYSTICK);
 	rightJoystickValue = oi->GetYAxis(OI::RIGHT_DRIVE_JOYSTICK);
 	CommandBase::driveTrain->DriveTank(leftJoystickValue, rightJoystickValue);

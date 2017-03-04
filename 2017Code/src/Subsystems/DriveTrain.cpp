@@ -10,7 +10,7 @@ DriveTrain::DriveTrain() : frc::PIDOutput(), Subsystem("DriveTrain") {
 void DriveTrain::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	//SetDefaultCommand(new DriveWithJoysticks());
+	SetDefaultCommand(new DriveWithJoysticks());
 }
 
 void DriveTrain::InitializeDriveTrainMotors(bool competitionBot) {

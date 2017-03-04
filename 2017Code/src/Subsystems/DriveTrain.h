@@ -66,6 +66,7 @@ public:
 	static const int LEFT_SIDE_ENCODER = FRONT_LEFT;
 	static const int RIGHT_SIDE_ENCODER = FRONT_RIGHT;
 
+	bool is_aiming = false;
 	double rotateToAngleRate = 0;
 	virtual void PIDWrite(double output) {
 	        this->rotateToAngleRate = output;
