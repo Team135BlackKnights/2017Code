@@ -2,6 +2,7 @@
 #include "../RobotMap.h"
 #include "Commands/ReadHoodEncoderValue.h"
 #include <iostream>
+#include <math.h>
 
 ShooterHood::ShooterHood() : Subsystem("ShooterHood") {
 
@@ -57,14 +58,23 @@ void ShooterHood::ZeroShooterHoodEncoder() {
 }
 
 double ShooterHood::GetAngleOfShooterHoodGivenEncoderPosition(int encoderPosition) {
-	angleAboveHood = (((double)encoderPosition) * ENCODER_POSITION_TO_ANGLE_OF_SHOOTER_HOOD);
-	actualAngle = (angleAboveHood + MIN_ANGLE_VALUE);
+	angleBelowMaxHoodAngle = (((double)encoderPosition) * ENCODER_POSITION_TO_ANGLE_OF_SHOOTER_HOOD);
+	actualAngle = (MAX_ANGLE_VALUE - angleBelowMaxHoodAngle);
 	return actualAngle;
+}
+
+int ShooterHood::GetEncoderPositionOfShooterHoodGivenAngle(double angle) {
+	calculatedAngleBelowMaxHoodAngle = (MAX_ANGLE_VALUE - angle);
+	doubleEncoderPosition = (calculatedAngleBelowMaxHoodAngle * ANGLE_TO_ENCODER_POSITION_OF_SHOOTER_HOOD);
+	intEncoderPosition = ((int)(rint(doubleEncoderPosition)));
+	return intEncoderPosition;
 }
 
 bool ShooterHood::DriveShooterHoodMotorToDesiredAngle(double desiredAngle, double motorPower) {
 	currentEncoderPosition = this->GetShooterHoodEncoderPosition();
 	currentAngle = this->GetAngleOfShooterHoodGivenEncoderPosition(currentEncoderPosition);
+	desiredEncoderPosition = this->GetEncoderPositionOfShooterHoodGivenAngle(desiredAngle);
+	differenceBetweenCurrentAndDesiredEncoderPositions = (abs(currentEncoderPosition - desiredEncoderPosition));
 
 	if (initializeDirectionOfHoodToMove == false) {
 		if (desiredAngle >= currentAngle) {
@@ -84,7 +94,13 @@ bool ShooterHood::DriveShooterHoodMotorToDesiredAngle(double desiredAngle, doubl
 				drivenToAngle = true;
 			}
 			else {
-				this->DriveShooterHoodMotor(motorPower);
+				if (differenceBetweenCurrentAndDesiredEncoderPositions > THRESHOLD_ENCODER_RANGE_TO_START_SLOWING_MOTOR_POWER) {
+					desiredMotorPowerToRunAt = motorPower;
+				}
+				else if (differenceBetweenCurrentAndDesiredEncoderPositions <= THRESHOLD_ENCODER_RANGE_TO_START_SLOWING_MOTOR_POWER) {
+					desiredMotorPowerToRunAt = APPROACHING_DESIRED_ENCODER_POSITION_MOTOR_POWER;
+				}
+				this->DriveShooterHoodMotor(desiredMotorPowerToRunAt);
 			}
 		}
 		else if (driveHoodToIncreaseAngle == false) {
@@ -94,7 +110,13 @@ bool ShooterHood::DriveShooterHoodMotorToDesiredAngle(double desiredAngle, doubl
 				drivenToAngle = true;
 			}
 			else {
-				this->DriveShooterHoodMotor(-motorPower);
+				if (differenceBetweenCurrentAndDesiredEncoderPositions > THRESHOLD_ENCODER_RANGE_TO_START_SLOWING_MOTOR_POWER) {
+					desiredMotorPowerToRunAt = ((-1) * motorPower);
+				}
+				else if (differenceBetweenCurrentAndDesiredEncoderPositions <= THRESHOLD_ENCODER_RANGE_TO_START_SLOWING_MOTOR_POWER) {
+					desiredMotorPowerToRunAt = ((-1) * APPROACHING_DESIRED_ENCODER_POSITION_MOTOR_POWER);
+				}
+				this->DriveShooterHoodMotor(-desiredMotorPowerToRunAt);
 			}
 		}
 	}
@@ -114,13 +136,40 @@ double ShooterHood::GetDesiredAngleOfShooterHood(double xDistanceFromLidar_CM, b
 	if (closeShot) {
 		chosenVelocityOfShooter = SHOOTER_CLOSE_SHOT_M_PER_SEC;
 	}
-	else {
+	else if (closeShot == false) {
 		chosenVelocityOfShooter = SHOOTER_FAR_SHOT_M_PER_SEC;
 	}
 
-	//valueAngleForLoopHasToEqual = ((((-1) * ACCELERATION_OF_GRAVITY * totalXDistance_M)/((chosenVelocityOfShooter)^2)) - (Y_DISTANCE_M/totalXDistance_M));
+	valueAngleForLoopHasToEqual = ((((-1) * ACCELERATION_OF_GRAVITY * totalXDistance_M)/((chosenVelocityOfShooter)^2)) - (Y_DISTANCE_M/totalXDistance_M));
+
+	for (int i = 0; i <= 90; i++) {
+		radiansAngleValue = ConvertDegreesToRadians(((double)i));
+		valueWithInputtedAngle = (((Y_DISTANCE_M/totalXDistance_M) * cos((2.0 * radiansAngleValue))) - (sin((2.0 * radiansAngleValue))));
+		currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = (fabs(valueAngleForLoopHasToEqual - valueWithInputtedAngle));
+		if (firstAngleValueReceived == false) {
+			pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue;
+			calculatedAngleFirstRound = ((double)i);
+			firstAngleValueReceived = true;
+		}
+		else if (firstAngleValueReceived && currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue < pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue) {
+			pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue;
+			calculatedAngleFirstRound = ((double)i);
+		}
+	}
+
+	maxPossibleAngleFirstRound = (calculatedAngleFirstRound + 1.0);
+	minPossibleAngleFirstRound = (calculatedAngleFirstRound - 1.0);
 
 	return 0.0;
+}
+
+void ShooterHood::CheckIfHoodHitsLimitSwitch() {
+	if (this->GetMaxAngleLimitSwitch() == 1) {
+		this->ZeroShooterHoodEncoder();
+	}
+	else if (this->GetMinAngleLimitSwitch() == 1) {
+		this->SetShooterHoodEncoder(MAX_ENCODER_VALUE);
+	}
 }
 
 int ShooterHood::GetMaxAngleLimitSwitch() {
@@ -129,6 +178,10 @@ int ShooterHood::GetMaxAngleLimitSwitch() {
 
 int ShooterHood::GetMinAngleLimitSwitch() {
 	return shooterHoodMotor->IsRevLimitSwitchClosed();
+}
+
+double ShooterHood::ConvertDegreesToRadians(double degrees) {
+	return (degrees * DEGREES_TO_RADIANS_CONSTANT);
 }
 
 // Put methods for controlling this subsystem

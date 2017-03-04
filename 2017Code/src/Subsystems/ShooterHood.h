@@ -3,6 +3,7 @@
 
 #include <Commands/Subsystem.h>
 #include <CANTalon.h>
+#include <math.h>
 
 class ShooterHood : public Subsystem {
 private:
@@ -21,17 +22,30 @@ private:
 	static const int MAX_ENCODER_VALUE = 15000;
 	static const int RANGE_OF_ENCODER_VALUES = (MAX_ENCODER_VALUE - MIN_ENCODER_VALUE);
 
-	static const int MIN_ANGLE_VALUE = 50;
-	static const int MAX_ANGLE_VALUE = 75;
+	static constexpr double MIN_ANGLE_VALUE = 50;
+	static constexpr double MAX_ANGLE_VALUE = 75;
 	static const int RANGE_OF_ANGLE_VALUES = (MAX_ANGLE_VALUE - MIN_ANGLE_VALUE);
 
 	static constexpr double ENCODER_POSITION_TO_ANGLE_OF_SHOOTER_HOOD = (((double)RANGE_OF_ANGLE_VALUES)/((double)RANGE_OF_ENCODER_VALUES));
+	static constexpr double ANGLE_TO_ENCODER_POSITION_OF_SHOOTER_HOOD = (((double)RANGE_OF_ENCODER_VALUES)/((double)RANGE_OF_ANGLE_VALUES));
 
-	double angleAboveHood = 0.0;
+	//  Variables for GetAngleOfShooterHoodGivenEncoderPosition()
+	double angleBelowMaxHoodAngle = 0.0;
 	double actualAngle = 0.0;
 
-	double currentEncoderPosition = 0.0;
+	//  Variables for GetEncoderPositionOfShooterHoodGivenAngle()
+	double calculatedAngleBelowMaxHoodAngle = 0.0;
+	double doubleEncoderPosition = 0.0;
+	int intEncoderPosition = 0;
+
+	//  Variables for DriveShooterHoodMotorToDesiredAngle()
+	int currentEncoderPosition = 0.0;
 	double currentAngle = 0.0;
+	int desiredEncoderPosition = 0.0;
+	int differenceBetweenCurrentAndDesiredEncoderPositions = 0;
+	static const int THRESHOLD_ENCODER_RANGE_TO_START_SLOWING_MOTOR_POWER = 1500;
+	static constexpr double APPROACHING_DESIRED_ENCODER_POSITION_MOTOR_POWER = .5;
+	double desiredMotorPowerToRunAt = 0.0;
 
 	bool initializeDirectionOfHoodToMove = false;
 	bool driveHoodToIncreaseAngle = false;
@@ -55,10 +69,22 @@ private:
 	static constexpr double SHOOTER_HEIGHT_OFF_GROUND_M = (SHOOTER_HEIGHT_OFF_GROUND_CM/100.0);
 	static constexpr double Y_DISTANCE_M = (BOILER_HEIGHT_M - SHOOTER_HEIGHT_OFF_GROUND_M);
 
-	double valueAngleForLoopHasToEqual = 0.0;
 	double xDistanceFromLidar_M = 0.0;
 	double totalXDistance_M = 0.0;
 	double chosenVelocityOfShooter = 0.0;
+	double valueAngleForLoopHasToEqual = 0.0;
+	double valueWithInputtedAngle = 0.0;
+	double radiansAngleValue = 0.0;
+	bool firstAngleValueReceived = false;
+	double currentDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = 0.0;
+	double pastDifferenceBetweenCalculatedAngleValueAndDesiredAngleValue = 0.0;
+	double calculatedAngleFirstRound = 0.0;
+	double maxPossibleAngleFirstRound = 0.0;
+	double minPossibleAngleFirstRound = 0.0;
+
+	//  Constant for ConvertDegreesToRadians()
+	static constexpr double DEGREES_TO_RADIANS_CONSTANT = (M_PI/180.0);
+
 public:
 	ShooterHood();
 	void InitDefaultCommand();
@@ -68,15 +94,21 @@ public:
 	void DriveShooterHoodMotor(double);
 
 	void ConfigureShooterHoodEncoder();
+
 	int GetShooterHoodEncoderPosition();
 	void SetShooterHoodEncoder(int);
 	void ZeroShooterHoodEncoder();
+
 	double GetAngleOfShooterHoodGivenEncoderPosition(int);
+	int GetEncoderPositionOfShooterHoodGivenAngle(double);
 	bool DriveShooterHoodMotorToDesiredAngle(double, double);
 	double GetDesiredAngleOfShooterHood(double, bool, int);
 
+	void CheckIfHoodHitsLimitSwitch();
 	int GetMaxAngleLimitSwitch();
 	int GetMinAngleLimitSwitch();
+
+	double ConvertDegreesToRadians(double);
 
 	static const int NUM_OF_SHOOTER_ANGLED_POSITIONS = 2;
 	static const int STRAIGHT_ON = 0;

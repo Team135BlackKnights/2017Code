@@ -8,25 +8,18 @@ ReadLidarValue::ReadLidarValue() {
 
 // Called just before this Command runs the first time
 void ReadLidarValue::Initialize() {
-	configuredLidar = false;
+	CommandBase::lidars->ResetLidarWholeProcessVariables();
+	resetLidarVariables = true;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ReadLidarValue::Execute() {
-	if (configuredLidar == false) {
-		CommandBase::lidars->ConfigureLidar();
-		configuredLidar = true;
+	if (resetLidarVariables == false) {
+		CommandBase::lidars->ResetLidarWholeProcessVariables();
+		resetLidarVariables = true;
 	}
-	else if (configuredLidar) {
-		lidarUpperByte = CommandBase::lidars->GetUpperByte();
-		lidarLowerByte = CommandBase::lidars->GetLowerByte();
-		lidarValue_CM = CommandBase::lidars->GetLidarValue(lidarLowerByte, lidarUpperByte);
-		lidarValue_IN = CommandBase::lidars->ConvertCentimetersToInches(lidarValue_CM);
-		configuredLidar = false;
-	}
-
-	//std::cout << "Lidar Value CM: " << lidarValue_CM << std::endl;
-	//std::cout << "Lidar Value IN: " << lidarValue_IN << std::endl;
+	lidarValue_IN = CommandBase::lidars->GetLidarValueWholeProcess(Lidars::DISTANCE_UNIT_ARRAY[Lidars::INCHES]);
+	std::cout << "Lidar Value Inches: " << lidarValue_IN << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -36,7 +29,7 @@ bool ReadLidarValue::IsFinished() {
 
 // Called once after isFinished returns true
 void ReadLidarValue::End() {
-	configuredLidar = false;
+	resetLidarVariables = false;
 }
 
 // Called when another command which requires one or more of the same

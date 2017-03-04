@@ -9,7 +9,7 @@ Lidars::Lidars() : Subsystem("Lidar") {
 void Lidars::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new ReadLidarValue());
+	//SetDefaultCommand(new ReadLidarValue());
 }
 
 void Lidars::InitializeLidars() {

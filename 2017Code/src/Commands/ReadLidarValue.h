@@ -6,12 +6,7 @@
 
 class ReadLidarValue : public CommandBase {
 private:
-	bool openLidarChannel = false;
-	bool configuredLidar = false;
-
-	int lidarUpperByte = 0;
-	int lidarLowerByte = 0;
-	int lidarValue_CM = 0;
+	bool resetLidarVariables = false;
 	double lidarValue_IN = 0;
 public:
 	ReadLidarValue();
