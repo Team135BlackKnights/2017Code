@@ -107,7 +107,6 @@ void DriveTrain::ZeroGyroAngle() {
 	gyro->Reset();
 }
 
-
 void DriveTrain::TurnPIDEnable(double angleToTurn)
 {
 	ZeroGyroAngle();

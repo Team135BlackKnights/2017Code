@@ -9,7 +9,9 @@ private:
 	double motorPower;
 	bool turnRight;
 
-	double currentNavXAngle = 0.0;
+	bool zeroedGyro = false;
+
+	double currenGyroAngle = 0.0;
 
 	bool turnAngleComplete = false;
 public:

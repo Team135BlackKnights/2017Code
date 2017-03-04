@@ -35,10 +35,10 @@ void* YeevidiaTasker::YeevidiaStarterTask(void* ntask)
 		{
 			std::cout<<"enabled" << std::endl;
 			task->Run();
-			Wait(.05);
+			frc::Wait(.05);
 		}
 		else
-			Wait(.05);
+			frc::Wait(.05);
 	}
 	std::cout << "dead";
 	task->isDead_ = true;
@@ -63,6 +63,6 @@ void YeevidiaTasker::Terminate()
 
 	while(!isDead_)
 	{
-		Wait(.02);
+		frc::Wait(.02);
 	}
 }
