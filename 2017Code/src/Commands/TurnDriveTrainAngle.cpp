@@ -11,13 +11,13 @@ TurnDriveTrainAngle::TurnDriveTrainAngle(double desiredAngleToTurn, double motor
 
 // Called just before this Command runs the first time
 void TurnDriveTrainAngle::Initialize() {
-	CommandBase::driveTrain->ZeroNavXAngle();
+	CommandBase::driveTrain->GetGyroAngle();
 	turnAngleComplete = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void TurnDriveTrainAngle::Execute() {
-	currentNavXAngle = fabs(CommandBase::driveTrain->GetNavXAngle());
+	currentNavXAngle = fabs(CommandBase::driveTrain->GetGyroAngle());
 
 	if (currentNavXAngle >= this->desiredAngleToTurn) {
 		CommandBase::driveTrain->RotateTank(0.0, this->turnRight);

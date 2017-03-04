@@ -29,6 +29,7 @@ public:
 		CommandBase::collection->InitializeCollectionMotor(COMPETITION_BOT);
 		CommandBase::driveTrain->InitializeDriveTrainMotors(COMPETITION_BOT);
 		CommandBase::driveTrain->ConfigureDriveTrainEncoders(COMPETITION_BOT);
+		CommandBase::driveTrain->InitializeDriveTrainPID();
 		CommandBase::gearHolder->InitializeGearHolderMotor(COMPETITION_BOT);
 		CommandBase::lidars->InitializeLidars();
 		CommandBase::liftHang->InitializeLiftHang(COMPETITION_BOT);

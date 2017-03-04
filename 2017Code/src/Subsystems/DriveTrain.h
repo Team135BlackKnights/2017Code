@@ -5,9 +5,11 @@
 #include <CANTalon.h>
 #include <RobotDrive.h>
 #include <math.h>
-#include <AHRS.h>
+#include <PIDController.h>
+#include <Preferences.h>
+#include <ADXRS450_Gyro.h>
 
-class DriveTrain : public Subsystem {
+class DriveTrain : public frc::PIDOutput, public frc::Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
@@ -39,10 +41,17 @@ private:
 	static constexpr double DIAMETER_OF_WHEEL_IN = 4.1;
 	static constexpr double CIRCUMFERENCE_OF_WHEEL = (DIAMETER_OF_WHEEL_IN * M_PI);
 
+	ADXRS450_Gyro* gyro;
+
 	int encoderValue = 0;
 	double distanceTraveled = 0.0;
 
-	//AHRS* navX;
+	double kToleranceDegrees = .5f;
+	double kP = .09f;
+	double kI = 0;
+	double kD = .2f;
+
+	double kF = 0.0f;
 
 public:
 	DriveTrain();
@@ -57,12 +66,25 @@ public:
 	int GetEncoderPosition(int);
 	double GetDistance(int);
 
-	double GetNavXAngle();
-	void ZeroNavXAngle();
-
 	//  For Competition Bot
 	static const int LEFT_SIDE_ENCODER = REAR_LEFT;
 	static const int RIGHT_SIDE_ENCODER = REAR_RIGHT;
+
+	void InitializeDriveTrainPID();
+	double GetGyroAngle();
+	void ZeroGyroAngle();
+	void TurnPIDEnable(double angleToTurn);
+	void PIDTurning();
+	void TurnPIDDisable();
+	static const int LEFT_SIDE_ENCODER = FRONT_LEFT;
+	static const int RIGHT_SIDE_ENCODER = FRONT_RIGHT;
+
+	bool is_aiming = false;
+	double rotateToAngleRate = 0;
+	virtual void PIDWrite(double output) {
+	        this->rotateToAngleRate = output;
+	    }
+	PIDController* turnController;
 };
 
 #endif  // DriveTrain_H

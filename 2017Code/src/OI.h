@@ -22,8 +22,8 @@ private:
 	static const int COLLECTION_FORWARD_BUTTON = 10;
 	static const int COLLECTION_BACKWARDS_BUTTON = 12;
 
-	static const int SHOOTER_HOOD_INCREASE_ANGLE_BUTTON = 3;
-	static const int SHOOTER_HOOD_DECREASE_ANGLE_BUTTON = 5;
+	static const int SHOOTER_HOOD_INCREASE_ANGLE_BUTTON = 5;
+	static const int SHOOTER_HOOD_DECREASE_ANGLE_BUTTON = 3;
 
 	static const int POV_NUMBER = 0;
 
@@ -45,6 +45,8 @@ public:
 	bool POVDirectionPressed(int, int);
 
 	void ConfigureButtonMapping();
+
+	bool GetAction(int joyException, int ButtonException);
 
 	static const int LEFT_DRIVE_JOYSTICK = 0;
 	static const int RIGHT_DRIVE_JOYSTICK = 1;

@@ -2,9 +2,10 @@
 #include "../RobotMap.h"
 #include "Commands/DriveWithJoysticks.h"
 
-DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
-
+DriveTrain::DriveTrain() : frc::PIDOutput(), Subsystem("DriveTrain") {
 }
+
+
 
 void DriveTrain::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
@@ -27,7 +28,6 @@ void DriveTrain::InitializeDriveTrainMotors(bool competitionBot) {
 	}
 	chassis = new frc::RobotDrive(driveTrainMotors[FRONT_LEFT], driveTrainMotors[REAR_LEFT], driveTrainMotors[FRONT_RIGHT], driveTrainMotors[REAR_RIGHT]);
 	chassis->SetSafetyEnabled(false);
-	//navX = new AHRS(frc::SerialPort::Port::kUSB);
 }
 
 void DriveTrain::DriveTank(double leftMotorPower, double rightMotorPower) {
@@ -86,14 +86,46 @@ double DriveTrain::GetDistance(int motorEncoderPort) {
 	return distanceTraveled;
 }
 
-double DriveTrain::GetNavXAngle() {
-	//return navX->GetAngle();
-	return 0.0;
+void DriveTrain::InitializeDriveTrainPID() {
+	gyro = new ADXRS450_Gyro(); //maybe?
+	gyro->Calibrate();
+	//for testingturnController = new frc::PIDController(Preferences::GetInstance()->GetDouble("kP",0.0625), Preferences::GetInstance()->GetDouble("kI",0.0),Preferences::GetInstance()->GetDouble("kD",0.0) , kF, gyro, this);
+	turnController = new frc::PIDController(kP,kI,kD,kF, gyro, this);
+
+	turnController->SetInputRange(-90.0f,  90.0f);
+	turnController->SetOutputRange(-1.0, 1.0);
+	turnController->SetAbsoluteTolerance(kToleranceDegrees);
+	turnController->SetContinuous(true);
+	turnController->Disable();
 }
 
-void DriveTrain::ZeroNavXAngle() {
-	//navX->ZeroYaw();
+double DriveTrain::GetGyroAngle() {
+	return gyro->GetAngle();
 }
 
+void DriveTrain::ZeroGyroAngle() {
+	gyro->Reset();
+}
+
+
+void DriveTrain::TurnPIDEnable(double angleToTurn)
+{
+	ZeroGyroAngle();
+	std::cout <<"navx angle: " << gyro->GetAngle() << "\n";
+	turnController->SetSetpoint(angleToTurn);
+	turnController->Enable();
+}
+
+void DriveTrain::TurnPIDDisable()
+{
+	turnController->Disable();
+}
+
+void DriveTrain::PIDTurning()
+{
+	std::cout << "navx angle: " << gyro->GetAngle();
+	std::cout << "rot rate: " << rotateToAngleRate << "\n";
+	this->RotateTank(rotateToAngleRate, 1);
+}
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

@@ -13,6 +13,7 @@
 #include "Subsystems/GearHolder.h"
 #include "Subsystems/Lidars.h"
 #include "Subsystems/LiftHang.h"
+#include "Server.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/ShooterHood.h"
 #include "Subsystems/UltrasonicSensor.h"
@@ -39,6 +40,7 @@ public:
 	static std::unique_ptr<Shooter> shooter;
 	static std::unique_ptr<ShooterHood> shooterHood;
 	static std::unique_ptr<UltrasonicSensor> ultrasonicSensor;
+	static std::unique_ptr<Server> server;
 };
 
 #endif  // COMMAND_BASE_H
