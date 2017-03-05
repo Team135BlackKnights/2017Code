@@ -41,7 +41,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 		AddSequential(new WaitTime(1.0));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .3));
 		//  Go To Baseline
-		if (baseLinePath == BaseLinePath::MiddleGearLeft) {
+		if (baseLinePath == BaseLinePath::MiddleGearRight) {
 			AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_MIDDLE_GEAR_TO_PURSUE_BASELINE, .5));
 			AddSequential(new WaitTime(.25));
 			AddSequential(new TurnDriveTrainAngle(RIGHT_ANGLE_DEGREES, .5, TURN_LEFT));
@@ -52,7 +52,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 			AddSequential(new WaitTime(.25));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_FOR_ROBOT_TO_CROSS_BASELINE, .5));
 		}
-		else if (baseLinePath == BaseLinePath::MiddleGearRight) {
+		else if (baseLinePath == BaseLinePath::MiddleGearLeft) {
 			AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_MIDDLE_GEAR_TO_PURSUE_BASELINE, .5));
 			AddSequential(new WaitTime(.25));
 			AddSequential(new TurnDriveTrainAngle(RIGHT_ANGLE_DEGREES, .5, TURN_RIGHT));

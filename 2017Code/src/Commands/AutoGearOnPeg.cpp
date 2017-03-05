@@ -21,10 +21,10 @@ void AutoGearOnPeg::Execute() {
 	std::cout << "Ultrasonic Sensor Value: " << ultrasonicValue << std::endl;
 
 	if (startMovingTowardsGear) {
-		if (ultrasonicValue > DISTANCE_AWAY_FROM_PEG_TO_DROP_GEAR_IN) {
+		if (ultrasonicValue > DISTANCE_AWAY_FROM_AIRSHIP_TO_DROP_GEAR_IN) {
 			CommandBase::driveTrain->DriveTank(-DRIVE_TRAIN_MOTOR_POWER, -DRIVE_TRAIN_MOTOR_POWER);
 		}
-		else if (ultrasonicValue <= DISTANCE_AWAY_FROM_PEG_TO_DROP_GEAR_IN) {
+		else if (ultrasonicValue <= DISTANCE_AWAY_FROM_AIRSHIP_TO_DROP_GEAR_IN) {
 			CommandBase::driveTrain->DriveTank(0.0, 0.0);
 			startMovingTowardsGear = false;
 			startPuttingGearOnPeg = true;
