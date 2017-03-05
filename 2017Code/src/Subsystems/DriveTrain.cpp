@@ -86,6 +86,10 @@ double DriveTrain::GetDistance(int motorEncoderPort) {
 	return distanceTraveled;
 }
 
+int DriveTrain::GetEncoderRPM(int motorEncoderPort) {
+	return driveTrainMotors[motorEncoderPort]->GetSpeed();
+}
+
 void DriveTrain::InitializeDriveTrainPID() {
 	gyro = new ADXRS450_Gyro(); //maybe?
 	gyro->Calibrate();

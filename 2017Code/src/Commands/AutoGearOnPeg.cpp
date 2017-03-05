@@ -13,16 +13,69 @@ void AutoGearOnPeg::Initialize() {
 	startMovingTowardsGear = true;
 	startPuttingGearOnPeg = false;
 	gearOnPeg = false;
+	timer = new frc::Timer();
+	timer->Reset();
+	timer->Start();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoGearOnPeg::Execute() {
 	ultrasonicValue = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches();
-	std::cout << "Ultrasonic Sensor Value: " << ultrasonicValue << std::endl;
+	//frc::SmartDashboard::PutNumber("Ultrasonic Sensor Value", ultrasonicValue);
+	timerValue = timer->Get();
 
 	if (startMovingTowardsGear) {
 		if (ultrasonicValue > DISTANCE_AWAY_FROM_AIRSHIP_TO_DROP_GEAR_IN) {
-			CommandBase::driveTrain->DriveTank(-DRIVE_TRAIN_MOTOR_POWER, -DRIVE_TRAIN_MOTOR_POWER);
+			rightDriveTrainEncoderRPM = (fabs(CommandBase::driveTrain->GetEncoderRPM(DriveTrain::RIGHT_SIDE_ENCODER)));
+			if ((rightDriveTrainEncoderRPM < DRIVE_TRAIN_ENCODER_RPM_THRESHOLD && startMovingRobot == false) || retryGearLineUp) {
+				if (retryGearLineUp == false) {
+					initialRightEncoderDistance = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
+					desiredRightEncoderDistance = (initialRightEncoderDistance + DISTANCE_TO_MOVE_AWAY_FROM_GEAR);
+					CommandBase::driveTrain->DriveTank(DRIVE_TRAIN_MOTOR_POWER, DRIVE_TRAIN_MOTOR_POWER);
+					retryGearLineUp = true;
+				}
+				else if (retryGearLineUp) {
+					currentRightEncoderDistance = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
+					if (currentRightEncoderDistance >= desiredRightEncoderDistance) {
+						CommandBase::driveTrain->DriveTank(0.0, 0.0);
+						moveGearHolderDown = true;
+						retryGearLineUp = false;
+						startMovingRobot = true;
+					}
+					else {
+						CommandBase::driveTrain->DriveTank(DRIVE_TRAIN_MOTOR_POWER, DRIVE_TRAIN_MOTOR_POWER);
+					}
+				}
+			}
+			else {
+				if (moveGearHolderDown) {
+					if (stopGearHolderDown == false) {
+						timer->Reset();
+						timer->Start();
+						CommandBase::gearHolder->DriveGearHolderMotor(-GEAR_HOLDER_MOTOR_POWER);
+						stopGearHolderDown = true;
+					}
+					else if (stopGearHolderDown && timerValue < TIME_TO_LOWER_GEAR_HOLDER) {
+						CommandBase::gearHolder->DriveGearHolderMotor(-GEAR_HOLDER_MOTOR_POWER);
+					}
+					else if (stopGearHolderDown && timerValue >= TIME_TO_LOWER_GEAR_HOLDER) {
+						CommandBase::gearHolder->DriveGearHolderMotor(0.0);
+						timer->Reset();
+						timer->Stop();
+						stopGearHolderDown = false;
+						moveGearHolderDown = false;
+					}
+				}
+				else {
+					if (rightDriveTrainEncoderRPM >= DRIVE_TRAIN_ENCODER_RPM_THRESHOLD) {
+						startMovingRobot = false;
+					}
+					else {
+						startMovingRobot = true;
+					}
+					CommandBase::driveTrain->DriveTank(-DRIVE_TRAIN_MOTOR_POWER, -DRIVE_TRAIN_MOTOR_POWER);
+				}
+			}
 		}
 		else if (ultrasonicValue <= DISTANCE_AWAY_FROM_AIRSHIP_TO_DROP_GEAR_IN) {
 			CommandBase::driveTrain->DriveTank(0.0, 0.0);
@@ -34,7 +87,7 @@ void AutoGearOnPeg::Execute() {
 	if (startPuttingGearOnPeg) {
 		lowerLimitSwitchValue = CommandBase::gearHolder->GetLimitSwitchValue(GearHolder::LOWER_LIMIT_SWITCH_PORT);
 		if (lowerLimitSwitchValue) {
-			CommandBase::gearHolder->DriveGearHolderMotor(0);
+			CommandBase::gearHolder->DriveGearHolderMotor(0.0);
 			startPuttingGearOnPeg = false;
 			gearOnPeg = true;
 		}

@@ -33,6 +33,8 @@ void GearHolder::DriveGearHolderMotor(double motorPower) {
 	upperLimitSwitchValue = this->GetLimitSwitchValue(UPPER_LIMIT_SWITCH_PORT);
 	lowerLimitSwitchValue = this->GetLimitSwitchValue(LOWER_LIMIT_SWITCH_PORT);
 
+	//std::cout << "Lower Limit Switch: " << lowerLimitSwitchValue << std::endl;
+
 	if (upperLimitSwitchValue) {
 		gearHolderMotorPower = fmin(0.0, motorPower);
 	}

@@ -24,7 +24,7 @@ public:
 		autonomousChooser.AddObject("Left Gear with No BaseLine", new AutonomousCommand(AutonomousSelection::LeftGear, BaseLinePath::NoBaseLine));
 		autonomousChooser.AddObject("Left Gear with BaseLine", new AutonomousCommand(AutonomousSelection::LeftGear, BaseLinePath::SideGear));
 		autonomousChooser.AddObject("Only BaseLine", new AutonomousCommand(AutonomousSelection::BaseLine, BaseLinePath::NoBaseLine));
-		frc::SmartDashboard::PutData("Autonomous Modes", &autonomousChooser);
+		frc::SmartDashboard::PutData("Autonomouss Modes", &autonomousChooser);
 
 		CommandBase::agitator->InitializeAgitatorMotor(COMPETITION_BOT);
 		CommandBase::collection->InitializeCollectionMotor(COMPETITION_BOT);

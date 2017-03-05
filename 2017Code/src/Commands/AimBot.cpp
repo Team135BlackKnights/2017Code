@@ -29,7 +29,7 @@ void AimBot::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AimBot::IsFinished() {
-	return time.Get() > 3 || CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10);
+	return time.Get() > 1 || !CommandBase::driveTrain->turnController->IsEnabled() || CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10);
 }
 
 // Called once after isFinished returns true

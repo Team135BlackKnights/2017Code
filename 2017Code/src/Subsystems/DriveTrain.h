@@ -66,6 +66,8 @@ public:
 	int GetEncoderPosition(int);
 	double GetDistance(int);
 
+	int GetEncoderRPM(int);
+
 	//  For Competition Bot
 	static const int LEFT_SIDE_ENCODER = REAR_LEFT;
 	static const int RIGHT_SIDE_ENCODER = REAR_RIGHT;
