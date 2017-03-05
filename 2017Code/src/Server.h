@@ -30,6 +30,7 @@ public:
 	bool Go();
 private:
 	void * get_in_addr(struct sockaddr * sa);
+	void init();
 	int status;
 	struct addrinfo hints, * res;
 	int listner;
