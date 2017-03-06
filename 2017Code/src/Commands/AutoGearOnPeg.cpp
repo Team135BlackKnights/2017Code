@@ -6,6 +6,8 @@ AutoGearOnPeg::AutoGearOnPeg() {
 	Requires(CommandBase::driveTrain.get());
 	Requires(CommandBase::ultrasonicSensor.get());
 	Requires(CommandBase::gearHolder.get());
+
+	timer = new frc::Timer();
 }
 
 // Called just before this Command runs the first time
@@ -13,9 +15,15 @@ void AutoGearOnPeg::Initialize() {
 	startMovingTowardsGear = true;
 	startPuttingGearOnPeg = false;
 	gearOnPeg = false;
-	timer = new frc::Timer();
 	timer->Reset();
 	timer->Start();
+
+	startMovingRobot = true;
+	retryGearLineUp = false;
+	moveGearHolderDown = false;
+	stopGearHolderDown = false;
+	startTimerForDriveTrainRPMThreshold = false;
+	waitingForDriveTrainRPMConfigure = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -41,6 +49,7 @@ void AutoGearOnPeg::Execute() {
 						moveGearHolderDown = true;
 						retryGearLineUp = false;
 						startMovingRobot = true;
+						startTimerForDriveTrainRPMThreshold = false;
 					}
 					else {
 						CommandBase::driveTrain->DriveTank(DRIVE_TRAIN_MOTOR_POWER, DRIVE_TRAIN_MOTOR_POWER);
@@ -67,8 +76,24 @@ void AutoGearOnPeg::Execute() {
 					}
 				}
 				else {
-					if (rightDriveTrainEncoderRPM >= DRIVE_TRAIN_ENCODER_RPM_THRESHOLD) {
-						startMovingRobot = false;
+					if (rightDriveTrainEncoderRPM >= DRIVE_TRAIN_ENCODER_RPM_THRESHOLD || waitingForDriveTrainRPMConfigure) {
+						if (startTimerForDriveTrainRPMThreshold == false) {
+							timer->Reset();
+							timer->Start();
+							startMovingRobot = true;
+							waitingForDriveTrainRPMConfigure = true;
+							startTimerForDriveTrainRPMThreshold = true;
+						}
+						else if (startTimerForDriveTrainRPMThreshold) {
+							if (timerValue >= TIME_ROBOT_IS_ABOVE_DRIVE_TRAIN_RPM_THRESHOLD) {
+								startMovingRobot = false;
+								waitingForDriveTrainRPMConfigure = false;
+							}
+							else {
+								startMovingRobot = true;
+								waitingForDriveTrainRPMConfigure = true;
+							}
+						}
 					}
 					else {
 						startMovingRobot = true;
@@ -109,6 +134,12 @@ void AutoGearOnPeg::End() {
 	gearOnPeg = false;
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
 	CommandBase::gearHolder->DriveGearHolderMotor(0.0);
+	startMovingRobot = true;
+	retryGearLineUp = false;
+	moveGearHolderDown = false;
+	stopGearHolderDown = false;
+	startTimerForDriveTrainRPMThreshold = false;
+	waitingForDriveTrainRPMConfigure = false;
 }
 
 // Called when another command which requires one or more of the same

@@ -2,12 +2,12 @@
 #define AutoGearOnPeg_H
 
 #include "../CommandBase.h"
+#include <Timer.h>
 
 class AutoGearOnPeg : public CommandBase {
 private:
 	double ultrasonicValue = 0.0;
 
-	bool startMeasuringUltrasonicValue = true;
 	bool startMovingTowardsGear = false;
 	bool startPuttingGearOnPeg = false;
 	bool gearOnPeg = false;
@@ -34,6 +34,10 @@ private:
 
 	static constexpr double TIME_TO_LOWER_GEAR_HOLDER = .35;
 	bool startMovingRobot = true;
+
+	static constexpr double TIME_ROBOT_IS_ABOVE_DRIVE_TRAIN_RPM_THRESHOLD = .25;
+	bool startTimerForDriveTrainRPMThreshold = false;
+	bool waitingForDriveTrainRPMConfigure = false;
 
 	frc::Timer* timer;
 	double timerValue = 0.0;
