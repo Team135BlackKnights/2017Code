@@ -90,6 +90,11 @@ int DriveTrain::GetEncoderRPM(int motorEncoderPort) {
 	return driveTrainMotors[motorEncoderPort]->GetSpeed();
 }
 
+void DriveTrain::DriveStraightWithGyro(double motorPower, double gyroAngle) {
+	curveValue = ((-1 * gyroAngle) * STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT);
+	chassis->Drive(motorPower, curveValue);
+}
+
 void DriveTrain::InitializeDriveTrainPID() {
 	gyro = new ADXRS450_Gyro(); //maybe?
 	gyro->Calibrate();
@@ -101,6 +106,8 @@ void DriveTrain::InitializeDriveTrainPID() {
 	turnController->SetAbsoluteTolerance(kToleranceDegrees);
 	turnController->SetContinuous(true);
 	turnController->Disable();
+
+	chassis->SetSensitivity(STRAIGHT_DRIVE_TRAIN_SENSITIVITY);
 }
 
 double DriveTrain::GetGyroAngle() {

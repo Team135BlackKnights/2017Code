@@ -3,6 +3,9 @@
 AutoDriveShooter::AutoDriveShooter(int setpointRPM) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
+	Requires(CommandBase::shooter.get());
+	Requires(CommandBase::agitator.get());
+	Requires(CommandBase::pdp.get());
 	this->setpointRPM = setpointRPM;
 	timer = new frc::Timer();
 }
@@ -18,9 +21,13 @@ void AutoDriveShooter::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void AutoDriveShooter::Execute() {
 	timerValue = timer->Get();
-	shooterWheelRPM = CommandBase::shooter->GetShooterWheelRPM();
+
+	currentShooterWheelRPM = CommandBase::shooter->GetShooterWheelRPM();
 	CommandBase::shooter->DriveShooterMotor(this->setpointRPM);
-	if (shooterWheelRPM >= this->setpointRPM && beginTimerToLevelOutSetpoint == false) {
+
+	agitatorCurrent = CommandBase::pdp->GetCurrentOfPDPPort(PDP::AGITATOR_TALON_PDP_PORT);
+
+	if (currentShooterWheelRPM >= this->setpointRPM && beginTimerToLevelOutSetpoint == false) {
 		beginTimerToLevelOutSetpoint = true;
 		timer->Reset();
 		timer->Start();
@@ -31,7 +38,26 @@ void AutoDriveShooter::Execute() {
 		timer->Reset();
 	}
 	else if (moveAgitatorToShootFuel) {
-		CommandBase::agitator->DriveAgitator(AGITATOR_MOTOR_POWER);
+		if (agitatorCurrent >= THRESHOLD_AGITATOR_CURRENT_DRAW || startDrivingAgitatorBackwards) {
+			if (startDrivingAgitatorBackwards == false) {
+				timer->Reset();
+				timer->Start();
+				CommandBase::agitator->DriveAgitator(-AGITATOR_MOTOR_POWER);
+				startDrivingAgitatorBackwards = true;
+			}
+			else if (startDrivingAgitatorBackwards) {
+				if (timerValue >= TIME_TO_MOVE_AGITATOR_BACKWARDS) {
+					CommandBase::agitator->DriveAgitator(0.0);
+					startDrivingAgitatorBackwards = false;
+				}
+				else {
+					CommandBase::agitator->DriveAgitator(-AGITATOR_MOTOR_POWER);
+				}
+			}
+		}
+		else if (agitatorCurrent < THRESHOLD_AGITATOR_CURRENT_DRAW) {
+			CommandBase::agitator->DriveAgitator(AGITATOR_MOTOR_POWER);
+		}
 	}
 }
 

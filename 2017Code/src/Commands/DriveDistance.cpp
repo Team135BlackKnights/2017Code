@@ -11,19 +11,34 @@ DriveDistance::DriveDistance(double desiredDistanceToTravel, double motorPower) 
 // Called just before this Command runs the first time
 void DriveDistance::Initialize() {
 	initialDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
+	measuredInitialDistanceTraveled = true;
 	distanceTraveled = false;
+	CommandBase::driveTrain->ZeroGyroAngle();
+	zeroGyro = true;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveDistance::Execute() {
+	if (measuredInitialDistanceTraveled == false) {
+		initialDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
+		measuredInitialDistanceTraveled = true;
+	}
+
+	if (zeroGyro == false) {
+		CommandBase::driveTrain->ZeroGyroAngle();
+		zeroGyro = true;
+	}
+
+	gyroAngle = CommandBase::driveTrain->GetGyroAngle();
+
 	measuredCurrentDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
 	actualCurrentDistanceTraveled = (fabs(measuredCurrentDistanceTraveled - initialDistanceTraveled));
 	if (actualCurrentDistanceTraveled >= this->desiredDistanceToTravel) {
-		CommandBase::driveTrain->DriveTank(0.0, 0.0);
+		CommandBase::driveTrain->DriveStraightWithGyro(0.0, 0.0);
 		distanceTraveled = true;
 	}
 	else {
-		CommandBase::driveTrain->DriveTank(motorPower, motorPower);
+		CommandBase::driveTrain->DriveStraightWithGyro(this->motorPower, gyroAngle);
 	}
 }
 
@@ -36,6 +51,8 @@ bool DriveDistance::IsFinished() {
 void DriveDistance::End() {
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
 	distanceTraveled = false;
+	measuredInitialDistanceTraveled = false;
+	zeroGyro = false;
 }
 
 // Called when another command which requires one or more of the same

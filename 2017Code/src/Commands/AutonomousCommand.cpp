@@ -100,18 +100,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 			AddSequential(new DriveDistance(DISTANCE_OF_SIDE_GEAR_BASE_LINE_PATH, .6));
 		}
 	}
-	else if (this->autonomousSelection == AutonomousSelection::CloseShotShooterTurnLeft) {
-		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_TURNING_POINT_FOR_BOILER, .7));
-		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_FOR_CLOSE_SHOT, .5, TURN_LEFT));
-		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_BOILER, .6));
-		//  Aim Bot
-		AddSequential(new DriveUntilRobotAgainstBoiler());
-	}
-	else if (this->autonomousSelection == AutonomousSelection::CloseShotShooterTurnRight) {
-		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_TURNING_POINT_FOR_BOILER, .7));
-		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_FOR_CLOSE_SHOT, .5, TURN_RIGHT));
-		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_BOILER, .6));
-		//  Aim Bot
-		AddSequential(new DriveUntilRobotAgainstBoiler());
+	else if (this->autonomousSelection == AutonomousSelection::CloseShotShooter) {
+
 	}
 }
