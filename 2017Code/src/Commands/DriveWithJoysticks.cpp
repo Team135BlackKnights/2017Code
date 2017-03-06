@@ -11,6 +11,7 @@ DriveWithJoysticks::DriveWithJoysticks() {
 void DriveWithJoysticks::Initialize() {
 	CommandBase::driveTrain->ZeroDriveTrainEncoder(DriveTrain::LEFT_SIDE_ENCODER);
 	CommandBase::driveTrain->ZeroDriveTrainEncoder(DriveTrain::RIGHT_SIDE_ENCODER);
+	CommandBase::driveTrain->ZeroGyroAngle();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -23,16 +24,28 @@ void DriveWithJoysticks::Execute() {
 	gyroAngle = CommandBase::driveTrain->GetGyroAngle();
 
 	if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::TOP_POV)) {
+		/*if (povCounter != 1) {
+			povCounter = 1;
+			CommandBase::driveTrain->ZeroGyroAngle();
+		} */
 		CommandBase::driveTrain->DriveStraightWithGyro(POV_DRIVE_TRAIN_MOTOR_POWER, gyroAngle);
+		//CommandBase::driveTrain->DriveTank(POV_DRIVE_TRAIN_MOTOR_POWER, POV_DRIVE_TRAIN_MOTOR_POWER);
 	}
 	else if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::RIGHT_POV)) {
 		CommandBase::driveTrain->DriveTank(POV_DRIVE_TRAIN_MOTOR_POWER, -POV_DRIVE_TRAIN_MOTOR_POWER);
 	}
 	else if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::BOTTOM_POV)) {
+		/*if (povCounter != 2) {
+			povCounter = 2;
+		} */
 		CommandBase::driveTrain->DriveStraightWithGyro(-POV_DRIVE_TRAIN_MOTOR_POWER, gyroAngle);
+		//CommandBase::driveTrain->DriveTank(-POV_DRIVE_TRAIN_MOTOR_POWER, -POV_DRIVE_TRAIN_MOTOR_POWER);
 	}
 	else if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::LEFT_POV)) {
 		CommandBase::driveTrain->DriveTank(-POV_DRIVE_TRAIN_MOTOR_POWER, POV_DRIVE_TRAIN_MOTOR_POWER);
+	}
+	else {
+		CommandBase::driveTrain->ZeroGyroAngle();
 	}
 
 	frc::SmartDashboard::PutNumber("Angle: ", CommandBase::driveTrain->GetGyroAngle());

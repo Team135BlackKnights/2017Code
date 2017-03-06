@@ -20,6 +20,9 @@ private:
 	double rightDriveTrainEncoderRPM = 0.0;
 
 	double gyroAngle = 0.0;
+
+	int povCounter = 0;
+
 public:
 	DriveWithJoysticks();
 	void Initialize();

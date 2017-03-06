@@ -14,6 +14,8 @@ private:
 	double currenGyroAngle = 0.0;
 
 	bool turnAngleComplete = false;
+
+	bool requiresDriveTrain = false;
 public:
 	TurnDriveTrainAngle(double, double, bool);
 	void Initialize();

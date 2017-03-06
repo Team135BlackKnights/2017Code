@@ -5,7 +5,9 @@
 
 class DriveLiftHang : public CommandBase {
 private:
-	static constexpr double LIFT_HANG_MOTOR_SPEED = .7;
+	static constexpr double LIFT_HANG_MOTOR_SPEED = 1.0;
+
+	double liftHangCurrentValue = 0.0;
 public:
 	DriveLiftHang();
 	void Initialize();

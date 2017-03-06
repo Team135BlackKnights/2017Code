@@ -18,7 +18,6 @@ private:
 	double timerValue = 0.0;
 	static constexpr double WAIT_FOR_LIFT_HANG_MOTOR_START_UP = .5;
 	static constexpr double TIME_TO_WAIT_TO_CALCULATE_NO_ROPE_LIFT_HANG_CURRENT = .5;
-	static constexpr double
 
 	bool initializeTimerAndLiftHangCurrentBooleans = false;
 	bool initializeTimer = false;

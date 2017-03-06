@@ -89,7 +89,7 @@ void * Server::get_in_addr(struct sockaddr * sa)
 
 void Server::Run()
 {
-		std::cout << "accepting - " << new_conn_fd << std::endl;
+		//std::cout << "accepting - " << new_conn_fd << std::endl;
 		if(new_conn_fd < 0)
 		{
 			std::cout << "\n\n\nLOST COMS\n\n\n";
@@ -97,7 +97,10 @@ void Server::Run()
 		}
 		else{
 			double d = Server::get_angle(0);
-			std::cout << "angle recieved from server: " << d << std::endl;
+			frc::SmartDashboard::PutNumber("Angle from camera 0: ", d);
+			d = Server::get_angle(1);
+			frc::SmartDashboard::PutNumber("Angle from camera 1: ", d);
+			//std::cout << "angle recieved from server: " << d << std::endl;
 
 		}
 
@@ -113,7 +116,7 @@ int Server::accept_connections()
 			return -1;
 		}
 		inet_ntop(client_addr.ss_family, get_in_addr((struct sockaddr *) &client_addr),s ,sizeof s);
-		std::cout << "connected to: " << s << "\n";
+		//std::cout << "connected to: " << s << "\n";
 	}catch(const std::exception& ex)
 	{
 		return -1;
@@ -133,7 +136,7 @@ double Server::get_angle(int cameraNumber)
 	numbytes = recv(new_conn_fd, buf, 20, 0);
 	if(numbytes < 1)
 		new_conn_fd = -1;
-	std::cout << "received: " << buf << "\n";
+	//std::cout << "received: " << buf << "\n";
 	char * st;
 	st = strtok(buf, ",");
 	if(cameraNumber == 0) angle = atof(st);

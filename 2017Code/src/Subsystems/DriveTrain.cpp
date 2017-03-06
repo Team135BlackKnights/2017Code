@@ -90,24 +90,46 @@ int DriveTrain::GetEncoderRPM(int motorEncoderPort) {
 	return driveTrainMotors[motorEncoderPort]->GetSpeed();
 }
 
+void DriveTrain::InitializeDriveStraightWithGyro(bool competitionBot) {
+	if (competitionBot) {
+		straightDriveTrainSensitivity = CB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY;
+		straightDriveTrainProportionalConstant = CB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT;
+	}
+	else if (competitionBot == false) {
+		straightDriveTrainSensitivity = PB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY;
+		straightDriveTrainProportionalConstant = PB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT;
+	}
+	chassis->SetSensitivity(straightDriveTrainSensitivity);
+}
+
 void DriveTrain::DriveStraightWithGyro(double motorPower, double gyroAngle) {
-	curveValue = ((-1 * gyroAngle) * STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT);
+	if (motorPower > 0.0) {
+		curveValue = (-1 * gyroAngle * straightDriveTrainProportionalConstant);
+	}
+	else if (motorPower < 0.0) {
+		curveValue = (gyroAngle * straightDriveTrainProportionalConstant);
+	}
+
+	if (curveValue > 1.0) {
+		curveValue = 1.0;
+	}
+	else if (curveValue < -1.0) {
+		curveValue = -1.0;
+	}
+
 	chassis->Drive(motorPower, curveValue);
 }
 
 void DriveTrain::InitializeDriveTrainPID() {
 	gyro = new ADXRS450_Gyro(); //maybe?
 	gyro->Calibrate();
-	//for testingturnController = new frc::PIDController(Preferences::GetInstance()->GetDouble("kP",0.0625), Preferences::GetInstance()->GetDouble("kI",0.0),Preferences::GetInstance()->GetDouble("kD",0.0) , kF, gyro, this);
-	turnController = new frc::PIDController(kP,kI,kD,kF, gyro, this);
-
+	turnController = new frc::PIDController(Preferences::GetInstance()->GetDouble("kP",0.0625), Preferences::GetInstance()->GetDouble("kI",0.0),Preferences::GetInstance()->GetDouble("kD",0.0) , kF, gyro, this);
+	//turnController = new frc::PIDController(kP,kI,kD,kF, gyro, this);
 	turnController->SetInputRange(-90.0f,  90.0f);
 	turnController->SetOutputRange(-1.0, 1.0);
 	turnController->SetAbsoluteTolerance(kToleranceDegrees);
 	turnController->SetContinuous(true);
 	turnController->Disable();
-
-	chassis->SetSensitivity(STRAIGHT_DRIVE_TRAIN_SENSITIVITY);
 }
 
 double DriveTrain::GetGyroAngle() {

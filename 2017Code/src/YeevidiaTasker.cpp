@@ -33,7 +33,7 @@ void* YeevidiaTasker::YeevidiaStarterTask(void* ntask)
 	{
 		if(task->enabled_)
 		{
-			std::cout<<"enabled" << std::endl;
+			//std::cout<<"enabled" << std::endl;
 			task->Run();
 			frc::Wait(.05);
 		}

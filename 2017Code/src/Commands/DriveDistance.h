@@ -17,6 +17,8 @@ private:
 
 	double gyroAngle = 0.0;
 	bool zeroGyro = false;
+
+	bool requiresDriveTrain = false;
 public:
 	DriveDistance(double, double);
 	void Initialize();

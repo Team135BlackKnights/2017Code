@@ -14,10 +14,17 @@ void TurnDriveTrainAngle::Initialize() {
 	CommandBase::driveTrain->ZeroGyroAngle();
 	zeroedGyro = true;
 	turnAngleComplete = false;
+	CommandBase::driveTrain->is_aiming = true;
+	requiresDriveTrain = true;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void TurnDriveTrainAngle::Execute() {
+	if (requiresDriveTrain == false) {
+		CommandBase::driveTrain->is_aiming = true;
+		requiresDriveTrain = true;
+	}
+
 	if (zeroedGyro == false) {
 		CommandBase::driveTrain->ZeroGyroAngle();
 		zeroedGyro = true;
@@ -44,6 +51,8 @@ void TurnDriveTrainAngle::End() {
 	CommandBase::driveTrain->RotateTank(0.0, this->turnRight);
 	zeroedGyro = false;
 	turnAngleComplete = false;
+	CommandBase::driveTrain->is_aiming = false;
+	requiresDriveTrain = false;
 }
 
 // Called when another command which requires one or more of the same

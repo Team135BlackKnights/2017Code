@@ -15,10 +15,17 @@ void DriveDistance::Initialize() {
 	distanceTraveled = false;
 	CommandBase::driveTrain->ZeroGyroAngle();
 	zeroGyro = true;
+	CommandBase::driveTrain->is_aiming = true;
+	requiresDriveTrain = true;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveDistance::Execute() {
+	if (requiresDriveTrain == false) {
+		CommandBase::driveTrain->is_aiming = true;
+		requiresDriveTrain = true;
+	}
+
 	if (measuredInitialDistanceTraveled == false) {
 		initialDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
 		measuredInitialDistanceTraveled = true;
@@ -53,6 +60,7 @@ void DriveDistance::End() {
 	distanceTraveled = false;
 	measuredInitialDistanceTraveled = false;
 	zeroGyro = false;
+	CommandBase::driveTrain->is_aiming = false;
 }
 
 // Called when another command which requires one or more of the same

@@ -53,8 +53,17 @@ private:
 
 	double kF = 0.0f;
 
-	static constexpr double STRAIGHT_DRIVE_TRAIN_SENSITIVITY = .01;
-	static constexpr double STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT = .01;
+	//  Practice Bot Straight Drive Train
+	//  Sensitivity .02
+	//  Kp .2
+
+	double straightDriveTrainSensitivity = 0.0;
+	double straightDriveTrainProportionalConstant = 0.0;
+
+	static constexpr double PB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY = .02;
+	static constexpr double PB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT = .2;
+	static constexpr double CB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY = .07;
+	static constexpr double CB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT = .12;
 	double curveValue = 0.0;
 
 public:
@@ -71,6 +80,8 @@ public:
 	double GetDistance(int);
 
 	int GetEncoderRPM(int);
+
+	void InitializeDriveStraightWithGyro(bool);
 	void DriveStraightWithGyro(double, double);
 
 	//  For Competition Bot
