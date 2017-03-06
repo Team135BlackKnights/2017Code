@@ -83,8 +83,7 @@
 		MiddleGear,
 		RightGear,
 		LeftGear,
-		CloseShotShooterTurnLeft,
-		CloseShotShooterTurnRight,
+		CloseShotShooter,
 		BaseLine
 	};
 

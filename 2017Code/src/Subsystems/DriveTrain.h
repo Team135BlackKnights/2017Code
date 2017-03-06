@@ -53,6 +53,10 @@ private:
 
 	double kF = 0.0f;
 
+	static constexpr double STRAIGHT_DRIVE_TRAIN_SENSITIVITY = .01;
+	static constexpr double STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT = .01;
+	double curveValue = 0.0;
+
 public:
 	DriveTrain();
 	void InitDefaultCommand();
@@ -65,6 +69,8 @@ public:
 	void ZeroDriveTrainEncoder(int);
 	int GetEncoderPosition(int);
 	double GetDistance(int);
+
+	void DriveStraightWithGyro(double, double);
 
 	//  For Competition Bot
 	static const int LEFT_SIDE_ENCODER = REAR_LEFT;
