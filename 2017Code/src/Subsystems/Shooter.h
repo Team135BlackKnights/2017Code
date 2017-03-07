@@ -40,6 +40,49 @@ private:
 	static constexpr double PERCENT_VOLTAGE_FAR_SHOT = (DESIRED_VOLTAGE_FAR_SHOT/SHOOTER_MAX_VOLTAGE);
 	static constexpr double MOTOR_OUTPUT_VALUE_FEEDFORWARD_FAR_SHOT = (PERCENT_VOLTAGE_FAR_SHOT * MAX_MOTOR_OUTPUT_VALUE);
 	static constexpr double FEEDFORWARD_TERM_FAR_SHOT = (MOTOR_OUTPUT_VALUE_FEEDFORWARD_FAR_SHOT/SHOOTER_SETPOINT_NU_PER_100MS_FAR_SHOT);
+
+	double closeShotKp = 0.0;
+	double closeShotKi = 0.0;
+	double closeShotKd = 0.0;
+	double closeShotKf = 0.0;
+	double closeShotPositivePeakVoltage = 0.0;
+	double closeShotNegativePeakVoltage = 0.0;
+
+	double farShotKp = 0.0;
+	double farShotKi = 0.0;
+	double farShotKd = 0.0;
+	double farShotKf = 0.0;
+	double farShotPositivePeakVoltage = 0.0;
+	double farShotNegativePeakVoltage = 0.0;
+
+	static constexpr double PB_CLOSE_SHOT_Kp = 1.0;
+	static constexpr double PB_CLOSE_SHOT_Ki = 0.0;
+	static constexpr double PB_CLOSE_SHOT_Kd = 9.5;
+	static constexpr double PB_CLOSE_SHOT_Kf = .037;
+	static constexpr double PB_CLOSE_SHOT_POSITIVE_PEAK_VOLTAGE = 9.0;
+	static constexpr double PB_CLOSE_SHOT_NEGATIVE_PEAK_VOLTAGE = -6.0;
+
+	static constexpr double PB_FAR_SHOT_Kp = 1.0;
+	static constexpr double PB_FAR_SHOT_Ki = 0.0;
+	static constexpr double PB_FAR_SHOT_Kd = 0.0;
+	static constexpr double PB_FAR_SHOT_Kf = .0359;
+	static constexpr double PB_FAR_SHOT_POSITIVE_PEAK_VOLTAGE = 10.0;
+	static constexpr double PB_FAR_SHOT_NEGATIVE_PEAK_VOLTAGE = -6.0;
+
+	static constexpr double CB_CLOSE_SHOT_Kp = 1.0;
+	static constexpr double CB_CLOSE_SHOT_Ki = 0.0;
+	static constexpr double CB_CLOSE_SHOT_Kd = 9.5;
+	static constexpr double CB_CLOSE_SHOT_Kf = .037;
+	static constexpr double CB_CLOSE_SHOT_POSITIVE_PEAK_VOLTAGE = 9.0;
+	static constexpr double CB_CLOSE_SHOT_NEGATIVE_PEAK_VOLTAGE = -6.0;
+
+	static constexpr double CB_FAR_SHOT_Kp = 1.0;
+	static constexpr double CB_FAR_SHOT_Ki = 0.0;
+	static constexpr double CB_FAR_SHOT_Kd = 0.0;
+	static constexpr double CB_FAR_SHOT_Kf = .0359;
+	static constexpr double CB_FAR_SHOT_POSITIVE_PEAK_VOLTAGE = 10.0;
+	static constexpr double CB_FAR_SHOT_NEGATIVE_PEAK_VOLTAGE = -6.0;
+
 public:
 	Shooter();
 	void InitDefaultCommand();
@@ -48,7 +91,7 @@ public:
 
 	void DriveShooterMotor(double);
 
-	void ConfigureShooterMotorEncoder();
+	void ConfigureShooterMotorEncoder(bool);
 	void ConfigureShooterVoltageMode();
 	void ConfigureShooterPID();
 

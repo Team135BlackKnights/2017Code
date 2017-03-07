@@ -36,9 +36,9 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 	else if (this->autonomousSelection == AutonomousSelection::MiddleGear) {
 		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_GEAR, -.7));
 		AddSequential(new WaitTime(.5));
-		//  Camera Lines Up To Gear
+		//AddSequential(new AimBot(1));
 		AddSequential(new AutoGearOnPeg());
-		AddSequential(new WaitTime(1.0));
+		AddSequential(new WaitTime(.5));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 		//  Go To Baseline
 		if (baseLinePath == BaseLinePath::MiddleGearRight) {
@@ -100,7 +100,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Ba
 			AddSequential(new DriveDistance(DISTANCE_OF_SIDE_GEAR_BASE_LINE_PATH, .6));
 		}
 	}
-	else if (this->autonomousSelection == AutonomousSelection::CloseShotShooter) {
+	else if (this->autonomousSelection == AutonomousSelection::CloseShotShooterRight) {
 
 	}
 }

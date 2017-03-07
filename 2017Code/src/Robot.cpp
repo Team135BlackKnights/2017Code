@@ -37,7 +37,7 @@ public:
 		CommandBase::liftHang->InitializeLiftHang(COMPETITION_BOT);
 		CommandBase::pdp->InitializePDP();
 		CommandBase::shooter->InitializeShooterMotor(COMPETITION_BOT);
-		CommandBase::shooter->ConfigureShooterMotorEncoder();
+		CommandBase::shooter->ConfigureShooterMotorEncoder(COMPETITION_BOT);
 		CommandBase::shooterHood->InitializeShooterHoodMotor(COMPETITION_BOT);
 		CommandBase::shooterHood->ConfigureShooterHoodEncoder();
 		CommandBase::ultrasonicSensor->InitializeUltrasonicSensor();

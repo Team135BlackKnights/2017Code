@@ -8,20 +8,21 @@ class AutoDriveShooter : public CommandBase {
 private:
 	int setpointRPM;
 	int currentShooterWheelRPM = 0;
+	bool shooterVoltageMode = false;
+	bool shooterPIDMode = false;
 
 	bool beginTimerToLevelOutSetpoint = false;
 	bool moveAgitatorToShootFuel = false;
 
 	frc::Timer* timer;
 	double timerValue = 0.0;
-	static constexpr double WAIT_TIME_FOR_SHOOTER = .25;
+	static constexpr double WAIT_TIME_FOR_SHOOTER = .15;
+	static constexpr double WAIT_TIME_FOR_FUEL_TO_SHOOT = 8.0;
 
-	static constexpr double AGITATOR_MOTOR_POWER = .5;
-	double agitatorCurrent = 0.0;
-	static constexpr double THRESHOLD_AGITATOR_CURRENT_DRAW = 20.0;
+	static constexpr double AGITATOR_MOTOR_POWER = .4;
+	bool startTimerForAgitator = false;
 
-	bool startDrivingAgitatorBackwards = false;
-	static constexpr double TIME_TO_MOVE_AGITATOR_BACKWARDS = .5;
+	bool shotFuelIntoBoiler = false;
 public:
 	AutoDriveShooter(int);
 	void Initialize();
