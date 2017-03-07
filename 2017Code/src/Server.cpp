@@ -141,8 +141,10 @@ double Server::get_angle(int cameraNumber)
 	st = strtok(buf, ",");
 	if(cameraNumber == 0) angle = atof(st);
 	st = strtok(NULL, ",");
-	if(cameraNumber == 1)
-		angle = atof(st);
+	if(cameraNumber == 1) angle = atof(st);
+
+	double sonar_value = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches();
+
+	angle = 90 - atan( (sonar_value - SPRING_IN) / (CAMERA_TO_GEAR_IN - sonar_value / tan(angle * M_PI / 180))) * 180 / M_PI;
 	return angle;
-	return atof(buf);
 }
