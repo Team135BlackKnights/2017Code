@@ -32,6 +32,9 @@ private:
 
 	double throttleValue = 0.0;
 	bool throttleUp = false;
+
+	static constexpr double LIFT_HANG_FULL_POWER = 1.0;
+	static constexpr double LIFT_HANG_HALF_POWER = .5;
 public:
 	OI();
 
