@@ -16,6 +16,8 @@
 #include<netdb.h>
 #include<arpa/inet.h>
 #include "YeevidiaTasker.h"
+#include "Subsystems/UltrasonicSensor.h"
+#include "CommandBase.h"
 
 class Server: public YeevidiaTasker {
 public:
@@ -43,6 +45,9 @@ private:
 	    int                 sFd;           /* socket file descriptor */
 	    int                 newFd;         /* socket descriptor from accept */
 	char s[INET6_ADDRSTRLEN];
+
+	const double CAMERA_TO_GEAR_IN = 10;
+	const double SPRING_IN = 14.5;
 };
 
 #endif /* SRC_CLASSES_SERVER_H_ */
