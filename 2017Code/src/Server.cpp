@@ -10,7 +10,6 @@
 #include <cstring>
 #include <string>
 #include <sys/select.h>
-#include <CommandBase.h>
 
 Server::Server() {
 		new_conn_fd = -1;
@@ -136,15 +135,11 @@ double Server::get_angle(int cameraNumber)
 	numbytes = recv(new_conn_fd, buf, 20, 0);
 	if(numbytes < 1)
 		new_conn_fd = -1;
-	//std::cout << "received: " << buf << "\n";
 	char * st;
 	st = strtok(buf, ",");
 	if(cameraNumber == 0) angle = atof(st);
 	st = strtok(NULL, ",");
 	if(cameraNumber == 1) angle = atof(st);
 
-	double sonar_value = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches();
-
-	angle = 90 - atan( (sonar_value - SPRING_IN) / (CAMERA_TO_GEAR_IN - sonar_value / tan(angle * M_PI / 180))) * 180 / M_PI;
 	return angle;
 }
