@@ -22,6 +22,7 @@ void DriveWithJoysticks::Execute() {
 	CommandBase::driveTrain->DriveTank(leftJoystickValue, rightJoystickValue);
 
 	gyroAngle = CommandBase::driveTrain->GetGyroAngle();
+	frc::SmartDashboard::PutNumber("Angle of gyro drivetrain: ", CommandBase::driveTrain->GetGyroAngle());
 
 	if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::TOP_POV)) {
 		/*if (povCounter != 1) {

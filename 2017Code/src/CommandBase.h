@@ -14,10 +14,10 @@
 #include "Subsystems/Lidars.h"
 #include "Subsystems/LiftHang.h"
 #include "Subsystems/PDP.h"
-#include "Server.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/ShooterHood.h"
 #include "Subsystems/UltrasonicSensor.h"
+#include "Server.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -41,8 +41,9 @@ public:
 	static std::unique_ptr<PDP> pdp;
 	static std::unique_ptr<Shooter> shooter;
 	static std::unique_ptr<ShooterHood> shooterHood;
-	static std::unique_ptr<UltrasonicSensor> ultrasonicSensor;
 	static std::unique_ptr<Server> server;
+	static std::unique_ptr<UltrasonicSensor> ultrasonicSensor;
+
 };
 
 #endif  // COMMAND_BASE_H
