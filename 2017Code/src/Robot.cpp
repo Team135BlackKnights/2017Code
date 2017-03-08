@@ -16,14 +16,16 @@
 class Robot: public frc::IterativeRobot {
 public:
 	void RobotInit() override {
-		autonomousChooser.AddDefault("Middle Gear No BaseLine", new AutonomousCommand(AutonomousSelection::MiddleGear, BaseLinePath::NoBaseLine));
-		autonomousChooser.AddObject("Middle Gear BaseLine to the Right", new AutonomousCommand(AutonomousSelection::MiddleGear, BaseLinePath::MiddleGearRight));
-		autonomousChooser.AddObject("Middle Gear BaseLine to the Left", new AutonomousCommand(AutonomousSelection::MiddleGear, BaseLinePath::MiddleGearLeft));
-		autonomousChooser.AddObject("Right Gear with No BaseLine", new AutonomousCommand(AutonomousSelection::RightGear, BaseLinePath::NoBaseLine));
-		autonomousChooser.AddObject("Right Gear with BaseLine", new AutonomousCommand(AutonomousSelection::RightGear, BaseLinePath::SideGear));
-		autonomousChooser.AddObject("Left Gear with No BaseLine", new AutonomousCommand(AutonomousSelection::LeftGear, BaseLinePath::NoBaseLine));
-		autonomousChooser.AddObject("Left Gear with BaseLine", new AutonomousCommand(AutonomousSelection::LeftGear, BaseLinePath::SideGear));
-		autonomousChooser.AddObject("Only BaseLine", new AutonomousCommand(AutonomousSelection::BaseLine, BaseLinePath::NoBaseLine));
+		autonomousChooser.AddDefault("Middle Gear", new AutonomousCommand(AutonomousSelection::MiddleGear, SecondTask::None));
+		autonomousChooser.AddObject("Middle Gear Shoot Right", new AutonomousCommand(AutonomousSelection::MiddleGear, SecondTask::MiddleGearShootRight));
+		autonomousChooser.AddObject("Middle Gear Shoot Left", new AutonomousCommand(AutonomousSelection::MiddleGear, SecondTask::MiddleGearShootLeft));
+		autonomousChooser.AddObject("Right Gear", new AutonomousCommand(AutonomousSelection::RightGear, SecondTask::None));
+		autonomousChooser.AddObject("Left Gear", new AutonomousCommand(AutonomousSelection::LeftGear, SecondTask::None));
+		autonomousChooser.AddObject("Right Gear and Shoot", new AutonomousCommand(AutonomousSelection::RightGear, SecondTask::SideGearShoot));
+		autonomousChooser.AddObject("Left Gear and Shoot", new AutonomousCommand(AutonomousSelection::LeftGear, SecondTask::SideGearShoot));
+		autonomousChooser.AddObject("Close Shot Right With BaseLine", new AutonomousCommand(AutonomousSelection::CloseShotShooterRight, SecondTask::CloseShotBaseLine));
+		autonomousChooser.AddObject("Close Shot Left With BaseLine", new AutonomousCommand(AutonomousSelection::CloseShotShooterLeft, SecondTask::CloseShotBaseLine));
+		autonomousChooser.AddObject("BaseLine Only", new AutonomousCommand(AutonomousSelection::BaseLine, SecondTask::None));
 		frc::SmartDashboard::PutData("Autonomouss Modes", &autonomousChooser);
 
 		CommandBase::agitator->InitializeAgitatorMotor(COMPETITION_BOT);

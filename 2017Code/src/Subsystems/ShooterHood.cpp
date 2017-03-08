@@ -123,6 +123,57 @@ bool ShooterHood::DriveShooterHoodMotorToDesiredAngle(double desiredAngle, doubl
 	return drivenToAngle;
 }
 
+bool ShooterHood::DriveShooterHoodToDesiredEncoderValue(int desiredShooterHoodEncoderValue) {
+	currentShooterHoodEncoderValue = this->GetShooterHoodEncoderPosition();
+	differenceBetweenDesiredAndCurrentShooterHoodEncoderValue = abs(desiredShooterHoodEncoderValue - currentShooterHoodEncoderValue);
+
+	if (initializeDirectionOfShooterHood == false) {
+		if (desiredShooterHoodEncoderValue > currentShooterHoodEncoderValue) {
+			this->DriveShooterHoodMotor(-SHOOTER_HOOD_MOTOR_POWER);
+			drivingShooterHoodForward = false;
+		}
+		else if (currentShooterHoodEncoderValue > desiredShooterHoodEncoderValue) {
+			this->DriveShooterHoodMotor(SHOOTER_HOOD_MOTOR_POWER);
+			drivingShooterHoodForward = true;
+		}
+		hoodAtDesiredEncoderValue = false;
+		initializeDirectionOfShooterHood = true;
+	}
+	else if (initializeDirectionOfShooterHood) {
+		if (drivingShooterHoodForward) {
+			if (currentShooterHoodEncoderValue <= desiredShooterHoodEncoderValue) {
+				this->DriveShooterHoodMotor(0.0);
+				initializeDirectionOfShooterHood = false;
+				hoodAtDesiredEncoderValue = true;
+			}
+			else {
+				if (differenceBetweenDesiredAndCurrentShooterHoodEncoderValue <= THRESHOLD_SHOOTER_HOOD_ENCODER_VALUE_TO_DECREASE_MOTOR_POWER) {
+					this->DriveShooterHoodMotor(SLOWER_SHOOTER_HOOD_MOTOR_POWER);
+				}
+				else {
+					this->DriveShooterHoodMotor(SHOOTER_HOOD_MOTOR_POWER);
+				}
+			}
+		}
+		else if (drivingShooterHoodForward == false) {
+			if (currentShooterHoodEncoderValue >= desiredShooterHoodEncoderValue) {
+				this->DriveShooterHoodMotor(0.0);
+				initializeDirectionOfShooterHood = false;
+				hoodAtDesiredEncoderValue = true;
+			}
+			else {
+				if (differenceBetweenDesiredAndCurrentShooterHoodEncoderValue <= THRESHOLD_SHOOTER_HOOD_ENCODER_VALUE_TO_DECREASE_MOTOR_POWER) {
+					this->DriveShooterHoodMotor(-SLOWER_SHOOTER_HOOD_MOTOR_POWER);
+				}
+				else {
+					this->DriveShooterHoodMotor(-SHOOTER_HOOD_MOTOR_POWER);
+				}
+			}
+		}
+	}
+	return hoodAtDesiredEncoderValue;
+}
+
 void ShooterHood::ResetDesiredAngleOfShooterHoodFunctionVariables() {
 	completeFirstForLoop = false;
 	incrementCounterWhenAngleIsClose = false;

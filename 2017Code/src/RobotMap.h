@@ -24,6 +24,7 @@
 	//VictorSP motor ports
 	const int PB_COLLECTION_VICTOR_PWM_PORT = 3;
 	const int PB_HANG_VICTOR_PWM_PORT = 2;
+	const int PB_HANG_VICTOR_2_PWM_PORT = 4;
 	const int PB_GEAR_VICTOR_PWM_PORT = 0;
 	const int PB_AGITATOR_VICTOR_PWM_PORT = 1;
 
@@ -45,6 +46,7 @@
 	const bool PB_DRIVE_TRAIN_REAR_RIGHT_INVERTED = true;
 	const bool PB_GEAR_HOLDER_INVERTED = true;
 	const bool PB_LIFT_HANG_MOTOR_INVERTED = false;
+	const bool PB_LIFT_HANG_MOTOR_2_INVERTED = false;
 	const bool PB_SHOOTER_MOTOR_INVERTED = false;
 	const bool PB_SHOOTER_HOOD_MOTOR_INVERTED = false;
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -54,6 +56,7 @@
 	//  Victor SP Motor Ports
 	const int CB_COLLECTION_VICTOR_PWM_PORT = 11;
 	const int CB_HANG_VICTOR_PWM_PORT = 10;
+	const int CB_HANG_VICTOR_2_PWM_PORT = 12;
 	const int CB_GEAR_VICTOR_PWM_PORT = 17;
 	const int CB_AGITATOR_VICTOR_PWM_PORT = 18;
 
@@ -76,6 +79,7 @@
 	const bool CB_DRIVE_TRAIN_REAR_LEFT_INVERTED = false;
 	const bool CB_GEAR_HOLDER_INVERTED = true;
 	const bool CB_LIFT_HANG_MOTOR_INVERTED = false;
+	const bool CB_LIFT_HANG_MOTOR_2_INVERTED = false;
 	const bool CB_SHOOTER_MOTOR_INVERTED = false;
 	const bool CB_SHOOTER_HOOD_MOTOR_INVERTED = false;
 
@@ -88,11 +92,12 @@
 		BaseLine
 	};
 
-	enum BaseLinePath {
-		SideGear,
-		MiddleGearRight,
-		MiddleGearLeft,
-		NoBaseLine
+	enum SecondTask {
+		MiddleGearShootRight,
+		MiddleGearShootLeft,
+		SideGearShoot,
+		CloseShotBaseLine,
+		None
 	};
 
 	enum ShooterPIDSelection {

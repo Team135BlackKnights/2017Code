@@ -11,7 +11,7 @@ AutoDriveShooter::AutoDriveShooter(int setpointRPM) {
 
 // Called just before this Command runs the first time
 void AutoDriveShooter::Initialize() {
-	SetTimeout(10.0);
+	SetTimeout(8.5);
 	CommandBase::shooter->ConfigureShooterPID();
 	shooterPIDMode = true;
 	shooterVoltageMode = false;

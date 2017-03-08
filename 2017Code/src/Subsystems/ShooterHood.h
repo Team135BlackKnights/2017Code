@@ -100,6 +100,16 @@ private:
 	//  Constant for ConvertDegreesToRadians()
 	static constexpr double DEGREES_TO_RADIANS_CONSTANT = (M_PI/180.0);
 
+	int currentShooterHoodEncoderValue = 0;
+	int differenceBetweenDesiredAndCurrentShooterHoodEncoderValue = 0;
+	static constexpr double SHOOTER_HOOD_MOTOR_POWER = 1.0;
+	static constexpr double SLOWER_SHOOTER_HOOD_MOTOR_POWER = .4;
+	bool initializeDirectionOfShooterHood = false;
+	bool drivingShooterHoodForward = false;
+	bool hoodAtDesiredEncoderValue = false;
+	static const int THRESHOLD_SHOOTER_HOOD_ENCODER_VALUE_TO_DECREASE_MOTOR_POWER = 1800;
+
+	static const int RIGHT_CLOSE_SHOT_SHOOTER_AUTONOMOUS_HOOD_ENCODER_VALUE = 5974;
 public:
 	ShooterHood();
 	void InitDefaultCommand();
@@ -117,6 +127,8 @@ public:
 	double GetAngleOfShooterHoodGivenEncoderPosition(int);
 	int GetEncoderPositionOfShooterHoodGivenAngle(double);
 	bool DriveShooterHoodMotorToDesiredAngle(double, double);
+	bool DriveShooterHoodToDesiredEncoderValue(int);
+
 	void ResetDesiredAngleOfShooterHoodFunctionVariables();
 	double GetDesiredAngleOfShooterHood(double, bool, int);
 	bool TimeOfShotGreaterThanTimeOfMaxHeight(double, bool, double, int);
