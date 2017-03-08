@@ -12,12 +12,13 @@ AimBot::AimBot(int camNumber) {
 void AimBot::Initialize() {
 	std::cout << "running \n\n\n:";
 	double angleToTurn = CommandBase::server->get_angle(cameraNumber);
-
-	double sonar_value = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches();
-	angleToTurn = 90 - atan( (sonar_value - SPRING_IN) / (CAMERA_TO_GEAR_IN - sonar_value / tan((90 +angleToTurn) * M_PI / 180))) * 180 / M_PI;
-	std::cout << "\n\n\n\n\nangle: " << angleToTurn << "\nSonar: " << sonar_value << "\n\n\n\n";
-
-	//CommandBase::driveTrain->TurnPIDEnable(angleToTurn);
+	if(cameraNumber == 1)
+	{
+		double sonar_value = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches();
+		angleToTurn = 90 - atan( (sonar_value - SPRING_IN) / (CAMERA_TO_GEAR_IN - sonar_value / tan((90 +angleToTurn) * M_PI / 180))) * 180 / M_PI;
+		std::cout << "\n\n\n\n\nangle: " << angleToTurn << "\nSonar: " << sonar_value << "\n\n\n\n";
+	}
+	CommandBase::driveTrain->TurnPIDEnable(angleToTurn);
 	time.Start();
 	time.Reset();
 	CommandBase::driveTrain->ZeroGyroAngle();
@@ -28,12 +29,12 @@ void AimBot::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void AimBot::Execute() {
 	frc::SmartDashboard::PutNumber("Angle: ", CommandBase::driveTrain->GetGyroAngle());
-	//CommandBase::driveTrain->PIDTurning();
+	CommandBase::driveTrain->PIDTurning();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AimBot::IsFinished() {
-	return time.Get() > 1 || !CommandBase::driveTrain->turnController->IsEnabled() || CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10);
+	return time.Get() > 1 || !CommandBase::driveTrain->turnController->IsEnabled() || (CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10) && CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 9));
 }
 
 // Called once after isFinished returns true
