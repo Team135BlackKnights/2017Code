@@ -143,7 +143,7 @@ void DriveTrain::ZeroGyroAngle() {
 void DriveTrain::TurnPIDEnable(double angleToTurn)
 {
 	ZeroGyroAngle();
-	std::cout <<"navx angle: " << gyro->GetAngle() << "\n";
+	//std::cout <<"navx angle: " << gyro->GetAngle() << "\n";
 	turnController->SetSetpoint(angleToTurn);
 	turnController->Enable();
 }
@@ -155,8 +155,8 @@ void DriveTrain::TurnPIDDisable()
 
 void DriveTrain::PIDTurning()
 {
-	std::cout << "navx angle: " << gyro->GetAngle();
-	std::cout << "rot rate: " << rotateToAngleRate << "\n";
+	//std::cout << "navx angle: " << gyro->GetAngle();
+	//std::cout << "rot rate: " << rotateToAngleRate << "\n";
 	this->RotateTank(rotateToAngleRate, 1);
 }
 // Put methods for controlling this subsystem

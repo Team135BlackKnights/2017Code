@@ -12,9 +12,9 @@ private:
 	bool startPuttingGearOnPeg = false;
 	bool gearOnPeg = false;
 
-	static constexpr double DISTANCE_AWAY_FROM_AIRSHIP_TO_DROP_GEAR_IN = 8.25;
+	static constexpr double DISTANCE_AWAY_FROM_AIRSHIP_TO_DROP_GEAR_IN = 7.5;
 
-	static constexpr double DRIVE_TRAIN_MOTOR_POWER = .4;
+	static constexpr double DRIVE_TRAIN_MOTOR_POWER = .5;
 
 	static constexpr double GEAR_HOLDER_MOTOR_POWER = .5;
 
@@ -31,8 +31,10 @@ private:
 	bool retryGearLineUp = false;
 	bool moveGearHolderDown = false;
 	bool stopGearHolderDown = false;
+	bool initializeTimerLimitSwitch = false;
+	static constexpr double WAIT_TIME_FOR_LIMI_SWITCH_TO_LOWER = 1.0;
 
-	static constexpr double TIME_TO_LOWER_GEAR_HOLDER = .35;
+	static constexpr double TIME_TO_LOWER_GEAR_HOLDER = .2;
 	bool startMovingRobot = true;
 
 	static constexpr double TIME_ROBOT_IS_ABOVE_DRIVE_TRAIN_RPM_THRESHOLD = .25;

@@ -11,7 +11,7 @@ ShooterHood::ShooterHood() : Subsystem("ShooterHood") {
 void ShooterHood::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	//SetDefaultCommand(new ReadHoodEncoderValue());
+	SetDefaultCommand(new ReadHoodEncoderValue());
 }
 
 void ShooterHood::InitializeShooterHoodMotor(bool competitionBot) {

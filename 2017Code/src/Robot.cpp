@@ -26,7 +26,7 @@ public:
 		autonomousChooser.AddObject("Close Shot Right With BaseLine", new AutonomousCommand(AutonomousSelection::CloseShotShooterRight, SecondTask::CloseShotBaseLine));
 		autonomousChooser.AddObject("Close Shot Left With BaseLine", new AutonomousCommand(AutonomousSelection::CloseShotShooterLeft, SecondTask::CloseShotBaseLine));
 		autonomousChooser.AddObject("BaseLine Only", new AutonomousCommand(AutonomousSelection::BaseLine, SecondTask::None));
-		frc::SmartDashboard::PutData("Autonomouss Modes", &autonomousChooser);
+		frc::SmartDashboard::PutData("Autonomous Modes", &autonomousChooser);
 
 		CommandBase::agitator->InitializeAgitatorMotor(COMPETITION_BOT);
 		CommandBase::collection->InitializeCollectionMotor(COMPETITION_BOT);

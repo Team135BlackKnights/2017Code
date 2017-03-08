@@ -25,22 +25,13 @@ void DriveWithJoysticks::Execute() {
 	frc::SmartDashboard::PutNumber("Angle of gyro drivetrain: ", CommandBase::driveTrain->GetGyroAngle());
 
 	if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::TOP_POV)) {
-		/*if (povCounter != 1) {
-			povCounter = 1;
-			CommandBase::driveTrain->ZeroGyroAngle();
-		} */
 		CommandBase::driveTrain->DriveStraightWithGyro(POV_DRIVE_TRAIN_MOTOR_POWER, gyroAngle);
-		//CommandBase::driveTrain->DriveTank(POV_DRIVE_TRAIN_MOTOR_POWER, POV_DRIVE_TRAIN_MOTOR_POWER);
 	}
 	else if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::RIGHT_POV)) {
 		CommandBase::driveTrain->DriveTank(POV_DRIVE_TRAIN_MOTOR_POWER, -POV_DRIVE_TRAIN_MOTOR_POWER);
 	}
 	else if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::BOTTOM_POV)) {
-		/*if (povCounter != 2) {
-			povCounter = 2;
-		} */
 		CommandBase::driveTrain->DriveStraightWithGyro(-POV_DRIVE_TRAIN_MOTOR_POWER, gyroAngle);
-		//CommandBase::driveTrain->DriveTank(-POV_DRIVE_TRAIN_MOTOR_POWER, -POV_DRIVE_TRAIN_MOTOR_POWER);
 	}
 	else if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::LEFT_POV)) {
 		CommandBase::driveTrain->DriveTank(-POV_DRIVE_TRAIN_MOTOR_POWER, POV_DRIVE_TRAIN_MOTOR_POWER);

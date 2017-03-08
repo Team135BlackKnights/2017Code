@@ -14,6 +14,7 @@ AutoGearOnPeg::AutoGearOnPeg() {
 void AutoGearOnPeg::Initialize() {
 	startMovingTowardsGear = true;
 	startPuttingGearOnPeg = false;
+	initializeTimerLimitSwitch = false;
 	gearOnPeg = false;
 	timer->Reset();
 	timer->Start();
@@ -110,13 +111,22 @@ void AutoGearOnPeg::Execute() {
 	}
 
 	if (startPuttingGearOnPeg) {
-		lowerLimitSwitchValue = CommandBase::gearHolder->GetLimitSwitchValue(GearHolder::LOWER_LIMIT_SWITCH_PORT);
-		if (lowerLimitSwitchValue) {
+		if (initializeTimerLimitSwitch == false) {
+			timer->Stop();
+			timer->Reset();
+			timer->Start();
+			initializeTimerLimitSwitch = true;
+		}
+
+		std::cout << "Timer Value: " << timer->Get() << std::endl;
+		//lowerLimitSwitchValue = CommandBase::gearHolder->GetLimitSwitchValue(GearHolder::LOWER_LIMIT_SWITCH_PORT);
+		if (timer->Get() >= WAIT_TIME_FOR_LIMI_SWITCH_TO_LOWER) {
 			CommandBase::gearHolder->DriveGearHolderMotor(0.0);
 			startPuttingGearOnPeg = false;
 			gearOnPeg = true;
 		}
 		else {
+			std::cout << "Moving Gear Down" << std::endl;
 			CommandBase::gearHolder->DriveGearHolderMotor(-GEAR_HOLDER_MOTOR_POWER);
 		}
 	}
@@ -131,6 +141,7 @@ bool AutoGearOnPeg::IsFinished() {
 void AutoGearOnPeg::End() {
 	startMovingTowardsGear = true;
 	startPuttingGearOnPeg = false;
+	initializeTimerLimitSwitch = false;
 	gearOnPeg = false;
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
 	CommandBase::gearHolder->DriveGearHolderMotor(0.0);

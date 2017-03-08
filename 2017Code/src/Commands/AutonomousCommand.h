@@ -15,7 +15,7 @@ private:
 
 	//  Gear Autonomous Programs Distances
 	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_GEAR = (80.0 - ROBOT_WITH_BUMPERS_LENGTH);
-	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR = (110.0 - ROBOT_WITH_BUMPERS_LENGTH);
+	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR = (116.0 - ROBOT_WITH_BUMPERS_LENGTH);
 
 	static constexpr double ANGLE_TO_TURN_TO_FACE_SIDE_GEAR = 45.0;
 	static constexpr double ANGLE_FROM_SIDE_GEAR_TO_BASE_LINE_PATH = 75.0;
@@ -30,10 +30,10 @@ private:
 
 	//  Shooter Autonomous Programs
 	//  Both Close Shot Right and Close Shot Left
-	static constexpr double DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT = 85.0;
+	static constexpr double DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT = 65.0;
 	//  Close Shot Right
 	static constexpr double DISTANCE_TO_TRAVEL_BACKWARDS_AFTER_CLOSE_SHOT = 15.0;
-	static constexpr double ANGLE_TO_TURN_AFTER_DRIVING_OFF_RIGHT_ALLIANCE_WALL = 75.0;
+	static constexpr double ANGLE_TO_TURN_AFTER_DRIVING_OFF_RIGHT_ALLIANCE_WALL = 60.0;
 	//  Close Shot Left
 	static constexpr double DISTANCE_TO_TRAVEL_OFF_LEFT_ALLIANCE_WALL = 20.0;
 	static constexpr double ANGLE_TO_TURN_AFTER_DRIVING_OFF_LEFT_ALLIANCE_WALL = 50.0;
