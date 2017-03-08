@@ -19,7 +19,7 @@ void ReadLidarValue::Execute() {
 		resetLidarVariables = true;
 	}
 	lidarValue_IN = CommandBase::lidars->GetLidarValueWholeProcess(Lidars::DISTANCE_UNIT_ARRAY[Lidars::INCHES]);
-	std::cout << "Lidar Value Inches: " << lidarValue_IN << std::endl;
+	//std::cout << "Lidar Value Inches: " << lidarValue_IN << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -74,6 +74,7 @@ void Server::init()
 				return;
 			}
 			inet_ntop(client_addr.ss_family, get_in_addr((struct sockaddr *) &client_addr),s ,sizeof s);
+			std::cout << "finished init\n";
 }
 
 void * Server::get_in_addr(struct sockaddr * sa)
@@ -91,10 +92,12 @@ void Server::Run()
 		//std::cout << "accepting - " << new_conn_fd << std::endl;
 		if(new_conn_fd < 0)
 		{
-			std::cout << "\n\n\nLOST COMS\n\n\n";
+			//std::cout << "\n\n\nLOST COMS\n\n\n";
 			Server::init();
+			//std::cout << "finished init";
 		}
 		else{
+			//std::cout << "getting angle";
 			double d = Server::get_angle(0);
 			frc::SmartDashboard::PutNumber("Angle from camera 0: ", d);
 			d = Server::get_angle(1);

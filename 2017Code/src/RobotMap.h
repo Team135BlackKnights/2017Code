@@ -18,7 +18,7 @@
 // constexpr int RANGE_FINDER_PORT = 1;
 // constexpr int RANGE_FINDER_MODULE = 1;
 
-	const bool COMPETITION_BOT = false;
+	const bool COMPETITION_BOT = true;
 
 	//  Practice Bot Motor Ports
 	//VictorSP motor ports
@@ -38,7 +38,7 @@
 	const int PB_HOOD_MOTOR_TALON_ID = 5;
 
 	//  Motor Inversions
-	const bool PB_AGITATOR_INVERTED = true;
+	const bool PB_AGITATOR_INVERTED = false;
 	const bool PB_COLLECTION_INVERTED = false;
 	const bool PB_DRIVE_TRAIN_FRONT_LEFT_INVERTED = false;
 	const bool PB_DRIVE_TRAIN_REAR_LEFT_INVERTED = false;
@@ -81,7 +81,7 @@
 	const bool CB_LIFT_HANG_MOTOR_INVERTED = false;
 	const bool CB_LIFT_HANG_MOTOR_2_INVERTED = false;
 	const bool CB_SHOOTER_MOTOR_INVERTED = false;
-	const bool CB_SHOOTER_HOOD_MOTOR_INVERTED = false;
+	const bool CB_SHOOTER_HOOD_MOTOR_INVERTED = true;
 
 	enum AutonomousSelection {
 		MiddleGear,

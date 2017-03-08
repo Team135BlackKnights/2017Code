@@ -39,20 +39,23 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 	}
 	else if (this->autonomousSelection == AutonomousSelection::MiddleGear) {
 		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_GEAR, -.7));
-		AddSequential(new WaitTime(.2));
-		AddSequential(new AimBot(1));
+		AddSequential(new WaitTime(.35));
+		//AddSequential(new AimBot(0));
 		AddSequential(new AutoGearOnPeg());
-		AddSequential(new WaitTime(.5));
+		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 		if (this->secondTask == SecondTask::MiddleGearShootRight) {
 			AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING_TO_SHOOT, .6));
 			AddSequential(new WaitTime(.25));
 			AddSequential(new TurnDriveTrainAngle(RIGHT_ANGLE_DEGREES, .5, TURN_LEFT));
 			AddSequential(new WaitTime(.15));
-			AddSequential(new DriveUntilLidarIsCertainValue(DISTANCE_LIDAR_AWAY_FROM_SIDE_RAIL, .7));
-			AddSequential(new WaitTime(.2));
+			AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING_TO_SHOOT, .6));
+			//AddSequential(new DriveUntilLidarIsCertainValue(DISTANCE_LIDAR_AWAY_FROM_SIDE_RAIL, .7));
+			AddSequential(new WaitTime(.15));
 			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_BOILDER_RIGHT_SHOOT_GEAR, .5, TURN_RIGHT));
 			//  Make Sure Shooter Hood Encoder is at Proper Value
+			AddSequential(new WaitTime(.15));
+			AddSequential(new AimBot(1));
 			AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		}
 		else if (this->secondTask == SecondTask::MiddleGearShootLeft) {
@@ -70,52 +73,57 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 	else if (this->autonomousSelection == AutonomousSelection::RightGear) {
 		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR, -.75));
 		AddSequential(new WaitTime(.25));
-		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_SIDE_GEAR, .5, TURN_LEFT));
-		//AddSequential(new WaitTime(.25));
-		//AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.5));
-		AddSequential(new WaitTime(.25));
-		AddSequential(new AimBot(1));
+		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_SIDE_GEAR, .65, TURN_LEFT));
+		AddSequential(new WaitTime(.1));
+		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
+		AddSequential(new WaitTime(.4));
+		AddSequential(new AimBot(0));
 		AddSequential(new AutoGearOnPeg());
-		AddSequential(new WaitTime(.5));
+		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 		if (this->secondTask == SecondTask::SideGearShoot) {
-			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_AFTER_PLACING_SIDE_GEAR, .6));
+			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_AWAY_FROM_RIGHT_GEAR, .55, TURN_RIGHT));
 			AddSequential(new WaitTime(.2));
-			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_AWAY_FROM_RIGHT_GEAR, .5, TURN_RIGHT));
-			AddSequential(new WaitTime(.15));
-			AddSequential(new DriveUntilLidarIsCertainValue(DISTANCE_LIDAR_AWAY_FROM_BOILER, .6));
+			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_AFTER_PLACING_SIDE_GEAR, .6));
+			//AddSequential(new WaitTime(.15));
+			//AddSequential(new DriveUntilLidarIsCertainValue(DISTANCE_LIDAR_AWAY_FROM_BOILER, .6));
 			//  Make Sure Shooter Hood Encoder is at Proper Value
+			AddSequential(new WaitTime(.15));
+			AddSequential(new AimBot(1));
 			AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		}
 	}
 	else if (this->autonomousSelection == AutonomousSelection::LeftGear) {
-		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR, -.6));
+		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR + 5.0, -.6));
 		AddSequential(new WaitTime(.25));
-		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_SIDE_GEAR, .5, TURN_RIGHT));
+		AddSequential(new TurnDriveTrainAngle((ANGLE_TO_TURN_TO_FACE_SIDE_GEAR + 10.0), .65, TURN_RIGHT));
+		AddSequential(new WaitTime(.2));
+		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
 		AddSequential(new WaitTime(.25));
-		//AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.5));
-		AddSequential(new AimBot(1));
+		AddSequential(new AimBot(0));
 		AddSequential(new AutoGearOnPeg());
-		AddSequential(new WaitTime(1.0));
+		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 		if (this->secondTask == SecondTask::SideGearShoot) {
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_AFTER_PLACING_SIDE_GEAR, .6));
-			AddSequential(new WaitTime(.2));
-			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_AWAY_FROM_LEFT_GEAR, .5, TURN_LEFT));
 			AddSequential(new WaitTime(.15));
-			AddSequential(new DriveUntilLidarIsCertainValue(DISTANCE_LIDAR_AWAY_FROM_BOILER, .6));
+			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_AWAY_FROM_LEFT_GEAR, .6, TURN_LEFT));
+			//AddSequential(new WaitTime(.15));
+			//AddSequential(new DriveUntilLidarIsCertainValue(DISTANCE_LIDAR_AWAY_FROM_BOILER, .6));
 			//  Make Sure Shooter Hood Encoder is at Proper Value
+			AddSequential(new WaitTime(.15));
+			AddSequential(new AimBot(1));
 			AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		}
 	}
 	else if (this->autonomousSelection == AutonomousSelection::CloseShotShooterRight) {
-		//  Make Sure Shooter Hood Encoder is at Proper Value
+		//  Make Sure Shooter Hood Encoder is at Proper Value - Encoder Value at 5000
 		AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_CLOSE_SHOT));
 		if (this->secondTask == SecondTask::CloseShotBaseLine) {
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_BACKWARDS_AFTER_CLOSE_SHOT, -.5));
 			AddSequential(new WaitTime(.3));
 			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_OFF_RIGHT_ALLIANCE_WALL, .5, TURN_RIGHT));
-			AddSequential(new WaitTime(.3));
+			AddSequential(new WaitTime(.2));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT, -.65));
 		}
 	}

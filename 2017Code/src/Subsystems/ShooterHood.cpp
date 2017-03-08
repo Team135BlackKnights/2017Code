@@ -28,11 +28,11 @@ void ShooterHood::InitializeShooterHoodMotor(bool competitionBot) {
 void ShooterHood::DriveShooterHoodMotor(double motorPower) {
 	if (this->GetMinAngleLimitSwitch() == 1) {
 		this->SetShooterHoodEncoder(MAX_ENCODER_VALUE);
-		std::cout << "Min Angle Limit Switch Pressed" << std::endl;
+		//std::cout << "Min Angle Limit Switch Pressed" << std::endl;
 	}
 	else if (this->GetMaxAngleLimitSwitch() == 1) {
 		this->ZeroShooterHoodEncoder();
-		std::cout << "Max Angle Limit Switch Pressed" << std::endl;
+		//std::cout << "Max Angle Limit Switch Pressed" << std::endl;
 	}
 
 	shooterHoodMotor->Set(motorPower);
@@ -324,11 +324,11 @@ void ShooterHood::CheckIfHoodHitsLimitSwitch() {
 }
 
 int ShooterHood::GetMaxAngleLimitSwitch() {
-	return shooterHoodMotor->IsFwdLimitSwitchClosed();
+	return shooterHoodMotor->IsRevLimitSwitchClosed();
 }
 
 int ShooterHood::GetMinAngleLimitSwitch() {
-	return shooterHoodMotor->IsRevLimitSwitchClosed();
+	return shooterHoodMotor->IsFwdLimitSwitchClosed();
 }
 
 double ShooterHood::ConvertDegreesToRadians(double degrees) {

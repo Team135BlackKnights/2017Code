@@ -17,8 +17,11 @@ void AimBot::Initialize() {
 		double sonar_value = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches();
 		double dangleToTurn = 90 - atan( (sonar_value - SPRING_IN) / (CAMERA_TO_GEAR_IN - sonar_value / tan((90 -angleToTurn) * M_PI / 180))) * 180 / M_PI;
 		std::cout << "\n\n\n\n\nangle: " << dangleToTurn << "\nSonar: " << sonar_value << "\n\n\n\n";
+		CommandBase::driveTrain->TurnPIDEnable(angleToTurn);
 	}
-	CommandBase::driveTrain->TurnPIDEnable(angleToTurn - 10);
+	else
+		CommandBase::driveTrain->TurnPIDEnable(angleToTurn - 18);//- 18);
+
 	time.Start();
 	time.Reset();
 	CommandBase::driveTrain->ZeroGyroAngle();
@@ -28,7 +31,7 @@ void AimBot::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AimBot::Execute() {
-	frc::SmartDashboard::PutNumber("Angle: ", CommandBase::driveTrain->GetGyroAngle());
+	frc::SmartDashboard::PutNumber("Angle to Turn: ", CommandBase::driveTrain->GetGyroAngle());
 	CommandBase::driveTrain->PIDTurning();
 }
 

@@ -118,15 +118,13 @@ void AutoGearOnPeg::Execute() {
 			initializeTimerLimitSwitch = true;
 		}
 
-		std::cout << "Timer Value: " << timer->Get() << std::endl;
-		//lowerLimitSwitchValue = CommandBase::gearHolder->GetLimitSwitchValue(GearHolder::LOWER_LIMIT_SWITCH_PORT);
-		if (timer->Get() >= WAIT_TIME_FOR_LIMI_SWITCH_TO_LOWER) {
+		lowerLimitSwitchValue = CommandBase::gearHolder->GetLimitSwitchValue(GearHolder::LOWER_LIMIT_SWITCH_PORT);
+		if (lowerLimitSwitchValue || (timer->Get() >= WAIT_TIME_FOR_LIMI_SWITCH_TO_LOWER)) {
 			CommandBase::gearHolder->DriveGearHolderMotor(0.0);
 			startPuttingGearOnPeg = false;
 			gearOnPeg = true;
 		}
 		else {
-			std::cout << "Moving Gear Down" << std::endl;
 			CommandBase::gearHolder->DriveGearHolderMotor(-GEAR_HOLDER_MOTOR_POWER);
 		}
 	}

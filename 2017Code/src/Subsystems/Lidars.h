@@ -62,6 +62,7 @@ private:
 	int finalNonZeroLidarValue = 0;
 
 	bool configuredLidar = false;
+	bool waitConfigureLidar = false;
 	bool receivedUpperByte = false;
 	int lidarUpperByte = 0;
 	int lidarLowerByte = 0;

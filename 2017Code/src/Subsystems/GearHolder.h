@@ -25,7 +25,8 @@ private:
 
 	frc::Servo* gearHolderServo;
 
-	static const int GEAR_HOLDER_SERVO_PWM_PORT = 4;
+	//  Practice Bot PWM Port 4
+	static const int GEAR_HOLDER_SERVO_PWM_PORT = 0;
 
 public:
 	GearHolder();

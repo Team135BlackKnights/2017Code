@@ -14,7 +14,7 @@ void ReadUltrasonicSensorValue::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void ReadUltrasonicSensorValue::Execute() {
 	ultrasonicSensorValueInches = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches();
-	frc::SmartDashboard::PutNumber("Ultrasoniccccc Sensor Value", ultrasonicSensorValueInches);
+	std::cout << "Ultrasonic Sensor Value: " << ultrasonicSensorValueInches << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -19,6 +19,7 @@ private:
 	static const bool REVERSE_SHOOTER_HOOD_ENCODER_DIRECTION = false;
 
 	static const int MIN_ENCODER_VALUE = 0;
+	//  15000 for Practice Bot
 	static const int MAX_ENCODER_VALUE = 15000;
 	static const int RANGE_OF_ENCODER_VALUES = (MAX_ENCODER_VALUE - MIN_ENCODER_VALUE);
 
