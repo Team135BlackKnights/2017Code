@@ -115,6 +115,7 @@ void OI::ConfigureButtonMapping() {
 
 	//Just for now
 	joystickButton[LEFT_DRIVE_JOYSTICK][10]->WhenPressed(new AimBot(1));
+	joystickButton[LEFT_DRIVE_JOYSTICK][9]->WhenPressed(new AimBot(0));
 }
 
 bool OI::GetAction(int JoyException, int ButtonException)
