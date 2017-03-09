@@ -18,22 +18,20 @@ void GearHolder::InitializeGearHolderMotor(bool competitionBot) {
 	if (competitionBot) {
 		gearHolderMotor = new frc::VictorSP(CB_GEAR_VICTOR_PWM_PORT);
 		gearHolderMotor->SetInverted(CB_GEAR_HOLDER_INVERTED);
+		gearHolderServo = new frc::Servo(CB_GEAR_HOLDER_SERVO_PWM_PORT);
 	}
 	else if (competitionBot == false) {
 		gearHolderMotor = new frc::VictorSP(PB_GEAR_VICTOR_PWM_PORT);
 		gearHolderMotor->SetInverted(PB_GEAR_HOLDER_INVERTED);
+		gearHolderServo = new frc::Servo(PB_GEAR_HOLDER_SERVO_PWM_PORT);
 	}
 	upperLimitSwitch = new frc::DigitalInput(UPPER_LIMIT_SWITCH_PORT);
 	lowerLimitSwitch = new frc::DigitalInput(LOWER_LIMIT_SWITCH_PORT);
-
-	gearHolderServo = new frc::Servo(GEAR_HOLDER_SERVO_PWM_PORT);
 }
 
 void GearHolder::DriveGearHolderMotor(double motorPower) {
 	upperLimitSwitchValue = this->GetLimitSwitchValue(UPPER_LIMIT_SWITCH_PORT);
 	lowerLimitSwitchValue = this->GetLimitSwitchValue(LOWER_LIMIT_SWITCH_PORT);
-
-	//std::cout << "Lower Limit Switch: " << lowerLimitSwitchValue << std::endl;
 
 	if (upperLimitSwitchValue) {
 		gearHolderMotorPower = fmin(0.0, motorPower);

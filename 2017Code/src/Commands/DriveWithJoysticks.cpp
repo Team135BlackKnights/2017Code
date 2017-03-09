@@ -40,14 +40,6 @@ void DriveWithJoysticks::Execute() {
 	else {
 		CommandBase::driveTrain->ZeroGyroAngle();
 	}
-
-	//frc::SmartDashboard::PutNumber("Angle: ", gyroAngle);
-
-	/*leftDriveTrainEncoderRPM = CommandBase::driveTrain->GetEncoderRPM(DriveTrain::LEFT_SIDE_ENCODER);
-	rightDriveTrainEncoderRPM = CommandBase::driveTrain->GetEncoderRPM(DriveTrain::RIGHT_SIDE_ENCODER);
-
-	frc::SmartDashboard::PutNumber("Left Drive Train Encoder RPM", leftDriveTrainEncoderRPM);
-	frc::SmartDashboard::PutNumber("Right Drive Train Encoder RPM", rightDriveTrainEncoderRPM); */
 }
 
 // Make this return true when this Command no longer needs to run execute()

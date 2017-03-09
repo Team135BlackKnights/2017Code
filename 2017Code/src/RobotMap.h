@@ -21,14 +21,14 @@
 	const bool COMPETITION_BOT = false;
 
 	//  Practice Bot Motor Ports
-	//VictorSP motor ports
+	//  VictorSP motor ports
 	const int PB_COLLECTION_VICTOR_PWM_PORT = 3;
 	const int PB_HANG_VICTOR_PWM_PORT = 2;
 	const int PB_HANG_VICTOR_2_PWM_PORT = 4;
 	const int PB_GEAR_VICTOR_PWM_PORT = 0;
 	const int PB_AGITATOR_VICTOR_PWM_PORT = 1;
 
-	//CANTalon motor ports
+	//  CANTalon motor ports
 	const int PB_FRONT_LEFT_TALON_ID = 3;
 	const int PB_REAR_LEFT_TALON_ID = 4;
 	const int PB_FRONT_RIGHT_TALON_ID = 1;
@@ -36,6 +36,8 @@
 
 	const int PB_SHOOTER_MOTOR_TALON_ID = 6;
 	const int PB_HOOD_MOTOR_TALON_ID = 5;
+
+	const int PB_GEAR_HOLDER_SERVO_PWM_PORT = 4;
 
 	//  Motor Inversions
 	const bool PB_AGITATOR_INVERTED = false;
@@ -68,6 +70,8 @@
 
 	const int CB_SHOOTER_MOTOR_TALON_ID = 6;
 	const int CB_HOOD_MOTOR_TALON_ID = 5;
+
+	const int CB_GEAR_HOLDER_SERVO_PWM_PORT = 0;
 
 	//  Motor Inversions
 	//  To Be Determined

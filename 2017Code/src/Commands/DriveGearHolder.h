@@ -5,7 +5,6 @@
 
 class DriveGearHolder : public CommandBase {
 private:
-	bool driveUpwards;
 	static constexpr double GEAR_HOLDER_MOTOR_POWER = .5;
 
 	double gearHolderServoValue = 0.0;

@@ -7,8 +7,8 @@
 #include "AutoDriveShooter.h"
 #include "AutoDriveShooterHood.h"
 #include "TurnOneSideOfRobotAngle.h"
-#include "DriveUntilLidarIsCertainValue.h"
 #include "AutoGetShooterUpToSpeed.h"
+#include "AutoDriveAgitator.h"
 AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, SecondTask secondTask) {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
@@ -30,6 +30,8 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 	Requires(CommandBase::driveTrain.get());
 	Requires(CommandBase::gearHolder.get());
 	Requires(CommandBase::ultrasonicSensor.get());
+	Requires(CommandBase::shooter.get());
+	Requires(CommandBase::agitator.get());
 
 	this->autonomousSelection = autonomousSelection;
 	this->secondTask = secondTask;
@@ -55,6 +57,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_BOILDER_RIGHT_SHOOT_GEAR, .5, TURN_RIGHT));
 			AddSequential(new WaitTime(.2));
 			AddSequential(new AimBot(1));
+			AddSequential(new AutoDriveAgitator());
 			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 			//  Need to Move Agitator
 		}
@@ -69,6 +72,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_BOILDER_LEFT_SHOOT_GEAR, .5, TURN_LEFT));
 			AddSequential(new WaitTime(.2));
 			AddSequential(new AimBot(1));
+			AddSequential(new AutoDriveAgitator());
 			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 			//  Need to Move Agitator
 		}
@@ -86,14 +90,13 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 		if (this->secondTask == SecondTask::SideGearShoot) {
 			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_AWAY_FROM_RIGHT_GEAR, .55, TURN_RIGHT));
+			AddParallel(new AutoGetShooterUpToSpeed(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 			AddSequential(new WaitTime(.2));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_AFTER_PLACING_SIDE_GEAR, .6));
-			//AddSequential(new WaitTime(.15));
-			//AddSequential(new DriveUntilLidarIsCertainValue(DISTANCE_LIDAR_AWAY_FROM_BOILER, .6));
-			//  Make Sure Shooter Hood Encoder is at Proper Value
 			AddSequential(new WaitTime(.15));
 			AddSequential(new AimBot(1));
-			AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
+			AddSequential(new AutoDriveAgitator());
+			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		}
 	}
 	else if (this->autonomousSelection == AutonomousSelection::LeftGear) {
@@ -108,15 +111,14 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 		if (this->secondTask == SecondTask::SideGearShoot) {
+			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_AWAY_FROM_LEFT_GEAR, .6, TURN_LEFT));
+			AddParallel(new AutoGetShooterUpToSpeed(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
+			AddSequential(new WaitTime(.15));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_AFTER_PLACING_SIDE_GEAR, .6));
 			AddSequential(new WaitTime(.15));
-			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_AWAY_FROM_LEFT_GEAR, .6, TURN_LEFT));
-			//AddSequential(new WaitTime(.15));
-			//AddSequential(new DriveUntilLidarIsCertainValue(DISTANCE_LIDAR_AWAY_FROM_BOILER, .6));
-			//  Make Sure Shooter Hood Encoder is at Proper Value
-			AddSequential(new WaitTime(.15));
 			AddSequential(new AimBot(1));
-			AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
+			AddSequential(new AutoDriveAgitator());
+			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		}
 	}
 	else if (this->autonomousSelection == AutonomousSelection::CloseShotShooterRight) {
@@ -134,7 +136,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 		//  Make Sure Shooter Hood Encoder is at Proper Value
 		AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_CLOSE_SHOT));
 		if (this->secondTask == SecondTask::CloseShotBaseLine) {
-			AddSequential(new TurnOneSideOfRobotAngle(20.0, DRIVE_RIGHT_SIDE_DRIVE_TRAIN, -.5));
+			AddSequential(new TurnOneSideOfRobotAngle(25.0, ANGLE_TO_TURN_AFTER_DRIVING_OFF_LEFT_ALLIANCE_WALL, -.75));
 			AddSequential(new WaitTime(.3));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_OFF_LEFT_ALLIANCE_WALL, .5));
 			AddSequential(new WaitTime(.2));

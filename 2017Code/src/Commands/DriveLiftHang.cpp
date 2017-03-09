@@ -4,7 +4,6 @@ DriveLiftHang::DriveLiftHang(double liftHangMotorPower) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::liftHang.get());
-	Requires(CommandBase::pdp.get());
 
 	this->liftHangMotorPower = liftHangMotorPower;
 }
@@ -17,9 +16,6 @@ void DriveLiftHang::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DriveLiftHang::Execute() {
 	CommandBase::liftHang->DriveLiftHang(this->liftHangMotorPower);
-
-	liftHangCurrentValue = CommandBase::pdp->GetCurrentOfPDPPort(PDP::HANGING_MOTOR_PDP_PORT);
-	frc::SmartDashboard::PutNumber("Lift Hang Motor Current", liftHangCurrentValue);
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -32,7 +32,7 @@ void AutoGetShooterUpToSpeed::Execute() {
 	timerValue = timer->Get();
 
 	currentShooterRPMValue = CommandBase::shooter->GetShooterWheelRPM();
-	if (currentShooterRPMValue >= this->desiredShooterRPM && shooterUpToSpeed == false) {
+	if ((currentShooterRPMValue >= this->desiredShooterRPM) && shooterUpToSpeed == false) {
 		if (startTimer == false) {
 			timer->Reset();
 			timer->Start();
