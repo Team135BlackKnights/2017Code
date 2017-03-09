@@ -19,7 +19,7 @@ private:
 	static constexpr double WAIT_TIME_FOR_SHOOTER = .15;
 	static constexpr double WAIT_TIME_FOR_FUEL_TO_SHOOT = 5.5;
 
-	static constexpr double AGITATOR_MOTOR_POWER = .4;
+	static constexpr double AGITATOR_MOTOR_POWER = .35;
 	bool startTimerForAgitator = false;
 
 	bool shotFuelIntoBoiler = false;

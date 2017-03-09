@@ -62,6 +62,7 @@ void AutoGetShooterUpToSpeed::End() {
 	initializeVoltageMode = true;
 	CommandBase::shooter->DriveShooterMotor(0.0);
 	shooterUpToSpeed = false;
+	CommandBase::shooter->ShooterUpToSpeed(shooterUpToSpeed);
 }
 
 // Called when another command which requires one or more of the same

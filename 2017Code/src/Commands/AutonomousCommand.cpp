@@ -3,12 +3,12 @@
 #include "DriveDistance.h"
 #include "TurnDriveTrainAngle.h"
 #include "WaitTime.h"
-#include "DriveUntilRobotAgainstBoiler.h"
 #include "AimBot.h"
 #include "AutoDriveShooter.h"
 #include "AutoDriveShooterHood.h"
 #include "TurnOneSideOfRobotAngle.h"
 #include "DriveUntilLidarIsCertainValue.h"
+#include "AutoGetShooterUpToSpeed.h"
 AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, SecondTask secondTask) {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
@@ -49,13 +49,14 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddSequential(new WaitTime(.2));
 			AddSequential(new TurnDriveTrainAngle(RIGHT_ANGLE_DEGREES, .65, TURN_LEFT));
 			AddSequential(new WaitTime(.15));
-
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_AFTER_TURNING_TO_DRIVE_TOWARDS_BOILER, .6));
+			AddParallel(new AutoGetShooterUpToSpeed(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 			AddSequential(new WaitTime(.2));
 			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_BOILDER_RIGHT_SHOOT_GEAR, .5, TURN_RIGHT));
 			AddSequential(new WaitTime(.2));
 			AddSequential(new AimBot(1));
-			AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
+			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
+			//  Need to Move Agitator
 		}
 		else if (this->secondTask == SecondTask::MiddleGearShootLeft) {
 			AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING_TO_SHOOT, .6));
@@ -63,11 +64,13 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddSequential(new TurnDriveTrainAngle(RIGHT_ANGLE_DEGREES, .5, TURN_RIGHT));
 			AddSequential(new WaitTime(.15));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_AFTER_TURNING_TO_DRIVE_TOWARDS_BOILER, .6));
+			AddParallel(new AutoGetShooterUpToSpeed(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 			AddSequential(new WaitTime(.2));
 			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_BOILDER_LEFT_SHOOT_GEAR, .5, TURN_LEFT));
 			AddSequential(new WaitTime(.2));
 			AddSequential(new AimBot(1));
-			AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
+			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
+			//  Need to Move Agitator
 		}
 	}
 	else if (this->autonomousSelection == AutonomousSelection::RightGear) {
