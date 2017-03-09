@@ -38,7 +38,8 @@ void AutoGetShooterUpToSpeed::Execute() {
 			timer->Start();
 			startTimer = true;
 		}
-		else if (startTimer && (timerValue < TIME_TO_WAIT_FOR_SHOOTER_TO_MAINTAIN_VELOCITY)) {
+
+		if (startTimer && (timerValue < TIME_TO_WAIT_FOR_SHOOTER_TO_MAINTAIN_VELOCITY)) {
 			shooterUpToSpeed = false;
 		}
 		else if (startTimer && (timerValue >= TIME_TO_WAIT_FOR_SHOOTER_TO_MAINTAIN_VELOCITY)) {

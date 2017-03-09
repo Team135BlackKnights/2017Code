@@ -30,7 +30,6 @@ void AutoGearOnPeg::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void AutoGearOnPeg::Execute() {
 	ultrasonicValue = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches();
-	//frc::SmartDashboard::PutNumber("Ultrasonic Sensor Value", ultrasonicValue);
 	timerValue = timer->Get();
 
 	if (startMovingTowardsGear) {
@@ -118,8 +117,10 @@ void AutoGearOnPeg::Execute() {
 			initializeTimerLimitSwitch = true;
 		}
 
+		timerValue = timer->Get();
+
 		lowerLimitSwitchValue = CommandBase::gearHolder->GetLimitSwitchValue(GearHolder::LOWER_LIMIT_SWITCH_PORT);
-		if (lowerLimitSwitchValue || (timer->Get() >= WAIT_TIME_FOR_LIMI_SWITCH_TO_LOWER)) {
+		if (lowerLimitSwitchValue || (timerValue >= WAIT_TIME_FOR_LIMI_SWITCH_TO_LOWER)) {
 			CommandBase::gearHolder->DriveGearHolderMotor(0.0);
 			startPuttingGearOnPeg = false;
 			gearOnPeg = true;

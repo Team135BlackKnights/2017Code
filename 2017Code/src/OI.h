@@ -25,6 +25,8 @@ private:
 	static const int SHOOTER_HOOD_INCREASE_ANGLE_BUTTON = 5;
 	static const int SHOOTER_HOOD_DECREASE_ANGLE_BUTTON = 3;
 
+	static const int AUTO_GEAR_ON_PEG_BUTTON = 8;
+
 	static const int POV_NUMBER = 0;
 
 	double povValue = 0.0;

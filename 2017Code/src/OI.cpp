@@ -7,6 +7,7 @@
 #include "Commands/DriveLiftHang.h"
 #include "Commands/DriveShooterHood.h"
 #include "Commands/Aimbot.h"
+#include "Commands/AutoGearOnPeg.h"
 #include <iostream>
 
 OI::OI() {
@@ -116,6 +117,8 @@ void OI::ConfigureButtonMapping() {
 	//Just for now
 	joystickButton[LEFT_DRIVE_JOYSTICK][10]->WhenPressed(new AimBot(1));
 	joystickButton[LEFT_DRIVE_JOYSTICK][9]->WhenPressed(new AimBot(0));
+
+	joystickButton[LEFT_DRIVE_JOYSTICK][AUTO_GEAR_ON_PEG_BUTTON]->ToggleWhenPressed(new AutoGearOnPeg());
 }
 
 bool OI::GetAction(int JoyException, int ButtonException)
