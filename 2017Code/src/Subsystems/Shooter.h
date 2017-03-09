@@ -83,6 +83,8 @@ private:
 	static constexpr double CB_FAR_SHOT_POSITIVE_PEAK_VOLTAGE = 10.0;
 	static constexpr double CB_FAR_SHOT_NEGATIVE_PEAK_VOLTAGE = -6.0;
 
+	//  Variable for ShooterUpToSpeed() and GetShooterUpToSpeed()
+	bool shooterUpToSpeed = false;
 public:
 	Shooter();
 	void InitDefaultCommand();
@@ -103,6 +105,9 @@ public:
 
 	double GetShooterVoltage();
 	double GetShooterMotorOutputCurrent();
+
+	void ShooterUpToSpeed(bool);
+	bool GetShooterUpToSpeed();
 };
 
 #endif  // Shooter_H

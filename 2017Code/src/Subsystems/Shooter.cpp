@@ -116,5 +116,13 @@ void Shooter::SelectPIDProfileSlot(int profileSlot) {
 	shooterMotor->SelectProfileSlot(profileSlot);
 }
 
+void Shooter::ShooterUpToSpeed(bool shooterUpToSpeed) {
+	this->shooterUpToSpeed = shooterUpToSpeed;
+}
+
+bool Shooter::GetShooterUpToSpeed() {
+	return (this->shooterUpToSpeed);
+}
+
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

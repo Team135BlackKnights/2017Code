@@ -39,8 +39,8 @@ private:
 	static constexpr double ANGLE_TO_TURN_AFTER_DRIVING_OFF_LEFT_ALLIANCE_WALL = 50.0;
 
 	//  Both Shoot After Right Gear and Shoot After Left Gear
-	static constexpr double DISTANCE_LIDAR_AWAY_FROM_BOILER = 65.0;
 	static constexpr double DISTANCE_TO_TRAVEL_AFTER_PLACING_SIDE_GEAR = 18.0;
+	static constexpr double DISTANCE_TO_TRAVEL_AFTER_TURNING_TO_DRIVE_TOWARDS_BOILER = 35.0;
 	//  Shoot After Right Gear
 	static constexpr double ANGLE_TO_TURN_AFTER_DRIVING_AWAY_FROM_RIGHT_GEAR = 18.0;
 	//  Shoot After Left Gear
@@ -52,7 +52,7 @@ private:
 	//  Shoot Right After Placing Middle Gear
 	static constexpr double ANGLE_TO_TURN_TO_FACE_BOILDER_RIGHT_SHOOT_GEAR = 15.0;
 	//  Shoot Left After Placing Middle Gear
-	static constexpr double ANGLE_TO_TURN_TO_FACE_BOILDER_LEFT_SHOOT_GEAR = 9.0;
+	static constexpr double ANGLE_TO_TURN_TO_FACE_BOILDER_LEFT_SHOOT_GEAR = 9.5;
 
 	static const bool TURN_RIGHT = true;
 	static const bool TURN_LEFT = !TURN_RIGHT;
