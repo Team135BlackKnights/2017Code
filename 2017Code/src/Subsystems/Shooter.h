@@ -9,7 +9,7 @@ public:
 	static constexpr double DESIRED_VOLTAGE_CLOSE_SHOT = 7.7;
 	static constexpr double DESIRED_VOLTAGE_FAR_SHOT = 9.125;
 
-	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2600.0;
+	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2650.0;
 	static constexpr double SHOOTER_SETPOINT_RPM_FAR_SHOT = 3000.0;
 
 	static const int CLOSE_SHOT_PID_VALUES = 0;

@@ -15,7 +15,8 @@ private:
 
 	//  Gear Autonomous Programs Distances
 	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_GEAR = (80.0 - ROBOT_WITH_BUMPERS_LENGTH);
-	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR = (113.0 - ROBOT_WITH_BUMPERS_LENGTH);
+	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_RIGHT_GEAR = (113.0 - ROBOT_WITH_BUMPERS_LENGTH);
+	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_LEFT_GEAR = (118.0 - ROBOT_WITH_BUMPERS_LENGTH);
 
 	static constexpr double ANGLE_TO_TURN_TO_FACE_SIDE_GEAR = 45.0;
 	static constexpr double ANGLE_FROM_SIDE_GEAR_TO_BASE_LINE_PATH = 75.0;
@@ -51,9 +52,9 @@ private:
 	static constexpr double DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING_TO_SHOOT = 25.0;
 	static constexpr double DISTANCE_LIDAR_AWAY_FROM_SIDE_RAIL = 80.0;
 	//  Shoot Right After Placing Middle Gear
-	static constexpr double ANGLE_TO_TURN_TO_FACE_BOILDER_RIGHT_SHOOT_GEAR = 15.0;
+	static constexpr double ANGLE_TO_TURN_TO_FACE_BOILDER_RIGHT_SHOOT_GEAR = 25.0;
 	//  Shoot Left After Placing Middle Gear
-	static constexpr double ANGLE_TO_TURN_TO_FACE_BOILDER_LEFT_SHOOT_GEAR = 9.5;
+	static constexpr double ANGLE_TO_TURN_TO_FACE_BOILDER_LEFT_SHOOT_GEAR = 15.0;
 
 	static const bool TURN_RIGHT = true;
 	static const bool TURN_LEFT = !TURN_RIGHT;

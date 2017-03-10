@@ -49,21 +49,21 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 		if (this->secondTask == SecondTask::MiddleGearShootRight) {
 			AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING_TO_SHOOT, .6));
 			AddSequential(new WaitTime(.2));
-			AddSequential(new TurnDriveTrainAngle(RIGHT_ANGLE_DEGREES, .5, TURN_LEFT));
+			AddSequential(new TurnDriveTrainAngle(RIGHT_ANGLE_DEGREES, .525, TURN_LEFT));
 			AddSequential(new WaitTime(.15));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_AFTER_TURNING_TO_DRIVE_TOWARDS_BOILER, .6));
 			AddParallel(new AutoGetShooterUpToSpeed(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 			AddSequential(new WaitTime(.2));
 			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_BOILDER_RIGHT_SHOOT_GEAR, .5, TURN_RIGHT));
-			//AddSequential(new WaitTime(.2));
-			//AddSequential(new AimBot(1));
+			AddSequential(new WaitTime(.2));
+			AddSequential(new AimBot(1));
 			AddSequential(new AutoDriveAgitator());
 			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		}
 		else if (this->secondTask == SecondTask::MiddleGearShootLeft) {
 			AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING_TO_SHOOT, .6));
 			AddSequential(new WaitTime(.2));
-			AddSequential(new TurnDriveTrainAngle(RIGHT_ANGLE_DEGREES, .5, TURN_RIGHT));
+			AddSequential(new TurnDriveTrainAngle(RIGHT_ANGLE_DEGREES, .525, TURN_RIGHT));
 			AddSequential(new WaitTime(.15));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_AFTER_TURNING_TO_DRIVE_TOWARDS_BOILER, .6));
 			AddParallel(new AutoGetShooterUpToSpeed(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
@@ -73,11 +73,10 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddSequential(new AimBot(1));
 			AddSequential(new AutoDriveAgitator());
 			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
-			//  Need to Move Agitator
 		}
 	}
 	else if (this->autonomousSelection == AutonomousSelection::RightGear) {
-		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR, -.75));
+		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_RIGHT_GEAR, -.75));
 		AddSequential(new WaitTime(.25));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_SIDE_GEAR, .65, TURN_LEFT));
 		AddSequential(new WaitTime(.1));
@@ -99,7 +98,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 		}
 	}
 	else if (this->autonomousSelection == AutonomousSelection::LeftGear) {
-		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR + 5.0, -.6));
+		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_LEFT_GEAR, -.75));
 		AddSequential(new WaitTime(.25));
 		AddSequential(new TurnDriveTrainAngle((ANGLE_TO_TURN_TO_FACE_SIDE_GEAR + 10.0), .65, TURN_RIGHT));
 		AddSequential(new WaitTime(.2));
@@ -126,7 +125,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 		if (this->secondTask == SecondTask::CloseShotBaseLine) {
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_BACKWARDS_AFTER_CLOSE_SHOT, -.5));
 			AddSequential(new WaitTime(.3));
-			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_OFF_RIGHT_ALLIANCE_WALL, .5, TURN_RIGHT));
+			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_OFF_RIGHT_ALLIANCE_WALL, .525, TURN_RIGHT));
 			AddSequential(new WaitTime(.2));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT, -.65));
 		}
@@ -135,13 +134,13 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 		//  Make Sure Shooter Hood Encoder is at Proper Value
 		AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_CLOSE_SHOT));
 		if (this->secondTask == SecondTask::CloseShotBaseLine) {
-			AddSequential(new TurnOneSideOfRobotAngle(25.0, ANGLE_TO_TURN_AFTER_DRIVING_OFF_LEFT_ALLIANCE_WALL, -.75));
+			AddSequential(new TurnOneSideOfRobotAngle(ANGLE_TO_TURN_AFTER_DRIVING_OFF_LEFT_ALLIANCE_WALL, DRIVE_RIGHT_SIDE_DRIVE_TRAIN, -.65));
 			AddSequential(new WaitTime(.3));
-			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_OFF_LEFT_ALLIANCE_WALL, .5));
+			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_OFF_LEFT_ALLIANCE_WALL, .55));
 			AddSequential(new WaitTime(.2));
-			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_TURNING_OFF_LEFT_ALLIANCE_WALL, .5, TURN_RIGHT));
-			AddSequential(new WaitTime(.3));
-			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT, .75));
+			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_TURNING_OFF_LEFT_ALLIANCE_WALL, .55, TURN_RIGHT));
+			AddSequential(new WaitTime(.2));
+			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT, .7));
 		}
 	}
 }
