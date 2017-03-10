@@ -11,7 +11,7 @@ ShooterHood::ShooterHood() : Subsystem("ShooterHood") {
 void ShooterHood::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	//SetDefaultCommand(new ReadHoodEncoderValue());
+	SetDefaultCommand(new ReadHoodEncoderValue());
 }
 
 void ShooterHood::InitializeShooterHoodMotor(bool competitionBot) {
@@ -322,11 +322,23 @@ void ShooterHood::CheckIfHoodHitsLimitSwitch() {
 }
 
 int ShooterHood::GetMaxAngleLimitSwitch() {
-	return shooterHoodMotor->IsRevLimitSwitchClosed();
+	if (COMPETITION_BOT) {
+		maxLimitSwitchValue = shooterHoodMotor->IsRevLimitSwitchClosed();
+	}
+	else if (COMPETITION_BOT == false) {
+		maxLimitSwitchValue = shooterHoodMotor->IsFwdLimitSwitchClosed();
+	}
+	return maxLimitSwitchValue;
 }
 
 int ShooterHood::GetMinAngleLimitSwitch() {
-	return shooterHoodMotor->IsFwdLimitSwitchClosed();
+	if (COMPETITION_BOT) {
+		minLimitSwitchValue = shooterHoodMotor->IsFwdLimitSwitchClosed();
+	}
+	else if (COMPETITION_BOT == false) {
+		minLimitSwitchValue = shooterHoodMotor->IsRevLimitSwitchClosed();
+	}
+	return minLimitSwitchValue;
 }
 
 double ShooterHood::ConvertDegreesToRadians(double degrees) {

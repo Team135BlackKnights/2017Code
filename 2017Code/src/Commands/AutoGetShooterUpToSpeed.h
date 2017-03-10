@@ -19,6 +19,7 @@ private:
 
 	double currentShooterRPMValue = 0.0;
 
+	bool maintainShooterRPM = false;
 	bool shooterUpToSpeed = false;
 public:
 	AutoGetShooterUpToSpeed(double);

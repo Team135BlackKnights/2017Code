@@ -15,6 +15,7 @@ void AutoGetShooterUpToSpeed::Initialize() {
 	CommandBase::shooter->ConfigureShooterPID();
 	initializeVoltageMode = false;
 	initializePID = true;
+	maintainShooterRPM = false;
 	shooterUpToSpeed = false;
 	timer->Reset();
 	timer->Start();
@@ -32,17 +33,20 @@ void AutoGetShooterUpToSpeed::Execute() {
 	timerValue = timer->Get();
 
 	currentShooterRPMValue = CommandBase::shooter->GetShooterWheelRPM();
-	if ((currentShooterRPMValue >= this->desiredShooterRPM) && shooterUpToSpeed == false) {
+	//std::cout << "Shooter RPM: " << currentShooterRPMValue << std::endl;
+	if (((currentShooterRPMValue >= this->desiredShooterRPM) && shooterUpToSpeed == false) || maintainShooterRPM) {
 		if (startTimer == false) {
 			timer->Reset();
 			timer->Start();
 			startTimer = true;
+			maintainShooterRPM = true;
 		}
 
 		if (startTimer && (timerValue < TIME_TO_WAIT_FOR_SHOOTER_TO_MAINTAIN_VELOCITY)) {
 			shooterUpToSpeed = false;
 		}
 		else if (startTimer && (timerValue >= TIME_TO_WAIT_FOR_SHOOTER_TO_MAINTAIN_VELOCITY)) {
+			maintainShooterRPM = false;
 			shooterUpToSpeed = true;
 		}
 		CommandBase::shooter->ShooterUpToSpeed(shooterUpToSpeed);
@@ -61,6 +65,7 @@ void AutoGetShooterUpToSpeed::End() {
 	initializePID = false;
 	initializeVoltageMode = true;
 	CommandBase::shooter->DriveShooterMotor(0.0);
+	maintainShooterRPM = false;
 	shooterUpToSpeed = false;
 	CommandBase::shooter->ShooterUpToSpeed(shooterUpToSpeed);
 }

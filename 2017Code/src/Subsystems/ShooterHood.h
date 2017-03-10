@@ -116,6 +116,9 @@ private:
 	static const int MIDDLE_GEAR_SHOOT_LEFT_AUTONOMOUS_HOOD_ENCODER_VALUE = 9500;
 	static const int RIGHT_GEAR_SHOOT_AUTONOMOUS_HOOD_ENCODER_VALUE = 7297;
 	static const int LEFT_GEAR_SHOOT_AUTONOMOUS_HOOD_ENCODER_VALUE = 7297;
+
+	int maxLimitSwitchValue = 0;
+	int minLimitSwitchValue = 0;
 public:
 	ShooterHood();
 	void InitDefaultCommand();
