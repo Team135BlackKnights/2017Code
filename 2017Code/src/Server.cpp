@@ -13,7 +13,8 @@
 
 Server::Server() {
 		new_conn_fd = -1;
-		Server::Start();
+		if(Preferences::GetInstance()->GetBoolean("Server",true))
+			Server::Start();
 }
 
 Server::~Server() {
