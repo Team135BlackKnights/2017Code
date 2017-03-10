@@ -140,7 +140,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddSequential(new WaitTime(.3));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_OFF_LEFT_ALLIANCE_WALL, .5));
 			AddSequential(new WaitTime(.2));
-			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_OFF_LEFT_ALLIANCE_WALL, .5, TURN_RIGHT));
+			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_TURNING_OFF_LEFT_ALLIANCE_WALL, .5, TURN_RIGHT));
 			AddSequential(new WaitTime(.3));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT, .75));
 		}

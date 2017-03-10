@@ -34,9 +34,6 @@ void DriveShooter::Execute() {
 	shooterMotorRPM = CommandBase::shooter->GetShooterWheelRPM();
 	shooterOutputCurrent = CommandBase::shooter->GetShooterMotorOutputCurrent();
 
-	shooterVoltage = CommandBase::shooter->GetShooterVoltage();
-	frc::SmartDashboard::PutNumber("Shooter Wheel Voltage", shooterVoltage);
-
 	//std::cout << "Shooter RPM: " << shooterMotorRPM << std::endl;
 
 	frc::SmartDashboard::PutNumber("Shooter Motor RPM", shooterMotorRPM);

@@ -45,7 +45,9 @@ public:
 	static const int LOWER_LIMIT_SWITCH_PORT = 0;
 
 	static constexpr double SERVO_OUT_POSITION = 0.0;
-	static constexpr double SERVO_IN_POSITION = 180.0;
+	//  150 for Competition Bot
+	//  180 for Practice Bot
+	static constexpr double SERVO_IN_POSITION = 150.0;
 };
 
 #endif  // GearHolder_H
