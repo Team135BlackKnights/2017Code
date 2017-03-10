@@ -62,6 +62,9 @@ private:
 	static const bool DRIVE_RIGHT_SIDE_DRIVE_TRAIN = true;
 	static const bool DRIVE_LEFT_SIDE_DRIVE_TRAIN = !DRIVE_RIGHT_SIDE_DRIVE_TRAIN;
 
+	static const int GEAR_CAMERA = 0;
+	static const int SHOOTER_CAMERA = 1;
+
 	AutonomousSelection autonomousSelection;
 	SecondTask secondTask;
 public:

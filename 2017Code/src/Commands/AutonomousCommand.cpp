@@ -56,7 +56,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddSequential(new WaitTime(.2));
 			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_BOILDER_RIGHT_SHOOT_GEAR, .5, TURN_RIGHT));
 			AddSequential(new WaitTime(.2));
-			AddSequential(new AimBot(1));
+			AddSequential(new AimBot(SHOOTER_CAMERA));
 			AddSequential(new AutoDriveAgitator());
 			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		}
@@ -70,7 +70,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddSequential(new WaitTime(.2));
 			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_BOILDER_LEFT_SHOOT_GEAR, .5, TURN_LEFT));
 			AddSequential(new WaitTime(.2));
-			AddSequential(new AimBot(1));
+			AddSequential(new AimBot(SHOOTER_CAMERA));
 			AddSequential(new AutoDriveAgitator());
 			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		}
@@ -82,7 +82,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 		AddSequential(new WaitTime(.1));
 		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
 		AddSequential(new WaitTime(.4));
-		AddSequential(new AimBot(0));
+		AddSequential(new AimBot(GEAR_CAMERA));
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
@@ -92,7 +92,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddSequential(new WaitTime(.2));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_AFTER_PLACING_SIDE_GEAR, .6));
 			AddSequential(new WaitTime(.15));
-			AddSequential(new AimBot(1));
+			AddSequential(new AimBot(SHOOTER_CAMERA));
 			AddSequential(new AutoDriveAgitator());
 			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		}
@@ -104,7 +104,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
 		AddSequential(new WaitTime(.25));
-		AddSequential(new AimBot(0));
+		AddSequential(new AimBot(GEAR_CAMERA));
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
@@ -114,7 +114,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddSequential(new WaitTime(.15));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_AFTER_PLACING_SIDE_GEAR, .6));
 			AddSequential(new WaitTime(.15));
-			AddSequential(new AimBot(1));
+			AddSequential(new AimBot(SHOOTER_CAMERA));
 			AddSequential(new AutoDriveAgitator());
 			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		}
