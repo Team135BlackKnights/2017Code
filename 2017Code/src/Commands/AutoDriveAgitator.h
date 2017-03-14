@@ -8,7 +8,7 @@ class AutoDriveAgitator : public CommandBase {
 private:
 	bool shooterUpToSpeed = false;
 
-	static constexpr double AGITATOR_MOTOR_POWER = .3;
+	static constexpr double AGITATOR_MOTOR_POWER = .25;
 
 	frc::Timer* timer;
 	double timerValue = 0.0;

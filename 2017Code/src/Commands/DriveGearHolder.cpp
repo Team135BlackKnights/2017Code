@@ -27,11 +27,14 @@ void DriveGearHolder::Execute() {
 	}
 
 	if (CommandBase::oi->POVDirectionPressed(OI::MANIPULATOR_JOYSTICK, OI::TOP_POV)) {
-		CommandBase::gearHolder->SetGearHolderServoValue(GearHolder::SERVO_OUT_POSITION);
-	}
-	else if (CommandBase::oi->POVDirectionPressed(OI::MANIPULATOR_JOYSTICK, OI::BOTTOM_POV)) {
 		CommandBase::gearHolder->SetGearHolderServoValue(GearHolder::SERVO_IN_POSITION);
 	}
+	else if (CommandBase::oi->POVDirectionPressed(OI::MANIPULATOR_JOYSTICK, OI::BOTTOM_POV)) {
+		CommandBase::gearHolder->SetGearHolderServoValue(GearHolder::SERVO_OUT_POSITION);
+	}
+
+	photoElectricSensorValue = CommandBase::gearHolder->GetPhotoElectricSensorValue();
+	frc::SmartDashboard::PutBoolean("Gear In Gear Holder", photoElectricSensorValue);
 }
 
 // Make this return true when this Command no longer needs to run execute()

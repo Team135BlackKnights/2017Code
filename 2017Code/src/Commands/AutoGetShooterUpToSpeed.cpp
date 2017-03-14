@@ -32,6 +32,8 @@ void AutoGetShooterUpToSpeed::Execute() {
 
 	timerValue = timer->Get();
 
+	CommandBase::shooter->DriveShooterMotor(this->desiredShooterRPM);
+
 	currentShooterRPMValue = CommandBase::shooter->GetShooterWheelRPM();
 	//std::cout << "Shooter RPM: " << currentShooterRPMValue << std::endl;
 	if (((currentShooterRPMValue >= this->desiredShooterRPM) && shooterUpToSpeed == false) || maintainShooterRPM) {
@@ -51,7 +53,6 @@ void AutoGetShooterUpToSpeed::Execute() {
 		}
 		CommandBase::shooter->ShooterUpToSpeed(shooterUpToSpeed);
 	}
-	CommandBase::shooter->DriveShooterMotor(this->desiredShooterRPM);
 }
 
 // Make this return true when this Command no longer needs to run execute()

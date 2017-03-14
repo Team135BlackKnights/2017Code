@@ -16,6 +16,7 @@ public:
 	void End();
 	void Interrupted();
 	int cameraNumber = 0;
+	bool isbad = false;
 	Timer time;
 	const double CAMERA_TO_GEAR_IN = 10;
 	const double SPRING_IN = 14.5;

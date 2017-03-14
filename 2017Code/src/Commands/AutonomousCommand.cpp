@@ -55,8 +55,8 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddParallel(new AutoGetShooterUpToSpeed(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 			AddSequential(new WaitTime(.2));
 			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_BOILDER_RIGHT_SHOOT_GEAR, .5, TURN_RIGHT));
-			AddSequential(new WaitTime(.2));
-			AddSequential(new AimBot(SHOOTER_CAMERA));
+			//AddSequential(new WaitTime(.2));
+			//AddSequential(new AimBot(SHOOTER_CAMERA));
 			AddSequential(new AutoDriveAgitator());
 			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		}
@@ -69,20 +69,22 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddParallel(new AutoGetShooterUpToSpeed(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 			AddSequential(new WaitTime(.2));
 			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_BOILDER_LEFT_SHOOT_GEAR, .5, TURN_LEFT));
-			AddSequential(new WaitTime(.2));
-			AddSequential(new AimBot(SHOOTER_CAMERA));
+			//AddSequential(new WaitTime(.2));
+			//AddSequential(new AimBot(SHOOTER_CAMERA));
 			AddSequential(new AutoDriveAgitator());
 			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		}
 	}
 	else if (this->autonomousSelection == AutonomousSelection::RightGear) {
-		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_RIGHT_GEAR, -.75));
-		AddSequential(new WaitTime(.25));
+		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_RIGHT_GEAR_PART_1, -.775));
+		AddSequential(new WaitTime(.15));
+		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR_PART_2, -.45));
+		AddSequential(new WaitTime(.225));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_SIDE_GEAR, .65, TURN_LEFT));
 		AddSequential(new WaitTime(.1));
 		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
-		AddSequential(new WaitTime(.4));
-		AddSequential(new AimBot(GEAR_CAMERA));
+		AddSequential(new WaitTime(.15));
+		//AddSequential(new AimBot(GEAR_CAMERA));
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
@@ -91,20 +93,22 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddParallel(new AutoGetShooterUpToSpeed(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 			AddSequential(new WaitTime(.2));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_AFTER_PLACING_SIDE_GEAR, .6));
-			AddSequential(new WaitTime(.15));
-			AddSequential(new AimBot(SHOOTER_CAMERA));
+			//AddSequential(new WaitTime(.15));
+			//AddSequential(new AimBot(SHOOTER_CAMERA));
 			AddSequential(new AutoDriveAgitator());
 			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		}
 	}
 	else if (this->autonomousSelection == AutonomousSelection::LeftGear) {
-		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_LEFT_GEAR, -.75));
-		AddSequential(new WaitTime(.25));
-		AddSequential(new TurnDriveTrainAngle((ANGLE_TO_TURN_TO_FACE_SIDE_GEAR + 10.0), .65, TURN_RIGHT));
+		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_LEFT_GEAR_PART_1, -.775));
+		AddSequential(new WaitTime(.15));
+		AddSequential(new DriveDistance((DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR_PART_2 - 3.0), -.45));
+		AddSequential(new WaitTime(.225));
+		AddSequential(new TurnDriveTrainAngle((ANGLE_TO_TURN_TO_FACE_SIDE_GEAR), .65, TURN_RIGHT));
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
-		AddSequential(new WaitTime(.25));
-		AddSequential(new AimBot(GEAR_CAMERA));
+		AddSequential(new WaitTime(.15));
+		//AddSequential(new AimBot(GEAR_CAMERA));
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
@@ -113,8 +117,8 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddParallel(new AutoGetShooterUpToSpeed(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 			AddSequential(new WaitTime(.15));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_AFTER_PLACING_SIDE_GEAR, .6));
-			AddSequential(new WaitTime(.15));
-			AddSequential(new AimBot(SHOOTER_CAMERA));
+			//AddSequential(new WaitTime(.15));
+			//AddSequential(new AimBot(SHOOTER_CAMERA));
 			AddSequential(new AutoDriveAgitator());
 			//AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		}

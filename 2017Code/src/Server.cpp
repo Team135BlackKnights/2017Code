@@ -13,8 +13,7 @@
 
 Server::Server() {
 		new_conn_fd = -1;
-		if(Preferences::GetInstance()->GetBoolean("Server",true))
-			Server::Start();
+		//Server::Start();
 }
 
 Server::~Server() {
@@ -138,7 +137,10 @@ double Server::get_angle(int cameraNumber)
 	send(new_conn_fd, buf, 20, 0);
 	numbytes = recv(new_conn_fd, buf, 20, 0);
 	if(numbytes < 1)
+	{
 		new_conn_fd = -1;
+		return 0;
+	}
 	char * st;
 	st = strtok(buf, ",");
 	if(cameraNumber == 0) angle = atof(st);

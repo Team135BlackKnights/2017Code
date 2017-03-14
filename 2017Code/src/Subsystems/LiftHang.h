@@ -11,7 +11,6 @@ private:
 	// for methods that implement subsystem capabilities
 
 	frc::VictorSP* liftHangMotor;
-	//frc::VictorSP* liftHangMotor2;
 
 public:
 	LiftHang();

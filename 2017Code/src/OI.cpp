@@ -8,6 +8,7 @@
 #include "Commands/DriveShooterHood.h"
 #include "Commands/Aimbot.h"
 #include "Commands/AutoGearOnPeg.h"
+#include "Commands/AutoDriveShooterHood.h"
 #include <iostream>
 
 OI::OI() {
@@ -114,11 +115,11 @@ void OI::ConfigureButtonMapping() {
 	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_INCREASE_ANGLE_BUTTON]->WhileHeld(new DriveShooterHood(true));
 	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_DECREASE_ANGLE_BUTTON]->WhileHeld(new DriveShooterHood(false));
 
-	//Just for now
-	joystickButton[LEFT_DRIVE_JOYSTICK][10]->WhenPressed(new AimBot(1));
-	joystickButton[LEFT_DRIVE_JOYSTICK][9]->WhenPressed(new AimBot(0));
-
 	joystickButton[LEFT_DRIVE_JOYSTICK][AUTO_GEAR_ON_PEG_BUTTON]->ToggleWhenPressed(new AutoGearOnPeg());
+
+	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_CLOSE_SHOT_BUTTON]->WhenPressed(new AutoDriveShooterHood(CLOSE_SHOT_HOOD_ENCODER_VALUE));
+	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_SIDE_GEAR_SHOT_BUTTON]->WhenPressed(new AutoDriveShooterHood(SIDE_GEAR_SHOOT_AUTONOMOUS_HOOD_ENCODER_VALUE));
+	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_MIDDLE_GEAR_BUTTON]->WhenPressed(new AutoDriveShooterHood(MIDDLE_GEAR_SHOOT_AUTONOMUS_HOOD_ENCODER_VALUE));
 }
 
 bool OI::GetAction(int JoyException, int ButtonException)

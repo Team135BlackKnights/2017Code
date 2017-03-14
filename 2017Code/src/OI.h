@@ -25,6 +25,17 @@ private:
 	static const int SHOOTER_HOOD_INCREASE_ANGLE_BUTTON = 5;
 	static const int SHOOTER_HOOD_DECREASE_ANGLE_BUTTON = 3;
 
+	static const int SHOOTER_HOOD_SIDE_GEAR_SHOT_BUTTON = 12;  //  Right Drive Joystick
+	static const int SHOOTER_HOOD_MIDDLE_GEAR_BUTTON = 11;  //  Left Drive Joystick
+
+	static const int SHOOTER_HOOD_CLOSE_SHOT_BUTTON = 11;  //  MANIPULATOR JOYSTICK
+
+	static const int CLOSE_SHOT_HOOD_ENCODER_VALUE = 2000;
+	static const int RIGHT_CLOSE_SHOT_SHOOTER_AUTONOMOUS_HOOD_ENCODER_VALUE = 5000;
+	static const int LEFT_CLOSE_SHOT_SHOOTER_AUTONOMOUS_HOOD_ENCODER_VALUE = 6200;
+	static const int MIDDLE_GEAR_SHOOT_AUTONOMUS_HOOD_ENCODER_VALUE = 11000;  //  15000 Tested on Practice Bot
+	static const int SIDE_GEAR_SHOOT_AUTONOMOUS_HOOD_ENCODER_VALUE = 8750;
+
 	static const int AUTO_GEAR_ON_PEG_BUTTON = 8;
 
 	static const int POV_NUMBER = 0;
@@ -36,7 +47,7 @@ private:
 	bool throttleUp = false;
 
 	static constexpr double LIFT_HANG_FULL_POWER = 1.0;
-	static constexpr double LIFT_HANG_HALF_POWER = .5;
+	static constexpr double LIFT_HANG_HALF_POWER = .45;
 public:
 	OI();
 

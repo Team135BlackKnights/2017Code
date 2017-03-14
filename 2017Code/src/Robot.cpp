@@ -44,7 +44,7 @@ public:
 		CommandBase::shooterHood->ConfigureShooterHoodEncoder();
 		CommandBase::ultrasonicSensor->InitializeUltrasonicSensor();
 
-		CameraServer::GetInstance()->StartAutomaticCapture();
+		//CameraServer::GetInstance()->StartAutomaticCapture();
 	}
 
 	/**
@@ -99,6 +99,7 @@ public:
 		if (autonomousCommand != nullptr) {
 			autonomousCommand->Cancel();
 		}
+		CommandBase::driveTrain->is_aiming = false;
 	}
 
 	void TeleopPeriodic() override {

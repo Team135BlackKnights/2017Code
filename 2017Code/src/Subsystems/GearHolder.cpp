@@ -27,6 +27,8 @@ void GearHolder::InitializeGearHolderMotor(bool competitionBot) {
 	}
 	upperLimitSwitch = new frc::DigitalInput(UPPER_LIMIT_SWITCH_PORT);
 	lowerLimitSwitch = new frc::DigitalInput(LOWER_LIMIT_SWITCH_PORT);
+
+	photoElectricSensor = new frc::DigitalInput(PHOTO_ELECTRIC_SENSOR_PORT);
 }
 
 void GearHolder::DriveGearHolderMotor(double motorPower) {
@@ -34,9 +36,11 @@ void GearHolder::DriveGearHolderMotor(double motorPower) {
 	lowerLimitSwitchValue = this->GetLimitSwitchValue(LOWER_LIMIT_SWITCH_PORT);
 
 	if (upperLimitSwitchValue) {
+		//std::cout << "Upper Limit Switch Pressed" << std::endl;
 		gearHolderMotorPower = fmin(0.0, motorPower);
 	}
 	else if (lowerLimitSwitchValue) {
+		//std::cout << "Lower Limit Switch [pressed" << std::endl;
 		gearHolderMotorPower = fmax(0.0, motorPower);
 	}
 	else {
@@ -63,5 +67,8 @@ void GearHolder::SetGearHolderServoValue(double servoPosition) {
 	gearHolderServo->SetAngle(servoPosition);
 }
 
+bool GearHolder::GetPhotoElectricSensorValue() {
+	return !photoElectricSensor->Get();
+}
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

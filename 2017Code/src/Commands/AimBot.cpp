@@ -12,6 +12,8 @@ AimBot::AimBot(int camNumber) {
 void AimBot::Initialize() {
 	std::cout << "running \n\n\n:";
 	double angleToTurn = -CommandBase::server->get_angle(cameraNumber);
+	if(angleToTurn == 0) isbad = true;
+	else isbad = false;
 	if(cameraNumber == 1)
 	{
 		double sonar_value = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches();
@@ -37,7 +39,7 @@ void AimBot::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AimBot::IsFinished() {
-	return time.Get() > 1 || !CommandBase::driveTrain->turnController->IsEnabled() || (CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10) && CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 9));
+	return time.Get() > 1 || !CommandBase::driveTrain->turnController->IsEnabled() || (CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10) && CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 9)) || isbad;
 }
 
 // Called once after isFinished returns true
@@ -49,5 +51,6 @@ void AimBot::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AimBot::Interrupted() {
-
+	time.Stop();
+	CommandBase::driveTrain->is_aiming = false;
 }

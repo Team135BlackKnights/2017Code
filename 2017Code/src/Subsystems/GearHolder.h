@@ -28,6 +28,9 @@ private:
 	//  Practice Bot PWM Port 4
 	static const int GEAR_HOLDER_SERVO_PWM_PORT = 0;
 
+	frc::DigitalInput* photoElectricSensor;
+	static const int PHOTO_ELECTRIC_SENSOR_PORT = 3;
+
 public:
 	GearHolder();
 	void InitDefaultCommand();
@@ -40,6 +43,8 @@ public:
 
 	double GetGearHolderServoValue();
 	void SetGearHolderServoValue(double);
+
+	bool GetPhotoElectricSensorValue();
 
 	static const int UPPER_LIMIT_SWITCH_PORT = 1;
 	static const int LOWER_LIMIT_SWITCH_PORT = 0;

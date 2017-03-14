@@ -15,10 +15,11 @@ private:
 
 	//  Gear Autonomous Programs Distances
 	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_GEAR = (80.0 - ROBOT_WITH_BUMPERS_LENGTH);
-	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_RIGHT_GEAR = (113.0 - ROBOT_WITH_BUMPERS_LENGTH);
-	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_LEFT_GEAR = (118.0 - ROBOT_WITH_BUMPERS_LENGTH);
+	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_RIGHT_GEAR_PART_1 = (93.0 - ROBOT_WITH_BUMPERS_LENGTH);
+	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_LEFT_GEAR_PART_1 = (98.0 - ROBOT_WITH_BUMPERS_LENGTH);
+	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR_PART_2 = 20.0;
 
-	static constexpr double ANGLE_TO_TURN_TO_FACE_SIDE_GEAR = 45.0;
+	static constexpr double ANGLE_TO_TURN_TO_FACE_SIDE_GEAR = 48.0;
 	static constexpr double ANGLE_FROM_SIDE_GEAR_TO_BASE_LINE_PATH = 75.0;
 	static constexpr double RIGHT_ANGLE_DEGREES = 90.0;
 
@@ -54,7 +55,7 @@ private:
 	//  Shoot Right After Placing Middle Gear
 	static constexpr double ANGLE_TO_TURN_TO_FACE_BOILDER_RIGHT_SHOOT_GEAR = 25.0;
 	//  Shoot Left After Placing Middle Gear
-	static constexpr double ANGLE_TO_TURN_TO_FACE_BOILDER_LEFT_SHOOT_GEAR = 15.0;
+	static constexpr double ANGLE_TO_TURN_TO_FACE_BOILDER_LEFT_SHOOT_GEAR = 20.0;
 
 	static const bool TURN_RIGHT = true;
 	static const bool TURN_LEFT = !TURN_RIGHT;
@@ -62,8 +63,8 @@ private:
 	static const bool DRIVE_RIGHT_SIDE_DRIVE_TRAIN = true;
 	static const bool DRIVE_LEFT_SIDE_DRIVE_TRAIN = !DRIVE_RIGHT_SIDE_DRIVE_TRAIN;
 
-	static const int GEAR_CAMERA = 0;
-	static const int SHOOTER_CAMERA = 1;
+	static const int GEAR_CAMERA = 1;
+	static const int SHOOTER_CAMERA = 0;
 
 	AutonomousSelection autonomousSelection;
 	SecondTask secondTask;
