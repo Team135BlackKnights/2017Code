@@ -9,7 +9,7 @@ Lidars::Lidars() : Subsystem("Lidar") {
 void Lidars::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	//SetDefaultCommand(new ReadLidarValue());
+	SetDefaultCommand(new ReadLidarValue());
 }
 
 void Lidars::InitializeLidars() {
@@ -57,7 +57,6 @@ int Lidars::GetLidarValue(int lowerByte, int upperByte) {
 
 void Lidars::ResetLidarWholeProcessVariables() {
 	configuredLidar = false;
-	waitConfigureLidar = false;
 	receivedUpperByte = false;
 	lidarUpperByte = 0;
 	lidarLowerByte = 0;
@@ -72,10 +71,7 @@ double Lidars::GetLidarValueWholeProcess(int distanceUnit) {
 		this->ConfigureLidar();
 		configuredLidar = true;
 	}
-	else if (waitConfigureLidar == false && configuredLidar) {
-		waitConfigureLidar = true;
-	}
-	else if (receivedUpperByte == false && waitConfigureLidar) {
+	else if (receivedUpperByte == false && configuredLidar) {
 		lidarUpperByte = this->GetUpperByte();
 		receivedUpperByte = true;
 	}
@@ -85,7 +81,6 @@ double Lidars::GetLidarValueWholeProcess(int distanceUnit) {
 		lidarValue_IN = this->ConvertCentimetersToInches(lidarValue_CM);
 		lidarValue_M = this->ConvertCentimetersToMeters(lidarValue_CM);
 		configuredLidar = false;
-		waitConfigureLidar = false;
 		receivedUpperByte = false;
 	}
 

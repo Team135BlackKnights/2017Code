@@ -57,6 +57,16 @@ private:
 	//  Shoot Left After Placing Middle Gear
 	static constexpr double ANGLE_TO_TURN_TO_FACE_BOILDER_LEFT_SHOOT_GEAR = 20.0;
 
+
+	//  40 KPa Autonomous Variables
+	static constexpr double DISTANCE_TO_TRAVEL_FROM_ALLIANCE_WALL_TO_GUARDRAIL = 50.0;
+	static constexpr double ANGLE_TO_TURN_TO_BE_PARALLEL_TO_GUARDRAIL = 40.0;
+	static constexpr double DISTANCE_TO_TRAVEL_TO_HOPPER = 50.0;
+	static constexpr double ANGLE_TO_TURN_TO_OR_AWAY_FROM_HOPPER = 30.0;
+	static constexpr double DISTANCE_TO_BACK_ANGLED_TOWARDS_BOILER = 36.0;
+
+
+	//  General Variables
 	static const bool TURN_RIGHT = true;
 	static const bool TURN_LEFT = !TURN_RIGHT;
 

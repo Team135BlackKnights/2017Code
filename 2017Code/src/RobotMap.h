@@ -89,6 +89,7 @@
 		LeftGear,
 		CloseShotShooterLeft,
 		CloseShotShooterRight,
+		KPaAutonomous,
 		BaseLine
 	};
 
