@@ -26,9 +26,11 @@ public:
 		autonomousChooser.AddObject("Close Shot Right With BaseLine", new AutonomousCommand(AutonomousSelection::CloseShotShooterRight, SecondTask::CloseShotBaseLine));
 		autonomousChooser.AddObject("Close Shot Left With BaseLine", new AutonomousCommand(AutonomousSelection::CloseShotShooterLeft, SecondTask::CloseShotBaseLine));
 		autonomousChooser.AddObject("BaseLine Only", new AutonomousCommand(AutonomousSelection::BaseLine, SecondTask::None));
+		autonomousChooser.AddObject("40Kpa Autonomous", new AutonomousCommand(AutonomousSelection::KPaAutonomous, SecondTask::None));
 		frc::SmartDashboard::PutData("Autonomous Modes", &autonomousChooser);
 
 		CommandBase::agitator->InitializeAgitatorMotor(COMPETITION_BOT);
+		CommandBase::cameraServo->InitializeCameraServo();
 		CommandBase::collection->InitializeCollectionMotor(COMPETITION_BOT);
 		CommandBase::driveTrain->InitializeDriveTrainMotors(COMPETITION_BOT);
 		CommandBase::driveTrain->ConfigureDriveTrainEncoders(COMPETITION_BOT);

@@ -148,8 +148,9 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 		}
 	}
 	else if (this->autonomousSelection == AutonomousSelection::KPaAutonomous) {
+		std::cout << "40Kpa Autonomous Start" << std::endl;
 		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_FROM_ALLIANCE_WALL_TO_GUARDRAIL, -.5));
-		AddSequential(new WaitTime(.15));
+		/*AddSequential(new WaitTime(.15));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_BE_PARALLEL_TO_GUARDRAIL, .5, TURN_LEFT));
 		AddSequential(new WaitTime(.15));
 		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_HOPPER, -.6));
@@ -159,6 +160,6 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 		AddSequential(new DriveDistance(DISTANCE_TO_BACK_ANGLED_TOWARDS_BOILER, .5));
 		AddSequential(new WaitTime(.1));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_OR_AWAY_FROM_HOPPER, .8, TURN_RIGHT));
-		AddSequential(new AutoDriveAgitator());
+		AddSequential(new AutoDriveAgitator()); */
 	}
 }

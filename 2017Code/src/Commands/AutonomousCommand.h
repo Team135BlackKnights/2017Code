@@ -59,11 +59,11 @@ private:
 
 
 	//  40 KPa Autonomous Variables
-	static constexpr double DISTANCE_TO_TRAVEL_FROM_ALLIANCE_WALL_TO_GUARDRAIL = 50.0;
-	static constexpr double ANGLE_TO_TURN_TO_BE_PARALLEL_TO_GUARDRAIL = 40.0;
-	static constexpr double DISTANCE_TO_TRAVEL_TO_HOPPER = 50.0;
-	static constexpr double ANGLE_TO_TURN_TO_OR_AWAY_FROM_HOPPER = 30.0;
-	static constexpr double DISTANCE_TO_BACK_ANGLED_TOWARDS_BOILER = 36.0;
+	static constexpr double DISTANCE_TO_TRAVEL_FROM_ALLIANCE_WALL_TO_GUARDRAIL = 12.0;
+	static constexpr double ANGLE_TO_TURN_TO_BE_PARALLEL_TO_GUARDRAIL = 45.0;
+	static constexpr double DISTANCE_TO_TRAVEL_TO_HOPPER = 40.0;
+	static constexpr double ANGLE_TO_TURN_TO_OR_AWAY_FROM_HOPPER = 25.0;
+	static constexpr double DISTANCE_TO_BACK_ANGLED_TOWARDS_BOILER = 12.0;
 
 
 	//  General Variables

@@ -40,6 +40,11 @@ void DriveWithJoysticks::Execute() {
 	else {
 		CommandBase::driveTrain->ZeroGyroAngle();
 	}
+
+	rightEncoderValue = CommandBase::driveTrain->GetEncoderPosition(DriveTrain::RIGHT_SIDE_ENCODER);
+	std::cout << "Right Encoder Value: " << rightEncoderValue << std::endl;
+	leftEncoderValue= CommandBase::driveTrain->GetEncoderPosition(DriveTrain::LEFT_SIDE_ENCODER);
+	std::cout << "Left Encoder Value: " << leftEncoderValue << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()

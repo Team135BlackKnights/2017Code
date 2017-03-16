@@ -9,6 +9,7 @@
 #include "OI.h"
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Agitator.h"
+#include "Subsystems/CameraServo.h"
 #include "Subsystems/Collection.h"
 #include "Subsystems/GearHolder.h"
 #include "Subsystems/Lidars.h"
@@ -34,6 +35,7 @@ public:
 	static std::unique_ptr<OI> oi;
 	static std::unique_ptr<DriveTrain> driveTrain;
 	static std::unique_ptr<Agitator> agitator;
+	static std::unique_ptr<CameraServo> cameraServo;
 	static std::unique_ptr<Collection> collection;
 	static std::unique_ptr<GearHolder> gearHolder;
 	static std::unique_ptr<Lidars> lidars;

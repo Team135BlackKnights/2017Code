@@ -8,6 +8,7 @@
 std::unique_ptr<OI> CommandBase::oi = std::make_unique<OI>();
 std::unique_ptr<DriveTrain> CommandBase::driveTrain = std::make_unique<DriveTrain>();
 std::unique_ptr<Agitator> CommandBase::agitator = std::make_unique<Agitator>();
+std::unique_ptr<CameraServo> CommandBase::cameraServo = std::make_unique<CameraServo>();
 std::unique_ptr<Collection> CommandBase::collection = std::make_unique<Collection>();
 std::unique_ptr<GearHolder> CommandBase::gearHolder = std::make_unique<GearHolder>();
 std::unique_ptr<Lidars> CommandBase::lidars = std::make_unique<Lidars>();

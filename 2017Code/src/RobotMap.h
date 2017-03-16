@@ -18,7 +18,7 @@
 // constexpr int RANGE_FINDER_PORT = 1;
 // constexpr int RANGE_FINDER_MODULE = 1;
 
-	const bool COMPETITION_BOT = true;
+	const bool COMPETITION_BOT = false;
 
 	//  Practice Bot Motor Ports
 	//  VictorSP motor ports
