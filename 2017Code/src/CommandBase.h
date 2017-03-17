@@ -15,6 +15,7 @@
 #include "Subsystems/Lidars.h"
 #include "Subsystems/LiftHang.h"
 #include "Subsystems/PDP.h"
+#include "Subsystems/PWMLidars.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/ShooterHood.h"
 #include "Subsystems/UltrasonicSensor.h"
@@ -41,6 +42,7 @@ public:
 	static std::unique_ptr<Lidars> lidars;
 	static std::unique_ptr<LiftHang> liftHang;
 	static std::unique_ptr<PDP> pdp;
+	static std::unique_ptr<PWMLidars> pwmLidar;
 	static std::unique_ptr<Shooter> shooter;
 	static std::unique_ptr<ShooterHood> shooterHood;
 	static std::unique_ptr<Server> server;
