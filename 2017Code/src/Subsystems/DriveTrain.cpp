@@ -26,6 +26,11 @@ void DriveTrain::InitializeDriveTrainMotors(bool competitionBot) {
 		driveTrainMotors[FRONT_RIGHT] = new CANTalon(PB_FRONT_RIGHT_TALON_ID);
 		driveTrainMotors[REAR_RIGHT] = new CANTalon(PB_REAR_RIGHT_TALON_ID);
 	}
+
+	for (int i = 0; i < NUM_OF_DRIVE_TRAIN_MOTORS; i++) {
+		driveTrainMotors[i]->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Brake);
+	}
+
 	chassis = new frc::RobotDrive(driveTrainMotors[FRONT_LEFT], driveTrainMotors[REAR_LEFT], driveTrainMotors[FRONT_RIGHT], driveTrainMotors[REAR_RIGHT]);
 	chassis->SetSafetyEnabled(false);
 }
