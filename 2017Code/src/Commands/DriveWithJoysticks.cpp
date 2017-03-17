@@ -19,6 +19,8 @@ void DriveWithJoysticks::Execute() {
 	if(CommandBase::driveTrain->is_aiming) return;
 	leftJoystickValue = oi->GetYAxis(OI::LEFT_DRIVE_JOYSTICK);
 	rightJoystickValue = oi->GetYAxis(OI::RIGHT_DRIVE_JOYSTICK);
+	std::cout << "Left Joystick Value: " << leftJoystickValue << std::endl;
+	std::cout << "Right Joystick Value: " << rightJoystickValue << std::endl;
 	CommandBase::driveTrain->DriveTank(leftJoystickValue, rightJoystickValue);
 
 	throttleValue = CommandBase::oi->GetThrottleValue(OI::RIGHT_DRIVE_JOYSTICK);
@@ -26,13 +28,15 @@ void DriveWithJoysticks::Execute() {
 	gyroAngle = CommandBase::driveTrain->GetGyroAngle();
 
 	if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::TOP_POV)) {
-		CommandBase::driveTrain->DriveStraightWithGyro(povMotorPower, gyroAngle);
+		//CommandBase::driveTrain->DriveStraightWithGyro(povMotorPower, gyroAngle);
+		CommandBase::driveTrain->DriveTank(.22, .22);
 	}
 	else if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::RIGHT_POV)) {
 		CommandBase::driveTrain->DriveTank(POV_DRIVE_TRAIN_MOTOR_POWER, -POV_DRIVE_TRAIN_MOTOR_POWER);
 	}
 	else if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::BOTTOM_POV)) {
-		CommandBase::driveTrain->DriveStraightWithGyro(-povMotorPower, gyroAngle);
+		//CommandBase::driveTrain->DriveStraightWithGyro(-povMotorPower, gyroAngle);
+		CommandBase::driveTrain->DriveTank(-.22, -.22);
 	}
 	else if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::LEFT_POV)) {
 		CommandBase::driveTrain->DriveTank(-POV_DRIVE_TRAIN_MOTOR_POWER, POV_DRIVE_TRAIN_MOTOR_POWER);
@@ -41,10 +45,10 @@ void DriveWithJoysticks::Execute() {
 		CommandBase::driveTrain->ZeroGyroAngle();
 	}
 
-	rightEncoderValue = CommandBase::driveTrain->GetEncoderPosition(DriveTrain::RIGHT_SIDE_ENCODER);
+	/*rightEncoderValue = CommandBase::driveTrain->GetEncoderPosition(DriveTrain::RIGHT_SIDE_ENCODER);
 	std::cout << "Right Encoder Value: " << rightEncoderValue << std::endl;
 	leftEncoderValue= CommandBase::driveTrain->GetEncoderPosition(DriveTrain::LEFT_SIDE_ENCODER);
-	std::cout << "Left Encoder Value: " << leftEncoderValue << std::endl;
+	std::cout << "Left Encoder Value: " << leftEncoderValue << std::endl; */
 }
 
 // Make this return true when this Command no longer needs to run execute()

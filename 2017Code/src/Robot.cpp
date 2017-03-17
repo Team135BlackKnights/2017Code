@@ -46,7 +46,7 @@ public:
 		CommandBase::shooterHood->ConfigureShooterHoodEncoder();
 		CommandBase::ultrasonicSensor->InitializeUltrasonicSensor();
 
-		//CameraServer::GetInstance()->StartAutomaticCapture();
+		CameraServer::GetInstance()->StartAutomaticCapture();
 	}
 
 	/**

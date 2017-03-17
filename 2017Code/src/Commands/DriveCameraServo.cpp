@@ -15,10 +15,12 @@ void DriveCameraServo::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DriveCameraServo::Execute() {
 	if (CommandBase::oi->POVDirectionPressed(OI::LEFT_DRIVE_JOYSTICK, OI::TOP_POV)) {
-		CommandBase::cameraServo->SetCameraServoValue(CameraServo::SERVO_IN_POSITION);
+		CommandBase::cameraServo->SetCameraServoValue(CameraServo::SERVO_FRONT_POSITION);
+		std::cout << "Servo Position: " << CameraServo::SERVO_FRONT_POSITION << std::endl;
 	}
 	else if (CommandBase::oi->POVDirectionPressed(OI::LEFT_DRIVE_JOYSTICK, OI::BOTTOM_POV)) {
-		CommandBase::cameraServo->SetCameraServoValue(CameraServo::SERVO_OUT_POSITION);
+		CommandBase::cameraServo->SetCameraServoValue(CameraServo::SERVO_BACK_POSITION);
+		std::cout << "Servo Position: " << CameraServo::SERVO_BACK_POSITION << std::endl;
 	}
 
 }

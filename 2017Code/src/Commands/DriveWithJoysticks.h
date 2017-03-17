@@ -17,6 +17,8 @@ private:
 
 	int rightEncoderValue = 0;
 	int leftEncoderValue = 0;
+
+	//static constexpr double DRIVE_TRAIN_STOP_MOTOR_POWER =
 public:
 	DriveWithJoysticks();
 	void Initialize();
