@@ -14,7 +14,7 @@ void PWMLidars::InitDefaultCommand() {
 
 void PWMLidars::InitializePWMLidars() {
 	lidarMonitor = new frc::PWM(LIDAR_MONITOR_PWM_PORT);
-	lidarTrigger = new frc::DigitalOutput(lidarTrigger);
+	lidarTrigger = new frc::DigitalOutput(LIDAR_DIO_PORT);
 }
 
 void PWMLidars::StartReceivingLidarValues() {

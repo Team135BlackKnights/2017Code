@@ -27,7 +27,7 @@ private:
 	bool resetRightStopCounter = false;
 	bool rightBrakeDrive = false;
 
-	static constexpr double STOP_DRIVE_TRAIN_MOTOR_POWER = .20;
+	static constexpr double STOP_DRIVE_TRAIN_MOTOR_POWER = 0.0;
 	static constexpr double ZERO_DRIVE_TRAIN_MOTOR_POWER = 0.0;
 	static const int BRAKING_COUNTER_DIVIDER = 2;
 
