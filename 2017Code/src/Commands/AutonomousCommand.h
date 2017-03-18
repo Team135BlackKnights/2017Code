@@ -76,7 +76,7 @@ private:
 	static const int GEAR_CAMERA = 1;
 	static const int SHOOTER_CAMERA = 0;
 
-	static const bool USING_LIDAR = true;
+	static const bool USING_LIDAR = false;
 
 	AutonomousSelection autonomousSelection;
 	SecondTask secondTask;

@@ -162,6 +162,7 @@ void DriveTrain::InitializeDriveTrainPID() {
 
 double DriveTrain::GetGyroAngle() {
 	return gyro->GetAngle();
+	//return 0.0;
 }
 
 void DriveTrain::ZeroGyroAngle() {

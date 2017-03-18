@@ -14,13 +14,13 @@ void ReadPWMLidarValue::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ReadPWMLidarValue::Execute() {
-	if (startReceivingLidarValue == false) {
+	/*if (startReceivingLidarValue == false) {
 		CommandBase::pwmLidar->StartReceivingLidarValues();
 		startReceivingLidarValue = true;
-	}
+	} */
 
 	lidarValueCM = CommandBase::pwmLidar->GetLidarPWMValue(PWMLidars::CENTIMETERS);
-	std::cout << "Lidar Value CM: " << lidarValueCM << std::endl;
+	//std::cout << "Lidar Value CM: " << lidarValueCM << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -9,7 +9,7 @@ PWMLidars::PWMLidars() : Subsystem("PWMLidars") {
 void PWMLidars::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	//SetDefaultCommand(new ReadPWMLidarValue());
+	SetDefaultCommand(new ReadPWMLidarValue());
 }
 
 void PWMLidars::InitializePWMLidars() {
@@ -23,6 +23,7 @@ void PWMLidars::StartReceivingLidarValues() {
 
 double PWMLidars::GetLidarPWMValue(int distanceUnits) {
 	rawPWMValue = lidarMonitor->GetRaw();
+	std::cout << "Raw PWM Value: " << rawPWMValue << std::endl;
 	lidarValueCM = this->ConvertPulseWidthToLidarValueCM(rawPWMValue);
 	lidarValueIN = this->ConvertCentimetersToInches(lidarValueCM);
 	lidarValueM = this->ConvertCentimetersToMeters(lidarValueCM);

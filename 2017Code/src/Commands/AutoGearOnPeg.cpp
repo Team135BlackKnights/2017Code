@@ -15,6 +15,7 @@ void AutoGearOnPeg::Initialize() {
 	startMovingTowardsGear = true;
 	startPuttingGearOnPeg = false;
 	initializeTimerLimitSwitch = false;
+	gearHolderDown = false;
 	gearOnPeg = false;
 	timer->Reset();
 	timer->Start();
@@ -25,6 +26,12 @@ void AutoGearOnPeg::Initialize() {
 	stopGearHolderDown = false;
 	startTimerForDriveTrainRPMThreshold = false;
 	waitingForDriveTrainRPMConfigure = false;
+
+	initializeTimerForRamIntoAirship = false;
+	rammedIntoAirship = false;
+	initializeTimeWaitBeforeUnRamming = false;
+	waitTimeForUnRammming = false;
+	initializeTimerToUnRamFromAirship = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -120,13 +127,70 @@ void AutoGearOnPeg::Execute() {
 		timerValue = timer->Get();
 
 		lowerLimitSwitchValue = CommandBase::gearHolder->GetLimitSwitchValue(GearHolder::LOWER_LIMIT_SWITCH_PORT);
-		if (lowerLimitSwitchValue || (timerValue >= WAIT_TIME_FOR_LIMI_SWITCH_TO_LOWER)) {
+		if (lowerLimitSwitchValue || (timerValue >= WAIT_TIME_FOR_LIMIT_SWITCH_TO_LOWER)) {
 			CommandBase::gearHolder->DriveGearHolderMotor(0.0);
 			startPuttingGearOnPeg = false;
-			gearOnPeg = true;
+			gearHolderDown = true;
 		}
 		else {
 			CommandBase::gearHolder->DriveGearHolderMotor(-GEAR_HOLDER_MOTOR_POWER);
+		}
+	}
+
+	if (gearHolderDown) {
+		if (initializeTimerForRamIntoAirship == false) {
+			timer->Stop();
+			timer->Reset();
+			timer->Start();
+			initializeTimerForRamIntoAirship = true;
+		}
+
+		timerValue = timer->Get();
+
+		if (timerValue >= TIME_TO_RAM_INTO_AIRSHIP) {
+			CommandBase::driveTrain->DriveTank(0.0, 0.0);
+			timer->Stop();
+			timer->Reset();
+			rammedIntoAirship = true;
+		}
+		else {
+			CommandBase::driveTrain->DriveTank(RAMMING_MOTOR_POWER, RAMMING_MOTOR_POWER);
+			rammedIntoAirship = false;
+		}
+	}
+	else if (rammedIntoAirship) {
+		if (initializeTimeWaitBeforeUnRamming == false) {
+			timer->Stop();
+			timer->Reset();
+			timer->Start();
+			initializeTimeWaitBeforeUnRamming = true;
+		}
+		else if (initializeTimeWaitBeforeUnRamming && waitTimeForUnRammming == false) {
+			timerValue = timer->Get();
+			if (timerValue >= TIME_TO_WAIT_BEFORE_UNRAMMING) {
+				waitTimeForUnRammming = true;
+			}
+			CommandBase::driveTrain->DriveTank(0.0, 0.0);
+		}
+		else if (waitTimeForUnRammming) {
+			if (initializeTimerToUnRamFromAirship == false) {
+				timer->Stop();
+				timer->Reset();
+				timer->Start();
+				initializeTimerToUnRamFromAirship = true;
+			}
+
+			timerValue = timer->Get();
+			if (timerValue >= TIME_TO_REVERSE_FROM_RAMMING_INTO_AIRSHIP) {
+				CommandBase::driveTrain->DriveTank(UNRAMMING_MOTOR_POWER, UNRAMMING_MOTOR_POWER);
+				timer->Stop();
+				timer->Reset();
+				gearOnPeg = true;
+			}
+			else {
+				CommandBase::driveTrain->DriveTank(UNRAMMING_MOTOR_POWER, UNRAMMING_MOTOR_POWER);
+				gearOnPeg = false;
+			}
 		}
 	}
 }
@@ -141,6 +205,7 @@ void AutoGearOnPeg::End() {
 	startMovingTowardsGear = true;
 	startPuttingGearOnPeg = false;
 	initializeTimerLimitSwitch = false;
+	gearHolderDown = false;
 	gearOnPeg = false;
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
 	CommandBase::gearHolder->DriveGearHolderMotor(0.0);
@@ -150,6 +215,11 @@ void AutoGearOnPeg::End() {
 	stopGearHolderDown = false;
 	startTimerForDriveTrainRPMThreshold = false;
 	waitingForDriveTrainRPMConfigure = false;
+	initializeTimerForRamIntoAirship = false;
+	rammedIntoAirship = false;
+	initializeTimeWaitBeforeUnRamming = false;
+	waitTimeForUnRammming = false;
+	initializeTimerToUnRamFromAirship = false;
 }
 
 // Called when another command which requires one or more of the same

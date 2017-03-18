@@ -13,7 +13,7 @@ private:
 	frc::PWM* lidarMonitor;
 	frc::DigitalOutput* lidarTrigger;
 
-	static const int LIDAR_MONITOR_PWM_PORT = 6;
+	static const int LIDAR_MONITOR_PWM_PORT = 8;
 	static const int LIDAR_DIO_PORT = 3;
 
 	static constexpr double CONVERT_PULSE_WIDTH_TO_LIDAR_VALUE_CM = (1.0/10.0);

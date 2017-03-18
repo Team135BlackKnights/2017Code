@@ -18,7 +18,7 @@ public:
 
 	void InitializeCameraServo();
 	void SetCameraServoValue(double);
-	static constexpr double SERVO_FRONT_POSITION = 180.0;
+	static constexpr double SERVO_FRONT_POSITION = 135.0;
 	static constexpr double SERVO_BACK_POSITION = 0.0;
 };
 
