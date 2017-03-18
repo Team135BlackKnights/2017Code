@@ -167,19 +167,17 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT, .7));
 		}
 	}
-	else if (this->autonomousSelection == AutonomousSelection::KPaAutonomous) {
-		std::cout << "40Kpa Autonomous Start" << std::endl;
-		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_FROM_ALLIANCE_WALL_TO_GUARDRAIL, -.5));
-		/*AddSequential(new WaitTime(.15));
-		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_BE_PARALLEL_TO_GUARDRAIL, .5, TURN_LEFT));
+	else if (this->autonomousSelection == AutonomousSelection::RightKPaAutonomous) {
+		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_HOPPER, .7));
+		AddSequential(new TurnOneSideOfRobotAngle(RIGHT_ANGLE_DEGREES, DRIVE_LEFT_SIDE_DRIVE_TRAIN, .55));
 		AddSequential(new WaitTime(.15));
-		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_HOPPER, -.6));
-		AddSequential(new WaitTime(.15));
-		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_OR_AWAY_FROM_HOPPER, .5, TURN_LEFT));
+		AddSequential(new DriveDistance(DISTANCE_TO_DRIVE_TO_HIT_HOPPER, .7));
+		AddSequential(new WaitTime(.25));
+		AddSequential(new DriveDistance(DISTANCE_TO_DRIVE_AWAY_FROM_HOPPER, -.6));
 		AddParallel(new AutoGetShooterUpToSpeed(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
-		AddSequential(new DriveDistance(DISTANCE_TO_BACK_ANGLED_TOWARDS_BOILER, .5));
 		AddSequential(new WaitTime(.1));
-		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_OR_AWAY_FROM_HOPPER, .8, TURN_RIGHT));
-		AddSequential(new AutoDriveAgitator()); */
+		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_ON_TO_BOILER, .55, TURN_RIGHT));
+		AddSequential(new AimBot(SHOOTER_CAMERA));
+		AddSequential(new AutoDriveAgitator());
 	}
 }
