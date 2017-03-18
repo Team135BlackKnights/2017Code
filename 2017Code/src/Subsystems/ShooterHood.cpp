@@ -43,6 +43,18 @@ void ShooterHood::ConfigureShooterHoodEncoder() {
 	shooterHoodMotor->SetSensorDirection(REVERSE_SHOOTER_HOOD_ENCODER_DIRECTION);
 }
 
+
+bool ShooterHood::HoodEncoderPluggedIn() {
+	hoodEncoderPresent = shooterHoodMotor->IsSensorPresent(CANTalon::FeedbackDevice::QuadEncoder);
+	if (hoodEncoderPresent == DISCONNECTED) {
+		hoodEncoderPluggedIn = false;
+	}
+	else if (hoodEncoderPresent == UNKNOWN_CONNECTED || hoodEncoderPresent == RECOGNIZED_CONNECTED) {
+		hoodEncoderPluggedIn = true;
+	}
+	return hoodEncoderPluggedIn;
+}
+
 int ShooterHood::GetShooterHoodEncoderPosition() {
 	return shooterHoodMotor->GetEncPosition();
 }

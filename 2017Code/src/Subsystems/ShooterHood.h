@@ -112,6 +112,15 @@ private:
 
 	int maxLimitSwitchValue = 0;
 	int minLimitSwitchValue = 0;
+
+	const CANTalon::FeedbackDeviceStatus UNKNOWN_CONNECTED = CANTalon::FeedbackDeviceStatus::FeedbackStatusUnknown;
+	const CANTalon::FeedbackDeviceStatus RECOGNIZED_CONNECTED = CANTalon::FeedbackDeviceStatus::FeedbackStatusPresent;
+	const CANTalon::FeedbackDeviceStatus DISCONNECTED = CANTalon::FeedbackDeviceStatus::FeedbackStatusNotPresent;
+
+	CANTalon::FeedbackDeviceStatus hoodEncoderPresent;
+
+	bool hoodEncoderPluggedIn = false;
+
 public:
 	ShooterHood();
 	void InitDefaultCommand();
@@ -121,6 +130,7 @@ public:
 	void DriveShooterHoodMotor(double);
 
 	void ConfigureShooterHoodEncoder();
+	bool HoodEncoderPluggedIn();
 
 	int GetShooterHoodEncoderPosition();
 	void SetShooterHoodEncoder(int);

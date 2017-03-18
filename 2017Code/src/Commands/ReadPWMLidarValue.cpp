@@ -19,7 +19,7 @@ void ReadPWMLidarValue::Execute() {
 		startReceivingLidarValue = true;
 	}
 
-	lidarValueCM = CommandBase::pwmLidar->GetLidarPWMValue();
+	lidarValueCM = CommandBase::pwmLidar->GetLidarPWMValue(PWMLidars::CENTIMETERS);
 	std::cout << "Lidar Value CM: " << lidarValueCM << std::endl;
 }
 

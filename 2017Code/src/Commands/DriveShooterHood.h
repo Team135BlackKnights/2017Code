@@ -7,6 +7,8 @@ class DriveShooterHood : public CommandBase {
 private:
 	bool driveUpwards = false;
 	static constexpr double SHOOTER_HOOD_MOTOR_POWER = 1.0;
+
+	bool hoodEncoderPresent = false;
 public:
 	DriveShooterHood(bool);
 	void Initialize();

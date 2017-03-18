@@ -66,6 +66,16 @@ private:
 	static constexpr double CB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT = .12;
 	double curveValue = 0.0;
 
+	const CANTalon::FeedbackDeviceStatus UNKNOWN_CONNECTED = CANTalon::FeedbackDeviceStatus::FeedbackStatusUnknown;
+	const CANTalon::FeedbackDeviceStatus RECOGNIZED_CONNECTED = CANTalon::FeedbackDeviceStatus::FeedbackStatusPresent;
+	const CANTalon::FeedbackDeviceStatus DISCONNECTED = CANTalon::FeedbackDeviceStatus::FeedbackStatusNotPresent;
+
+	CANTalon::FeedbackDeviceStatus rightEncoderPluggedIn;
+	CANTalon::FeedbackDeviceStatus leftEncoderPluggedIn;
+
+	bool rightDriveTrainEncoderPluggedIn = false;
+	bool leftDriveTrainEncoderPluggedIn = false;
+
 public:
 	DriveTrain();
 	void InitDefaultCommand();
@@ -75,6 +85,7 @@ public:
 	void RotateTank(double, bool);
 
 	void ConfigureDriveTrainEncoders(bool);
+	bool MakeSureDriveTrainEncoderIsPluggedIn(bool);
 	void ZeroDriveTrainEncoder(int);
 	int GetEncoderPosition(int);
 	double GetDistance(int);
@@ -87,6 +98,9 @@ public:
 	//  For Competition Bot
 	static const int LEFT_SIDE_ENCODER = REAR_LEFT;
 	static const int RIGHT_SIDE_ENCODER = REAR_RIGHT;
+
+	static const bool RIGHT_SIDE_ENCODER_BOOLEAN = true;
+	static const bool LEFT_SIDE_ENCODER_BOOLEAN = !RIGHT_SIDE_ENCODER_BOOLEAN;
 
 	void InitializeDriveTrainPID();
 	double GetGyroAngle();

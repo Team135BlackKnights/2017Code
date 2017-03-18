@@ -25,6 +25,12 @@ void DriveShooterHood::Execute() {
 	else {
 		CommandBase::shooterHood->DriveShooterHoodMotor(0.0);
 	}
+
+	hoodEncoderPresent = CommandBase::shooterHood->HoodEncoderPluggedIn();
+
+	if (hoodEncoderPresent == false) {
+		std::cout << "Shooter Hood Encoder Not Connected" << std::endl;
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

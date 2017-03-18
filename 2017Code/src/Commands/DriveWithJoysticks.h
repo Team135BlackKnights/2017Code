@@ -16,26 +16,15 @@ private:
 
 	double gyroAngle = 0.0;
 
-	double throttleValue = 0.0;
+	bool throttleUp = false;
 	double povMotorPower = 0.0;
 
-	int stopLeftMotorCounter = 1;
-	bool resetLeftStopCounter = false;
-	bool leftBrakeDrive = false;
+	static constexpr double LOW_POV_DRIVE_TRAIN_MOTOR_POWER = .4;
+	static constexpr double HIGH_POV_DRIVE_TRAIN_MOTOR_POWER = .85;
 
-	int stopRightMotorCounter = 1;
-	bool resetRightStopCounter = false;
-	bool rightBrakeDrive = false;
 
-	static constexpr double STOP_DRIVE_TRAIN_MOTOR_POWER = 0.0;
-	static constexpr double ZERO_DRIVE_TRAIN_MOTOR_POWER = 0.0;
-	static const int BRAKING_COUNTER_DIVIDER = 2;
-
-	/*frc::Timer* leftMotorTimer;
-	double leftMotorTimerValue = 0.0;
-
-	frc::Timer* rightMotorTimer;
-	double rightMotorTimerValue = 0.0; */
+	bool rightDriveEncoderDetected = false;
+	bool leftDriveEncoderDetected = false;
 
 public:
 	DriveWithJoysticks();

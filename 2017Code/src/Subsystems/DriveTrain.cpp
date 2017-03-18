@@ -77,6 +77,29 @@ void DriveTrain::ConfigureDriveTrainEncoders(bool competitionBot) {
 	driveTrainMotors[RIGHT_SIDE_ENCODER]->SetStatusFrameRateMs(CANTalon::StatusFrameRate::StatusFrameRateQuadEncoder, 10);
 }
 
+bool DriveTrain::MakeSureDriveTrainEncoderIsPluggedIn(bool rightLeftSideEncoder) {
+	if (RIGHT_SIDE_ENCODER_BOOLEAN) {
+		rightEncoderPluggedIn = driveTrainMotors[RIGHT_SIDE_ENCODER]->IsSensorPresent(CANTalon::FeedbackDevice::QuadEncoder);
+		if (rightEncoderPluggedIn == UNKNOWN_CONNECTED || rightEncoderPluggedIn == RECOGNIZED_CONNECTED) {
+			rightDriveTrainEncoderPluggedIn = true;
+		}
+		else if (rightEncoderPluggedIn == DISCONNECTED) {
+			rightDriveTrainEncoderPluggedIn = false;
+		}
+		return rightDriveTrainEncoderPluggedIn;
+	}
+	else if (LEFT_SIDE_ENCODER_BOOLEAN) {
+		leftEncoderPluggedIn = driveTrainMotors[LEFT_SIDE_ENCODER]->IsSensorPresent(CANTalon::FeedbackDevice::QuadEncoder);
+		if (leftEncoderPluggedIn == UNKNOWN_CONNECTED || leftEncoderPluggedIn == RECOGNIZED_CONNECTED) {
+			leftDriveTrainEncoderPluggedIn = true;
+		}
+		else if (leftEncoderPluggedIn == DISCONNECTED) {
+			leftDriveTrainEncoderPluggedIn = false;
+		}
+		return leftDriveTrainEncoderPluggedIn;
+	}
+}
+
 void DriveTrain::ZeroDriveTrainEncoder(int motorEncoderPort) {
 	driveTrainMotors[motorEncoderPort]->SetEncPosition(0);
 }

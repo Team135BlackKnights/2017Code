@@ -20,6 +20,9 @@ private:
 
 	int rawPWMValue = 0;
 	double lidarValueCM = 0.0;
+	double lidarValueIN = 0.0;
+	double lidarValueM = 0.0;
+	double returnLidarValue = 0.0;
 
 public:
 	PWMLidars();
@@ -28,9 +31,16 @@ public:
 	void InitializePWMLidars();
 
 	void StartReceivingLidarValues();
-	double GetLidarPWMValue();
+	double GetLidarPWMValue(int);
 
 	double ConvertPulseWidthToLidarValueCM(int);
+
+	double ConvertCentimetersToInches(double);
+	double ConvertCentimetersToMeters(double);
+
+	static const int CENTIMETERS = 0;
+	static const int METERS = 1;
+	static const int INCHES = 2;
 };
 
 #endif  // PWMLidars_H

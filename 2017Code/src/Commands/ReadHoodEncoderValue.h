@@ -8,6 +8,8 @@ private:
 	int shooterHoodEncoderValue = 0;
 	int maxAngleLimitSwitchValue = 0;
 	int minAngleLimitSwitchValue = 0;
+
+	bool hoodEncoderPluggedIn = false;
 public:
 	ReadHoodEncoderValue();
 	void Initialize();

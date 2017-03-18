@@ -21,14 +21,34 @@ void PWMLidars::StartReceivingLidarValues() {
 	lidarTrigger->Set(false);
 }
 
-double PWMLidars::GetLidarPWMValue() {
+double PWMLidars::GetLidarPWMValue(int distanceUnits) {
 	rawPWMValue = lidarMonitor->GetRaw();
 	lidarValueCM = this->ConvertPulseWidthToLidarValueCM(rawPWMValue);
-	return lidarValueCM;
+	lidarValueIN = this->ConvertCentimetersToInches(lidarValueCM);
+	lidarValueM = this->ConvertCentimetersToMeters(lidarValueCM);
+	if (distanceUnits == CENTIMETERS) {
+		returnLidarValue = lidarValueCM;
+	}
+	else if (distanceUnits == METERS) {
+		returnLidarValue = lidarValueM;
+	}
+	else if (distanceUnits == INCHES) {
+		returnLidarValue = lidarValueIN;
+	}
+	return returnLidarValue;
 }
 
 double PWMLidars::ConvertPulseWidthToLidarValueCM(int pulseWidth) {
 	return (((double)pulseWidth) * CONVERT_PULSE_WIDTH_TO_LIDAR_VALUE_CM);
+}
+
+
+double PWMLidars::ConvertCentimetersToInches(double lidarValue_CM) {
+	return (lidarValue_CM/2.54);
+}
+
+double PWMLidars::ConvertCentimetersToMeters(double lidarValue_CM) {
+	return (lidarValue_CM/100.0);
 }
 
 // Put methods for controlling this subsystem

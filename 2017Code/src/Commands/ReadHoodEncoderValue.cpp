@@ -19,8 +19,13 @@ void ReadHoodEncoderValue::Execute() {
 	maxAngleLimitSwitchValue = CommandBase::shooterHood->GetMaxAngleLimitSwitch();
 	minAngleLimitSwitchValue = CommandBase::shooterHood->GetMinAngleLimitSwitch();
 
-	std::cout << "Max Angle Limit Switch Value: " << maxAngleLimitSwitchValue << std::endl;
-	std::cout << "Min Angle Limit Switch Value: " << minAngleLimitSwitchValue << std::endl;
+	//std::cout << "Max Angle Limit Switch Value: " << maxAngleLimitSwitchValue << std::endl;
+	//std::cout << "Min Angle Limit Switch Value: " << minAngleLimitSwitchValue << std::endl;
+
+	hoodEncoderPluggedIn = CommandBase::shooterHood->HoodEncoderPluggedIn();
+	if (hoodEncoderPluggedIn == false) {
+		std::cout << "Shooter Hood Encoder Disconnected" << std::endl;
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
