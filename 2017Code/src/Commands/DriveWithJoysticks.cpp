@@ -57,6 +57,11 @@ void DriveWithJoysticks::Execute() {
 	else {
 		CommandBase::driveTrain->ZeroGyroAngle();
 	}
+
+	frontLeftMotorCurrent = CommandBase::driveTrain->GetTalonOutputCurrent(DriveTrain::FRONT_LEFT);
+	frontRightMotorCurrent = CommandBase::driveTrain->GetTalonOutputCurrent(DriveTrain::FRONT_RIGHT);
+	frc::SmartDashboard::PutNumber("Front Left Motor Current", frontLeftMotorCurrent);
+	frc::SmartDashboard::PutNumber("Front Right Motor Current", frontRightMotorCurrent);
 }
 
 // Make this return true when this Command no longer needs to run execute()

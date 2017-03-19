@@ -9,7 +9,7 @@ CameraServo::CameraServo() : Subsystem("CameraServo") {
 void CameraServo::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	//SetDefaultCommand(new DriveCameraServo());
+	SetDefaultCommand(new DriveCameraServo());
 }
 
 void CameraServo::InitializeCameraServo() {

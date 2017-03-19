@@ -39,7 +39,7 @@
 	const int PB_GEAR_HOLDER_SERVO_PWM_PORT = 4;
 
 	//  Motor Inversions
-	const bool PB_AGITATOR_INVERTED = false;
+	const bool PB_AGITATOR_INVERTED = true;
 	const bool PB_COLLECTION_INVERTED = false;
 	const bool PB_DRIVE_TRAIN_FRONT_LEFT_INVERTED = false;
 	const bool PB_DRIVE_TRAIN_REAR_LEFT_INVERTED = false;
@@ -89,7 +89,8 @@
 		LeftGear,
 		CloseShotShooterLeft,
 		CloseShotShooterRight,
-		KPaAutonomous,
+		RightKPaAutonomous,
+		LeftKPaAutonomous,
 		BaseLine
 	};
 

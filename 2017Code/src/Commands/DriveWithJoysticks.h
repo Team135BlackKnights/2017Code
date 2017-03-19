@@ -20,11 +20,14 @@ private:
 	double povMotorPower = 0.0;
 
 	static constexpr double LOW_POV_DRIVE_TRAIN_MOTOR_POWER = .4;
-	static constexpr double HIGH_POV_DRIVE_TRAIN_MOTOR_POWER = .85;
+	static constexpr double HIGH_POV_DRIVE_TRAIN_MOTOR_POWER = .7;
 
 
 	bool rightDriveEncoderDetected = false;
 	bool leftDriveEncoderDetected = false;
+
+	double frontLeftMotorCurrent = 0.0;
+	double frontRightMotorCurrent = 0.0;
 
 public:
 	DriveWithJoysticks();

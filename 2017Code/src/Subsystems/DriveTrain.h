@@ -17,11 +17,6 @@ private:
 	static const int NUM_OF_DRIVE_TRAIN_MOTORS = 4;
 	CANTalon* driveTrainMotors[NUM_OF_DRIVE_TRAIN_MOTORS];
 
-	static const int FRONT_LEFT = 0;
-	static const int REAR_LEFT = 1;
-	static const int FRONT_RIGHT = 2;
-	static const int REAR_RIGHT = 3;
-
 	frc::RobotDrive* chassis;
 
 	//  Drive Train Encoder Variables
@@ -76,6 +71,9 @@ private:
 	bool rightDriveTrainEncoderPluggedIn = false;
 	bool leftDriveTrainEncoderPluggedIn = false;
 
+	//static constexpr double DRIVE_TRAIN_SPROCKET_RATIO = (15.0/12.0);
+	static constexpr double DRIVE_TRAIN_SPROCKET_RATIO = 1.0;
+
 public:
 	DriveTrain();
 	void InitDefaultCommand();
@@ -94,6 +92,13 @@ public:
 
 	void InitializeDriveStraightWithGyro(bool);
 	void DriveStraightWithGyro(double, double);
+
+	double GetTalonOutputCurrent(int);
+
+	static const int FRONT_LEFT = 0;
+	static const int REAR_LEFT = 1;
+	static const int FRONT_RIGHT = 2;
+	static const int REAR_RIGHT = 3;
 
 	//  For Competition Bot
 	static const int LEFT_SIDE_ENCODER = REAR_LEFT;

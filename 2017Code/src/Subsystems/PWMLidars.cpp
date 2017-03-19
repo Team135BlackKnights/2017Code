@@ -9,7 +9,7 @@ PWMLidars::PWMLidars() : Subsystem("PWMLidars") {
 void PWMLidars::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new ReadPWMLidarValue());
+	//SetDefaultCommand(new ReadPWMLidarValue());
 }
 
 void PWMLidars::InitializePWMLidars() {

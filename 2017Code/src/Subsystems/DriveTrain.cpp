@@ -111,11 +111,15 @@ int DriveTrain::GetEncoderPosition(int motorEncoderPort) {
 double DriveTrain::GetDistance(int motorEncoderPort) {
 	encoderValue = this->GetEncoderPosition(motorEncoderPort);
 	distanceTraveled = (encoderValue * encoderCountToDistanceConstant);
-	return distanceTraveled;
+	return (distanceTraveled * DRIVE_TRAIN_SPROCKET_RATIO);
 }
 
 int DriveTrain::GetEncoderRPM(int motorEncoderPort) {
 	return driveTrainMotors[motorEncoderPort]->GetSpeed();
+}
+
+double DriveTrain::GetTalonOutputCurrent(int motorArray) {
+	return driveTrainMotors[motorArray]->GetOutputCurrent();
 }
 
 void DriveTrain::InitializeDriveStraightWithGyro(bool competitionBot) {
@@ -162,7 +166,6 @@ void DriveTrain::InitializeDriveTrainPID() {
 
 double DriveTrain::GetGyroAngle() {
 	return gyro->GetAngle();
-	//return 0.0;
 }
 
 void DriveTrain::ZeroGyroAngle() {
