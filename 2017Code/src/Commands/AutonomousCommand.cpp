@@ -10,6 +10,8 @@
 #include "AutoGetShooterUpToSpeed.h"
 #include "AutoDriveAgitator.h"
 #include "DriveToGearWithLidar.h"
+#include "DriveDriveTrainCertainTime.h"
+#include "AutoDriveCollection.h"
 AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, SecondTask secondTask) {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
@@ -42,7 +44,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 		AddSequential(new DriveDistance(BASE_LINE_PATH_DISTANCE, .7));
 	}
 	else if (this->autonomousSelection == AutonomousSelection::MiddleGear) {
-		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_GEAR, -.7));
+		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_GEAR, -.55));
 		AddSequential(new WaitTime(.25));
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(.2));
@@ -168,16 +170,35 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 		}
 	}
 	else if (this->autonomousSelection == AutonomousSelection::RightKPaAutonomous) {
-		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_HOPPER, .7));
-		AddSequential(new TurnOneSideOfRobotAngle(RIGHT_ANGLE_DEGREES, DRIVE_LEFT_SIDE_DRIVE_TRAIN, .55));
-		AddSequential(new WaitTime(.15));
-		AddSequential(new DriveDistance(DISTANCE_TO_DRIVE_TO_HIT_HOPPER, .7));
-		AddSequential(new WaitTime(.25));
+		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_HOPPER, .6));
+		AddSequential(new TurnOneSideOfRobotAngle(50.0, DRIVE_LEFT_SIDE_DRIVE_TRAIN, .65));
+		AddSequential(new TurnOneSideOfRobotAngle(35.0, DRIVE_LEFT_SIDE_DRIVE_TRAIN, .55));
+		AddSequential(new WaitTime(.05));
+		AddSequential(new DriveDistance(DISTANCE_TO_DRIVE_TO_HIT_HOPPER, .6));
+		AddSequential(new DriveDriveTrainCertainTime(TIME_TO_RAM_ROBOT_INTO_HOPPER, .75, RAMMING_INTO_HOPPER));
+		AddSequential(new WaitTime(1.5));
+		AddParallel(new AutoDriveCollection());
 		AddSequential(new DriveDistance(DISTANCE_TO_DRIVE_AWAY_FROM_HOPPER, -.6));
 		AddParallel(new AutoGetShooterUpToSpeed(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 		AddSequential(new WaitTime(.1));
-		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_ON_TO_BOILER, .55, TURN_RIGHT));
-		AddSequential(new AimBot(SHOOTER_CAMERA));
+		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_ON_TO_BOILER, .6, TURN_RIGHT));
+		//AddSequential(new AimBot(SHOOTER_CAMERA));
+		AddSequential(new AutoDriveAgitator());
+	}
+	else if (this->autonomousSelection == AutonomousSelection::LeftKPaAutonomous) {
+		AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_HOPPER, .6));
+		AddSequential(new TurnOneSideOfRobotAngle(50.0, DRIVE_RIGHT_SIDE_DRIVE_TRAIN, .65));
+		AddSequential(new TurnOneSideOfRobotAngle(35.0, DRIVE_RIGHT_SIDE_DRIVE_TRAIN, .55));
+		AddSequential(new WaitTime(.05));
+		AddSequential(new DriveDistance(DISTANCE_TO_DRIVE_TO_HIT_HOPPER, .6));
+		AddSequential(new DriveDriveTrainCertainTime(TIME_TO_RAM_ROBOT_INTO_HOPPER, .75, RAMMING_INTO_HOPPER));
+		AddSequential(new WaitTime(1.5));
+		AddParallel(new AutoDriveCollection());
+		AddSequential(new DriveDistance(DISTANCE_TO_DRIVE_AWAY_FROM_HOPPER, -.6));
+		AddParallel(new AutoGetShooterUpToSpeed(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
+		AddSequential(new WaitTime(.1));
+		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_ON_TO_BOILER, .6, TURN_LEFT));
+		//AddSequential(new AimBot(SHOOTER_CAMERA));
 		AddSequential(new AutoDriveAgitator());
 	}
 }

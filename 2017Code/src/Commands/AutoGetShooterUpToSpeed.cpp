@@ -53,6 +53,8 @@ void AutoGetShooterUpToSpeed::Execute() {
 		}
 		CommandBase::shooter->ShooterUpToSpeed(shooterUpToSpeed);
 	}
+
+	frc::SmartDashboard::PutNumber("Shooter Autonomous RPM", currentShooterRPMValue);
 }
 
 // Make this return true when this Command no longer needs to run execute()

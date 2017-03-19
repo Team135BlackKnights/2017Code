@@ -25,5 +25,13 @@ void Collection::DriveCollection(double motorPower) {
 	collectionMotor->Set(motorPower);
 }
 
+void Collection::SetAutoDriveCollection(bool autoDriveCollection) {
+	this->autoDriveCollection = autoDriveCollection;
+}
+
+bool Collection::GetAutoDriveCollection() {
+	return (this->autoDriveCollection);
+}
+
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

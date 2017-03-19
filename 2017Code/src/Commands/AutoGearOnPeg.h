@@ -13,9 +13,9 @@ private:
 	bool gearHolderDown = false;
 	bool gearOnPeg = false;
 
-	static constexpr double DISTANCE_AWAY_FROM_AIRSHIP_TO_DROP_GEAR_IN = 7.5;
+	static constexpr double DISTANCE_AWAY_FROM_AIRSHIP_TO_DROP_GEAR_IN = 8.0;
 
-	static constexpr double DRIVE_TRAIN_MOTOR_POWER = .5;
+	static constexpr double DRIVE_TRAIN_MOTOR_POWER = .45;
 
 	static constexpr double GEAR_HOLDER_MOTOR_POWER = .5;
 
@@ -47,9 +47,9 @@ private:
 
 	bool initializeTimerForRamIntoAirship = false;
 	bool initializeTimerToUnRamFromAirship = false;
-	static constexpr double TIME_TO_RAM_INTO_AIRSHIP = .1;
-	static constexpr double TIME_TO_WAIT_BEFORE_UNRAMMING = .05;
-	static constexpr double TIME_TO_REVERSE_FROM_RAMMING_INTO_AIRSHIP = .1;
+	static constexpr double TIME_TO_RAM_INTO_AIRSHIP = .45;
+	static constexpr double TIME_TO_WAIT_BEFORE_UNRAMMING = .1;
+	static constexpr double TIME_TO_REVERSE_FROM_RAMMING_INTO_AIRSHIP = .6;
 	static constexpr double RAMMING_MOTOR_POWER = -.65;
 	static constexpr double UNRAMMING_MOTOR_POWER = .65;
 	bool rammedIntoAirship = false;

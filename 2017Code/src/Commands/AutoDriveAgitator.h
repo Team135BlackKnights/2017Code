@@ -7,6 +7,7 @@
 class AutoDriveAgitator : public CommandBase {
 private:
 	bool shooterUpToSpeed = false;
+	bool turnOffCollection = false;
 
 	static constexpr double AGITATOR_MOTOR_POWER = .25;
 

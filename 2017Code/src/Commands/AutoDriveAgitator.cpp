@@ -15,10 +15,17 @@ void AutoDriveAgitator::Initialize() {
 	doneDrivingAgitator = false;
 	timer->Reset();
 	timer->Start();
+	CommandBase::collection->SetAutoDriveCollection(false);
+	turnOffCollection = true;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDriveAgitator::Execute() {
+	if (turnOffCollection == false) {
+		CommandBase::collection->SetAutoDriveCollection(false);
+		turnOffCollection = true;
+	}
+
 	timerValue = timer->Get();
 
 	shooterUpToSpeed = CommandBase::shooter->GetShooterUpToSpeed();
@@ -38,10 +45,10 @@ void AutoDriveAgitator::Execute() {
 			CommandBase::agitator->DriveAgitator(AGITATOR_MOTOR_POWER);
 		}
 		else if (startTimer && timerValue >= TIME_TO_WAIT_FOR_FUEL_TO_SHOOT) {
-			CommandBase::agitator->DriveAgitator(0.0);
-			shooterUpToSpeed = false;
-			startTimer = false;
-			doneDrivingAgitator = true;
+			//CommandBase::agitator->DriveAgitator(0.0);
+			//shooterUpToSpeed = false;
+			//startTimer = false;
+			//doneDrivingAgitator = true;
 		}
 	}
 
@@ -49,13 +56,15 @@ void AutoDriveAgitator::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoDriveAgitator::IsFinished() {
-	return doneDrivingAgitator;
+	//return doneDrivingAgitator;
+	return false;
 }
 
 // Called once after isFinished returns true
 void AutoDriveAgitator::End() {
 	CommandBase::agitator->DriveAgitator(0.0);
 	shooterUpToSpeed = false;
+	turnOffCollection = false;
 	startTimer = false;
 	doneDrivingAgitator = false;
 	timer->Stop();

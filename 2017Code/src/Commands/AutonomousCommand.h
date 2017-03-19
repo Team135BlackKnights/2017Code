@@ -57,10 +57,11 @@ private:
 	static constexpr double ANGLE_TO_TURN_TO_FACE_BOILDER_LEFT_SHOOT_GEAR = 20.0;
 
 	//  40 KPa Autonomous Variables
-	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_HOPPER = 50.0;
-	static constexpr double DISTANCE_TO_DRIVE_TO_HIT_HOPPER = 30.0;
-	static constexpr double DISTANCE_TO_DRIVE_AWAY_FROM_HOPPER = 24.0;
-	static constexpr double ANGLE_TO_TURN_ON_TO_BOILER = 65.0;
+	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_HOPPER = 58.0;
+	static constexpr double DISTANCE_TO_DRIVE_TO_HIT_HOPPER = 38.0;
+	static constexpr double TIME_TO_RAM_ROBOT_INTO_HOPPER = .35;
+	static constexpr double DISTANCE_TO_DRIVE_AWAY_FROM_HOPPER = 20.0;
+	static constexpr double ANGLE_TO_TURN_ON_TO_BOILER = 70.0;
 
 	//  General Variables
 	static const bool TURN_RIGHT = true;
@@ -75,6 +76,9 @@ private:
 	static constexpr double RIGHT_ANGLE_DEGREES = 90.0;
 
 	static const bool USING_LIDAR = false;
+
+	static const bool RAMMING_INTO_HOPPER = true;
+	static const bool NOT_RAMMING_INTO_HOPPER = false;
 
 	AutonomousSelection autonomousSelection;
 	SecondTask secondTask;

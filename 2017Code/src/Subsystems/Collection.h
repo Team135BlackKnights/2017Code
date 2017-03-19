@@ -10,6 +10,8 @@ private:
 	// for methods that implement subsystem capabilities
 
 	frc::VictorSP* collectionMotor;
+
+	bool autoDriveCollection = false;
 public:
 	Collection();
 	void InitDefaultCommand();
@@ -17,6 +19,9 @@ public:
 	void InitializeCollectionMotor(bool);
 
 	void DriveCollection(double);
+
+	void SetAutoDriveCollection(bool);
+	bool GetAutoDriveCollection();
 };
 
 #endif  // Collection_H

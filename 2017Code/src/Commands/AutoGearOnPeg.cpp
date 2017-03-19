@@ -137,7 +137,8 @@ void AutoGearOnPeg::Execute() {
 		}
 	}
 
-	if (gearHolderDown) {
+	if (gearHolderDown && rammedIntoAirship == false) {
+		std::cout << "Ramping Into Airship" << std::endl;
 		if (initializeTimerForRamIntoAirship == false) {
 			timer->Stop();
 			timer->Reset();
@@ -146,6 +147,7 @@ void AutoGearOnPeg::Execute() {
 		}
 
 		timerValue = timer->Get();
+		std::cout << "Timer Value: " << timerValue << std::endl;
 
 		if (timerValue >= TIME_TO_RAM_INTO_AIRSHIP) {
 			CommandBase::driveTrain->DriveTank(0.0, 0.0);
@@ -159,6 +161,7 @@ void AutoGearOnPeg::Execute() {
 		}
 	}
 	else if (rammedIntoAirship) {
+		std::cout << "Waiting after Ramping" << std::endl;
 		if (initializeTimeWaitBeforeUnRamming == false) {
 			timer->Stop();
 			timer->Reset();
@@ -172,7 +175,9 @@ void AutoGearOnPeg::Execute() {
 			}
 			CommandBase::driveTrain->DriveTank(0.0, 0.0);
 		}
-		else if (waitTimeForUnRammming) {
+
+		if (waitTimeForUnRammming) {
+			std::cout << "UnRamping" << std::endl;
 			if (initializeTimerToUnRamFromAirship == false) {
 				timer->Stop();
 				timer->Reset();
@@ -182,7 +187,7 @@ void AutoGearOnPeg::Execute() {
 
 			timerValue = timer->Get();
 			if (timerValue >= TIME_TO_REVERSE_FROM_RAMMING_INTO_AIRSHIP) {
-				CommandBase::driveTrain->DriveTank(UNRAMMING_MOTOR_POWER, UNRAMMING_MOTOR_POWER);
+				CommandBase::driveTrain->DriveTank(0.0, 0.0);
 				timer->Stop();
 				timer->Reset();
 				gearOnPeg = true;
@@ -202,6 +207,7 @@ bool AutoGearOnPeg::IsFinished() {
 
 // Called once after isFinished returns true
 void AutoGearOnPeg::End() {
+	std::cout << "Done with Auto Gear On Peg" << std::endl;
 	startMovingTowardsGear = true;
 	startPuttingGearOnPeg = false;
 	initializeTimerLimitSwitch = false;

@@ -26,8 +26,9 @@ public:
 		autonomousChooser.AddObject("Close Shot Right With BaseLine", new AutonomousCommand(AutonomousSelection::CloseShotShooterRight, SecondTask::CloseShotBaseLine));
 		autonomousChooser.AddObject("Close Shot Left With BaseLine", new AutonomousCommand(AutonomousSelection::CloseShotShooterLeft, SecondTask::CloseShotBaseLine));
 		autonomousChooser.AddObject("BaseLine Only", new AutonomousCommand(AutonomousSelection::BaseLine, SecondTask::None));
-		autonomousChooser.AddObject("40Kpa Autonomous", new AutonomousCommand(AutonomousSelection::KPaAutonomous, SecondTask::None));
-		frc::SmartDashboard::PutData("Autonomous Modes", &autonomousChooser);
+		autonomousChooser.AddObject("Right 40Kpa", new AutonomousCommand(AutonomousSelection::RightKPaAutonomous, SecondTask::None));
+		autonomousChooser.AddObject("Left 40KPa", new AutonomousCommand(AutonomousSelection::LeftKPaAutonomous, SecondTask::None));
+		frc::SmartDashboard::PutData("Autonomousss Modes", &autonomousChooser);
 
 		CommandBase::agitator->InitializeAgitatorMotor(COMPETITION_BOT);
 		CommandBase::cameraServo->InitializeCameraServo();
@@ -39,6 +40,7 @@ public:
 		CommandBase::gearHolder->InitializeGearHolderMotor(COMPETITION_BOT);
 		CommandBase::lidars->InitializeLidars();
 		CommandBase::liftHang->InitializeLiftHang(COMPETITION_BOT);
+		CommandBase::pwmLidar->InitializePWMLidars();
 		CommandBase::pdp->InitializePDP();
 		CommandBase::shooter->InitializeShooterMotor(COMPETITION_BOT);
 		CommandBase::shooter->ConfigureShooterMotorEncoder(COMPETITION_BOT);
