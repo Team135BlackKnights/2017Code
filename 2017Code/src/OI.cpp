@@ -9,6 +9,7 @@
 #include "Commands/Aimbot.h"
 #include "Commands/AutoGearOnPeg.h"
 #include "Commands/AutoDriveShooterHood.h"
+#include "Commands/GetReadyForLiftHang.h"
 #include <iostream>
 
 OI::OI() {
@@ -111,6 +112,7 @@ void OI::ConfigureButtonMapping() {
 
 	joystickButton[RIGHT_DRIVE_JOYSTICK][TRIGGER_BUTTON]->WhileHeld(new DriveLiftHang(LIFT_HANG_FULL_POWER));
 	joystickButton[RIGHT_DRIVE_JOYSTICK][THUMB_BUTTON]->WhileHeld(new DriveLiftHang(LIFT_HANG_HALF_POWER));
+	//joystickButton[MANIPULATOR_JOYSTICK][GET_LIFT_HANG_INTO_CORRECT_POSITION_BUTTON]->WhenPressed(new GetReadyForLiftHang());
 
 	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_INCREASE_ANGLE_BUTTON]->WhileHeld(new DriveShooterHood(true));
 	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_DECREASE_ANGLE_BUTTON]->WhileHeld(new DriveShooterHood(false));

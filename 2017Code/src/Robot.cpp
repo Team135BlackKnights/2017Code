@@ -38,9 +38,9 @@ public:
 		CommandBase::driveTrain->InitializeDriveTrainPID();
 		CommandBase::driveTrain->InitializeDriveStraightWithGyro(COMPETITION_BOT);
 		CommandBase::gearHolder->InitializeGearHolderMotor(COMPETITION_BOT);
-		CommandBase::lidars->InitializeLidars();
+		CommandBase::lidar->InitializeLidarDIO();
 		CommandBase::liftHang->InitializeLiftHang(COMPETITION_BOT);
-		CommandBase::pwmLidar->InitializePWMLidars();
+		//CommandBase::liftHang->ZeroLiftHangEncoder();
 		CommandBase::pdp->InitializePDP();
 		CommandBase::shooter->InitializeShooterMotor(COMPETITION_BOT);
 		CommandBase::shooter->ConfigureShooterMotorEncoder(COMPETITION_BOT);
