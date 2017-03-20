@@ -41,7 +41,7 @@ int LiftHang::GetLiftHangEncoderValue() {
 	return liftHangEncoder->Get();
 }
 
-double LiftHang::GetNumberOfRotationsOfLiftHangEncoder() {
+double LiftHang::GetNumberOfRotationsOfLiftHang() {
 	liftHangEncoderValue = this->GetLiftHangEncoderValue();
 	numberOfRotationsOfLiftHang = (((double)liftHangEncoderValue)/QUADRATURE_ENCODER_COUNT);
 	return numberOfRotationsOfLiftHang;

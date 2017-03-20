@@ -12,15 +12,22 @@ void Lidar::InitDefaultCommand() {
 
 void Lidar::InitializeLidarDIO() {
 	digitalOutputToArduino = new frc::DigitalOutput(OUTPUT_PORT);
-	digitalInputFromArduino = new frc::DigitalInput(INPUT_PORT);
+	analogInputFromArduino = new frc::AnalogInput(INPUT_PORT);
 }
 
 void Lidar::SendArduinoDigitalSignal(bool signal) {
 	digitalOutputToArduino->Set(signal);
 }
 
-bool Lidar::GetArduinoDigitalSignal() {
-	return digitalInputFromArduino->Get();
+bool Lidar::GetArduinoAnalogSignal() {
+	analogInputVoltage = analogInputFromArduino->GetVoltage();
+	if (analogInputVoltage > ANALOG_INPUT_VOLTAGE_THRESHOLD) {
+		analogInputHigh = true;
+	}
+	else if (analogInputVoltage <= ANALOG_INPUT_VOLTAGE_THRESHOLD) {
+		analogInputHigh = false;
+	}
+	return analogInputHigh;
 }
 
 // Put methods for controlling this subsystem

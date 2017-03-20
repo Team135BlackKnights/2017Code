@@ -13,7 +13,7 @@
 
 Server::Server() {
 		new_conn_fd = -1;
-		//Server::Start();
+		Server::Start();
 }
 
 Server::~Server() {
@@ -146,6 +146,6 @@ double Server::get_angle(int cameraNumber)
 	if(cameraNumber == 0) angle = atof(st);
 	st = strtok(NULL, ",");
 	if(cameraNumber == 1) angle = atof(st);
-
+	std::cout << "getting somewhere\n";
 	return angle;
 }

@@ -3,7 +3,7 @@
 
 #include <Commands/Subsystem.h>
 #include <DigitalOutput.h>
-#include <DigitalInput.h>
+#include <AnalogInput.h>
 
 class Lidar : public Subsystem {
 private:
@@ -11,10 +11,14 @@ private:
 	// for methods that implement subsystem capabilities
 
 	frc::DigitalOutput* digitalOutputToArduino;
-	frc::DigitalInput* digitalInputFromArduino;
+	frc::AnalogInput* analogInputFromArduino;
+
+	double analogInputVoltage = 0.0;
+	static constexpr double ANALOG_INPUT_VOLTAGE_THRESHOLD = 2.5;
+	bool analogInputHigh = false;
 
 	static const int OUTPUT_PORT = 2;
-	static const int INPUT_PORT = 3;
+	static const int INPUT_PORT = 0;
 
 public:
 	Lidar();
@@ -23,7 +27,7 @@ public:
 	void InitializeLidarDIO();
 
 	void SendArduinoDigitalSignal(bool);
-	bool GetArduinoDigitalSignal();
+	bool GetArduinoAnalogSignal();
 };
 
 #endif  // Lidar_H

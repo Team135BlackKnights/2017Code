@@ -57,11 +57,12 @@ private:
 	static constexpr double ANGLE_TO_TURN_TO_FACE_BOILDER_LEFT_SHOOT_GEAR = 20.0;
 
 	//  40 KPa Autonomous Variables
-	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_HOPPER = 58.0;
+	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_HOPPER_PART_1 = 33.0;
+	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_HOPPER_PART_2 = 20.0;
 	static constexpr double DISTANCE_TO_DRIVE_TO_HIT_HOPPER = 38.0;
 	static constexpr double TIME_TO_RAM_ROBOT_INTO_HOPPER = .35;
-	static constexpr double DISTANCE_TO_DRIVE_AWAY_FROM_HOPPER = 20.0;
-	static constexpr double ANGLE_TO_TURN_ON_TO_BOILER = 70.0;
+	static constexpr double DISTANCE_TO_DRIVE_AWAY_FROM_HOPPER = 10.0;
+	static constexpr double ANGLE_TO_TURN_ON_TO_BOILER = 65.0;
 
 	//  General Variables
 	static const bool TURN_RIGHT = true;

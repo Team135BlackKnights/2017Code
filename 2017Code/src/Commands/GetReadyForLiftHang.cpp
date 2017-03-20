@@ -16,7 +16,7 @@ void GetReadyForLiftHang::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void GetReadyForLiftHang::Execute() {
 	liftHangCurrentEncoderPosition = CommandBase::liftHang->GetLiftHangEncoderValue();
-	currentLiftHangNumberOfRotations = CommandBase::liftHang->GetNumberOfRotationsOfLiftHangEncoder();
+	currentLiftHangNumberOfRotations = CommandBase::liftHang->GetNumberOfRotationsOfLiftHang();
 
 	if (calculateDesiredEncoderPosition == false) {
 		intCurrentLiftHangNumberOfRotations = ((int)(round(currentLiftHangNumberOfRotations)));

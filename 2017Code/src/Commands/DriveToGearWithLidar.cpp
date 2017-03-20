@@ -68,7 +68,7 @@ void DriveToGearWithLidar::Execute() {
 
 	if (startUsingLidar) {
 		CommandBase::lidar->SendArduinoDigitalSignal(true);
-		lidarAtGearPeg = CommandBase::lidar->GetArduinoDigitalSignal();
+		lidarAtGearPeg = CommandBase::lidar->GetArduinoAnalogSignal();
 	}
 }
 
