@@ -16,11 +16,9 @@ void DriveCameraServo::Initialize() {
 void DriveCameraServo::Execute() {
 	if (CommandBase::oi->POVDirectionPressed(OI::LEFT_DRIVE_JOYSTICK, OI::TOP_POV)) {
 		CommandBase::cameraServo->SetCameraServoValue(CameraServo::SERVO_FRONT_POSITION);
-		std::cout << "Servo Position: " << CameraServo::SERVO_FRONT_POSITION << std::endl;
 	}
 	else if (CommandBase::oi->POVDirectionPressed(OI::LEFT_DRIVE_JOYSTICK, OI::BOTTOM_POV)) {
 		CommandBase::cameraServo->SetCameraServoValue(CameraServo::SERVO_BACK_POSITION);
-		std::cout << "Servo Position: " << CameraServo::SERVO_BACK_POSITION << std::endl;
 	}
 
 }
