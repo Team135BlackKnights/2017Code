@@ -77,6 +77,7 @@ private:
 	static constexpr double RIGHT_ANGLE_DEGREES = 90.0;
 
 	static const bool USING_LIDAR = false;
+	static const bool USING_CAMERA = true;
 
 	static const bool RAMMING_INTO_HOPPER = true;
 	static const bool NOT_RAMMING_INTO_HOPPER = false;

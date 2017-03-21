@@ -26,7 +26,8 @@ private:
 	static const int SHOOTER_HOOD_DECREASE_ANGLE_BUTTON = 3;
 
 	static const int SHOOTER_HOOD_SIDE_GEAR_SHOT_BUTTON = 12;  //  Right Drive Joystick
-	static const int SHOOTER_HOOD_MIDDLE_GEAR_BUTTON = 11;  //  Left Drive Joystick
+	static const int SHOOTER_HOOD_MIDDLE_GEAR_BUTTON = 11;  //  Right Drive Joystick
+	static const int SHOOTER_HOOD_40_KPA_AUTONOMOUS_BUTTON = 10;  //  Right Drive Joystick
 
 	static const int SHOOTER_HOOD_CLOSE_SHOT_BUTTON = 11;  //  MANIPULATOR JOYSTICK
 
@@ -37,6 +38,7 @@ private:
 	static const int LEFT_CLOSE_SHOT_SHOOTER_AUTONOMOUS_HOOD_ENCODER_VALUE = 6200;
 	static const int MIDDLE_GEAR_SHOOT_AUTONOMUS_HOOD_ENCODER_VALUE = 11000;  //  15000 Tested on Practice Bot
 	static const int SIDE_GEAR_SHOOT_AUTONOMOUS_HOOD_ENCODER_VALUE = 8750;
+	static const int KPA_AUTONOMOUS_HOOD_ENCODER_VALUE = 7000;
 
 	static const int AUTO_GEAR_ON_PEG_BUTTON = 8;
 

@@ -15,8 +15,9 @@ void ReadLiftHangEncoderValue::Initialize() {
 void ReadLiftHangEncoderValue::Execute() {
 	liftHangRawEncoderValue = CommandBase::liftHang->GetLiftHangEncoderRawValue();
 	liftHangEncoderValue = CommandBase::liftHang->GetLiftHangEncoderValue();
-	std::cout << "Lift Hang Raw Encoder Value: " << liftHangRawEncoderValue << std::endl;
-	std::cout << "Lift Hang Encoder Value: " << liftHangEncoderValue << std::endl;
+
+	frc::SmartDashboard::PutNumber("Raw Lift Hang Encoder Value", liftHangRawEncoderValue);
+	frc::SmartDashboard::PutNumber("Lift Hang Encoder Value", liftHangEncoderValue);
 }
 
 // Make this return true when this Command no longer needs to run execute()

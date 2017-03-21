@@ -1,5 +1,6 @@
 #include "LiftHang.h"
 #include "../RobotMap.h"
+#include "Commands/ReadLiftHangEncoderValue.h"
 
 LiftHang::LiftHang() : Subsystem("LiftHang") {
 
@@ -8,6 +9,7 @@ LiftHang::LiftHang() : Subsystem("LiftHang") {
 void LiftHang::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new ReadLiftHangEncoderValue());
 }
 
 void LiftHang::InitializeLiftHang(bool competitionBot) {
