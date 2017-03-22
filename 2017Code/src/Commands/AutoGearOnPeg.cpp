@@ -138,7 +138,6 @@ void AutoGearOnPeg::Execute() {
 	}
 
 	if (gearHolderDown && rammedIntoAirship == false) {
-		std::cout << "Ramping Into Airship" << std::endl;
 		if (initializeTimerForRamIntoAirship == false) {
 			timer->Stop();
 			timer->Reset();

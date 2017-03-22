@@ -102,7 +102,7 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddSequential(new TurnDriveTrainAngle(RIGHT_ANGLE_DEGREES, .6, TURN_LEFT));
 		}
 		AddSequential(new WaitTime(.15));
-		if (USING_CAMERA) { AddSequential(new AimBot(GEAR_CAMERA)); }
+		AddSequential(new AimBot(GEAR_CAMERA));
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
@@ -112,7 +112,8 @@ AutonomousCommand::AutonomousCommand(AutonomousSelection autonomousSelection, Se
 			AddSequential(new WaitTime(.2));
 			AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_AFTER_PLACING_SIDE_GEAR, .6));
 			AddSequential(new WaitTime(.15));
-			if (USING_CAMERA) { AddSequential(new AimBot(SHOOTER_CAMERA)); }
+
+			AddSequential(new AimBot(SHOOTER_CAMERA));
 			AddSequential(new AutoDriveAgitator());
 		}
 	}
