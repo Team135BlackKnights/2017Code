@@ -22,8 +22,8 @@ void AimBot::Initialize() {
 		CommandBase::driveTrain->TurnPIDEnable(angleToTurn - 18);
 	}
 	else
-		CommandBase::driveTrain->TurnPIDEnable(angleToTurn - 4);//- 18);
-
+		CommandBase::driveTrain->TurnPIDEnable(angleToTurn);//- 18);
+	frc::SmartDashboard::PutNumber("Angle to Turn Starting: ", angleToTurn);
 	time.Start();
 	time.Reset();
 	CommandBase::driveTrain->ZeroGyroAngle();
@@ -40,7 +40,7 @@ void AimBot::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AimBot::IsFinished() {
-	return time.Get() > 1 || !CommandBase::driveTrain->turnController->IsEnabled() || (CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10) && CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 8)) ;
+	return time.Get() > .5 || !CommandBase::driveTrain->turnController->IsEnabled() || (CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10) && CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 8)) ;
 }
 
 // Called once after isFinished returns true

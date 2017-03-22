@@ -26,7 +26,7 @@ private:
 	bool startLidarDetectingGearPeg = false;
 	double savedLidarTransparentAirshipValue = 0.0;
 	bool waitingForGearPeg = false;
-	static constexpr double DISTANCE_DROP_OF_LIDAR_FROM_ARISHIP_TO_GEAR_PEG_IN = 20.0;
+	static constexpr double DISTANCE_DROP_OF_LIDAR_FROM_ARISHIP_TO_GEAR_PEG_IN = 30.0;
 	bool lidarDetectsGearPeg = false;
 	bool traveledToTurningRadiusOfRobot = false;
 
@@ -39,13 +39,13 @@ private:
 
 	bool initializeGearPegLidarTimer = false;
 
-	static constexpr double DISTANCE_BETWEEN_LIDAR_AND_TURNING_POINT_OF_ROBOT = 15.0;
+	static constexpr double DISTANCE_BETWEEN_LIDAR_AND_TURNING_POINT_OF_ROBOT = 12.0;
 
 	bool configureInitialDistanceBeforeTravelingExtraDistance = false;
 	double initialDistanceTraveledBeforeTravelingExtraDistance = 0.0;
 	double currentDistanceTraveledWhileTravelingExtraDistance = 0.0;
 	double differenceBetweenCurrentAndInitialDistanceWhileTravelingExtraDistance = 0.0;
-	static constexpr double DRIVE_TRAIN_MOTOR_POWER_FOR_EXTRA_DISTANCE = .55;
+	static constexpr double DRIVE_TRAIN_MOTOR_POWER_FOR_EXTRA_DISTANCE = .25;
 
 public:
 	DriveToGearWithLidar(double, bool);

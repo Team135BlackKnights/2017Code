@@ -28,7 +28,7 @@ public:
 		autonomousChooser.AddObject("BaseLine Only", new AutonomousCommand(AutonomousSelection::BaseLine, SecondTask::None));
 		autonomousChooser.AddObject("Right 40Kpa", new AutonomousCommand(AutonomousSelection::RightKPaAutonomous, SecondTask::None));
 		autonomousChooser.AddObject("Left 40KPa", new AutonomousCommand(AutonomousSelection::LeftKPaAutonomous, SecondTask::None));
-		frc::SmartDashboard::PutData("Autonomous Modes", &autonomousChooser);
+		frc::SmartDashboard::PutData("Autonomouss Modes", &autonomousChooser);
 
 		CommandBase::agitator->InitializeAgitatorMotor(COMPETITION_BOT);
 		CommandBase::cameraServo->InitializeCameraServo();

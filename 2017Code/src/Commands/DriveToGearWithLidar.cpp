@@ -51,10 +51,10 @@ void DriveToGearWithLidar::Execute() {
 
 	if (initializeI2CMultiplxerChannelToOpen == false) {
 		if (this->rightGear == RIGHT_GEAR) {
-			CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_LIDAR_CHANNEL_7_RIGHT_LIDAR);
+			CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_LIDAR_CHANNEL_6_RIGHT_LIDAR);
 		}
 		else if (this->rightGear == LEFT_GEAR) {
-			CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_LIDAR_CHANNEL_6_LEFT_LIDAR);
+			CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_LIDAR_CHANNEL_7_LEFT_LIDAR);
 		}
 		initializeI2CMultiplxerChannelToOpen = true;
 	}
@@ -119,6 +119,8 @@ void DriveToGearWithLidar::Execute() {
 			traveledToTurningRadiusOfRobot = false;
 		}
 	}
+
+	frc::SmartDashboard::PutNumber("Auto Lidar Value:", currentLidarValueIN);
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -9,38 +9,51 @@ ReadLidarValues::ReadLidarValues() {
 // Called just before this Command runs the first time
 void ReadLidarValues::Initialize() {
 	configuredLidar = false;
+	receivedUpperByte = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ReadLidarValues::Execute() {
 
 	if (configuredLidar == false) {
-		if (GET_LEFT_LIDAR_VALUE_CHANNEL_6) {
-			CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_LIDAR_CHANNEL_6_LEFT_LIDAR);
+		if (GET_RIGHT_LIDAR_VALUE_CHANNEL_6) {
+			CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_LIDAR_CHANNEL_6_RIGHT_LIDAR);
 			CommandBase::lidars->ConfigureLidar();
 		}
 
-		if (GET_RIGHT_LIDAR_VALUE_CHANNEL_7) {
-			CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_LIDAR_CHANNEL_7_RIGHT_LIDAR);
+		if (GET_LEFT_LIDAR_VALUE_CHANNEL_7) {
+			CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_LIDAR_CHANNEL_7_LEFT_LIDAR);
 			CommandBase::lidars->ConfigureLidar();
 		}
 		configuredLidar = true;
 	}
-	else if (configuredLidar) {
-		if (GET_LEFT_LIDAR_VALUE_CHANNEL_6) {
-			CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_LIDAR_CHANNEL_6_LEFT_LIDAR);
-			leftLidarUpperByte = CommandBase::lidars->GetUpperByte();
-			leftLidarLowerByte = CommandBase::lidars->GetLowerByte();
-			leftLidarValueIN = CommandBase::lidars->GetLidarValue(leftLidarLowerByte, leftLidarUpperByte, Lidars::DISTANCE_UNIT_ARRAY[Lidars::INCHES]);
+	else if (configuredLidar && receivedUpperByte == false) {
+		if (GET_RIGHT_LIDAR_VALUE_CHANNEL_6) {
+			CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_LIDAR_CHANNEL_6_RIGHT_LIDAR);
+			rightLidarUpperByte = CommandBase::lidars->GetUpperByte();
 		}
 
-		if (GET_RIGHT_LIDAR_VALUE_CHANNEL_7) {
-			CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_LIDAR_CHANNEL_7_RIGHT_LIDAR);
-			rightLidarUpperByte = CommandBase::lidars->GetUpperByte();
+		if (GET_LEFT_LIDAR_VALUE_CHANNEL_7) {
+			CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_LIDAR_CHANNEL_7_LEFT_LIDAR);
+			leftLidarUpperByte = CommandBase::lidars->GetUpperByte();
+		}
+
+		receivedUpperByte = true;
+	}
+	else if (configuredLidar && receivedUpperByte) {
+		if (GET_RIGHT_LIDAR_VALUE_CHANNEL_6) {
+			CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_LIDAR_CHANNEL_6_RIGHT_LIDAR);
 			rightLidarLowerByte = CommandBase::lidars->GetLowerByte();
 			rightLidarValueIN = CommandBase::lidars->GetLidarValue(rightLidarLowerByte, rightLidarUpperByte, Lidars::DISTANCE_UNIT_ARRAY[Lidars::INCHES]);
 		}
+
+		if (GET_LEFT_LIDAR_VALUE_CHANNEL_7) {
+			CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_LIDAR_CHANNEL_7_LEFT_LIDAR);
+			leftLidarLowerByte = CommandBase::lidars->GetLowerByte();
+			leftLidarValueIN = CommandBase::lidars->GetLidarValue(leftLidarLowerByte, leftLidarUpperByte, Lidars::DISTANCE_UNIT_ARRAY[Lidars::INCHES]);
+		}
 		configuredLidar = false;
+		receivedUpperByte = false;
 	}
 
 	frc::SmartDashboard::PutNumber("Left Lidar Value IN:", leftLidarValueIN);
@@ -55,6 +68,7 @@ bool ReadLidarValues::IsFinished() {
 // Called once after isFinished returns true
 void ReadLidarValues::End() {
 	configuredLidar = false;
+	receivedUpperByte = false;
 }
 
 // Called when another command which requires one or more of the same

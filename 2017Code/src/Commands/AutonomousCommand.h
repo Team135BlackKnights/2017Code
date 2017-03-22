@@ -30,9 +30,9 @@ private:
 	static constexpr double DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR = 10;
 
 	//  Gear Autonomous Program With Lidar Variables
-	static constexpr double DISTANCE_TO_TRAVEL_UNITL_TURNING_PARALLEL_WITH_AIRSHP = 48.0;
-	static constexpr double ANGLE_TO_TURN_TO_BE_PARALLEL_WITH_AIRSHIP = 45.0;
-	static constexpr double DISTANCE_TO_TRAVEL_TO_PEG = 50.0;
+	static constexpr double DISTANCE_TO_TRAVEL_UNITL_TURNING_PARALLEL_WITH_AIRSHP = 45.0;
+	static constexpr double ANGLE_TO_TURN_TO_BE_PARALLEL_WITH_AIRSHIP = 30.0;
+	static constexpr double DISTANCE_TO_TRAVEL_TO_START_LIDAR_DETECTING = 10.0;
 
 	//  Shooter Autonomous Programs
 	//  Both Close Shot Right and Close Shot Left
@@ -64,10 +64,10 @@ private:
 	//  40 KPa Autonomous Variables
 	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_HOPPER_PART_1 = 33.0;
 	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_HOPPER_PART_2 = 20.0;
-	static constexpr double DISTANCE_TO_DRIVE_TO_HIT_HOPPER = 38.0;
+	static constexpr double DISTANCE_TO_DRIVE_TO_HIT_HOPPER = 15.0;
 	static constexpr double TIME_TO_RAM_ROBOT_INTO_HOPPER = .35;
 	static constexpr double DISTANCE_TO_DRIVE_AWAY_FROM_HOPPER = 10.0;
-	static constexpr double ANGLE_TO_TURN_ON_TO_BOILER = 65.0;
+	static constexpr double ANGLE_TO_TURN_ON_TO_BOILER = 75.0;
 
 	//  General Variables
 	static const bool TURN_RIGHT = true;
