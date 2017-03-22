@@ -85,6 +85,8 @@ public:
 			//autonomousCommand.reset(new ExampleCommand());
 		} */
 
+		CommandBase::liftHang->ZeroLiftHangEncoder();
+
 		autonomousCommand.reset(autonomousChooser.GetSelected());
 
 		if (autonomousCommand.get() != nullptr) {

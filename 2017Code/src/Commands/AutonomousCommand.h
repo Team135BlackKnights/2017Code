@@ -29,6 +29,11 @@ private:
 
 	static constexpr double DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR = 10;
 
+	//  Gear Autonomous Program With Lidar Variables
+	static constexpr double DISTANCE_TO_TRAVEL_UNITL_TURNING_PARALLEL_WITH_AIRSHP = 48.0;
+	static constexpr double ANGLE_TO_TURN_TO_BE_PARALLEL_WITH_AIRSHIP = 45.0;
+	static constexpr double DISTANCE_TO_TRAVEL_TO_PEG = 50.0;
+
 	//  Shooter Autonomous Programs
 	//  Both Close Shot Right and Close Shot Left
 	static constexpr double DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT = 65.0;
@@ -70,6 +75,9 @@ private:
 
 	static const bool DRIVE_RIGHT_SIDE_DRIVE_TRAIN = true;
 	static const bool DRIVE_LEFT_SIDE_DRIVE_TRAIN = !DRIVE_RIGHT_SIDE_DRIVE_TRAIN;
+
+	static const bool RIGHT_GEAR = true;
+	static const bool LEFT_GEAR = !RIGHT_GEAR;
 
 	static const int GEAR_CAMERA = 1;
 	static const int SHOOTER_CAMERA = 0;

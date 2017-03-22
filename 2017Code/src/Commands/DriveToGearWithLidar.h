@@ -6,25 +6,17 @@
 
 class DriveToGearWithLidar : public CommandBase {
 private:
-	double desiredDistanceToTravel;
 	double driveTrainMotorPower;
 	bool rightGear;
 
 	bool requiresDriveTrainSubsystem = false;
-
-	bool initialDistanceConfigured = false;
-	bool configureDesiredDistanceToTravel = false;
-	double initialDistanceTraveled = 0.0;
-	double differenceBetweenCurrentAndInitialDistanceTraveled = 0.0;
-	double currentDistanceTraveled = 0.0;
-	double actualDesiredDistanceValue = 0.0;
-	bool distanceTraveledWithEncoder = false;
 
 	double gyroAngle = 0.0;
 	bool zeroGyro = false;
 
 	bool initializeI2CMultiplxerChannelToOpen = false;
 	bool configureLidar = false;
+	bool receiveLidarUpperByte = false;
 
 	int lidarUpperByte = 0;
 	int lidarLowerByte = 0;
@@ -36,12 +28,27 @@ private:
 	bool waitingForGearPeg = false;
 	static constexpr double DISTANCE_DROP_OF_LIDAR_FROM_ARISHIP_TO_GEAR_PEG_IN = 20.0;
 	bool lidarDetectsGearPeg = false;
+	bool traveledToTurningRadiusOfRobot = false;
 
-	static const bool RIGHT_GEAR = false;
+	static const bool RIGHT_GEAR = true;
 	static const bool LEFT_GEAR = !RIGHT_GEAR;
 
+	frc::Timer* timer;
+	double currentTimerValue = 0.0;
+	static constexpr double TIME_TO_WAIT_TO_REACT_TO_GEAR_PEG = .05;
+
+	bool initializeGearPegLidarTimer = false;
+
+	static constexpr double DISTANCE_BETWEEN_LIDAR_AND_TURNING_POINT_OF_ROBOT = 15.0;
+
+	bool configureInitialDistanceBeforeTravelingExtraDistance = false;
+	double initialDistanceTraveledBeforeTravelingExtraDistance = 0.0;
+	double currentDistanceTraveledWhileTravelingExtraDistance = 0.0;
+	double differenceBetweenCurrentAndInitialDistanceWhileTravelingExtraDistance = 0.0;
+	static constexpr double DRIVE_TRAIN_MOTOR_POWER_FOR_EXTRA_DISTANCE = .55;
+
 public:
-	DriveToGearWithLidar(double, double, bool);
+	DriveToGearWithLidar(double, bool);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
