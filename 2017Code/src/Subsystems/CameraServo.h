@@ -9,7 +9,7 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 
-	frc::Servo* cameraServo;
+	//frc::Servo* cameraServo;
 	static const int CAMERA_SERVO_PWM_PORT = 5;
 
 public:

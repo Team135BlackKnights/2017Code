@@ -120,7 +120,6 @@ private:
 	CANTalon::FeedbackDeviceStatus hoodEncoderPresent;
 
 	bool hoodEncoderPluggedIn = false;
-
 public:
 	ShooterHood();
 	void InitDefaultCommand();

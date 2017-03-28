@@ -5,7 +5,7 @@
 
 class DriveAgitator : public CommandBase {
 private:
-	static constexpr double AGITATOR_MOTOR_POWER = .3;
+	static constexpr double AGITATOR_MOTOR_POWER = .33;
 	bool driveForwards;
 public:
 	DriveAgitator(bool);

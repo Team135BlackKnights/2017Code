@@ -48,8 +48,15 @@ bool ShooterHood::HoodEncoderPluggedIn() {
 	hoodEncoderPresent = shooterHoodMotor->IsSensorPresent(CANTalon::FeedbackDevice::QuadEncoder);
 	if (hoodEncoderPresent == DISCONNECTED) {
 		hoodEncoderPluggedIn = false;
+		//std::cout << "Disconnected" << std::endl;
 	}
 	else if (hoodEncoderPresent == UNKNOWN_CONNECTED || hoodEncoderPresent == RECOGNIZED_CONNECTED) {
+		/*if (hoodEncoderPresent == UNKNOWN_CONNECTED) {
+			std::cout << "Unknown" << std::endl;
+		}
+		else if (hoodEncoderPresent == RECOGNIZED_CONNECTED) {
+			std::cout << "Present" << std::endl;
+		} */
 		hoodEncoderPluggedIn = true;
 	}
 	return hoodEncoderPluggedIn;
@@ -151,7 +158,17 @@ bool ShooterHood::DriveShooterHoodToDesiredEncoderValue(int desiredShooterHoodEn
 	}
 	else if (initializeDirectionOfShooterHood) {
 		if (drivingShooterHoodForward) {
-			if (currentShooterHoodEncoderValue <= desiredShooterHoodEncoderValue) {
+			if (desiredShooterHoodEncoderValue == 0) {
+				if (GetMaxAngleLimitSwitch() == 1) {
+					this->DriveShooterHoodMotor(0.0);
+					initializeDirectionOfShooterHood = false;
+					hoodAtDesiredEncoderValue = true;
+				}
+				else {
+					this->DriveShooterHoodMotor(SHOOTER_HOOD_MOTOR_POWER);
+				}
+			}
+			else if (currentShooterHoodEncoderValue <= desiredShooterHoodEncoderValue) {
 				this->DriveShooterHoodMotor(0.0);
 				initializeDirectionOfShooterHood = false;
 				hoodAtDesiredEncoderValue = true;

@@ -16,7 +16,7 @@ private:
 
 	static const int LIFT_HANG_ENCODER_A_CHANNEL = 6;
 	static const int LIFT_HANG_ENCODER_B_CHANNEL = 7;
-	static const bool REVERSE_ENCODER_DIRECTION = false;
+	static const bool REVERSE_ENCODER_DIRECTION = true;
 	const frc::Encoder::EncodingType QUADRATURE_ENCODER = frc::Encoder::EncodingType::k4X;
 
 	int liftHangEncoderValue = 0;
@@ -37,7 +37,7 @@ public:
 
 	static const int ENCODER_COUNT = 1024;
 	static const int QUADRATURE_ENCODER_COUNT = (ENCODER_COUNT * 4);
-	static const int LIFT_HANG_READY_ENCODER_POSITION = (QUADRATURE_ENCODER_COUNT / 4);
+	static const int LIFT_HANG_READY_ENCODER_POSITION = (((3 * QUADRATURE_ENCODER_COUNT)/ 4) - 1181);
 };
 
 #endif  // LiftHang_H

@@ -19,9 +19,9 @@ private:
 
 	bool liftHangInDesiredPosition = false;
 
-	static constexpr double LIFT_HANG_MOTOR_POWER = .35;
+	static constexpr double LIFT_HANG_MOTOR_POWER = .2;
 
-	static constexpr int VARIABILITY_IN_DESIRED_LIFT_HANG_ENCODER_POSITION = 50;
+	static constexpr int VARIABILITY_IN_DESIRED_LIFT_HANG_ENCODER_POSITION = 135;
 public:
 	GetReadyForLiftHang();
 	void Initialize();

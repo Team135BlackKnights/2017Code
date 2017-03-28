@@ -9,7 +9,7 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 
-	frc::PowerDistributionPanel* pdp;
+	//frc::PowerDistributionPanel* pdp;
 	static const int PDP_ID = 0;
 
 public:

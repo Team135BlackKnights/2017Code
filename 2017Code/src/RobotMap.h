@@ -84,24 +84,24 @@
 	const bool CB_SHOOTER_MOTOR_INVERTED = false;
 	const bool CB_SHOOTER_HOOD_MOTOR_INVERTED = true;
 
-	enum AutonomousSelection {
-		MiddleGear,
-		RightGear,
-		LeftGear,
-		CloseShotShooterLeft,
-		CloseShotShooterRight,
-		RightKPaAutonomous,
-		LeftKPaAutonomous,
-		BaseLine
+	/*enum AutonomousSelection {
+		MiddleGear = 0,
+		RightGear = 1,
+		LeftGear = 2,
+		CloseShotShooterLeft = 3,
+		CloseShotShooterRight = 4,
+		RightKPaAutonomous = 5,
+		LeftKPaAutonomous = 6,
+		BaseLine = 7
 	};
 
 	enum SecondTask {
-		MiddleGearShootRight,
-		MiddleGearShootLeft,
-		SideGearShoot,
-		CloseShotBaseLine,
+		MiddleGearShootRight = 0,
+		MiddleGearShootLeft = 1,
+		SideGearShoot = 2,
+		CloseShotBaseLine = 3,
 		None
-	};
+	}; */
 
 	enum ShooterPIDSelection {
 		PID_CompetitionBot,

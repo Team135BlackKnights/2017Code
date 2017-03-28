@@ -120,6 +120,12 @@ public:
 	        this->rotateToAngleRate = output;
 	    }
 	PIDController* turnController;
+
+	bool AutoRotateRobot(double, double, bool, bool);
+
+	bool initializeAutoRotateRobot = false;
+	double currentGyroAngle = 0.0;
+	bool doneAutoRotateRobot = false;
 };
 
 #endif  // DriveTrain_H

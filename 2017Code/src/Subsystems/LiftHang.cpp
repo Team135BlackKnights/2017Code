@@ -9,7 +9,7 @@ LiftHang::LiftHang() : Subsystem("LiftHang") {
 void LiftHang::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new ReadLiftHangEncoderValue());
+	//SetDefaultCommand(new ReadLiftHangEncoderValue());
 }
 
 void LiftHang::InitializeLiftHang(bool competitionBot) {
@@ -44,7 +44,7 @@ int LiftHang::GetLiftHangEncoderValue() {
 }
 
 double LiftHang::GetNumberOfRotationsOfLiftHang() {
-	liftHangEncoderValue = this->GetLiftHangEncoderValue();
+	liftHangEncoderValue = this->GetLiftHangEncoderRawValue();
 	numberOfRotationsOfLiftHang = (((double)liftHangEncoderValue)/QUADRATURE_ENCODER_COUNT);
 	return numberOfRotationsOfLiftHang;
 }

@@ -16,9 +16,9 @@
 class Robot: public frc::IterativeRobot {
 public:
 	void RobotInit() override {
-		autonomousChooser.AddDefault("Middle Gear", new AutonomousCommand(AutonomousSelection::MiddleGear, SecondTask::None));
+		/*autonomousChooser.AddObject("Middle Gear", new AutonomousCommand(AutonomousSelection::MiddleGear, SecondTask::None));
 		autonomousChooser.AddObject("Middle Gear Shoot Right", new AutonomousCommand(AutonomousSelection::MiddleGear, SecondTask::MiddleGearShootRight));
-		autonomousChooser.AddObject("Middle Gear Shoot Left", new AutonomousCommand(AutonomousSelection::MiddleGear, SecondTask::MiddleGearShootLeft));
+		autonomousChooser.AddDefault("Middle Gear Shoot Left", new AutonomousCommand(AutonomousSelection::MiddleGear, SecondTask::MiddleGearShootLeft));
 		autonomousChooser.AddObject("Right Gear", new AutonomousCommand(AutonomousSelection::RightGear, SecondTask::None));
 		autonomousChooser.AddObject("Left Gear", new AutonomousCommand(AutonomousSelection::LeftGear, SecondTask::None));
 		autonomousChooser.AddObject("Right Gear and Shoot", new AutonomousCommand(AutonomousSelection::RightGear, SecondTask::SideGearShoot));
@@ -27,22 +27,23 @@ public:
 		autonomousChooser.AddObject("Close Shot Left With BaseLine", new AutonomousCommand(AutonomousSelection::CloseShotShooterLeft, SecondTask::CloseShotBaseLine));
 		autonomousChooser.AddObject("BaseLine Only", new AutonomousCommand(AutonomousSelection::BaseLine, SecondTask::None));
 		autonomousChooser.AddObject("Right 40Kpa", new AutonomousCommand(AutonomousSelection::RightKPaAutonomous, SecondTask::None));
-		autonomousChooser.AddObject("Left 40KPa", new AutonomousCommand(AutonomousSelection::LeftKPaAutonomous, SecondTask::None));
+		autonomousChooser.AddObject("Left 40KPa", new AutonomousCommand(AutonomousSelection::LeftKPaAutonomous, SecondTask::None)); */
+
+		autonomousChooser.AddDefault("Autonomous", new AutonomousCommand());
 		frc::SmartDashboard::PutData("Autonomouss Modes", &autonomousChooser);
 
 		CommandBase::agitator->InitializeAgitatorMotor(COMPETITION_BOT);
-		CommandBase::cameraServo->InitializeCameraServo();
+		//CommandBase::cameraServo->InitializeCameraServo();
 		CommandBase::collection->InitializeCollectionMotor(COMPETITION_BOT);
 		CommandBase::driveTrain->InitializeDriveTrainMotors(COMPETITION_BOT);
 		CommandBase::driveTrain->ConfigureDriveTrainEncoders(COMPETITION_BOT);
 		CommandBase::driveTrain->InitializeDriveTrainPID();
 		CommandBase::driveTrain->InitializeDriveStraightWithGyro(COMPETITION_BOT);
 		CommandBase::gearHolder->InitializeGearHolderMotor(COMPETITION_BOT);
-		CommandBase::lidars->InitializeLidarsAndI2CMultiplexer();
+		//CommandBase::lidars->InitializeLidarsAndI2CMultiplexer();
 		CommandBase::liftHang->InitializeLiftHang(COMPETITION_BOT);
 		CommandBase::liftHang->InitializeLiftHangEncoder();
-		CommandBase::liftHang->ZeroLiftHangEncoder();
-		CommandBase::pdp->InitializePDP();
+		//CommandBase::pdp->InitializePDP();
 		CommandBase::shooter->InitializeShooterMotor(COMPETITION_BOT);
 		CommandBase::shooter->ConfigureShooterMotorEncoder(COMPETITION_BOT);
 		CommandBase::shooterHood->InitializeShooterHoodMotor(COMPETITION_BOT);
@@ -82,16 +83,14 @@ public:
 			//autonomousCommand.reset(new MyAutoCommand());
 		}
 		else {
-			//autonomousCommand.reset(new ExampleCommand());
+			//autonomousCommand.reset(n-ew ExampleCommand());
 		} */
 
 		CommandBase::liftHang->ZeroLiftHangEncoder();
+		//autonomousCommand.reset(autonomousChooser.GetSelected());
 
 		autonomousCommand.reset(autonomousChooser.GetSelected());
-
-		if (autonomousCommand.get() != nullptr) {
-			autonomousCommand->Start();
-		}
+		autonomousCommand->Start();
 	}
 
 	void AutonomousPeriodic() override {

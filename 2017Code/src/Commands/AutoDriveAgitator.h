@@ -9,7 +9,7 @@ private:
 	bool shooterUpToSpeed = false;
 	bool turnOffCollection = false;
 
-	static constexpr double AGITATOR_MOTOR_POWER = .25;
+	static constexpr double AGITATOR_MOTOR_POWER = .36;
 
 	frc::Timer* timer;
 	double timerValue = 0.0;

@@ -124,8 +124,8 @@ double DriveTrain::GetTalonOutputCurrent(int motorArray) {
 
 void DriveTrain::InitializeDriveStraightWithGyro(bool competitionBot) {
 	if (competitionBot) {
-		straightDriveTrainSensitivity = CB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY;
-		straightDriveTrainProportionalConstant = CB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT;
+		straightDriveTrainSensitivity = .07;  //  .07
+		straightDriveTrainProportionalConstant = .12; //  .12
 	}
 	else if (competitionBot == false) {
 		straightDriveTrainSensitivity = PB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY;
@@ -190,6 +190,40 @@ void DriveTrain::PIDTurning()
 	//std::cout << "navx angle: " << gyro->GetAngle();
 	//std::cout << "rot rate: " << rotateToAngleRate << "\n";
 	this->RotateTank(rotateToAngleRate, 1);
+}
+
+bool DriveTrain::AutoRotateRobot(double motorPower, double desiredGyroAngle, bool turnRight, bool zeroGyro) {
+	if (initializeAutoRotateRobot == false) {
+		if (zeroGyro) {
+			this->ZeroGyroAngle();
+		}
+		doneAutoRotateRobot = false;
+		initializeAutoRotateRobot = true;
+	}
+
+	currentGyroAngle = this->GetGyroAngle();
+
+	if (initializeAutoRotateRobot) {
+		if (turnRight) {
+			if (currentGyroAngle >= desiredGyroAngle) {
+				this->RotateTank(0.0, turnRight);
+				doneAutoRotateRobot = true;
+			}
+			else {
+				this->RotateTank(motorPower, turnRight);
+			}
+		}
+		else if (turnRight == false) {
+			if (currentGyroAngle <= desiredGyroAngle) {
+				this->RotateTank(0.0, turnRight);
+				doneAutoRotateRobot = true;
+			}
+			else {
+				this->RotateTank(motorPower, turnRight);
+			}
+		}
+	}
+	return doneAutoRotateRobot;
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

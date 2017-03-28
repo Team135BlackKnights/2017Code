@@ -13,6 +13,9 @@ private:
 	bool gearHolderDownwardsButtonPressed = false;
 
 	bool photoElectricSensorValue = false;
+
+	bool upperLimitSwitchPressed = false;
+	bool lowerLimitSwitchPressed = false;
 public:
 	DriveGearHolder();
 	void Initialize();

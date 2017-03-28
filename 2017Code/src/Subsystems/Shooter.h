@@ -9,7 +9,7 @@ public:
 	static constexpr double DESIRED_VOLTAGE_CLOSE_SHOT = 7.7;
 	static constexpr double DESIRED_VOLTAGE_FAR_SHOT = 9.125;
 
-	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2600.0;
+	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2800.0;
 	static constexpr double SHOOTER_SETPOINT_RPM_FAR_SHOT = 3040.0;
 
 	static const int CLOSE_SHOT_PID_VALUES = 0;
@@ -76,11 +76,11 @@ private:
 	static constexpr double CB_CLOSE_SHOT_POSITIVE_PEAK_VOLTAGE = 9.0;
 	static constexpr double CB_CLOSE_SHOT_NEGATIVE_PEAK_VOLTAGE = -6.0;
 
-	static constexpr double CB_FAR_SHOT_Kp = 1.0;
-	static constexpr double CB_FAR_SHOT_Ki = 0.0;
-	static constexpr double CB_FAR_SHOT_Kd = 0.0;
-	static constexpr double CB_FAR_SHOT_Kf = .0359;
-	static constexpr double CB_FAR_SHOT_POSITIVE_PEAK_VOLTAGE = 10.2;
+	static constexpr double CB_FAR_SHOT_Kp = 1.0;  //  1.0
+	static constexpr double CB_FAR_SHOT_Ki = 0.0;  //  0.0
+	static constexpr double CB_FAR_SHOT_Kd = 0.0;  //  0.0
+	static constexpr double CB_FAR_SHOT_Kf = .0359;  //  /.0359
+	static constexpr double CB_FAR_SHOT_POSITIVE_PEAK_VOLTAGE = 10.2;  //
 	static constexpr double CB_FAR_SHOT_NEGATIVE_PEAK_VOLTAGE = -6.0;
 
 	//  Variable for ShooterUpToSpeed() and GetShooterUpToSpeed()

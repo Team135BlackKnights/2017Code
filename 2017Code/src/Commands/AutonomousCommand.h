@@ -11,7 +11,7 @@ private:
 	static constexpr double ROBOT_WITH_BUMPERS_WIDTH = 36.0;
 
 	//  Simple Base Line Autonomous Path
-	static constexpr double BASE_LINE_PATH_DISTANCE = 130.0;
+	static constexpr double BASE_LINE_PATH_DISTANCE = 85.0;
 
 	//  Gear Autonomous Programs Distances
 	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_GEAR = (80.0 - ROBOT_WITH_BUMPERS_LENGTH);
@@ -22,12 +22,12 @@ private:
 	static constexpr double ANGLE_TO_TURN_TO_FACE_SIDE_GEAR = 48.0;
 	static constexpr double ANGLE_FROM_SIDE_GEAR_TO_BASE_LINE_PATH = 75.0;
 
-	static constexpr double DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING = 24.0;
+	static constexpr double DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING = 28.0;
 
 	static constexpr double DISTANCE_TO_MOVE_AWAY_FROM_SIDE_GEAR_TO_PURSUE_BASELINE = 30.0;
 	static constexpr double DISTANCE_OF_SIDE_GEAR_BASE_LINE_PATH = 36.0;
 
-	static constexpr double DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR = 10;
+	static constexpr double DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR = 13.5;
 
 	//  Gear Autonomous Program With Lidar Variables
 	static constexpr double DISTANCE_TO_TRAVEL_UNITL_TURNING_PARALLEL_WITH_AIRSHP = 45.0;
@@ -86,14 +86,27 @@ private:
 
 	static const bool USING_LIDAR = false;
 	static const bool USING_CAMERA = true;
+	static const bool USING_AUTO_ROTATE_FOR_GEAR_PEG = false;
 
 	static const bool RAMMING_INTO_HOPPER = true;
 	static const bool NOT_RAMMING_INTO_HOPPER = false;
 
-	AutonomousSelection autonomousSelection;
-	SecondTask secondTask;
+	static constexpr double ANGLE_TO_ROTATE_FOR_GEAR_PEG = 15.0;
+
+	bool baseLine = false;
+	bool middleGear = false;
+	bool middleGearShootRight = false;
+	bool middleGearShootLeft = false;
+	bool rightGear = false;
+	bool leftGear = false;
+	bool rightGearAndShoot = false;
+	bool leftGearAndShoot = false;
+	bool closeShotRightWithBaseline = false;
+	bool closeShotLeftWithBaseline = false;
+	bool right40KPa = false;
+	bool left40KPa = false;
 public:
-	AutonomousCommand(AutonomousSelection, SecondTask);
+	AutonomousCommand();
 };
 
 #endif  // AutonomousCommand_H

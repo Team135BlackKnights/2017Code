@@ -35,6 +35,11 @@ void DriveGearHolder::Execute() {
 
 	photoElectricSensorValue = CommandBase::gearHolder->GetPhotoElectricSensorValue();
 	frc::SmartDashboard::PutBoolean("Gear In Gear Holder", photoElectricSensorValue);
+
+	upperLimitSwitchPressed = CommandBase::gearHolder->GetLimitSwitchValue(GearHolder::UPPER_LIMIT_SWITCH_PORT);
+	lowerLimitSwitchPressed = CommandBase::gearHolder->GetLimitSwitchValue(GearHolder::LOWER_LIMIT_SWITCH_PORT);
+	frc::SmartDashboard::PutBoolean("Gear Upper Limit Switch Pressed", upperLimitSwitchPressed);
+	frc::SmartDashboard::PutBoolean("Gear Lower Limit Switch Pressed", lowerLimitSwitchPressed);
 }
 
 // Make this return true when this Command no longer needs to run execute()
