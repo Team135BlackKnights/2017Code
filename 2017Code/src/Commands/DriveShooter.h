@@ -30,6 +30,11 @@ private:
 	bool throttleUp = false;
 
 	double shooterVoltage = 0.0;
+
+	double throttleValue = 0.0;
+
+	bool closeShotMode = false;
+
 public:
 	DriveShooter(ShooterPIDSelection);
 	void Initialize();

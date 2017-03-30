@@ -30,7 +30,13 @@ void DriveWithJoysticks::Execute() {
 
 	leftJoystickValue = oi->GetYAxis(OI::LEFT_DRIVE_JOYSTICK);
 	rightJoystickValue = oi->GetYAxis(OI::RIGHT_DRIVE_JOYSTICK);
-	CommandBase::driveTrain->DriveTank(leftJoystickValue, rightJoystickValue);
+
+	desiredMaxMotorPower = CommandBase::driveTrain->GetDesiredDriveTrainMaxMotorPower();
+
+	convertedLeftJoystickValue = (leftJoystickValue * desiredMaxMotorPower);
+	convertedRightJoystickValue = (rightJoystickValue * desiredMaxMotorPower);
+
+	CommandBase::driveTrain->DriveTank(convertedLeftJoystickValue, convertedRightJoystickValue);
 
 	throttleUp = CommandBase::oi->GetThrottleUp(OI::RIGHT_DRIVE_JOYSTICK);
 	if (throttleUp) {
@@ -57,11 +63,6 @@ void DriveWithJoysticks::Execute() {
 	else {
 		CommandBase::driveTrain->ZeroGyroAngle();
 	}
-
-	frontLeftMotorCurrent = CommandBase::driveTrain->GetTalonOutputCurrent(DriveTrain::FRONT_LEFT);
-	frontRightMotorCurrent = CommandBase::driveTrain->GetTalonOutputCurrent(DriveTrain::FRONT_RIGHT);
-	frc::SmartDashboard::PutNumber("Front Left Motor Current", frontLeftMotorCurrent);
-	frc::SmartDashboard::PutNumber("Front Right Motor Current", frontRightMotorCurrent);
 }
 
 // Make this return true when this Command no longer needs to run execute()

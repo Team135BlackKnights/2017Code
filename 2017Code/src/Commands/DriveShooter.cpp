@@ -19,16 +19,26 @@ void DriveShooter::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveShooter::Execute() {
-	throttleUp = CommandBase::oi->GetThrottleUp(OI::MANIPULATOR_JOYSTICK);
-	if (throttleUp) {
-		CommandBase::shooter->SelectPIDProfileSlot(Shooter::FAR_SHOT_PID_VALUES);
-		chosenSetpoint = Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT;
-		chosenVoltage = Shooter::DESIRED_VOLTAGE_FAR_SHOT;
-	}
-	else if (throttleUp == false) {
+	closeShotMode = CommandBase::shooter->GetSwitchBetweenFarAndCloseShotShooterRPM();
+
+	if (closeShotMode) {
 		CommandBase::shooter->SelectPIDProfileSlot(Shooter::CLOSE_SHOT_PID_VALUES);
-		chosenSetpoint = Shooter::SHOOTER_SETPOINT_RPM_CLOSE_SHOT;
 		chosenVoltage = Shooter::DESIRED_VOLTAGE_CLOSE_SHOT;
+		throttleValue = CommandBase::oi->GetThrottleValue(OI::MANIPULATOR_JOYSTICK);
+		chosenSetpoint = CommandBase::shooter->GetCloseShotShooterRPMGivenThrottleValue(throttleValue);
+	}
+	else if (closeShotMode == false) {
+		throttleUp = CommandBase::oi->GetThrottleUp(OI::MANIPULATOR_JOYSTICK);
+		if (throttleUp) {
+			CommandBase::shooter->SelectPIDProfileSlot(Shooter::FAR_SHOT_PID_VALUES);
+			chosenSetpoint = Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT;
+			chosenVoltage = Shooter::DESIRED_VOLTAGE_FAR_SHOT;
+		}
+		else if (throttleUp == false) {
+			CommandBase::shooter->SelectPIDProfileSlot(Shooter::CLOSE_SHOT_PID_VALUES);
+			chosenSetpoint = Shooter::SHOOTER_SETPOINT_RPM_CLOSE_SHOT;
+			chosenVoltage = Shooter::DESIRED_VOLTAGE_CLOSE_SHOT;
+		}
 	}
 
 	shooterMotorRPM = CommandBase::shooter->GetShooterWheelRPM();

@@ -11,6 +11,8 @@
 #include "Commands/AutoDriveShooterHood.h"
 #include "Commands/GetReadyForLiftHang.h"
 #include "Commands/AutoGearOnPeg.h"
+#include "Commands/SwitchBetweenHighAndLowShot.h"
+#include "Commands/SwitchDriveTrainMotorPower.h"
 #include <iostream>
 
 OI::OI() {
@@ -115,10 +117,12 @@ void OI::ConfigureButtonMapping() {
 	joystickButton[RIGHT_DRIVE_JOYSTICK][THUMB_BUTTON]->WhileHeld(new DriveLiftHang(LIFT_HANG_HALF_POWER));
 	joystickButton[RIGHT_DRIVE_JOYSTICK][GET_LIFT_HANG_INTO_CORRECT_POSITION_BUTTON]->WhenPressed(new GetReadyForLiftHang());
 
+	joystickButton[RIGHT_DRIVE_JOYSTICK][SWITCH_BETWEEN_MAX_DRIVE_TRAIN_MOTOR_POWER_BUTTON]->WhenPressed(new SwitchDriveTrainMotorPower());
+
 	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_INCREASE_ANGLE_BUTTON]->WhileHeld(new DriveShooterHood(true));
 	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_DECREASE_ANGLE_BUTTON]->WhileHeld(new DriveShooterHood(false));
 
-	//joystickButton[LEFT_DRIVE_JOYSTICK][AUTO_GEAR_ON_PEG_BUTTON]->WhenPressed(new AimBot(0));//ToggleWhenPressed(new AutoGearOnPeg());
+	joystickButton[MANIPULATOR_JOYSTICK][SWITCH_BETWEEN_FAR_AND_CLOSE_SHOT_RPM_BUTTON]->WhenPressed(new SwitchBetweenHighAndLowShot());
 
 	joystickButton[MANIPULATOR_JOYSTICK][SHOOTER_HOOD_CLOSE_SHOT_BUTTON]->WhenPressed(new AutoDriveShooterHood(CLOSE_SHOT_HOOD_ENCODER_VALUE));
 	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_SIDE_GEAR_SHOT_BUTTON]->WhenPressed(new AutoDriveShooterHood(SIDE_GEAR_SHOOT_AUTONOMOUS_HOOD_ENCODER_VALUE));

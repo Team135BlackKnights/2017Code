@@ -9,7 +9,11 @@ public:
 	static constexpr double DESIRED_VOLTAGE_CLOSE_SHOT = 7.7;
 	static constexpr double DESIRED_VOLTAGE_FAR_SHOT = 9.125;
 
-	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2800.0;
+	static constexpr double SHOOTER_SETPOINT_MIN_RPM_CLOSE_SHOT = 2600.0;
+	static constexpr double SHOOTER_SETPOINT_MAX_RPM_CLOSE_SHOT = 2850.0;
+	static constexpr double RANGE_OF_CLOSE_SHOT_SHOOTER_RPM = (SHOOTER_SETPOINT_MAX_RPM_CLOSE_SHOT - SHOOTER_SETPOINT_MIN_RPM_CLOSE_SHOT);
+
+	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2650.0;
 	static constexpr double SHOOTER_SETPOINT_RPM_FAR_SHOT = 3040.0;
 
 	static const int CLOSE_SHOT_PID_VALUES = 0;
@@ -85,6 +89,11 @@ private:
 
 	//  Variable for ShooterUpToSpeed() and GetShooterUpToSpeed()
 	bool shooterUpToSpeed = false;
+
+	double convertedThrottleValue = 0.0;
+	double desiredCloseShotShooterSetpoint = 0.0;
+
+	bool closeShot = true;
 public:
 	Shooter();
 	void InitDefaultCommand();
@@ -108,6 +117,10 @@ public:
 
 	void ShooterUpToSpeed(bool);
 	bool GetShooterUpToSpeed();
+
+	double GetCloseShotShooterRPMGivenThrottleValue(double);
+	void SetSwitchFarAndCloseShotShooterRPM(bool);
+	bool GetSwitchBetweenFarAndCloseShotShooterRPM();
 };
 
 #endif  // Shooter_H

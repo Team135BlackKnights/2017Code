@@ -9,6 +9,9 @@ private:
 	double leftJoystickValue = 0.0;
 	double rightJoystickValue = 0.0;
 
+	double convertedLeftJoystickValue = 0.0;
+	double convertedRightJoystickValue = 0.0;
+
 	double actualUsedLeftJoystickValue = 0.0;
 	double actualUsedRightJoystickValue = 0.0;
 
@@ -19,15 +22,14 @@ private:
 	bool throttleUp = false;
 	double povMotorPower = 0.0;
 
-	static constexpr double LOW_POV_DRIVE_TRAIN_MOTOR_POWER = .4;
+	static constexpr double LOW_POV_DRIVE_TRAIN_MOTOR_POWER = .3;
 	static constexpr double HIGH_POV_DRIVE_TRAIN_MOTOR_POWER = .7;
 
 
 	bool rightDriveEncoderDetected = false;
 	bool leftDriveEncoderDetected = false;
 
-	double frontLeftMotorCurrent = 0.0;
-	double frontRightMotorCurrent = 0.0;
+	double desiredMaxMotorPower = 0.0;
 
 public:
 	DriveWithJoysticks();

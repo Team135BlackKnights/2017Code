@@ -22,12 +22,16 @@ private:
 	static constexpr double ANGLE_TO_TURN_TO_FACE_SIDE_GEAR = 48.0;
 	static constexpr double ANGLE_FROM_SIDE_GEAR_TO_BASE_LINE_PATH = 75.0;
 
-	static constexpr double DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING = 28.0;
+	static constexpr double DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING = 24.0;
 
 	static constexpr double DISTANCE_TO_MOVE_AWAY_FROM_SIDE_GEAR_TO_PURSUE_BASELINE = 30.0;
 	static constexpr double DISTANCE_OF_SIDE_GEAR_BASE_LINE_PATH = 36.0;
 
 	static constexpr double DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR = 13.5;
+
+	//  Gear Autonomous Program and Neutral Zone Variables
+	static constexpr double ANGLE_TO_TURN_TO_FACE_NEUTRAL_ZONE = 40.0;
+	static constexpr double DISTANCE_TO_TRAVEL_TOWARDS_AND_INTO_NEUTRAL_ZONE = 230.0;
 
 	//  Gear Autonomous Program With Lidar Variables
 	static constexpr double DISTANCE_TO_TRAVEL_UNITL_TURNING_PARALLEL_WITH_AIRSHP = 45.0;
@@ -84,9 +88,11 @@ private:
 
 	static constexpr double RIGHT_ANGLE_DEGREES = 90.0;
 
-	static const bool USING_LIDAR = false;
-	static const bool USING_CAMERA = true;
+	static const bool USING_LIDAR_FOR_GEAR_LINEUP = false;
 	static const bool USING_AUTO_ROTATE_FOR_GEAR_PEG = false;
+
+	static const bool USING_GEAR_CAMERA = false;
+	static const bool USING_SHOOTER_CAMERA = true;
 
 	static const bool RAMMING_INTO_HOPPER = true;
 	static const bool NOT_RAMMING_INTO_HOPPER = false;
@@ -101,6 +107,8 @@ private:
 	bool leftGear = false;
 	bool rightGearAndShoot = false;
 	bool leftGearAndShoot = false;
+	bool rightGearAndNeutralZone = false;
+	bool leftGearAndNeutralZone = false;
 	bool closeShotRightWithBaseline = false;
 	bool closeShotLeftWithBaseline = false;
 	bool right40KPa = false;

@@ -48,6 +48,20 @@ void DriveTrain::RotateTank(double motorPower, bool turnRight) {
 	}
 }
 
+void DriveTrain::SwitchBetweenHighAndLowDriveTrainMotorPower(bool fastDriveTrainMotorPower) {
+	this->fastDriveTrainMotorPower = fastDriveTrainMotorPower;
+}
+
+double DriveTrain::GetDesiredDriveTrainMaxMotorPower() {
+	if (this->fastDriveTrainMotorPower) {
+		desiredMaxMotorPower = FAST_MAX_DRIVE_TRAIN_MOTOR_POWER;
+	}
+	else if (this->fastDriveTrainMotorPower == false) {
+		desiredMaxMotorPower = SLOW_MAX_DRIVE_TRAIN_MOTOR_POWER;
+	}
+	return desiredMaxMotorPower;
+}
+
 void DriveTrain::ConfigureDriveTrainEncoders(bool competitionBot) {
 	if (competitionBot) {
 		driveTrainMotors[LEFT_SIDE_ENCODER]->ConfigEncoderCodesPerRev(CB_ENCODER_COUNTS);

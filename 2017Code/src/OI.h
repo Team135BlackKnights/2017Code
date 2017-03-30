@@ -31,7 +31,10 @@ private:
 
 	static const int SHOOTER_HOOD_CLOSE_SHOT_BUTTON = 11;  //  MANIPULATOR JOYSTICK
 
-	static const int GET_LIFT_HANG_INTO_CORRECT_POSITION_BUTTON = 5;
+	static const int GET_LIFT_HANG_INTO_CORRECT_POSITION_BUTTON = 5;  //  Right Drive Joystick
+	static const int SWITCH_BETWEEN_MAX_DRIVE_TRAIN_MOTOR_POWER_BUTTON = 3;  //  Right Drive Joystick
+
+	static const int SWITCH_BETWEEN_FAR_AND_CLOSE_SHOT_RPM_BUTTON = 9;  //  Manipulator Joystick
 
 	static const int CLOSE_SHOT_HOOD_ENCODER_VALUE = 0;
 	static const int RIGHT_CLOSE_SHOT_SHOOTER_AUTONOMOUS_HOOD_ENCODER_VALUE = 5000;

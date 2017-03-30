@@ -124,5 +124,19 @@ bool Shooter::GetShooterUpToSpeed() {
 	return (this->shooterUpToSpeed);
 }
 
+double Shooter::GetCloseShotShooterRPMGivenThrottleValue(double throttleValue) {
+	convertedThrottleValue = (throttleValue + 1.0);
+	desiredCloseShotShooterSetpoint = (((convertedThrottleValue / 2.0) * RANGE_OF_CLOSE_SHOT_SHOOTER_RPM) + SHOOTER_SETPOINT_MIN_RPM_CLOSE_SHOT);
+	return desiredCloseShotShooterSetpoint;
+}
+
+void Shooter::SetSwitchFarAndCloseShotShooterRPM(bool closeShot) {
+	this->closeShot = closeShot;
+}
+
+bool Shooter::GetSwitchBetweenFarAndCloseShotShooterRPM() {
+	return this->closeShot;
+}
+
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

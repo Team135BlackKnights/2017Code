@@ -74,6 +74,12 @@ private:
 	//static constexpr double DRIVE_TRAIN_SPROCKET_RATIO = (15.0/12.0);
 	static constexpr double DRIVE_TRAIN_SPROCKET_RATIO = 1.0;
 
+	//  Variables for Switching the MAX Drive Train Motor Power
+	bool fastDriveTrainMotorPower = false;
+	double desiredMaxMotorPower = 0.0;
+	static constexpr double FAST_MAX_DRIVE_TRAIN_MOTOR_POWER = 1.0;
+	static constexpr double SLOW_MAX_DRIVE_TRAIN_MOTOR_POWER = .5;
+
 public:
 	DriveTrain();
 	void InitDefaultCommand();
@@ -81,6 +87,9 @@ public:
 	void InitializeDriveTrainMotors(bool);
 	void DriveTank(double, double);
 	void RotateTank(double, bool);
+
+	void SwitchBetweenFastAndSlowDriveTrainMotorPower(bool);
+	double GetDesiredDriveTrainMaxMotorPower();
 
 	void ConfigureDriveTrainEncoders(bool);
 	bool MakeSureDriveTrainEncoderIsPluggedIn(bool);
