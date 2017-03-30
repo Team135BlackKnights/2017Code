@@ -43,7 +43,7 @@ AutonomousCommand::AutonomousCommand() {
 	baseLine = Preferences::GetInstance()->GetBoolean("BaseLine", false);
 	middleGear = Preferences::GetInstance()->GetBoolean("Middle Gear", false);
 	middleGearShootRight = Preferences::GetInstance()->GetBoolean("Middle Gear Shoot Right", false);
-	middleGearShootLeft = Preferences::GetInstance()->GetBoolean("Middle Gear Shooter Left", false);
+	middleGearShootLeft = Preferences::GetInstance()->GetBoolean("Middle Gear Shoot Left", false);
 	rightGear = Preferences::GetInstance()->GetBoolean("Right Gear", false);
 	leftGear = Preferences::GetInstance()->GetBoolean("Left Gear", false);
 	rightGearAndShoot = Preferences::GetInstance()->GetBoolean("Right Gear and Shoot", false);

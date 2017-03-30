@@ -15,7 +15,7 @@ void SwitchDriveTrainMotorPower::Initialize() {
 void SwitchDriveTrainMotorPower::Execute() {
 	if (setDriveTrainMotorPower == false) {
 		fastDriveTrainMotorPower = !fastDriveTrainMotorPower;
-		CommandBase::driveTrain->SwitchBetweenHighAndLowDriveTrainMotorPower(fastDriveTrainMotorPower);
+		CommandBase::driveTrain->SwitchBetweenFastAndSlowDriveTrainMotorPower(fastDriveTrainMotorPower);
 		setDriveTrainMotorPower = true;
 	}
 }

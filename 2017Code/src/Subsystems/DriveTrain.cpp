@@ -48,7 +48,7 @@ void DriveTrain::RotateTank(double motorPower, bool turnRight) {
 	}
 }
 
-void DriveTrain::SwitchBetweenHighAndLowDriveTrainMotorPower(bool fastDriveTrainMotorPower) {
+void DriveTrain::SwitchBetweenFastAndSlowDriveTrainMotorPower(bool fastDriveTrainMotorPower) {
 	this->fastDriveTrainMotorPower = fastDriveTrainMotorPower;
 }
 
