@@ -232,7 +232,7 @@ AutonomousCommand::AutonomousCommand() {
 		AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_CLOSE_SHOT));
 		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_BACKWARDS_AFTER_CLOSE_SHOT, -.5));
 		AddParallel(new GetReadyForLiftHang());
-		AddSequential(new WaitTime(.3));
+		AddSequential(new WaitTime(.2));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_OFF_RIGHT_ALLIANCE_WALL, .525, TURN_RIGHT));
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT, -.65));
@@ -240,13 +240,17 @@ AutonomousCommand::AutonomousCommand() {
 	else if (closeShotLeftWithBaseline) {
 		//  Make Sure Shooter Hood Encoder is at Proper Value
 		AddSequential(new AutoDriveShooter(Shooter::SHOOTER_SETPOINT_RPM_CLOSE_SHOT));
-		AddSequential(new TurnOneSideOfRobotAngle(ANGLE_TO_TURN_AFTER_DRIVING_OFF_LEFT_ALLIANCE_WALL, DRIVE_RIGHT_SIDE_DRIVE_TRAIN, -.65));
-		AddSequential(new WaitTime(.3));
-		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_OFF_LEFT_ALLIANCE_WALL, .55));
+		AddSequential(new TurnOneSideOfRobotAngle(ANGLE_TO_TURN_AFTER_DRIVING_OFF_LEFT_ALLIANCE_WALL, DRIVE_LEFT_SIDE_DRIVE_TRAIN, -.65));
+		AddSequential(new WaitTime(.1));
+		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_OFF_LEFT_ALLIANCE_WALL, -.6));
 		AddParallel(new GetReadyForLiftHang());
 		AddSequential(new WaitTime(.2));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_TURNING_OFF_LEFT_ALLIANCE_WALL, .55, TURN_RIGHT));
 		AddSequential(new WaitTime(.2));
+		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_ABOUT_PARALLEL_WITH_LEFT_ALLIANCE_WALL, .65));
+		AddSequential(new WaitTime(.1));
+		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_DRIVE_TO_BASELINE_AFTER_LEFT_ALLIANCE_WALL, .55, TURN_RIGHT));
+		AddSequential(new WaitTime(.1));
 		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT, .7));
 	}
 	else if (right40KPa) {

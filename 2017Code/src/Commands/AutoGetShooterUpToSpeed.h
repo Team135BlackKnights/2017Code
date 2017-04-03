@@ -15,7 +15,7 @@ private:
 	frc::Timer* timer;
 	bool startTimer = false;
 	double timerValue = 0.0;
-	static constexpr double TIME_TO_WAIT_FOR_SHOOTER_TO_MAINTAIN_VELOCITY = .2;
+	static constexpr double TIME_TO_WAIT_FOR_SHOOTER_TO_MAINTAIN_VELOCITY = .05;
 
 	double currentShooterRPMValue = 0.0;
 

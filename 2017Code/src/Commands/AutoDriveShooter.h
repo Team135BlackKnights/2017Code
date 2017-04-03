@@ -16,8 +16,8 @@ private:
 
 	frc::Timer* timer;
 	double timerValue = 0.0;
-	static constexpr double WAIT_TIME_FOR_SHOOTER = .15;
-	static constexpr double WAIT_TIME_FOR_FUEL_TO_SHOOT = 5.5;
+	static constexpr double WAIT_TIME_FOR_SHOOTER = .05;
+	static constexpr double WAIT_TIME_FOR_FUEL_TO_SHOOT = 7.0;
 
 	static constexpr double AGITATOR_MOTOR_POWER = .3;
 	bool startTimerForAgitator = false;
