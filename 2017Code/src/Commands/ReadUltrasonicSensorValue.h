@@ -5,7 +5,8 @@
 
 class ReadUltrasonicSensorValue : public CommandBase {
 private:
-	double ultrasonicSensorValueInches = 0.0;
+	double leftUltrasonicSensorValueInches = 0.0;
+	double rightUltrasonicSensorValueInches = 0.0;
 public:
 	ReadUltrasonicSensorValue();
 	void Initialize();

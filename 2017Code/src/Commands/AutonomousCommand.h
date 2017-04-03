@@ -93,11 +93,13 @@ private:
 
 	static const bool USING_GEAR_CAMERA = false;
 	static const bool USING_SHOOTER_CAMERA = true;
+	static const bool USING_ULTRASONIC_SENSOR_AIM_BOT = false;
 
 	static const bool RAMMING_INTO_HOPPER = true;
 	static const bool NOT_RAMMING_INTO_HOPPER = false;
 
-	static constexpr double ANGLE_TO_ROTATE_FOR_GEAR_PEG = 15.0;
+	static constexpr double ANGLE_TO_ROTATE_FOR_GEAR_PEG = 10.0;
+	static constexpr double AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER = .3;
 
 	bool baseLine = false;
 	bool middleGear = false;

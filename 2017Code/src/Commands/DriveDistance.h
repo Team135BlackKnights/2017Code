@@ -7,6 +7,9 @@ class DriveDistance : public CommandBase {
 private:
 	double desiredDistanceToTravel;
 	double motorPower;
+	bool zeroDriveTrainEncoders;
+
+	bool zeroedDriveTrainEncoders = false;
 
 	double initialDistanceTraveled = 0.0;
 	double measuredCurrentDistanceTraveled = 0.0;
@@ -20,7 +23,7 @@ private:
 
 	bool requiresDriveTrain = false;
 public:
-	DriveDistance(double, double);
+	DriveDistance(double, double, bool zeroDriveTrainEncoders = false);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

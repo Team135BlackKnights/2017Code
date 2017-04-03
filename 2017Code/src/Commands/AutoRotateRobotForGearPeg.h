@@ -6,21 +6,20 @@
 
 class AutoRotateRobotForGearPeg : public CommandBase {
 private:
-	double desiredAngleToRotateRobot;
 	double motorPower;
-
-	static const bool ZERO_ENCODER = true;
-	static const bool NO_ZERO_ENCODER = !ZERO_ENCODER;
+	double desiredAngleToRotateRobot;
 
 	static const bool TURN_RIGHT = false;
 	static const bool TURN_LEFT = !TURN_RIGHT;
 
+	bool zeroedGyro = false;
+
 	frc::Timer* timer;
 	double timerValue = 0.0;
 	static constexpr double FIRST_ROTATION_TIMEOUT = .35;
-	static constexpr double TIME_TO_WAIT_BETWEEN_FIRST_AND_SECOND_ROTATIONS = .1;
-	static constexpr double SECOND_ROTATION_TIMEOUT = .8;
-	static constexpr double TIME_TO_WAIT_BETWEEN_SECOND_AND_THIRD_ROTATIONS = .1;
+	static constexpr double TIME_TO_WAIT_BETWEEN_FIRST_AND_SECOND_ROTATIONS = .15;
+	static constexpr double SECOND_ROTATION_TIMEOUT = .7;
+	static constexpr double TIME_TO_WAIT_BETWEEN_SECOND_AND_THIRD_ROTATIONS = .15;
 	static constexpr double THIRD_ROTATION_TIMEOUT = .5;
 
 	bool initializeFirstRotationTimer = false;

@@ -35,6 +35,9 @@ private:
 
 	bool closeShotMode = false;
 
+	bool initializedCloseShotPIDSlot = false;
+	bool initializedFarShotPIDSlot = false;
+
 public:
 	DriveShooter(ShooterPIDSelection);
 	void Initialize();

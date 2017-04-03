@@ -13,6 +13,7 @@
 #include "Commands/AutoGearOnPeg.h"
 #include "Commands/SwitchBetweenHighAndLowShot.h"
 #include "Commands/SwitchDriveTrainMotorPower.h"
+#include "Commands/AimBotWithUltrasonicSensors.h"
 #include <iostream>
 
 OI::OI() {
@@ -128,21 +129,23 @@ void OI::ConfigureButtonMapping() {
 	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_SIDE_GEAR_SHOT_BUTTON]->WhenPressed(new AutoDriveShooterHood(SIDE_GEAR_SHOOT_AUTONOMOUS_HOOD_ENCODER_VALUE));
 	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_MIDDLE_GEAR_BUTTON]->WhenPressed(new AutoDriveShooterHood(MIDDLE_GEAR_SHOOT_AUTONOMUS_HOOD_ENCODER_VALUE));
 	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_40_KPA_AUTONOMOUS_BUTTON]->WhenPressed(new AutoDriveShooterHood(KPA_AUTONOMOUS_HOOD_ENCODER_VALUE));
+
+	joystickButton[LEFT_DRIVE_JOYSTICK][AIM_BOT_WITH_ULTRASONIC_SENSORS_BUTTON]->WhenPressed(new AimBotWithUltrasonicSensors());
 }
 
 bool OI::GetAction(int JoyException, int ButtonException)
 {
-	for(int i = 0; i < NUM_OF_JOYSTICKS-1; i++)
+	for(int i = 0; i < NUM_OF_JOYSTICKS; i++)
 	{
 		if(abs(joystick[i]->GetY()) > .15)
 			return true;
-		for(int j = 1; j < NUM_OF_BUTTONS; j++)
+		for(int j = 1; j < NUM_OF_BUTTONS + 1; j++)
 		{
 				if(i == JoyException && j == ButtonException)
 					continue;
 				if(joystickButton[i][j]->Get())
 					return true;
-			}
+		}
 	}
 	return false;
 }

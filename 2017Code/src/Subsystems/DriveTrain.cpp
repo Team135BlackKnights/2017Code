@@ -138,8 +138,8 @@ double DriveTrain::GetTalonOutputCurrent(int motorArray) {
 
 void DriveTrain::InitializeDriveStraightWithGyro(bool competitionBot) {
 	if (competitionBot) {
-		straightDriveTrainSensitivity = .07;  //  .07
-		straightDriveTrainProportionalConstant = .12; //  .12
+		straightDriveTrainSensitivity = .07;
+		straightDriveTrainProportionalConstant = .12;
 	}
 	else if (competitionBot == false) {
 		straightDriveTrainSensitivity = PB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY;
@@ -206,35 +206,24 @@ void DriveTrain::PIDTurning()
 	this->RotateTank(rotateToAngleRate, 1);
 }
 
-bool DriveTrain::AutoRotateRobot(double motorPower, double desiredGyroAngle, bool turnRight, bool zeroGyro) {
+bool DriveTrain::AutoRotateRobot(double motorPower, double desiredGyroAngleToTurn, bool turnRight) {
 	if (initializeAutoRotateRobot == false) {
-		if (zeroGyro) {
-			this->ZeroGyroAngle();
-		}
+		initialGyroAngle = this->GetGyroAngle();
 		doneAutoRotateRobot = false;
 		initializeAutoRotateRobot = true;
 	}
 
 	currentGyroAngle = this->GetGyroAngle();
+	differenceBetweenCurrentAndInitialGyroAngle = (fabs(currentGyroAngle - initialGyroAngle));
 
 	if (initializeAutoRotateRobot) {
-		if (turnRight) {
-			if (currentGyroAngle >= desiredGyroAngle) {
-				this->RotateTank(0.0, turnRight);
-				doneAutoRotateRobot = true;
-			}
-			else {
-				this->RotateTank(motorPower, turnRight);
-			}
+		if (differenceBetweenCurrentAndInitialGyroAngle >= desiredGyroAngleToTurn) {
+			this->RotateTank(0.0, turnRight);
+			initializeAutoRotateRobot = false;
+			doneAutoRotateRobot = true;
 		}
-		else if (turnRight == false) {
-			if (currentGyroAngle <= desiredGyroAngle) {
-				this->RotateTank(0.0, turnRight);
-				doneAutoRotateRobot = true;
-			}
-			else {
-				this->RotateTank(motorPower, turnRight);
-			}
+		else {
+			this->RotateTank(motorPower, turnRight);
 		}
 	}
 	return doneAutoRotateRobot;

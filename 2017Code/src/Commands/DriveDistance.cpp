@@ -1,11 +1,12 @@
 #include "DriveDistance.h"
 
-DriveDistance::DriveDistance(double desiredDistanceToTravel, double motorPower) {
+DriveDistance::DriveDistance(double desiredDistanceToTravel, double motorPower, bool zeroDriveTrainEncoders) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::driveTrain.get());
 	this->desiredDistanceToTravel = desiredDistanceToTravel;
 	this->motorPower = motorPower;
+	this->zeroDriveTrainEncoders = zeroDriveTrainEncoders;
 }
 
 // Called just before this Command runs the first time
@@ -17,6 +18,11 @@ void DriveDistance::Initialize() {
 	zeroGyro = true;
 	CommandBase::driveTrain->is_aiming = true;
 	requiresDriveTrain = true;
+	if (this->zeroDriveTrainEncoders) {
+		CommandBase::driveTrain->ZeroDriveTrainEncoder(DriveTrain::RIGHT_SIDE_ENCODER);
+		CommandBase::driveTrain->ZeroDriveTrainEncoder(DriveTrain::LEFT_SIDE_ENCODER);
+		zeroedDriveTrainEncoders = true;
+	}
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -24,6 +30,12 @@ void DriveDistance::Execute() {
 	if (requiresDriveTrain == false) {
 		CommandBase::driveTrain->is_aiming = true;
 		requiresDriveTrain = true;
+	}
+
+	if (this->zeroDriveTrainEncoders && zeroedDriveTrainEncoders == false) {
+		CommandBase::driveTrain->ZeroDriveTrainEncoder(DriveTrain::RIGHT_SIDE_ENCODER);
+		CommandBase::driveTrain->ZeroDriveTrainEncoder(DriveTrain::LEFT_SIDE_ENCODER);
+		zeroedDriveTrainEncoders = true;
 	}
 
 	if (measuredInitialDistanceTraveled == false) {
@@ -57,6 +69,7 @@ bool DriveDistance::IsFinished() {
 // Called once after isFinished returns true
 void DriveDistance::End() {
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
+	zeroedDriveTrainEncoders = false;
 	distanceTraveled = false;
 	measuredInitialDistanceTraveled = false;
 	zeroGyro = false;

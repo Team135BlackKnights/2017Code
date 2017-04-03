@@ -48,7 +48,7 @@ public:
 		CommandBase::shooter->ConfigureShooterMotorEncoder(COMPETITION_BOT);
 		CommandBase::shooterHood->InitializeShooterHoodMotor(COMPETITION_BOT);
 		CommandBase::shooterHood->ConfigureShooterHoodEncoder();
-		CommandBase::ultrasonicSensor->InitializeUltrasonicSensor();
+		CommandBase::ultrasonicSensor->InitializeUltrasonicSensors();
 
 		//CameraServer::GetInstance()->StartAutomaticCapture();
 	}

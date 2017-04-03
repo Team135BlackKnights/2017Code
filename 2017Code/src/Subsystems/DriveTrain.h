@@ -80,6 +80,13 @@ private:
 	static constexpr double FAST_MAX_DRIVE_TRAIN_MOTOR_POWER = 1.0;
 	static constexpr double SLOW_MAX_DRIVE_TRAIN_MOTOR_POWER = .5;
 
+	//  Variables for AutoRotateRobot()
+	bool initializeAutoRotateRobot = false;
+	double currentGyroAngle = 0.0;
+	double initialGyroAngle = 0.0;
+	double differenceBetweenCurrentAndInitialGyroAngle = 0.0;
+	bool doneAutoRotateRobot = false;
+
 public:
 	DriveTrain();
 	void InitDefaultCommand();
@@ -130,11 +137,7 @@ public:
 	    }
 	PIDController* turnController;
 
-	bool AutoRotateRobot(double, double, bool, bool);
-
-	bool initializeAutoRotateRobot = false;
-	double currentGyroAngle = 0.0;
-	bool doneAutoRotateRobot = false;
+	bool AutoRotateRobot(double, double, bool);
 };
 
 #endif  // DriveTrain_H

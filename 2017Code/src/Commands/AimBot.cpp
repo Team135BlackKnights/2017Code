@@ -16,7 +16,7 @@ void AimBot::Initialize() {
 	else isbad = false;
 	if(cameraNumber == 1)
 	{
-		double sonar_value = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches();
+		double sonar_value = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::RIGHT_ULTRASONIC_SENSOR);
 		double dangleToTurn = 90 - atan( (sonar_value - SPRING_IN) / (CAMERA_TO_GEAR_IN - sonar_value / tan((90 -angleToTurn) * M_PI / 180))) * 180 / M_PI;
 		std::cout << "\n\n\n\n\nangle: " << dangleToTurn << "\nSonar: " << sonar_value << "\n\n\n\n";
 		CommandBase::driveTrain->TurnPIDEnable(angleToTurn - 18);

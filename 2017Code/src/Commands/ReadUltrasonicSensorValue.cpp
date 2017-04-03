@@ -13,8 +13,10 @@ void ReadUltrasonicSensorValue::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ReadUltrasonicSensorValue::Execute() {
-	ultrasonicSensorValueInches = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches();
-	std::cout << "Ultrasonic Sensor Value: " << ultrasonicSensorValueInches << std::endl;
+	leftUltrasonicSensorValueInches = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::LEFT_ULTRASONIC_SENSOR);
+	rightUltrasonicSensorValueInches = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::RIGHT_ULTRASONIC_SENSOR);
+	frc::SmartDashboard::PutNumber("Left Ultrasonic Sensor Value", leftUltrasonicSensorValueInches);
+	frc::SmartDashboard::PutNumber("Right Ultrasonic Sensor Value", rightUltrasonicSensorValueInches);
 }
 
 // Make this return true when this Command no longer needs to run execute()

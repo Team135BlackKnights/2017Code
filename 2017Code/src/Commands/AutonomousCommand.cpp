@@ -14,6 +14,7 @@
 #include "AutoDriveCollection.h"
 #include "GetReadyForLiftHang.h"
 #include "AutoRotateRobotForGearPeg.h"
+#include "AimBotWithUltrasonicSensors.h"
 AutonomousCommand::AutonomousCommand() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
@@ -39,6 +40,7 @@ AutonomousCommand::AutonomousCommand() {
 	Requires(CommandBase::agitator.get());
 	Requires(CommandBase::lidars.get());
 	Requires(CommandBase::liftHang.get());
+	Requires(CommandBase::collection.get());
 
 	baseLine = Preferences::GetInstance()->GetBoolean("BaseLine", false);
 	middleGear = Preferences::GetInstance()->GetBoolean("Middle Gear", false);
@@ -64,10 +66,7 @@ AutonomousCommand::AutonomousCommand() {
 		AddParallel(new GetReadyForLiftHang());
 		AddSequential(new WaitTime(.25));
 		AddSequential(new AutoGearOnPeg());
-		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) {
-			AddSequential(new WaitTime(.1));
-			AddSequential(new AutoRotateRobotForGearPeg(.25, ANGLE_TO_ROTATE_FOR_GEAR_PEG));
-		}
+		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) { AddSequential(new WaitTime(.1)); AddSequential(new AutoRotateRobotForGearPeg(AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER, ANGLE_TO_ROTATE_FOR_GEAR_PEG)); }
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 	}
@@ -76,10 +75,7 @@ AutonomousCommand::AutonomousCommand() {
 		AddParallel(new GetReadyForLiftHang());
 		AddSequential(new WaitTime(.25));
 		AddSequential(new AutoGearOnPeg());
-		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) {
-			AddSequential(new WaitTime(.1));
-			AddSequential(new AutoRotateRobotForGearPeg(.25, ANGLE_TO_ROTATE_FOR_GEAR_PEG));
-		}
+		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) { AddSequential(new WaitTime(.1)); AddSequential(new AutoRotateRobotForGearPeg(AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER, ANGLE_TO_ROTATE_FOR_GEAR_PEG)); }
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING_TO_SHOOT, .65));
@@ -99,10 +95,7 @@ AutonomousCommand::AutonomousCommand() {
 		AddParallel(new GetReadyForLiftHang());
 		AddSequential(new WaitTime(.25));
 		AddSequential(new AutoGearOnPeg());
-		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) {
-			AddSequential(new WaitTime(.1));
-			AddSequential(new AutoRotateRobotForGearPeg(.25, ANGLE_TO_ROTATE_FOR_GEAR_PEG));
-		}
+		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) { AddSequential(new WaitTime(.1)); AddSequential(new AutoRotateRobotForGearPeg(AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER, ANGLE_TO_ROTATE_FOR_GEAR_PEG)); }
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING_TO_SHOOT, .65));
@@ -126,12 +119,10 @@ AutonomousCommand::AutonomousCommand() {
 		AddSequential(new WaitTime(.1));
 		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
 		AddSequential(new WaitTime(.15));
-		if (USING_GEAR_CAMERA) { AddSequential(new AimBot(GEAR_CAMERA)); }
+		if (USING_GEAR_CAMERA) { AddSequential(new AimBot(GEAR_CAMERA)); AddSequential(new WaitTime(.15)); }
+		else if (USING_ULTRASONIC_SENSOR_AIM_BOT) { AddSequential(new AimBotWithUltrasonicSensors()); AddSequential(new WaitTime(.15));}
 		AddSequential(new AutoGearOnPeg());
-		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) {
-			AddSequential(new WaitTime(.1));
-			AddSequential(new AutoRotateRobotForGearPeg(.25, ANGLE_TO_ROTATE_FOR_GEAR_PEG));
-		}
+		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) { AddSequential(new WaitTime(.1)); AddSequential(new AutoRotateRobotForGearPeg(AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER, ANGLE_TO_ROTATE_FOR_GEAR_PEG)); }
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 	}
@@ -144,12 +135,10 @@ AutonomousCommand::AutonomousCommand() {
 		AddSequential(new WaitTime(.1));
 		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
 		AddSequential(new WaitTime(.15));
-		if (USING_GEAR_CAMERA) { AddSequential(new AimBot(GEAR_CAMERA)); }
+		if (USING_GEAR_CAMERA) { AddSequential(new AimBot(GEAR_CAMERA)); AddSequential(new WaitTime(.15)); }
+		else if (USING_ULTRASONIC_SENSOR_AIM_BOT) { AddSequential(new AimBotWithUltrasonicSensors()); AddSequential(new WaitTime(.15));}
 		AddSequential(new AutoGearOnPeg());
-		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) {
-			AddSequential(new WaitTime(.1));
-			AddSequential(new AutoRotateRobotForGearPeg(.25, ANGLE_TO_ROTATE_FOR_GEAR_PEG));
-		}
+		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) { AddSequential(new WaitTime(.1)); AddSequential(new AutoRotateRobotForGearPeg(AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER, ANGLE_TO_ROTATE_FOR_GEAR_PEG)); }
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_AWAY_FROM_RIGHT_GEAR, .55, TURN_RIGHT));
@@ -169,12 +158,10 @@ AutonomousCommand::AutonomousCommand() {
 		AddSequential(new WaitTime(.1));
 		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
 		AddSequential(new WaitTime(.15));
-		if (USING_GEAR_CAMERA) { AddSequential(new AimBot(GEAR_CAMERA)); }
+		if (USING_GEAR_CAMERA) { AddSequential(new AimBot(GEAR_CAMERA)); AddSequential(new WaitTime(.15)); }
+		else if (USING_ULTRASONIC_SENSOR_AIM_BOT) { AddSequential(new AimBotWithUltrasonicSensors()); AddSequential(new WaitTime(.15));}
 		AddSequential(new AutoGearOnPeg());
-		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) {
-			AddSequential(new WaitTime(.1));
-			AddSequential(new AutoRotateRobotForGearPeg(.25, ANGLE_TO_ROTATE_FOR_GEAR_PEG));
-		}
+		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) { AddSequential(new WaitTime(.1)); AddSequential(new AutoRotateRobotForGearPeg(AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER, ANGLE_TO_ROTATE_FOR_GEAR_PEG)); }
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 		AddSequential(new WaitTime(.1));
@@ -190,12 +177,10 @@ AutonomousCommand::AutonomousCommand() {
 		AddSequential(new WaitTime(.1));
 		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
 		AddSequential(new WaitTime(.15));
-		if (USING_GEAR_CAMERA) { AddSequential(new AimBot(GEAR_CAMERA)); }
+		if (USING_GEAR_CAMERA) { AddSequential(new AimBot(GEAR_CAMERA)); AddSequential(new WaitTime(.15)); }
+		else if (USING_ULTRASONIC_SENSOR_AIM_BOT) { AddSequential(new AimBotWithUltrasonicSensors()); AddSequential(new WaitTime(.15));}
 		AddSequential(new AutoGearOnPeg());
-		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) {
-			AddSequential(new WaitTime(.1));
-			AddSequential(new AutoRotateRobotForGearPeg(.25, ANGLE_TO_ROTATE_FOR_GEAR_PEG));
-		}
+		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) { AddSequential(new WaitTime(.1)); AddSequential(new AutoRotateRobotForGearPeg(AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER, ANGLE_TO_ROTATE_FOR_GEAR_PEG)); }
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 	}
@@ -208,12 +193,10 @@ AutonomousCommand::AutonomousCommand() {
 		AddSequential(new WaitTime(.1));
 		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
 		AddSequential(new WaitTime(.15));
-		if (USING_GEAR_CAMERA) { AddSequential(new AimBot(GEAR_CAMERA)); }
+		if (USING_GEAR_CAMERA) { AddSequential(new AimBot(GEAR_CAMERA)); AddSequential(new WaitTime(.15)); }
+		else if (USING_ULTRASONIC_SENSOR_AIM_BOT) { AddSequential(new AimBotWithUltrasonicSensors()); AddSequential(new WaitTime(.15));}
 		AddSequential(new AutoGearOnPeg());
-		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) {
-			AddSequential(new WaitTime(.1));
-			AddSequential(new AutoRotateRobotForGearPeg(.25, ANGLE_TO_ROTATE_FOR_GEAR_PEG));
-		}
+		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) { AddSequential(new WaitTime(.1)); AddSequential(new AutoRotateRobotForGearPeg(AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER, ANGLE_TO_ROTATE_FOR_GEAR_PEG)); }
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_AWAY_FROM_LEFT_GEAR, .6, TURN_LEFT));
@@ -233,12 +216,10 @@ AutonomousCommand::AutonomousCommand() {
 		AddSequential(new WaitTime(.1));
 		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
 		AddSequential(new WaitTime(.15));
-		if (USING_GEAR_CAMERA) { AddSequential(new AimBot(GEAR_CAMERA)); }
+		if (USING_GEAR_CAMERA) { AddSequential(new AimBot(GEAR_CAMERA)); AddSequential(new WaitTime(.15)); }
+		else if (USING_ULTRASONIC_SENSOR_AIM_BOT) { AddSequential(new AimBotWithUltrasonicSensors()); AddSequential(new WaitTime(.15));}
 		AddSequential(new AutoGearOnPeg());
-		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) {
-			AddSequential(new WaitTime(.1));
-			AddSequential(new AutoRotateRobotForGearPeg(.25, ANGLE_TO_ROTATE_FOR_GEAR_PEG));
-		}
+		if (USING_AUTO_ROTATE_FOR_GEAR_PEG) { AddSequential(new WaitTime(.1)); AddSequential(new AutoRotateRobotForGearPeg(AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER, ANGLE_TO_ROTATE_FOR_GEAR_PEG)); }
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_MOVE_AWAY_FROM_GEAR_AFTER_PLACING, .4));
 		AddSequential(new WaitTime(.1));

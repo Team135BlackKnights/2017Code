@@ -1,6 +1,6 @@
 #include "AutoRotateRobotForGearPeg.h"
 
-AutoRotateRobotForGearPeg::AutoRotateRobotForGearPeg(double desiredAngleToRotateRobot, double motorPower) {
+AutoRotateRobotForGearPeg::AutoRotateRobotForGearPeg(double motorPower, double desiredAngleToRotateRobot) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::driveTrain.get());
@@ -13,9 +13,12 @@ AutoRotateRobotForGearPeg::AutoRotateRobotForGearPeg(double desiredAngleToRotate
 
 // Called just before this Command runs the first time
 void AutoRotateRobotForGearPeg::Initialize() {
+	CommandBase::driveTrain->ZeroGyroAngle();
+	zeroedGyro = true;
+
 	timer->Reset();
 	timer->Start();
-	initializeFirstRotationTimer= true;
+	initializeFirstRotationTimer = true;
 	initializeFirstTimeWait = false;
 	initializeSecondRotationTimer = false;
 	initializeSecondTimeWait = false;
@@ -30,6 +33,11 @@ void AutoRotateRobotForGearPeg::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AutoRotateRobotForGearPeg::Execute() {
+	if (zeroedGyro == false) {
+		CommandBase::driveTrain->ZeroGyroAngle();
+		zeroedGyro = true;
+	}
+
 	if (firstRotationComplete == false) {
 		if (initializeFirstRotationTimer == false) {
 			timer->Stop();
@@ -46,7 +54,7 @@ void AutoRotateRobotForGearPeg::Execute() {
 				firstRotationComplete = true;
 			}
 			else {
-				firstRotationComplete = CommandBase::driveTrain->AutoRotateRobot(this->motorPower, this->desiredAngleToRotateRobot, TURN_LEFT, ZERO_ENCODER);
+				firstRotationComplete = CommandBase::driveTrain->AutoRotateRobot(this->motorPower, this->desiredAngleToRotateRobot, TURN_LEFT);
 			}
 		}
 	}
@@ -83,7 +91,7 @@ void AutoRotateRobotForGearPeg::Execute() {
 				secondRotationComplete = true;
 			}
 			else {
-				secondRotationComplete = CommandBase::driveTrain->AutoRotateRobot(this->motorPower, angleToTurnForSecondRotation, TURN_RIGHT, NO_ZERO_ENCODER);
+				secondRotationComplete = CommandBase::driveTrain->AutoRotateRobot(this->motorPower, angleToTurnForSecondRotation, TURN_RIGHT);
 			}
 		}
 
@@ -119,7 +127,7 @@ void AutoRotateRobotForGearPeg::Execute() {
 				thirdRotationComplete = true;
 			}
 			else {
-				thirdRotationComplete = CommandBase::driveTrain->AutoRotateRobot(this->motorPower, angleToTurnForThirdRotation, TURN_LEFT, NO_ZERO_ENCODER);
+				thirdRotationComplete = CommandBase::driveTrain->AutoRotateRobot(this->motorPower, angleToTurnForThirdRotation, TURN_LEFT);
 			}
 		}
 	}
@@ -133,6 +141,8 @@ bool AutoRotateRobotForGearPeg::IsFinished() {
 // Called once after isFinished returns true
 void AutoRotateRobotForGearPeg::End() {
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
+
+	zeroedGyro = false;
 
 	initializeFirstRotationTimer = false;
 	initializeFirstTimeWait = false;
