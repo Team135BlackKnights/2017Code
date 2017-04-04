@@ -14,7 +14,9 @@ void ReadHoodEncoderValue::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void ReadHoodEncoderValue::Execute() {
 	shooterHoodEncoderValue = CommandBase::shooterHood->GetShooterHoodEncoderPosition();
-	std::cout << "Shooter Hood Encoder Value: " << shooterHoodEncoderValue << std::endl;
+	//std::cout << "Shooter Hood Encoder Value: " << shooterHoodEncoderValue << std::endl;
+
+	frc::SmartDashboard::PutNumber("Shooter Hood Encoder Value", shooterHoodEncoderValue);
 
 	maxAngleLimitSwitchValue = CommandBase::shooterHood->GetMaxAngleLimitSwitch();
 	minAngleLimitSwitchValue = CommandBase::shooterHood->GetMinAngleLimitSwitch();

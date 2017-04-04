@@ -30,6 +30,7 @@ private:
 	bool leftDriveEncoderDetected = false;
 
 	double desiredMaxMotorPower = 0.0;
+	bool fastMotorPower = false;
 
 public:
 	DriveWithJoysticks();

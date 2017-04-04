@@ -5,19 +5,12 @@
 
 class ReadLidarValues : public CommandBase {
 private:
+	bool openFrontLidarChannel = false;
 	bool configuredLidar = false;
-	bool receivedUpperByte = false;
 
-	int leftLidarUpperByte = 0;
-	int leftLidarLowerByte = 0;
-	double leftLidarValueIN = 0.0;
-
-	int rightLidarUpperByte = 0;
-	int rightLidarLowerByte = 0;
-	double rightLidarValueIN = 0.0;
-
-	static const bool GET_RIGHT_LIDAR_VALUE_CHANNEL_6 = true;
-	static const bool GET_LEFT_LIDAR_VALUE_CHANNEL_7 = false;
+	int lidarUpperByte = 0;
+	int lidarLowerByte = 0;
+	double lidarValueIN = 0;
 public:
 	ReadLidarValues();
 	void Initialize();

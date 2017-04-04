@@ -33,6 +33,15 @@ void DriveWithJoysticks::Execute() {
 
 	desiredMaxMotorPower = CommandBase::driveTrain->GetDesiredDriveTrainMaxMotorPower();
 
+	if (desiredMaxMotorPower == DriveTrain::FAST_MAX_DRIVE_TRAIN_MOTOR_POWER) {
+		fastMotorPower = true;
+	}
+	else if (desiredMaxMotorPower == DriveTrain::SLOW_MAX_DRIVE_TRAIN_MOTOR_POWER) {
+		fastMotorPower = false;
+	}
+
+	frc::SmartDashboard::PutBoolean("Full Drive Train Motor Power", fastMotorPower);
+
 	convertedLeftJoystickValue = (leftJoystickValue * desiredMaxMotorPower);
 	convertedRightJoystickValue = (rightJoystickValue * desiredMaxMotorPower);
 

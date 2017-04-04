@@ -71,14 +71,12 @@ private:
 	bool rightDriveTrainEncoderPluggedIn = false;
 	bool leftDriveTrainEncoderPluggedIn = false;
 
-	//static constexpr double DRIVE_TRAIN_SPROCKET_RATIO = (15.0/12.0);
-	static constexpr double DRIVE_TRAIN_SPROCKET_RATIO = 1.0;
+	static constexpr double DRIVE_TRAIN_SPROCKET_RATIO = (15.0/12.0);
+	//static constexpr double DRIVE_TRAIN_SPROCKET_RATIO = 1.0;
 
 	//  Variables for Switching the MAX Drive Train Motor Power
-	bool fastDriveTrainMotorPower = false;
+	bool fastDriveTrainMotorPower = true;
 	double desiredMaxMotorPower = 0.0;
-	static constexpr double FAST_MAX_DRIVE_TRAIN_MOTOR_POWER = 1.0;
-	static constexpr double SLOW_MAX_DRIVE_TRAIN_MOTOR_POWER = .5;
 
 	//  Variables for AutoRotateRobot()
 	bool initializeAutoRotateRobot = false;
@@ -122,6 +120,9 @@ public:
 
 	static const bool RIGHT_SIDE_ENCODER_BOOLEAN = true;
 	static const bool LEFT_SIDE_ENCODER_BOOLEAN = !RIGHT_SIDE_ENCODER_BOOLEAN;
+
+	static constexpr double FAST_MAX_DRIVE_TRAIN_MOTOR_POWER = 1.0;
+	static constexpr double SLOW_MAX_DRIVE_TRAIN_MOTOR_POWER = .75;
 
 	void InitializeDriveTrainPID();
 	double GetGyroAngle();

@@ -40,7 +40,7 @@ public:
 		CommandBase::driveTrain->InitializeDriveTrainPID();
 		CommandBase::driveTrain->InitializeDriveStraightWithGyro(COMPETITION_BOT);
 		CommandBase::gearHolder->InitializeGearHolderMotor(COMPETITION_BOT);
-		//CommandBase::lidars->InitializeLidarsAndI2CMultiplexer();
+		CommandBase::lidars->InitializeLidarsAndI2CMultiplexer();
 		CommandBase::liftHang->InitializeLiftHang(COMPETITION_BOT);
 		CommandBase::liftHang->InitializeLiftHangEncoder();
 		//CommandBase::pdp->InitializePDP();

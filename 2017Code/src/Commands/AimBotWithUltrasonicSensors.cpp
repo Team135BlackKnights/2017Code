@@ -1,11 +1,11 @@
 #include "AimBotWithUltrasonicSensors.h"
 
-AimBotWithUltrasonicSensors::AimBotWithUltrasonicSensors() {
+AimBotWithUltrasonicSensors::AimBotWithUltrasonicSensors(bool* sonarGood) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::ultrasonicSensor.get());
 	Requires(CommandBase::driveTrain.get());
-
+	sonBool = sonarGood;
 	timer = new frc::Timer();
 }
 
@@ -13,7 +13,16 @@ AimBotWithUltrasonicSensors::AimBotWithUltrasonicSensors() {
 void AimBotWithUltrasonicSensors::Initialize() {
 	leftUltrasonicSensorValue = ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::LEFT_ULTRASONIC_SENSOR);
 	rightUltrasonicSensorValue = ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::RIGHT_ULTRASONIC_SENSOR);
-
+	if(leftUltrasonicSensorValue > 100) {
+		*sonBool = false;
+	}
+	else if(rightUltrasonicSensorValue > 100){
+		*sonBool = false;
+	}
+	else
+	{
+		*sonBool = true;
+	}
 	desiredAngleToTurnDriveTrain = ultrasonicSensor->GetAngleToTurnForGear(rightUltrasonicSensorValue, leftUltrasonicSensorValue);
 
 	CommandBase::driveTrain->TurnPIDEnable(desiredAngleToTurnDriveTrain);
@@ -49,7 +58,7 @@ void AimBotWithUltrasonicSensors::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AimBotWithUltrasonicSensors::IsFinished() {
-	return (timerValue >= MAX_TIME_FOR_EXECUTING_DRIVE_TRAIN_PID) || (!CommandBase::driveTrain->turnController->IsEnabled());
+	return (timerValue >= MAX_TIME_FOR_EXECUTING_DRIVE_TRAIN_PID) || (!CommandBase::driveTrain->turnController->IsEnabled()) || sonBool == false;
 }
 
 // Called once after isFinished returns true

@@ -10,13 +10,13 @@ private:
 	double rightUltrasonicSensorValue = 0.0;
 
 	double desiredAngleToTurnDriveTrain = 0.0;
-
+	bool *sonBool;
 	frc::Timer* timer;
 	double timerValue = 0.0;
 	bool initializeAimBotWithUltrasonicSensors = false;
 	static constexpr double MAX_TIME_FOR_EXECUTING_DRIVE_TRAIN_PID = .5;
 public:
-	AimBotWithUltrasonicSensors();
+	AimBotWithUltrasonicSensors(bool* sonarGood);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

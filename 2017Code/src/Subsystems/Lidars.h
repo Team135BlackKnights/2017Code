@@ -13,7 +13,7 @@ private:
 	const frc::I2C::Port I2C_PORT = frc::I2C::Port::kOnboard;
 
 	//  Lidar Pointer and Variables
-	//frc::I2C* lidar;
+	frc::I2C* lidar;
 
 	static const int LIDAR_DEVICE_ADDRESS = 0x62;
 
@@ -25,8 +25,8 @@ private:
 
 	static const int BOTH_BYTE_REGISTER_ADDRESS = 0x8f;
 
-	//uint8_t* upperByteDataPointer;
-	//uint8_t* lowerByteDataPointer;
+	uint8_t* upperByteDataPointer;
+	uint8_t* lowerByteDataPointer;
 
 	int convertedUpperByteData = 0;
 	int convertedLowerByteData = 0;
@@ -36,18 +36,18 @@ private:
 	int finalValue = 0;
 	int convertedFinalValue = 0;
 
-	//char* charPointerConvertedData = 0;
+	char* charPointerConvertedData = 0;
 	char charPointerData = 0;
 	int finalIntConvertedData = 0;
 
 
 	//  I2C Multiplexer Pointer and Variables
-	//frc::I2C* i2CMultiplexer;
+	frc::I2C* i2CMultiplexer;
 
 	static const int I2C_MULTIPLEXER_DEVICE_ADDRESS = 0x70;
 
-	//uint8_t* convertedValueToSendToI2CMultiplexer;
-	//uint8_t convertedByte = 0;
+	uint8_t* convertedValueToSendToI2CMultiplexer;
+	uint8_t convertedByte = 0;
 
 	int differenceBetweenLIDARValues = 0.0;
 	double angleBetweenLIDARValues = 0.0;
@@ -72,7 +72,7 @@ public:
 	double ConvertCentimetersToInches(int);
 	double ConvertCentimetersToMeters(int);
 	int ConvertUint8_tPointer_To_Int(uint8_t*);
-	//uint8_t* ConvertUint8_t_To_Uint8_tPointer(uint8_t);
+	uint8_t* ConvertUint8_t_To_Uint8_tPointer(uint8_t);
 
 	static const int NUM_OF_UNITS = 3;
 	static const int CENTIMETERS = 0;
@@ -83,6 +83,7 @@ public:
 
 	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_6_RIGHT_LIDAR = 0b01000000;
 	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_7_LEFT_LIDAR = 0b10000000;
+	static const uint8_t VALUE_TO_OPEN_FRONT_LIDAR_CHANNEL_7 = 0b10000000;
 };
 
 #endif  // Lidars_H

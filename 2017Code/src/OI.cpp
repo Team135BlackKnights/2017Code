@@ -14,6 +14,7 @@
 #include "Commands/SwitchBetweenHighAndLowShot.h"
 #include "Commands/SwitchDriveTrainMotorPower.h"
 #include "Commands/AimBotWithUltrasonicSensors.h"
+#include "Commands/AimToGear.h"
 #include <iostream>
 
 OI::OI() {
@@ -130,7 +131,7 @@ void OI::ConfigureButtonMapping() {
 	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_MIDDLE_GEAR_BUTTON]->WhenPressed(new AutoDriveShooterHood(MIDDLE_GEAR_SHOOT_AUTONOMUS_HOOD_ENCODER_VALUE));
 	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_40_KPA_AUTONOMOUS_BUTTON]->WhenPressed(new AutoDriveShooterHood(KPA_AUTONOMOUS_HOOD_ENCODER_VALUE));
 
-	joystickButton[LEFT_DRIVE_JOYSTICK][AIM_BOT_WITH_ULTRASONIC_SENSORS_BUTTON]->WhenPressed(new AimBotWithUltrasonicSensors());
+	joystickButton[LEFT_DRIVE_JOYSTICK][11]->WhenPressed(new AimToGear(1));
 }
 
 bool OI::GetAction(int JoyException, int ButtonException)
