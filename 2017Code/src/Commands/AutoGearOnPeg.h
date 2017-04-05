@@ -59,7 +59,7 @@ private:
 
 	int moveGearHolderUpDownCounter = 1;
 
-	static const bool RAM_INTO_GEAR_PEG = true;
+	static const bool RAM_INTO_GEAR_PEG = false;
 public:
 	AutoGearOnPeg();
 	void Initialize();

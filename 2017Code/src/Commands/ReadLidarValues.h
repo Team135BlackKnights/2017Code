@@ -6,6 +6,7 @@
 class ReadLidarValues : public CommandBase {
 private:
 	bool openFrontLidarChannel = false;
+	bool readLidarValueForFirstTime = false;
 	bool configuredLidar = false;
 
 	int lidarUpperByte = 0;

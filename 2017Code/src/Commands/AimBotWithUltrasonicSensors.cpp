@@ -13,11 +13,13 @@ AimBotWithUltrasonicSensors::AimBotWithUltrasonicSensors(bool* sonarGood) {
 void AimBotWithUltrasonicSensors::Initialize() {
 	leftUltrasonicSensorValue = ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::LEFT_ULTRASONIC_SENSOR);
 	rightUltrasonicSensorValue = ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::RIGHT_ULTRASONIC_SENSOR);
-	if(leftUltrasonicSensorValue > 100) {
+	if(leftUltrasonicSensorValue > 100.0) {
 		*sonBool = false;
+		CommandBase::ultrasonicSensor->usingRightUltrasonicSensorForGearCamera = true;
 	}
-	else if(rightUltrasonicSensorValue > 100){
+	else if(rightUltrasonicSensorValue > 100.0){
 		*sonBool = false;
+		CommandBase::ultrasonicSensor->usingRightUltrasonicSensorForGearCamera = false;
 	}
 	else
 	{

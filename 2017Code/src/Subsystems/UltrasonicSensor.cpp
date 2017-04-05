@@ -10,7 +10,7 @@ UltrasonicSensor::UltrasonicSensor() : Subsystem("UltrasonicSensor") {
 void UltrasonicSensor::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	//SetDefaultCommand(new ReadUltrasonicSensorValue());
+	SetDefaultCommand(new ReadUltrasonicSensorValue());
 }
 
 void UltrasonicSensor::InitializeUltrasonicSensors() {

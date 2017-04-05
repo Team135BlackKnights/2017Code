@@ -18,8 +18,7 @@ public:
 	int cameraNumber = 0;
 	bool isbad = false;
 	Timer time;
-	double leftUltrasonicSensorValue = 0.0;
-	double rightUltrasonicSensorValue = 0.0;
+	double sonar_value = 0.0;
 	const double CAMERA_TO_GEAR_IN = 10;
 	const double SPRING_IN = 14.5;
 };

@@ -90,18 +90,24 @@ private:
 
 	static constexpr double RIGHT_ANGLE_DEGREES = 90.0;
 
+	//  Booleans for Autonomous Operation
 	static const bool USING_LIDAR_FOR_GEAR_LINEUP = false;
 	static const bool USING_AUTO_ROTATE_FOR_GEAR_PEG = false;
 
-	static const bool USING_GEAR_CAMERA = false;
+	static const bool USING_GEAR_CAMERA = true;
 	static const bool USING_SHOOTER_CAMERA = true;
 	static const bool USING_ULTRASONIC_SENSOR_AIM_BOT = false;
 
 	static const bool RAMMING_INTO_HOPPER = true;
 	static const bool NOT_RAMMING_INTO_HOPPER = false;
 
+	static const bool KPA_AUTONOMOUS_OPTION_1 = true;
+
 	static constexpr double ANGLE_TO_ROTATE_FOR_GEAR_PEG = 10.0;
 	static constexpr double AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER = .3;
+
+	static constexpr double MIDDLE_GEAR_LIDAR_VALUE_TO_TRAVEL_UNITL = 42.0;
+	static constexpr double SIDE_GEAR_LIDAR_VALUE_TO_TRAVEL_UNTIL = 78.0;
 
 	bool baseLine = false;
 	bool middleGear = false;

@@ -5,6 +5,7 @@ AimBot::AimBot(int camNumber) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::driveTrain.get());
+	Requires(CommandBase::ultrasonicSensor.get());
 	this->cameraNumber = camNumber;
 }
 
@@ -16,7 +17,12 @@ void AimBot::Initialize() {
 	else isbad = false;
 	if(cameraNumber == 1)
 	{
-		double sonar_value = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::RIGHT_ULTRASONIC_SENSOR);
+		if (CommandBase::ultrasonicSensor->usingRightUltrasonicSensorForGearCamera) {
+			sonar_value = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::RIGHT_ULTRASONIC_SENSOR);
+		}
+		else {
+			sonar_value = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::LEFT_ULTRASONIC_SENSOR);
+		}
 		double dangleToTurn = atan( (sonar_value - SPRING_IN) / (CAMERA_TO_GEAR_IN - sonar_value / tan((angleToTurn) * M_PI / 180))) * 180 / M_PI;
 		std::cout << "\n\n\n\n\nangle: " << dangleToTurn << "\nSonar: " << sonar_value << "\n\n\n\n";
 		CommandBase::driveTrain->TurnPIDEnable(dangleToTurn);

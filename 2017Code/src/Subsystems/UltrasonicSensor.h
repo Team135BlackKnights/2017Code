@@ -51,6 +51,8 @@ public:
 
 	static const bool RIGHT_ULTRASONIC_SENSOR = true;
 	static const bool LEFT_ULTRASONIC_SENSOR = !RIGHT_ULTRASONIC_SENSOR;
+
+	bool usingRightUltrasonicSensorForGearCamera = true;
 };
 
 #endif  // UltrasonicSensor_H

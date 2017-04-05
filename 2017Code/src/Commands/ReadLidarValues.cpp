@@ -11,6 +11,7 @@ ReadLidarValues::ReadLidarValues() {
 void ReadLidarValues::Initialize() {
 	CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_FRONT_LIDAR_CHANNEL_7);
 	openFrontLidarChannel = true;
+	readLidarValueForFirstTime = false;
 	configuredLidar = false;
 }
 
@@ -21,8 +22,9 @@ void ReadLidarValues::Execute() {
 		openFrontLidarChannel = true;
 	}
 
-	if (configuredLidar == false) {
+	if (configuredLidar == false && readLidarValueForFirstTime == false) {
 		CommandBase::lidars->ConfigureLidar();
+		readLidarValueForFirstTime = true;
 		configuredLidar = true;
 	}
 	else if (configuredLidar) {
@@ -31,6 +33,11 @@ void ReadLidarValues::Execute() {
 		lidarLowerByte = CommandBase::lidars->GetLowerByte();
 		lidarValueIN = CommandBase::lidars->GetLidarValue(lidarLowerByte, lidarUpperByte, Lidars::DISTANCE_UNIT_ARRAY[Lidars::INCHES]);
 		configuredLidar = false;
+	}
+
+	if (configuredLidar == false) {
+		CommandBase::lidars->ConfigureLidar();
+		configuredLidar = true;
 	}
 
 	//frc::SmartDashboard::PutNumber("Front Lidar Value:", lidarValueIN);
@@ -45,6 +52,7 @@ bool ReadLidarValues::IsFinished() {
 // Called once after isFinished returns true
 void ReadLidarValues::End() {
 	openFrontLidarChannel = false;
+	readLidarValueForFirstTime = false;
 	configuredLidar = false;
 }
 

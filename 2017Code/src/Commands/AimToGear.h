@@ -4,6 +4,7 @@
 #include <Commands/CommandGroup.h>
 #include "AimBot.h"
 #include "AimBotWithUltrasonicSensors.h"
+#include "WaitTime.h"
 
 class AimToGear : public CommandGroup {
 public:

@@ -140,9 +140,9 @@ void AutoGearOnPeg::Execute() {
 			CommandBase::gearHolder->DriveGearHolderMotor(0.0);
 			startPuttingGearOnPeg = false;
 			gearHolderDown = true;
-			/*if (RAM_INTO_GEAR_PEG == false) {
+			if (RAM_INTO_GEAR_PEG == false) {
 				gearOnPeg = true;
-			} */
+			}
 		}
 		else {
 			CommandBase::gearHolder->DriveGearHolderMotor(-GEAR_HOLDER_MOTOR_POWER);
