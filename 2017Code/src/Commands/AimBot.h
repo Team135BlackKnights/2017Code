@@ -19,7 +19,7 @@ public:
 	bool isbad = false;
 	Timer time;
 	double sonar_value = 0.0;
-	const double CAMERA_TO_GEAR_IN = 10;
+	const double CAMERA_TO_GEAR_IN = 11;
 	const double SPRING_IN = 14.5;
 };
 

@@ -43,7 +43,7 @@ private:
 	static constexpr double DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT = 65.0;
 	//  Close Shot Right
 	static constexpr double DISTANCE_TO_TRAVEL_BACKWARDS_AFTER_CLOSE_SHOT = 15.0;
-	static constexpr double ANGLE_TO_TURN_AFTER_DRIVING_OFF_RIGHT_ALLIANCE_WALL = 55.0;
+	static constexpr double ANGLE_TO_TURN_AFTER_DRIVING_OFF_RIGHT_ALLIANCE_WALL = 45.0;
 	//  Close Shot Left
 	static constexpr double ANGLE_TO_TURN_AFTER_DRIVING_OFF_LEFT_ALLIANCE_WALL = 15.0;
 	static constexpr double DISTANCE_TO_TRAVEL_OFF_LEFT_ALLIANCE_WALL = 20.0;
@@ -92,9 +92,9 @@ private:
 
 	//  Booleans for Autonomous Operation
 	static const bool USING_LIDAR_FOR_GEAR_LINEUP = true;
-	static const bool USING_AUTO_ROTATE_FOR_GEAR_PEG = false;
+	static const bool USING_AUTO_ROTATE_FOR_GEAR_PEG = true;
 
-	static const bool USING_GEAR_CAMERA = true;
+	static const bool USING_GEAR_CAMERA = false;
 	static const bool USING_SHOOTER_CAMERA = true;
 	static const bool USING_ULTRASONIC_SENSOR_AIM_BOT = false;
 
@@ -104,7 +104,7 @@ private:
 	static const bool KPA_AUTONOMOUS_OPTION_1 = true;
 
 	static constexpr double ANGLE_TO_ROTATE_FOR_GEAR_PEG = 10.0;
-	static constexpr double AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER = .3;
+	static constexpr double AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER = .55;
 
 	static constexpr double MIDDLE_GEAR_LIDAR_VALUE_TO_TRAVEL_UNITL = 42.0;
 	static constexpr double SIDE_GEAR_LIDAR_VALUE_TO_TRAVEL_UNTIL = 85.0;

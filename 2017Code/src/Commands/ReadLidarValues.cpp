@@ -22,7 +22,7 @@ void ReadLidarValues::Execute() {
 		openFrontLidarChannel = true;
 	}
 
-	if (configuredLidar == false && readLidarValueForFirstTime == false) {
+	if (configuredLidar == false) {
 		CommandBase::lidars->ConfigureLidar();
 		readLidarValueForFirstTime = true;
 		configuredLidar = true;
@@ -35,10 +35,10 @@ void ReadLidarValues::Execute() {
 		configuredLidar = false;
 	}
 
-	if (configuredLidar == false) {
+	/*if (configuredLidar == false) {
 		CommandBase::lidars->ConfigureLidar();
 		configuredLidar = true;
-	}
+	} */
 
 	frc::SmartDashboard::PutNumber("Front Lidar Valuee:", lidarValueIN);
 	//std::cout << "Front Lidar Value IN: " << lidarValueIN << std::endl;

@@ -30,7 +30,7 @@ double UltrasonicSensor::GetUltrasonicSensorValueInches(bool rightUltrasonic) {
 		ultrasonicSensorValueIN = rightUltrasonicSensor->GetRangeInches();
 	}
 	else if (rightUltrasonic == false) {
-		ultrasonicSensorValueIN = leftUltrasonicSensor->GetRangeInches();
+		ultrasonicSensorValueIN = (leftUltrasonicSensor->GetRangeInches() + .75);
 	}
 	return ultrasonicSensorValueIN;
 }

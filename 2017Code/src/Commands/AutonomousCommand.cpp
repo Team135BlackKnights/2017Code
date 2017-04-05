@@ -172,7 +172,7 @@ AutonomousCommand::AutonomousCommand() {
 		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TOWARDS_AND_INTO_NEUTRAL_ZONE, -.65));
 	}
 	else if (leftGear) {
-		if (USING_LIDAR_FOR_GEAR_LINEUP) { AddSequential(new DriveBackwardsWithLidar(-.6, SIDE_GEAR_LIDAR_VALUE_TO_TRAVEL_UNTIL)); }
+		if (USING_LIDAR_FOR_GEAR_LINEUP) { AddSequential(new DriveBackwardsWithLidar(-.6, SIDE_GEAR_LIDAR_VALUE_TO_TRAVEL_UNTIL + 3.0)); }
 		else { AddSequential(new DriveDistance(DISTANCE_FROM_ALLIANCE_WALL_TO_RIGHT_GEAR_PART_1, -.775));
 			   AddSequential(new DriveDistance((DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR_PART_2 - 3.0), -.45)); }
 		AddSequential(new WaitTime(.2));
@@ -233,7 +233,7 @@ AutonomousCommand::AutonomousCommand() {
 		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_BACKWARDS_AFTER_CLOSE_SHOT, -.5));
 		AddParallel(new GetReadyForLiftHang());
 		AddSequential(new WaitTime(.2));
-		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_OFF_RIGHT_ALLIANCE_WALL, .525, TURN_RIGHT));
+		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AFTER_DRIVING_OFF_RIGHT_ALLIANCE_WALL, .6, TURN_RIGHT));
 		AddSequential(new WaitTime(.2));
 		AddSequential(new DriveDistance(DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT, -.65));
 	}

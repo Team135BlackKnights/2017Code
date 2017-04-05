@@ -43,7 +43,7 @@ void DriveBackwardsWithLidar::Execute() {
 
 	currentGyroAngle = CommandBase::driveTrain->GetGyroAngle();
 
-	if (configureLidar == false && readLidarValueForFirstTime == false) {
+	if (configureLidar == false) {
 		CommandBase::lidars->ConfigureLidar();
 		readLidarValueForFirstTime = true;
 		configureLidar = true;
@@ -56,11 +56,11 @@ void DriveBackwardsWithLidar::Execute() {
 		configureLidar = false;
 	}
 
-	if (configureLidar == false) {
+	/*if (configureLidar == false) {
 		frc::Wait(.002);
 		CommandBase::lidars->ConfigureLidar();
 		configureLidar = true;
-	}
+	} */
 
 	if (currentlidarValueIN != 0.0 && startUsingLidarValues == false) {
 		startUsingLidarValues = true;

@@ -12,7 +12,7 @@ AimBot::AimBot(int camNumber) {
 // Called just before this Command runs the first time
 void AimBot::Initialize() {
 	std::cout << "running \n\n\n:";
-	double angleToTurn = -CommandBase::server->get_angle(cameraNumber);
+	double angleToTurn = -CommandBase::server->get_angle(cameraNumber) - 2;
 	if(angleToTurn == 0) isbad = true;
 	else isbad = false;
 	if(cameraNumber == 1)
@@ -24,8 +24,8 @@ void AimBot::Initialize() {
 		else {
 			sonar_value = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::LEFT_ULTRASONIC_SENSOR);
 		}
-		double dangleToTurn = atan( (sonar_value - SPRING_IN) / (CAMERA_TO_GEAR_IN - sonar_value / tan((angleToTurn) * M_PI / 180))) * 180 / M_PI;
-		std::cout << "\n\n\n\n\nangle: " << dangleToTurn << "\nSonar: " << sonar_value << "\n\n\n\n";
+		double dangleToTurn = 90 - atan( (sonar_value - SPRING_IN) / (CAMERA_TO_GEAR_IN - sonar_value * tan((angleToTurn) * M_PI / 180))) * 180 / M_PI;
+		std::cout << "\n\n\n\n\nangle: " << dangleToTurn << "\nSonar: " << sonar_value << "\n\n\n\n" << "\ncam angle " << angleToTurn;
 		frc::SmartDashboard::PutNumber("Trig Angle: ", dangleToTurn);
 		CommandBase::driveTrain->TurnPIDEnable(-dangleToTurn);
 	}
@@ -52,7 +52,7 @@ void AimBot::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool AimBot::IsFinished() {
 	//return false;
-	return time.Get() > .5 || !CommandBase::driveTrain->turnController->IsEnabled() || isbad == true || (CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10) && CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 8)) ;
+	return time.Get() > .5 || !CommandBase::driveTrain->turnController->IsEnabled() || isbad == true || (CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 11) && CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 8)) ;
 }
 
 // Called once after isFinished returns true

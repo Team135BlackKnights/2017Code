@@ -13,7 +13,7 @@ public:
 	static constexpr double SHOOTER_SETPOINT_MAX_RPM_CLOSE_SHOT = 2850.0;
 	static constexpr double RANGE_OF_CLOSE_SHOT_SHOOTER_RPM = (SHOOTER_SETPOINT_MAX_RPM_CLOSE_SHOT - SHOOTER_SETPOINT_MIN_RPM_CLOSE_SHOT);
 
-	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2650.0;
+	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2700.0;
 	static constexpr double SHOOTER_SETPOINT_RPM_FAR_SHOT = 3040.0;
 
 	static const int CLOSE_SHOT_PID_VALUES = 0;

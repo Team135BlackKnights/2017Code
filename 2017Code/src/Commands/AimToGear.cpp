@@ -20,7 +20,7 @@ AimToGear::AimToGear(int camera_number) {
 	// arm.
 	AddSequential(new AimBotWithUltrasonicSensors(&sonarGood));
 	AddSequential(new WaitTime(.1));
-	std::cout << "sonar good?: " << sonarGood << "\n";
+	/*std::cout << "sonar good?: " << sonarGood << "\n";
 	if(sonarGood)
 	{
 		AddSequential(new AimBot(camera_number));
@@ -33,5 +33,5 @@ AimToGear::AimToGear(int camera_number) {
 		AddSequential(new WaitTime(.1));
 		AddSequential(new AimBot(camera_number));
 	}
-	AddSequential(new WaitTime(.1));
+	AddSequential(new WaitTime(.1));*/
 }
