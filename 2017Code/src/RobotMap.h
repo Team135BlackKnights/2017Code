@@ -19,7 +19,7 @@
 // constexpr int RANGE_FINDER_PORT = 1;
 // constexpr int RANGE_FINDER_MODULE = 1;
 
-	const bool COMPETITION_BOT = false;
+	const bool COMPETITION_BOT = true;
 
 	//  Practice Bot Motor Ports
 	//  VictorSP motor ports
@@ -79,7 +79,7 @@
 	const bool CB_DRIVE_TRAIN_REAR_RIGHT_INVERTED = true;
 	const bool CB_DRIVE_TRAIN_FRONT_RIGHT_INVERTED = true;
 	const bool CB_DRIVE_TRAIN_REAR_LEFT_INVERTED = false;
-	const bool CB_GEAR_HOLDER_INVERTED = true;
+	const bool CB_GEAR_HOLDER_INVERTED = false;
 	const bool CB_LIFT_HANG_MOTOR_INVERTED = false;
 	const bool CB_SHOOTER_MOTOR_INVERTED = false;
 	const bool CB_SHOOTER_HOOD_MOTOR_INVERTED = true;

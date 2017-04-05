@@ -133,7 +133,7 @@ void OI::ConfigureButtonMapping() {
 	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_40_KPA_AUTONOMOUS_BUTTON]->WhenPressed(new AutoDriveShooterHood(KPA_AUTONOMOUS_HOOD_ENCODER_VALUE));
 
 	joystickButton[LEFT_DRIVE_JOYSTICK][11]->WhenPressed(new AimToGear(1));
-	joystickButton[LEFT_DRIVE_JOYSTICK][3]->WhenPressed(new AutoRotateRobotForGearPeg(15.0, .55));
+	joystickButton[LEFT_DRIVE_JOYSTICK][3]->WhenPressed(new AutoRotateRobotForGearPeg(.5, 10.0));
 }
 
 bool OI::GetAction(int JoyException, int ButtonException)

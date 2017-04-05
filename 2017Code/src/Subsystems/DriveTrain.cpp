@@ -206,21 +206,26 @@ void DriveTrain::PIDTurning()
 	this->RotateTank(rotateToAngleRate, 1);
 }
 
-bool DriveTrain::AutoRotateRobot(double motorPower, double desiredGyroAngleToTurn, bool turnRight) {
+bool DriveTrain::AutoRotateRobot(double motorPower, double desiredGyroAngleToTurn, bool turnRight, bool initializeAutoRotateRobot) {
 	if (initializeAutoRotateRobot == false) {
 		initialGyroAngle = this->GetGyroAngle();
+		std::cout << "Initial Gyro Angle: " << initialGyroAngle << std::endl;
 		doneAutoRotateRobot = false;
 		initializeAutoRotateRobot = true;
 	}
 
 	currentGyroAngle = this->GetGyroAngle();
+	std::cout << "Current Gyro Angle" << currentGyroAngle << std::endl;
 	differenceBetweenCurrentAndInitialGyroAngle = (fabs(currentGyroAngle - initialGyroAngle));
+	std::cout << "Difference: " << differenceBetweenCurrentAndInitialGyroAngle << std::endl;
+	std::cout << "Desired Gyro ANgleee: " << desiredGyroAngleToTurn << std::endl;
 
 	if (initializeAutoRotateRobot) {
 		if (differenceBetweenCurrentAndInitialGyroAngle >= desiredGyroAngleToTurn) {
 			this->RotateTank(0.0, turnRight);
 			initializeAutoRotateRobot = false;
 			doneAutoRotateRobot = true;
+			std::cout << "Done" << std::endl;
 		}
 		else {
 			this->RotateTank(motorPower, turnRight);

@@ -17,6 +17,7 @@ void AimBot::Initialize() {
 	else isbad = false;
 	if(cameraNumber == 1)
 	{
+		std::cout << "\n\n\n\n\n\n\n\n\n\nCAMERA NUMBER IS ONE \n\n\n\n\n\n\n\n";
 		if (CommandBase::ultrasonicSensor->usingRightUltrasonicSensorForGearCamera) {
 			sonar_value = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::RIGHT_ULTRASONIC_SENSOR);
 		}
@@ -25,10 +26,14 @@ void AimBot::Initialize() {
 		}
 		double dangleToTurn = atan( (sonar_value - SPRING_IN) / (CAMERA_TO_GEAR_IN - sonar_value / tan((angleToTurn) * M_PI / 180))) * 180 / M_PI;
 		std::cout << "\n\n\n\n\nangle: " << dangleToTurn << "\nSonar: " << sonar_value << "\n\n\n\n";
-		CommandBase::driveTrain->TurnPIDEnable(dangleToTurn);
+		frc::SmartDashboard::PutNumber("Trig Angle: ", dangleToTurn);
+		CommandBase::driveTrain->TurnPIDEnable(-dangleToTurn);
 	}
 	else
+	{
+		std::cout << "\n\n\n\nCAMERA !\n\n\n\n";
 		CommandBase::driveTrain->TurnPIDEnable(angleToTurn);//- 18);
+	}
 	frc::SmartDashboard::PutNumber("Angle to Turn Starting: ", angleToTurn);
 	time.Start();
 	time.Reset();
@@ -41,12 +46,13 @@ void AimBot::Initialize() {
 void AimBot::Execute() {
 	frc::SmartDashboard::PutNumber("Angle to Turn: ", CommandBase::driveTrain->GetGyroAngle());
 	CommandBase::driveTrain->PIDTurning();
-	std::cout << "testing\n";
+	//std::cout << "testing\n";
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AimBot::IsFinished() {
-	return time.Get() > .5 || !CommandBase::driveTrain->turnController->IsEnabled() || (CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10) && CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 8)) ;
+	//return false;
+	return time.Get() > .5 || !CommandBase::driveTrain->turnController->IsEnabled() || isbad == true || (CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 10) && CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 8)) ;
 }
 
 // Called once after isFinished returns true

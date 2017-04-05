@@ -91,7 +91,7 @@ private:
 	static constexpr double RIGHT_ANGLE_DEGREES = 90.0;
 
 	//  Booleans for Autonomous Operation
-	static const bool USING_LIDAR_FOR_GEAR_LINEUP = false;
+	static const bool USING_LIDAR_FOR_GEAR_LINEUP = true;
 	static const bool USING_AUTO_ROTATE_FOR_GEAR_PEG = false;
 
 	static const bool USING_GEAR_CAMERA = true;
@@ -107,7 +107,7 @@ private:
 	static constexpr double AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER = .3;
 
 	static constexpr double MIDDLE_GEAR_LIDAR_VALUE_TO_TRAVEL_UNITL = 42.0;
-	static constexpr double SIDE_GEAR_LIDAR_VALUE_TO_TRAVEL_UNTIL = 78.0;
+	static constexpr double SIDE_GEAR_LIDAR_VALUE_TO_TRAVEL_UNTIL = 85.0;
 
 	bool baseLine = false;
 	bool middleGear = false;

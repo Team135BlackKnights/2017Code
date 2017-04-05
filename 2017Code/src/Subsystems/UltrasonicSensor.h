@@ -22,8 +22,8 @@ private:
 	frc::DigitalOutput* leftUltrasonicPingSignal;
 	frc::DigitalInput* leftUltrasonicEchoSignal;
 
-	static const int LEFT_ULTRASONIC_DIO_PING_PORT = 5;
-	static const int LEFT_ULTRASONIC_DIO_ECHO_PORT = 4;
+	static const int LEFT_ULTRASONIC_DIO_PING_PORT = 4;
+	static const int LEFT_ULTRASONIC_DIO_ECHO_PORT = 5;
 
 	double ultrasonicSensorValueIN = 0.0;
 

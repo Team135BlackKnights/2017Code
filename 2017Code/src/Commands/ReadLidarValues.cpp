@@ -40,8 +40,8 @@ void ReadLidarValues::Execute() {
 		configuredLidar = true;
 	}
 
-	//frc::SmartDashboard::PutNumber("Front Lidar Value:", lidarValueIN);
-	std::cout << "Front Lidar Value IN: " << lidarValueIN << std::endl;
+	frc::SmartDashboard::PutNumber("Front Lidar Valuee:", lidarValueIN);
+	//std::cout << "Front Lidar Value IN: " << lidarValueIN << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()

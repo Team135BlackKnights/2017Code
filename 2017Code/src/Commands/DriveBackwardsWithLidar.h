@@ -27,10 +27,10 @@ private:
 	bool zeroGyroAngle = false;
 
 	double differenceBetweenDesiredAndCurrentLidarValue = 0.0;
-	static constexpr double DIFFERENCE_BETWEEN_DESIRED_AND_CURRENT_LIDAR_VALUES_TO_DRIVE_SLOWER_PART_1 = 30.0;
-	static constexpr double DIFFERENCE_BETWEEN_DESIRED_AND_CURRENT_LIDAR_VALUES_TO_DRIVE_SLOWER_PART_2 = 15.0;
-	static constexpr double SLOWER_DRIVE_TRAIN_MOTOR_POWER_PART_1 = -.35;
-	static constexpr double SLOWER_DRIVE_TRAIN_MOTOR_POWER_PART_2 = -.2;
+	static constexpr double DIFFERENCE_BETWEEN_DESIRED_AND_CURRENT_LIDAR_VALUES_TO_DRIVE_SLOWER_PART_1 = 40.0;
+	static constexpr double DIFFERENCE_BETWEEN_DESIRED_AND_CURRENT_LIDAR_VALUES_TO_DRIVE_SLOWER_PART_2 = 20.0;
+	static constexpr double SLOWER_DRIVE_TRAIN_MOTOR_POWER_PART_1 = -.25;
+	static constexpr double SLOWER_DRIVE_TRAIN_MOTOR_POWER_PART_2 = -.15;
 
 	static constexpr double ESTIMATED_COAST_DISTANCE_IN = 1.0;
 

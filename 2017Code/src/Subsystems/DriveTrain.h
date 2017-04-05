@@ -42,9 +42,9 @@ private:
 	double distanceTraveled = 0.0;
 
 	double kToleranceDegrees = .5f;
-	double kP = .09f;
+	double kP = .144f;
 	double kI = 0;
-	double kD = .2f;
+	double kD = 0.1f;
 
 	double kF = 0.0f;
 
@@ -79,7 +79,6 @@ private:
 	double desiredMaxMotorPower = 0.0;
 
 	//  Variables for AutoRotateRobot()
-	bool initializeAutoRotateRobot = false;
 	double currentGyroAngle = 0.0;
 	double initialGyroAngle = 0.0;
 	double differenceBetweenCurrentAndInitialGyroAngle = 0.0;
@@ -138,7 +137,7 @@ public:
 	    }
 	PIDController* turnController;
 
-	bool AutoRotateRobot(double, double, bool);
+	bool AutoRotateRobot(double, double, bool, bool);
 };
 
 #endif  // DriveTrain_H

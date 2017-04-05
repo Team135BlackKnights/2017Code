@@ -18,8 +18,8 @@ AimToGear::AimToGear(int camera_number) {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-
 	AddSequential(new AimBotWithUltrasonicSensors(&sonarGood));
+	AddSequential(new WaitTime(.1));
 	std::cout << "sonar good?: " << sonarGood << "\n";
 	if(sonarGood)
 	{
@@ -28,7 +28,9 @@ AimToGear::AimToGear(int camera_number) {
 	else
 	{
 		AddSequential(new AimBot(camera_number));
+		AddSequential(new WaitTime(.1));
 		AddSequential(new AimBotWithUltrasonicSensors(&sonarGood));
+		AddSequential(new WaitTime(.1));
 		AddSequential(new AimBot(camera_number));
 	}
 	AddSequential(new WaitTime(.1));
