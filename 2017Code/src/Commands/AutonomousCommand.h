@@ -16,7 +16,7 @@ private:
 	//  Gear Autonomous Programs Distances
 	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_GEAR = (80.0 - ROBOT_WITH_BUMPERS_LENGTH);
 	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_RIGHT_GEAR_PART_1 = (93.0 - ROBOT_WITH_BUMPERS_LENGTH);
-	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_LEFT_GEAR_PART_1 = (98.0 - ROBOT_WITH_BUMPERS_LENGTH);
+	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_LEFT_GEAR_PART_1 = (91.0 - ROBOT_WITH_BUMPERS_LENGTH);
 	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_SIDE_GEAR_PART_2 = 20.0;
 
 	static constexpr double ANGLE_TO_TURN_TO_FACE_SIDE_GEAR = 48.0;
@@ -30,7 +30,7 @@ private:
 	static constexpr double DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR = 13.5;
 
 	//  Gear Autonomous Program and Neutral Zone Variables
-	static constexpr double ANGLE_TO_TURN_TO_FACE_NEUTRAL_ZONE = 40.0;
+	static constexpr double ANGLE_TO_TURN_TO_FACE_NEUTRAL_ZONE = 42.0;
 	static constexpr double DISTANCE_TO_TRAVEL_TOWARDS_AND_INTO_NEUTRAL_ZONE = 230.0;
 
 	//  Gear Autonomous Program With Lidar Variables
@@ -40,13 +40,13 @@ private:
 
 	//  Shooter Autonomous Programs
 	//  Both Close Shot Right and Close Shot Left
-	static constexpr double DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT = 65.0;
+	static constexpr double DISTANCE_TO_TRAVEL_TO_BASELINE_AFTER_CLOSE_SHOT = 70.0;
 	//  Close Shot Right
 	static constexpr double DISTANCE_TO_TRAVEL_BACKWARDS_AFTER_CLOSE_SHOT = 15.0;
 	static constexpr double ANGLE_TO_TURN_AFTER_DRIVING_OFF_RIGHT_ALLIANCE_WALL = 45.0;
 	//  Close Shot Left
 	static constexpr double ANGLE_TO_TURN_AFTER_DRIVING_OFF_LEFT_ALLIANCE_WALL = 15.0;
-	static constexpr double DISTANCE_TO_TRAVEL_OFF_LEFT_ALLIANCE_WALL = 20.0;
+	static constexpr double DISTANCE_TO_TRAVEL_OFF_LEFT_ALLIANCE_WALL = 12.0;
 	static constexpr double ANGLE_TO_TURN_AFTER_TURNING_OFF_LEFT_ALLIANCE_WALL = 35.0;
 	static constexpr double DISTANCE_TO_TRAVEL_ABOUT_PARALLEL_WITH_LEFT_ALLIANCE_WALL = 20.0;
 	static constexpr double ANGLE_TO_TURN_TO_DRIVE_TO_BASELINE_AFTER_LEFT_ALLIANCE_WALL = 60.0;
@@ -103,11 +103,11 @@ private:
 
 	static const bool KPA_AUTONOMOUS_OPTION_1 = true;
 
-	static constexpr double ANGLE_TO_ROTATE_FOR_GEAR_PEG = 10.0;
-	static constexpr double AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER = .55;
+	static constexpr double ANGLE_TO_ROTATE_FOR_GEAR_PEG = 7.0;
+	static constexpr double AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER = .525;
 
 	static constexpr double MIDDLE_GEAR_LIDAR_VALUE_TO_TRAVEL_UNITL = 42.0;
-	static constexpr double SIDE_GEAR_LIDAR_VALUE_TO_TRAVEL_UNTIL = 85.0;
+	static constexpr double SIDE_GEAR_LIDAR_VALUE_TO_TRAVEL_UNTIL = 87.0;  //  85.0
 
 	bool baseLine = false;
 	bool middleGear = false;

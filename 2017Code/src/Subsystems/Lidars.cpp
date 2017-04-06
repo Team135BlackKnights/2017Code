@@ -49,6 +49,9 @@ int Lidars::GetLowerByte() {
 double Lidars::GetLidarValue(int lowerByte, int upperByte, int distanceUnits) {
 	shiftedUpperByte = upperByte << 8;
 	finalValue = (shiftedUpperByte + lowerByte);
+	if (finalValue > 10000) {
+		finalValue = 0;
+	}
 
 	if (distanceUnits == DISTANCE_UNIT_ARRAY[CENTIMETERS]) {
 		returnLidarValue = ((double)finalValue);

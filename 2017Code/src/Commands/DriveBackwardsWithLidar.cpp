@@ -1,7 +1,6 @@
 #include "DriveBackwardsWithLidar.h"
-#include <Timer.h>
 
-DriveBackwardsWithLidar::DriveBackwardsWithLidar(double initialDriveTrainMotorPower, double desiredLidarValueToDriveUntil) {
+DriveBackwardsWithLidar::DriveBackwardsWithLidar(double initialDriveTrainMotorPower, double desiredLidarValueToDriveUntil, double desiredInitialDistanceToTravel) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::driveTrain.get());
@@ -9,24 +8,32 @@ DriveBackwardsWithLidar::DriveBackwardsWithLidar(double initialDriveTrainMotorPo
 
 	this->initialDriveTrainMotorPower = initialDriveTrainMotorPower;
 	this->desiredLidarValueToDriveUntil = (desiredLidarValueToDriveUntil + DISTANCE_BETWEEN_LIDAR_AND_EDGE_OF_BUMPER);
+	this->desiredInitialDistanceToTravel = desiredInitialDistanceToTravel;
+
+	timer = new frc::Timer();
 }
 
 // Called just before this Command runs the first time
 void DriveBackwardsWithLidar::Initialize() {
 	CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_FRONT_LIDAR_CHANNEL_7);
 	initializeI2CMultiplexerChannel = true;
-	readLidarValueForFirstTime = false;
 	configureLidar = false;
 
 	startUsingLidarValues = false;
 
-	driveAtInitialDriveTrainMotorPower = true;
-	driveAtSlowerDriveTrainMotorPowerPart1 = false;
-	driveAtSlowerDriveTrainMotorPowerPart2 = false;
 	robotAtDesiredLidarValue = false;
 
 	CommandBase::driveTrain->ZeroGyroAngle();
 	zeroGyroAngle = true;
+
+	initialDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
+	initializedEncoderDistanceTravel = true;
+
+	startUsingEncoderValues = false;
+	startEncoderBasedSlowerMotorPower = false;
+	robotTraveledDistanceWithEncoders = false;
+
+	initializeTimer = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -41,11 +48,15 @@ void DriveBackwardsWithLidar::Execute() {
 		zeroGyroAngle = true;
 	}
 
+	if (initializedEncoderDistanceTravel == false) {
+		initialDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
+		initializedEncoderDistanceTravel = true;
+	}
+
 	currentGyroAngle = CommandBase::driveTrain->GetGyroAngle();
 
 	if (configureLidar == false) {
 		CommandBase::lidars->ConfigureLidar();
-		readLidarValueForFirstTime = true;
 		configureLidar = true;
 	}
 	else if (configureLidar) {
@@ -56,14 +67,21 @@ void DriveBackwardsWithLidar::Execute() {
 		configureLidar = false;
 	}
 
-	/*if (configureLidar == false) {
-		frc::Wait(.002);
-		CommandBase::lidars->ConfigureLidar();
-		configureLidar = true;
-	} */
-
-	if (currentlidarValueIN != 0.0 && startUsingLidarValues == false) {
+	if (currentlidarValueIN != 0.0 && startUsingLidarValues == false && startUsingEncoderValues == false) {
 		startUsingLidarValues = true;
+	}
+	else if (currentlidarValueIN == 0.0 && startUsingLidarValues == false && startUsingEncoderValues == false) {
+		if (initializeTimer == false) {
+			timer->Reset();
+			timer->Start();
+			initializeTimer = true;
+		}
+
+		timerValue = timer->Get();
+
+		if (timerValue >= TIME_TO_WAIT_UNTIL_USING_ENCODER_VALUES) {
+			startUsingEncoderValues = true;
+		}
 	}
 
 	if (startUsingLidarValues) {
@@ -73,39 +91,50 @@ void DriveBackwardsWithLidar::Execute() {
 			robotAtDesiredLidarValue = true;
 		}
 		else if (differenceBetweenDesiredAndCurrentLidarValue < DIFFERENCE_BETWEEN_DESIRED_AND_CURRENT_LIDAR_VALUES_TO_DRIVE_SLOWER_PART_2) {
-			driveAtSlowerDriveTrainMotorPowerPart2 = true;
-			driveAtInitialDriveTrainMotorPower = false;
-			driveAtSlowerDriveTrainMotorPowerPart1 = false;
+			CommandBase::driveTrain->DriveStraightWithGyro(SLOWER_DRIVE_TRAIN_MOTOR_POWER_PART_2, currentGyroAngle);
 			robotAtDesiredLidarValue = false;
 		}
 		else if (differenceBetweenDesiredAndCurrentLidarValue < DIFFERENCE_BETWEEN_DESIRED_AND_CURRENT_LIDAR_VALUES_TO_DRIVE_SLOWER_PART_1) {
-			driveAtSlowerDriveTrainMotorPowerPart1 = true;
-			driveAtInitialDriveTrainMotorPower = false;
-			driveAtSlowerDriveTrainMotorPowerPart2 = false;
+			CommandBase::driveTrain->DriveStraightWithGyro(SLOWER_DRIVE_TRAIN_MOTOR_POWER_PART_1, currentGyroAngle);
 			robotAtDesiredLidarValue = false;
 		}
 		else {
-			driveAtInitialDriveTrainMotorPower = true;
-			driveAtSlowerDriveTrainMotorPowerPart1 = false;
-			driveAtSlowerDriveTrainMotorPowerPart2 = false;
+			CommandBase::driveTrain->DriveStraightWithGyro(this->initialDriveTrainMotorPower, currentGyroAngle);
 			robotAtDesiredLidarValue = false;
 		}
 	}
+	else if (startUsingEncoderValues) {
+		currentDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
+		if (startEncoderBasedSlowerMotorPower == false) {
+			differenceBetweenInitialAndCurrentDistanceTraveled = (fabs(currentDistanceTraveled - initialDistanceTraveled));
+			if (differenceBetweenInitialAndCurrentDistanceTraveled >= this->desiredInitialDistanceToTravel) {
+				initialDistanceTraveledForSlowerMotorPower = currentDistanceTraveled;
+				startEncoderBasedSlowerMotorPower = true;
+			}
+			else {
+				CommandBase::driveTrain->DriveStraightWithGyro(this->initialDriveTrainMotorPower, currentGyroAngle);
+			}
+		}
 
-	if (driveAtInitialDriveTrainMotorPower) {
+		if (startEncoderBasedSlowerMotorPower) {
+			differenceBetweenCurrentAndInitialEncoderValuesSlowerMotorPower = (currentDistanceTraveled - initialDistanceTraveledForSlowerMotorPower);
+			if (differenceBetweenCurrentAndInitialEncoderValuesSlowerMotorPower >= DISTANCE_TO_TRAVEL_SLOW_SPEED) {
+				CommandBase::driveTrain->DriveStraightWithGyro(0.0, currentGyroAngle);
+				robotTraveledDistanceWithEncoders = true;
+			}
+			else {
+				CommandBase::driveTrain->DriveStraightWithGyro(ENCODER_BASED_SLOW_MOTOR_POWER, currentGyroAngle);
+			}
+		}
+	}
+	else {
 		CommandBase::driveTrain->DriveStraightWithGyro(this->initialDriveTrainMotorPower, currentGyroAngle);
-	}
-	else if (driveAtSlowerDriveTrainMotorPowerPart1) {
-		CommandBase::driveTrain->DriveStraightWithGyro(SLOWER_DRIVE_TRAIN_MOTOR_POWER_PART_1, currentGyroAngle);
-	}
-	else if (driveAtSlowerDriveTrainMotorPowerPart2) {
-		CommandBase::driveTrain->DriveStraightWithGyro(SLOWER_DRIVE_TRAIN_MOTOR_POWER_PART_2, currentGyroAngle);
 	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveBackwardsWithLidar::IsFinished() {
-	return robotAtDesiredLidarValue;
+	return robotAtDesiredLidarValue || robotTraveledDistanceWithEncoders;
 }
 
 // Called once after isFinished returns true
@@ -113,17 +142,20 @@ void DriveBackwardsWithLidar::End() {
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
 
 	initializeI2CMultiplexerChannel = false;
-	readLidarValueForFirstTime = false;
 	configureLidar = false;
 
 	startUsingLidarValues = false;
 
-	driveAtInitialDriveTrainMotorPower = true;
-	driveAtSlowerDriveTrainMotorPowerPart1 = false;
-	driveAtSlowerDriveTrainMotorPowerPart2 = false;
 	robotAtDesiredLidarValue = false;
 
 	zeroGyroAngle = false;
+
+	initializedEncoderDistanceTravel = false;
+	startUsingEncoderValues = false;
+	startEncoderBasedSlowerMotorPower = false;
+	robotTraveledDistanceWithEncoders = false;
+
+	initializeTimer = false;
 }
 
 // Called when another command which requires one or more of the same
