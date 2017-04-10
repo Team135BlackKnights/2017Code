@@ -9,16 +9,16 @@ DriveAgitator::DriveAgitator(bool driveForwards) {
 
 // Called just before this Command runs the first time
 void DriveAgitator::Initialize() {
-	agitatorMotorPower = Preferences::GetInstance()->GetDouble("Agitator Motor Power:", .33);
+	//agitatorMotorPower = Preferences::GetInstance()->GetDouble("Agitator Motor Power:", .3);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveAgitator::Execute() {
 	if (this->driveForwards) {
-		CommandBase::agitator->DriveAgitator(agitatorMotorPower);
+		CommandBase::agitator->DriveAgitator(AGITATOR_MOTOR_POWER);
 	}
 	else if (this->driveForwards == false) {
-		CommandBase::agitator->DriveAgitator(-agitatorMotorPower);
+		CommandBase::agitator->DriveAgitator(-AGITATOR_MOTOR_POWER);
 	}
 }
 

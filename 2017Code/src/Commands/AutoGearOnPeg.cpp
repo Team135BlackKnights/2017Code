@@ -125,7 +125,7 @@ void AutoGearOnPeg::Execute() {
 		}
 	}
 
-	if (startPuttingGearOnPeg) {
+	/*if (startPuttingGearOnPeg) {
 		if (initializeTimerLimitSwitch == false) {
 			timer->Stop();
 			timer->Reset();
@@ -147,7 +147,7 @@ void AutoGearOnPeg::Execute() {
 		else {
 			CommandBase::gearHolder->DriveGearHolderMotor(-GEAR_HOLDER_MOTOR_POWER);
 		}
-	}
+	} */
 
 	if (RAM_INTO_GEAR_PEG) {
 		if (gearHolderDown && rammedIntoAirship == false) {
@@ -212,7 +212,7 @@ void AutoGearOnPeg::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoGearOnPeg::IsFinished() {
-	return gearOnPeg;
+	return startPuttingGearOnPeg;
 }
 
 // Called once after isFinished returns true

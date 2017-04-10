@@ -16,7 +16,7 @@ private:
 	static const int SHOOTER_HOOD_ENCODER_COUNTS = 497;
 	static const int SHOOTER_HOOD_QUADRATURE_ENCODER_COUNTS = (SHOOTER_HOOD_ENCODER_COUNTS * 4);
 
-	static const bool REVERSE_SHOOTER_HOOD_ENCODER_DIRECTION = false;
+	static const bool REVERSE_SHOOTER_HOOD_ENCODER_DIRECTION = true;
 
 	static const int MIN_ENCODER_VALUE = 0;
 	//  15000 for Practice Bot

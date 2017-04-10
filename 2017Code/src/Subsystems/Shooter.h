@@ -10,10 +10,10 @@ public:
 	static constexpr double DESIRED_VOLTAGE_FAR_SHOT = 9.125;
 
 	static constexpr double SHOOTER_SETPOINT_MIN_RPM_CLOSE_SHOT = 2600.0;
-	static constexpr double SHOOTER_SETPOINT_MAX_RPM_CLOSE_SHOT = 2850.0;
+	static constexpr double SHOOTER_SETPOINT_MAX_RPM_CLOSE_SHOT = 2900.0;
 	static constexpr double RANGE_OF_CLOSE_SHOT_SHOOTER_RPM = (SHOOTER_SETPOINT_MAX_RPM_CLOSE_SHOT - SHOOTER_SETPOINT_MIN_RPM_CLOSE_SHOT);
 
-	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2700.0;
+	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2715.0;
 	static constexpr double SHOOTER_SETPOINT_RPM_FAR_SHOT = 3040.0;
 
 	static const int CLOSE_SHOT_PID_VALUES = 0;
@@ -59,10 +59,10 @@ private:
 	double farShotPositivePeakVoltage = 0.0;
 	double farShotNegativePeakVoltage = 0.0;
 
-	static constexpr double PB_CLOSE_SHOT_Kp = 1.3;  //  1.0
+	static constexpr double PB_CLOSE_SHOT_Kp = .25;  //  1.3
 	static constexpr double PB_CLOSE_SHOT_Ki = 0.0;
-	static constexpr double PB_CLOSE_SHOT_Kd = 8.0;  //  9.5
-	static constexpr double PB_CLOSE_SHOT_Kf = .0361;  //  .037
+	static constexpr double PB_CLOSE_SHOT_Kd = .5;  //  8.0
+	static constexpr double PB_CLOSE_SHOT_Kf = .0352;  //  .0361
 	static constexpr double PB_CLOSE_SHOT_POSITIVE_PEAK_VOLTAGE = 9.0;
 	static constexpr double PB_CLOSE_SHOT_NEGATIVE_PEAK_VOLTAGE = -6.0;
 
@@ -73,10 +73,10 @@ private:
 	static constexpr double PB_FAR_SHOT_POSITIVE_PEAK_VOLTAGE = 10.2;
 	static constexpr double PB_FAR_SHOT_NEGATIVE_PEAK_VOLTAGE = -6.0;
 
-	static constexpr double CB_CLOSE_SHOT_Kp = 1.3;
+	static constexpr double CB_CLOSE_SHOT_Kp = .25;  //  1.3
 	static constexpr double CB_CLOSE_SHOT_Ki = 0.0;
-	static constexpr double CB_CLOSE_SHOT_Kd = 8.0;
-	static constexpr double CB_CLOSE_SHOT_Kf = .0361;
+	static constexpr double CB_CLOSE_SHOT_Kd = .5;  //  8.0
+	static constexpr double CB_CLOSE_SHOT_Kf = .0352;  //  .0361
 	static constexpr double CB_CLOSE_SHOT_POSITIVE_PEAK_VOLTAGE = 9.0;
 	static constexpr double CB_CLOSE_SHOT_NEGATIVE_PEAK_VOLTAGE = -6.0;
 

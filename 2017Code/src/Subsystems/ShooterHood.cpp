@@ -63,7 +63,7 @@ bool ShooterHood::HoodEncoderPluggedIn() {
 }
 
 int ShooterHood::GetShooterHoodEncoderPosition() {
-	return shooterHoodMotor->GetEncPosition();
+	return (-1 * shooterHoodMotor->GetEncPosition());
 }
 
 void ShooterHood::SetShooterHoodEncoder(int encoderPosition) {

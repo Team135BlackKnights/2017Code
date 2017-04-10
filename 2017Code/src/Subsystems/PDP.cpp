@@ -11,12 +11,11 @@ void PDP::InitDefaultCommand() {
 }
 
 void PDP::InitializePDP() {
-	//pdp = new frc::PowerDistributionPanel(PDP_ID);
+	pdp = new frc::PowerDistributionPanel(PDP_ID);
 }
 
 double PDP::GetCurrentOfPDPPort(int pdpPort) {
-	//return pdp->GetCurrent(pdpPort);
-	return 0.0;
+	return pdp->GetCurrent(pdpPort);
 }
 
 // Put methods for controlling this subsystem

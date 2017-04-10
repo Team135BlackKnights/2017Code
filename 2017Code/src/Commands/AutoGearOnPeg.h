@@ -18,7 +18,7 @@ private:
 	static constexpr double DRIVE_TRAIN_MOTOR_POWER = .45;
 
 	double gearHolderMotorPower = 0.0;
-	static constexpr double GEAR_HOLDER_MOTOR_POWER = .6;
+	static constexpr double GEAR_HOLDER_MOTOR_POWER = .75;
 
 	bool lowerLimitSwitchValue = false;
 
@@ -34,7 +34,7 @@ private:
 	bool moveGearHolderDown = false;
 	bool stopGearHolderDown = false;
 	bool initializeTimerLimitSwitch = false;
-	static constexpr double WAIT_TIME_FOR_LIMIT_SWITCH_TO_LOWER = 1.0;
+	static constexpr double WAIT_TIME_FOR_LIMIT_SWITCH_TO_LOWER = 2.0;
 
 	static constexpr double TIME_TO_LOWER_GEAR_HOLDER = .2;
 	bool startMovingRobot = true;

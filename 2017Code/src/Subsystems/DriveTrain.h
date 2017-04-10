@@ -25,7 +25,7 @@ private:
 	static const bool PB_LEFT_ENCODER_SENSOR_DIRECTION = true;
 	static const bool PB_RIGHT_ENCODER_SENSOR_DIRECTION = false;
 
-	static const int CB_ENCODER_COUNTS = 256;
+	static const int CB_ENCODER_COUNTS = 64;
 	static const int CB_QUADRATURE_ENCODER_COUNTS = (CB_ENCODER_COUNTS * 4);
 	static const int PB_ENCODER_COUNTS = 64;
 	static const int PB_QUADRATURE_ENCODER_COUNTS = (PB_ENCODER_COUNTS * 4);

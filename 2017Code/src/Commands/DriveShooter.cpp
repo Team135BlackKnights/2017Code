@@ -35,7 +35,14 @@ void DriveShooter::Execute() {
 		chosenSetpoint = CommandBase::shooter->GetCloseShotShooterRPMGivenThrottleValue(throttleValue);
 	}
 	else if (closeShotMode == false) {
-		throttleUp = CommandBase::oi->GetThrottleUp(OI::MANIPULATOR_JOYSTICK);
+		if (initializedCloseShotPIDSlot == false) {
+			CommandBase::shooter->SelectPIDProfileSlot(Shooter::CLOSE_SHOT_PID_VALUES);
+			initializedCloseShotPIDSlot = true;
+			initializedFarShotPIDSlot = false;
+		}
+		chosenSetpoint = Shooter::SHOOTER_SETPOINT_RPM_CLOSE_SHOT;
+		chosenVoltage = Shooter::DESIRED_VOLTAGE_CLOSE_SHOT;
+		/*throttleUp = CommandBase::oi->GetThrottleUp(OI::MANIPULATOR_JOYSTICK);
 		if (throttleUp) {
 			if (initializedFarShotPIDSlot == false) {
 				CommandBase::shooter->SelectPIDProfileSlot(Shooter::FAR_SHOT_PID_VALUES);
@@ -51,9 +58,10 @@ void DriveShooter::Execute() {
 				initializedFarShotPIDSlot = false;
 				initializedCloseShotPIDSlot = true;
 			}
+			CommandBase::shooter->SelectPIDProfileSlot(Shooter::CLOSE_SHOT_PID_VALUES);
 			chosenSetpoint = Shooter::SHOOTER_SETPOINT_RPM_CLOSE_SHOT;
 			chosenVoltage = Shooter::DESIRED_VOLTAGE_CLOSE_SHOT;
-		}
+		} */
 	}
 
 	frc::SmartDashboard::PutNumber("Desired Shooter RPM", chosenSetpoint);

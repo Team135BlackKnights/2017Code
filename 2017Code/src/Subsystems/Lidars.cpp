@@ -9,7 +9,7 @@ Lidars::Lidars() : Subsystem("Lidar") {
 void Lidars::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new ReadLidarValues());
+	//SetDefaultCommand(new ReadLidarValues());
 }
 
 void Lidars::InitializeLidarsAndI2CMultiplexer() {
@@ -25,6 +25,15 @@ void Lidars::InitializeLidarsAndI2CMultiplexer() {
 	convertedValueToSendToI2CMultiplexer = new uint8_t;
 }
 
+void Lidars::InitializeLidarPowerEnablePin() {
+	lidarPowerEnabledDO = new frc::DigitalOutput(LIDAR_POWER_ENABLE_DIGITAL_OUTPUT_PORT);
+}
+
+void Lidars::TurnLidarOnOff(bool turnOn) {
+	lidarPowerEnabledDO->Set(turnOn);
+	lidarTurnedOn = turnOn;
+}
+
 void Lidars::OpenLidarChannelOnMultiplexer(int byteToSend) {
 	convertedValueToSendToI2CMultiplexer = this->ConvertUint8_t_To_Uint8_tPointer(byteToSend);
 	i2CMultiplexer->WriteBulk(convertedValueToSendToI2CMultiplexer, 1);
@@ -32,6 +41,10 @@ void Lidars::OpenLidarChannelOnMultiplexer(int byteToSend) {
 
 void Lidars::ConfigureLidar() {
 	lidar->Write(CONFIGURE_REGISTER_ADDRESS, CONFIGURE_VALUE_TO_WRITE);
+}
+
+void Lidars::TurnOffDetectorBiasBetweenLidarAcquisitions() {
+	lidar->Write(POWER_CONSUMPTION_MODE_AFTER_READING_VALUES_ADDRESS, VALUE_TO_SEND_TO_TURN_OFF_DETECTOR_BIAS_BETWEEN_ACQUISITIONS);
 }
 
 int Lidars::GetUpperByte() {
@@ -49,20 +62,27 @@ int Lidars::GetLowerByte() {
 double Lidars::GetLidarValue(int lowerByte, int upperByte, int distanceUnits) {
 	shiftedUpperByte = upperByte << 8;
 	finalValue = (shiftedUpperByte + lowerByte);
-	if (finalValue > 10000) {
-		finalValue = 0;
-	}
+
+	frc::SmartDashboard::PutNumber("Actual LIDAR Value:", finalValue);
 
 	if (distanceUnits == DISTANCE_UNIT_ARRAY[CENTIMETERS]) {
 		returnLidarValue = ((double)finalValue);
 	}
 	else if (distanceUnits == DISTANCE_UNIT_ARRAY[INCHES]) {
 		returnLidarValue = this->ConvertCentimetersToInches(finalValue);
+		if (returnLidarValue > 200.0) {
+			returnLidarValue = 0.0;
+		}
 	}
 	else if (distanceUnits == DISTANCE_UNIT_ARRAY[METERS]) {
 		returnLidarValue = this->ConvertCentimetersToMeters(finalValue);
 	}
-	return returnLidarValue;
+
+	if (returnLidarValue != 0) {
+		savedLidarValue = returnLidarValue;
+	}
+
+	return savedLidarValue;
 }
 
 double Lidars::ConvertCentimetersToInches(int valueInCM) {

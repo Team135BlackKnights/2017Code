@@ -3,6 +3,7 @@
 
 #include <Commands/Subsystem.h>
 #include <I2C.h>
+#include <DigitalOutput.h>
 
 class Lidars : public Subsystem {
 private:
@@ -24,6 +25,9 @@ private:
 	static const int LOWER_BYTE_REGISTER_ADDRESS = 0x10;
 
 	static const int BOTH_BYTE_REGISTER_ADDRESS = 0x8f;
+
+	static const int POWER_CONSUMPTION_MODE_AFTER_READING_VALUES_ADDRESS = 0x04;
+	static const int VALUE_TO_SEND_TO_TURN_OFF_DETECTOR_BIAS_BETWEEN_ACQUISITIONS = 0b00001000;
 
 	uint8_t* upperByteDataPointer;
 	uint8_t* lowerByteDataPointer;
@@ -56,14 +60,24 @@ private:
 	int finalNonZeroLidarValue = 0;
 
 	double returnLidarValue = 0.0;
+
+	double savedLidarValue = 0.0;
+
+	frc::DigitalOutput* lidarPowerEnabledDO;
+	static const int LIDAR_POWER_ENABLE_DIGITAL_OUTPUT_PORT = 16;
+	bool lidarTurnedOn = false;
 public:
 	Lidars();
 	void InitDefaultCommand();
 
 	void InitializeLidarsAndI2CMultiplexer();
 
+	void InitializeLidarPowerEnablePin();
+	void TurnLidarOnOff(bool);
+
 	void OpenLidarChannelOnMultiplexer(int);
 	void ConfigureLidar();
+	void TurnOffDetectorBiasBetweenLidarAcquisitions();
 	int GetUpperByte();
 	int GetLowerByte();
 	double GetLidarValue(int, int, int);
@@ -84,6 +98,9 @@ public:
 	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_6_RIGHT_LIDAR = 0b01000000;
 	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_7_LEFT_LIDAR = 0b10000000;
 	static const uint8_t VALUE_TO_OPEN_FRONT_LIDAR_CHANNEL_7 = 0b10000000;
+
+	static const bool TURN_LIDAR_ON = true;
+	static const bool TURN_LIDAR_OFF = !TURN_LIDAR_ON;
 };
 
 #endif  // Lidars_H

@@ -133,18 +133,22 @@ double Server::get_angle(int cameraNumber)
 	char buf[20];
 	std::string str = std::to_string(cameraNumber);
 	std::strcpy( buf, str.c_str());
+	std::string::size_type sz;
 	double angle =0;
 	send(new_conn_fd, buf, 20, 0);
 	numbytes = recv(new_conn_fd, buf, 20, 0);
+	std::cout << buf << std::endl;
 	if(numbytes < 1)
 	{
 		new_conn_fd = -1;
 		return 0;
 	}
 	char * st;
-	st = strtok(buf, ",");
+	if(cameraNumber == 0) angle = std::stod(buf,&sz);
+	if(cameraNumber == 1) angle = 0;
+	/*t = strtok(buf, ",");
 	if(cameraNumber == 0) angle = atof(st);
 	st = strtok(NULL, ",");
-	if(cameraNumber == 1) angle = atof(st);
+	if(cameraNumber == 1) angle = atof(st);*/
 	return angle;
 }

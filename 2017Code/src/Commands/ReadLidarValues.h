@@ -6,12 +6,16 @@
 class ReadLidarValues : public CommandBase {
 private:
 	bool openFrontLidarChannel = false;
-	bool readLidarValueForFirstTime = false;
+	bool turnOffDetectorBiasBetweenLidarAcquisitions = false;
 	bool configuredLidar = false;
 
 	int lidarUpperByte = 0;
 	int lidarLowerByte = 0;
 	double lidarValueIN = 0;
+
+	bool turnLidarOn = false;
+
+	bool lidarPowerEnabledButtonPressed = false;
 public:
 	ReadLidarValues();
 	void Initialize();

@@ -51,6 +51,13 @@ private:
 	double timerValue = 0.0;
 	static constexpr double TIME_TO_WAIT_UNTIL_USING_ENCODER_VALUES = .4;
 
+	bool turnOnLidar = false;
+	bool turnOffDetectorBiasBetweenAcquisitions = false;
+
+	double savedLidarValueIN = 0.0;
+	int goodLidarCounter = 0;
+	int badLidarCounter = 0;
+
 public:
 	DriveBackwardsWithLidar(double, double, double);
 	void Initialize();

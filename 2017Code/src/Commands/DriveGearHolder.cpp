@@ -13,6 +13,7 @@ void DriveGearHolder::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveGearHolder::Execute() {
+	//if (CommandBase::gearHolder->gearUsedNotDefaultly) return;
 	gearHolderUpwardsButtonPressed = CommandBase::oi->GetButtonPressed(OI::MANIPULATOR_JOYSTICK, OI::GEAR_HOLDER_UPWARDS_BUTTON);
 	gearHolderDownwardsButtonPressed = CommandBase::oi->GetButtonPressed(OI::MANIPULATOR_JOYSTICK, OI::GEAR_HOLDER_DOWNWARDS_BUTTON);
 

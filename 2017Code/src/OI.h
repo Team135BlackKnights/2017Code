@@ -28,6 +28,7 @@ private:
 	static const int SHOOTER_HOOD_SIDE_GEAR_SHOT_BUTTON = 12;  //  Right Drive Joystick
 	static const int SHOOTER_HOOD_MIDDLE_GEAR_BUTTON = 11;  //  Right Drive Joystick
 	static const int SHOOTER_HOOD_40_KPA_AUTONOMOUS_BUTTON = 10;  //  Right Drive Joystick
+	static const int SHOOTER_HOOD_LEFT_CLOSE_SHOT_BUTTON = 9;
 
 	static const int SHOOTER_HOOD_CLOSE_SHOT_BUTTON = 11;  //  MANIPULATOR JOYSTICK
 
@@ -37,9 +38,11 @@ private:
 
 	static const int SWITCH_BETWEEN_FAR_AND_CLOSE_SHOT_RPM_BUTTON = 9;  //  Manipulator Joystick
 
+	static const int READ_LIDAR_VALUE_BUTTON = 8;  //  Left Drive Joystick
+
 	static const int CLOSE_SHOT_HOOD_ENCODER_VALUE = 0;
-	static const int RIGHT_CLOSE_SHOT_SHOOTER_AUTONOMOUS_HOOD_ENCODER_VALUE = 5000;
-	static const int LEFT_CLOSE_SHOT_SHOOTER_AUTONOMOUS_HOOD_ENCODER_VALUE = 6200;
+	static const int RIGHT_CLOSE_SHOT_SHOOTER_AUTONOMOUS_HOOD_ENCODER_VALUE = 0;
+	static const int LEFT_CLOSE_SHOT_SHOOTER_AUTONOMOUS_HOOD_ENCODER_VALUE = 1250;
 	static const int MIDDLE_GEAR_SHOOT_AUTONOMUS_HOOD_ENCODER_VALUE = 6750;  //  15000 Tested on Practice Bot
 	static const int SIDE_GEAR_SHOOT_AUTONOMOUS_HOOD_ENCODER_VALUE = 3750;
 	static const int KPA_AUTONOMOUS_HOOD_ENCODER_VALUE = 5400;

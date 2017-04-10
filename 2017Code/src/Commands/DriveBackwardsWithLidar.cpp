@@ -15,8 +15,15 @@ DriveBackwardsWithLidar::DriveBackwardsWithLidar(double initialDriveTrainMotorPo
 
 // Called just before this Command runs the first time
 void DriveBackwardsWithLidar::Initialize() {
+	CommandBase::lidars->TurnLidarOnOff(Lidars::TURN_LIDAR_ON);
+	turnOnLidar = true;
+
 	CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_FRONT_LIDAR_CHANNEL_7);
 	initializeI2CMultiplexerChannel = true;
+
+	CommandBase::lidars->TurnOffDetectorBiasBetweenLidarAcquisitions();
+	turnOffDetectorBiasBetweenAcquisitions = true;
+
 	configureLidar = false;
 
 	startUsingLidarValues = false;
@@ -38,9 +45,19 @@ void DriveBackwardsWithLidar::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveBackwardsWithLidar::Execute() {
+	if (turnOnLidar == false) {
+		CommandBase::lidars->TurnLidarOnOff(Lidars::TURN_LIDAR_ON);
+		turnOnLidar = true;
+	}
+
 	if (initializeI2CMultiplexerChannel == false) {
 		CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_FRONT_LIDAR_CHANNEL_7);
 		initializeI2CMultiplexerChannel = true;
+	}
+
+	if (turnOffDetectorBiasBetweenAcquisitions == false) {
+		CommandBase::lidars->TurnOffDetectorBiasBetweenLidarAcquisitions();
+		turnOffDetectorBiasBetweenAcquisitions = true;
 	}
 
 	if (zeroGyroAngle == false) {
@@ -67,8 +84,27 @@ void DriveBackwardsWithLidar::Execute() {
 		configureLidar = false;
 	}
 
+	frc::SmartDashboard::PutNumber("Autonomous Lidar Value:", currentlidarValueIN);
+
 	if (currentlidarValueIN != 0.0 && startUsingLidarValues == false && startUsingEncoderValues == false) {
-		startUsingLidarValues = true;
+		if (configureLidar == false) {
+			if (savedLidarValueIN != currentlidarValueIN) {
+				savedLidarValueIN = currentlidarValueIN;
+				goodLidarCounter++;
+			}
+			else if (savedLidarValueIN == currentlidarValueIN) {
+				badLidarCounter++;
+			}
+
+			if (badLidarCounter >= 3) {
+				startUsingEncoderValues = true;
+				startUsingLidarValues = false;
+			}
+			else if (goodLidarCounter >= 3) {
+				startUsingLidarValues = true;
+				startUsingEncoderValues = false;
+			}
+		}
 	}
 	else if (currentlidarValueIN == 0.0 && startUsingLidarValues == false && startUsingEncoderValues == false) {
 		if (initializeTimer == false) {
@@ -85,6 +121,7 @@ void DriveBackwardsWithLidar::Execute() {
 	}
 
 	if (startUsingLidarValues) {
+		std::cout << "Lidar" << std::endl;
 		differenceBetweenDesiredAndCurrentLidarValue = (this->desiredLidarValueToDriveUntil - currentlidarValueIN);
 		if (differenceBetweenDesiredAndCurrentLidarValue <= ESTIMATED_COAST_DISTANCE_IN) {
 			CommandBase::driveTrain->DriveTank(0.0, 0.0);
@@ -104,6 +141,7 @@ void DriveBackwardsWithLidar::Execute() {
 		}
 	}
 	else if (startUsingEncoderValues) {
+		std::cout << "Encoder" << std::endl;
 		currentDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
 		if (startEncoderBasedSlowerMotorPower == false) {
 			differenceBetweenInitialAndCurrentDistanceTraveled = (fabs(currentDistanceTraveled - initialDistanceTraveled));
@@ -130,6 +168,9 @@ void DriveBackwardsWithLidar::Execute() {
 	else {
 		CommandBase::driveTrain->DriveStraightWithGyro(this->initialDriveTrainMotorPower, currentGyroAngle);
 	}
+
+	currentDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
+	std::cout << "Current Distance Traveled: " << currentDistanceTraveled << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -139,9 +180,13 @@ bool DriveBackwardsWithLidar::IsFinished() {
 
 // Called once after isFinished returns true
 void DriveBackwardsWithLidar::End() {
+	CommandBase::lidars->TurnLidarOnOff(Lidars::TURN_LIDAR_OFF);
+	turnOnLidar = false;
+
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
 
 	initializeI2CMultiplexerChannel = false;
+	turnOffDetectorBiasBetweenAcquisitions = false;
 	configureLidar = false;
 
 	startUsingLidarValues = false;

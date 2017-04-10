@@ -12,7 +12,7 @@ AimBot::AimBot(int camNumber) {
 // Called just before this Command runs the first time
 void AimBot::Initialize() {
 	std::cout << "running \n\n\n:";
-	double angleToTurn = -CommandBase::server->get_angle(cameraNumber) - 2;
+	double angleToTurn = -CommandBase::server->get_angle(cameraNumber);
 	if(angleToTurn == 0) isbad = true;
 	else isbad = false;
 	if(cameraNumber == 1)

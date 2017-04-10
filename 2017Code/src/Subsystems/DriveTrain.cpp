@@ -33,6 +33,9 @@ void DriveTrain::InitializeDriveTrainMotors(bool competitionBot) {
 
 	chassis = new frc::RobotDrive(driveTrainMotors[FRONT_LEFT], driveTrainMotors[REAR_LEFT], driveTrainMotors[FRONT_RIGHT], driveTrainMotors[REAR_RIGHT]);
 	chassis->SetSafetyEnabled(false);
+
+	chassis->SetInvertedMotor(frc::RobotDrive::MotorType::kFrontLeftMotor, true);
+	chassis->SetInvertedMotor(frc::RobotDrive::MotorType::kRearLeftMotor, true);
 }
 
 void DriveTrain::DriveTank(double leftMotorPower, double rightMotorPower) {

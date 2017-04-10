@@ -68,10 +68,10 @@ void Shooter::ConfigureShooterMotorEncoder(bool competitionBot) {
 	this->SelectPIDProfileSlot(CLOSE_SHOT_PID_VALUES);
 	shooterMotor->ConfigPeakOutputVoltage(closeShotPositivePeakVoltage, closeShotNegativePeakVoltage);
 	shooterMotor->ConfigNominalOutputVoltage(0.0, -0.0);
-	//shooterMotor->SetP(closeShotKp);
-	//shooterMotor->SetI(closeShotKi);
-	//shooterMotor->SetD(closeShotKd);
-	//shooterMotor->SetF(closeShotKf);
+	shooterMotor->SetP(closeShotKp);
+	shooterMotor->SetI(closeShotKi);
+	shooterMotor->SetD(closeShotKd);
+	shooterMotor->SetF(closeShotKf);
 
 	this->SelectPIDProfileSlot(FAR_SHOT_PID_VALUES);
 	shooterMotor->ConfigPeakOutputVoltage(farShotPositivePeakVoltage, farShotNegativePeakVoltage);

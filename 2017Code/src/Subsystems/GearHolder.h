@@ -53,6 +53,8 @@ public:
 	//  150 for Competition Bot
 	//  180 for Practice Bot
 	static constexpr double SERVO_IN_POSITION = 150.0;
+
+	bool gearUsedNotDefaultly = false;
 };
 
 #endif  // GearHolder_H

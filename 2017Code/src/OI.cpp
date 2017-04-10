@@ -16,6 +16,9 @@
 #include "Commands/AimBotWithUltrasonicSensors.h"
 #include "Commands/AimToGear.h"
 #include "Commands/AutoRotateRobotForGearPeg.h"
+#include "Commands/GearUpAndDown.h"
+#include "Commands/ReadLidarValues.h"
+#include "Commands/TurnDriveTrainAngle.h"
 #include <iostream>
 
 OI::OI() {
@@ -131,9 +134,17 @@ void OI::ConfigureButtonMapping() {
 	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_SIDE_GEAR_SHOT_BUTTON]->WhenPressed(new AutoDriveShooterHood(SIDE_GEAR_SHOOT_AUTONOMOUS_HOOD_ENCODER_VALUE));
 	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_MIDDLE_GEAR_BUTTON]->WhenPressed(new AutoDriveShooterHood(MIDDLE_GEAR_SHOOT_AUTONOMUS_HOOD_ENCODER_VALUE));
 	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_40_KPA_AUTONOMOUS_BUTTON]->WhenPressed(new AutoDriveShooterHood(KPA_AUTONOMOUS_HOOD_ENCODER_VALUE));
+	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_LEFT_CLOSE_SHOT_BUTTON]->WhenPressed(new AutoDriveShooterHood(LEFT_CLOSE_SHOT_SHOOTER_AUTONOMOUS_HOOD_ENCODER_VALUE));
 
-	joystickButton[LEFT_DRIVE_JOYSTICK][11]->WhenPressed(new AimBot(1));
-	joystickButton[LEFT_DRIVE_JOYSTICK][3]->WhenPressed(new AutoRotateRobotForGearPeg(.5, 10.0));
+	//joystickButton[LEFT_DRIVE_JOYSTICK][10]->WhenPressed(new AutoGearOnPeg());.
+	//joystickButton[LEFT_DRIVE_JOYSTICK][3]->WhenPressed(new AutoRotateRobotForGearPeg(.5, 10.0));
+
+	//joystickButton[LEFT_DRIVE_JOYSTICK][TRIGGER_BUTTON]->ToggleWhenPressed(new GearUpAndDown());
+
+	//joystickButton[LEFT_DRIVE_JOYSTICK][READ_LIDAR_VALUE_BUTTON]->ToggleWhenPressed(new ReadLidarValues());
+
+	//joystickButton[LEFT_DRIVE_JOYSTICK][12]->WhenPressed(new TurnDriveTrainAngle(48.0, .65, false));
+	//joystickButton[LEFT_DRIVE_JOYSTICK][11]->WhenPressed(new TurnDriveTrainAngle(43.0, .65, false));
 }
 
 bool OI::GetAction(int JoyException, int ButtonException)
