@@ -122,7 +122,12 @@ void DriveTrain::ZeroDriveTrainEncoder(int motorEncoderPort) {
 }
 
 int DriveTrain::GetEncoderPosition(int motorEncoderPort) {
-	return driveTrainMotors[motorEncoderPort]->GetEncPosition();
+	if (motorEncoderPort == LEFT_SIDE_ENCODER) {
+		return (-1 * driveTrainMotors[motorEncoderPort]->GetEncPosition());
+	}
+	else {
+		return driveTrainMotors[motorEncoderPort]->GetEncPosition();
+	}
 }
 
 double DriveTrain::GetDistance(int motorEncoderPort) {
@@ -141,8 +146,8 @@ double DriveTrain::GetTalonOutputCurrent(int motorArray) {
 
 void DriveTrain::InitializeDriveStraightWithGyro(bool competitionBot) {
 	if (competitionBot) {
-		straightDriveTrainSensitivity = .07;
-		straightDriveTrainProportionalConstant = .12;
+		straightDriveTrainSensitivity = CB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY;
+		straightDriveTrainProportionalConstant = CB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT;
 	}
 	else if (competitionBot == false) {
 		straightDriveTrainSensitivity = PB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY;

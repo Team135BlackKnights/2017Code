@@ -74,13 +74,18 @@ private:
 	//  Shoot Left After Placing Middle Gear
 	static constexpr double ANGLE_TO_TURN_TO_FACE_BOILDER_LEFT_SHOOT_GEAR = 20.0;
 
-	//  40 KPa Autonomous Variables
-	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_HOPPER_PART_1 = 33.0;
-	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_HOPPER_PART_2 = 20.0;
-	static constexpr double DISTANCE_TO_DRIVE_TO_HIT_HOPPER = 15.0;
-	static constexpr double TIME_TO_RAM_ROBOT_INTO_HOPPER = .35;
-	static constexpr double DISTANCE_TO_DRIVE_AWAY_FROM_HOPPER = 10.0;
-	static constexpr double ANGLE_TO_TURN_ON_TO_BOILER = 75.0;
+	//  40 KPa Autonomous Variables Option 1
+	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_OF_HOPPER_PANEL_PART_1 = 12.0;  //  TBD
+	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_OF_HOPPER_PANEL_PART_2 = 55.0;  //  TBD
+	static constexpr double DISTANCE_FROM_ALLIANCE_WALL_TO_MIDDLE_OF_HOPPER_PANEL_PART_3 = 14.0;
+	static constexpr double ANGLE_TO_TURN_INTO_HOPPER_PANEL = 45.0;  //  TBD
+	static constexpr double ANGLE_TO_TURN_OUT_OF_HOPPER_PANEL = 20.0;  //  TBD
+
+	//  40 KPa Autonomous Variables Option 2
+	static constexpr double DISTANCE_TO_DRIVE_FROM_ALLIANCE_WALL_TO_GUARDRAIL = 15.0;
+	static constexpr double ANGLE_TO_TURN_TO_BE_PARALLEL_WITH_GUARDRAIL = 45.0;
+	static constexpr double DISTANCE_TO_DRIVE_TOWARDS_HOPPER = 37.5;
+	static constexpr double ANGLE_TO_TURN_TOWARDS_OR_AWAY_FROM_HOPPER_PANEL = 30.0;
 
 	//  General Variables
 	static const bool TURN_RIGHT = true;
@@ -118,6 +123,9 @@ private:
 
 	static const bool AUTO_MOVE_GEAR_HOLDER_UPWARDS = true;
 	static const bool AUTO_MOVE_GEAR_HOLDER_DOWNWARDS = !AUTO_MOVE_GEAR_HOLDER_UPWARDS;
+
+	static const bool CONTINUE_RUNNING_COLLECTION = true;
+	static const bool STOP_RUNNING_COLLECTION = !CONTINUE_RUNNING_COLLECTION;
 
 	bool baseLine = false;
 	bool middleGear = false;

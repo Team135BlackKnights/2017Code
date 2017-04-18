@@ -22,12 +22,12 @@ private:
 	//  Drive Train Encoder Variables
 	static const bool CB_LEFT_ENCODER_SENSOR_DIRECTION = true;
 	static const bool CB_RIGHT_ENCODER_SENSOR_DIRECTION = false;
-	static const bool PB_LEFT_ENCODER_SENSOR_DIRECTION = true;
+	static const bool PB_LEFT_ENCODER_SENSOR_DIRECTION = false;
 	static const bool PB_RIGHT_ENCODER_SENSOR_DIRECTION = false;
 
 	static const int CB_ENCODER_COUNTS = 64;
 	static const int CB_QUADRATURE_ENCODER_COUNTS = (CB_ENCODER_COUNTS * 4);
-	static const int PB_ENCODER_COUNTS = 64;
+	static const int PB_ENCODER_COUNTS = 256;
 	static const int PB_QUADRATURE_ENCODER_COUNTS = (PB_ENCODER_COUNTS * 4);
 
 	int quadratureCountOfEncoder = 0;
@@ -55,8 +55,8 @@ private:
 	double straightDriveTrainSensitivity = 0.0;
 	double straightDriveTrainProportionalConstant = 0.0;
 
-	static constexpr double PB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY = .02;
-	static constexpr double PB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT = .2;
+	static constexpr double PB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY = .05;  //  .02
+	static constexpr double PB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT = .125;  //  .2
 	static constexpr double CB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY = .07;
 	static constexpr double CB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT = .12;
 	double curveValue = 0.0;

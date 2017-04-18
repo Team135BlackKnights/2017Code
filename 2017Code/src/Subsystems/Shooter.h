@@ -9,8 +9,8 @@ public:
 	static constexpr double DESIRED_VOLTAGE_CLOSE_SHOT = 7.7;
 	static constexpr double DESIRED_VOLTAGE_FAR_SHOT = 9.125;
 
-	static constexpr double SHOOTER_SETPOINT_MIN_RPM_CLOSE_SHOT = 2600.0;
-	static constexpr double SHOOTER_SETPOINT_MAX_RPM_CLOSE_SHOT = 2900.0;
+	static constexpr double SHOOTER_SETPOINT_MIN_RPM_CLOSE_SHOT = 2800.0; //  2600
+	static constexpr double SHOOTER_SETPOINT_MAX_RPM_CLOSE_SHOT = 3300.0;  //  2900
 	static constexpr double RANGE_OF_CLOSE_SHOT_SHOOTER_RPM = (SHOOTER_SETPOINT_MAX_RPM_CLOSE_SHOT - SHOOTER_SETPOINT_MIN_RPM_CLOSE_SHOT);
 
 	static constexpr double SHOOTER_SETPOINT_RPM_CLOSE_SHOT = 2715.0;

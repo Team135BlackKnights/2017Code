@@ -1,10 +1,12 @@
 #include "AutoDriveAgitator.h"
 
-AutoDriveAgitator::AutoDriveAgitator() {
+AutoDriveAgitator::AutoDriveAgitator(bool stopCollection) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::agitator.get());
 	Requires(CommandBase::collection.get());
+
+	this->stopCollection = stopCollection;
 
 	timer = new frc::Timer();
 }
@@ -17,8 +19,8 @@ void AutoDriveAgitator::Initialize() {
 	doneDrivingAgitator = false;
 	timer->Reset();
 	timer->Start();
-	//CommandBase::collection->SetAutoDriveCollection(false);
-	//turnOffCollection = true;
+
+	turnOffCollection = false;
 
 	startDrivingCollection = false;
 	initializeTimerForCollection = false;
@@ -27,10 +29,12 @@ void AutoDriveAgitator::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDriveAgitator::Execute() {
-	/*if (turnOffCollection == false) {
-		CommandBase::collection->SetAutoDriveCollection(false);
-		turnOffCollection = true;
-	} */
+	if (this->stopCollection) {
+		if (turnOffCollection == false) {
+			CommandBase::collection->SetAutoDriveCollection(false);
+			turnOffCollection = true;
+		}
+	}
 
 	timerValue = timer->Get();
 
@@ -93,7 +97,7 @@ void AutoDriveAgitator::End() {
 	CommandBase::agitator->DriveAgitator(0.0);
 	CommandBase::collection->DriveCollection(0.0);
 	shooterUpToSpeed = false;
-	//turnOffCollection = false;
+	turnOffCollection = false;
 	startTimer = false;
 	doneDrivingAgitator = false;
 	timer->Stop();
