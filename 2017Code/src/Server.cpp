@@ -144,11 +144,9 @@ double Server::get_angle(int cameraNumber)
 		return 0;
 	}
 	char * st;
-	if(cameraNumber == 0) angle = std::stod(buf,&sz);
-	if(cameraNumber == 1) angle = 0;
-	/*t = strtok(buf, ",");
+	st = strtok(buf, ",");
 	if(cameraNumber == 0) angle = atof(st);
 	st = strtok(NULL, ",");
-	if(cameraNumber == 1) angle = atof(st);*/
+	if(cameraNumber == 1) angle = atof(st); //1 now returns a pixel offset
 	return angle;
 }
