@@ -19,6 +19,7 @@
 #include "Commands/GearUpAndDown.h"
 #include "Commands/ReadLidarValues.h"
 #include "Commands/TurnDriveTrainAngle.h"
+#include "Commands/CameraAdjustWhileDrivingToGear.h"
 #include <iostream>
 
 OI::OI() {
@@ -136,7 +137,7 @@ void OI::ConfigureButtonMapping() {
 	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_40_KPA_AUTONOMOUS_BUTTON]->WhenPressed(new AutoDriveShooterHood(KPA_AUTONOMOUS_HOOD_ENCODER_VALUE));
 	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_LEFT_CLOSE_SHOT_BUTTON]->WhenPressed(new AutoDriveShooterHood(LEFT_CLOSE_SHOT_SHOOTER_AUTONOMOUS_HOOD_ENCODER_VALUE));
 
-	//joystickButton[LEFT_DRIVE_JOYSTICK][10]->WhenPressed(new AutoGearOnPeg());.
+	joystickButton[LEFT_DRIVE_JOYSTICK][10]->WhenPressed(new CameraAdjustWhileDrivingToGear());
 	//joystickButton[LEFT_DRIVE_JOYSTICK][3]->WhenPressed(new AutoRotateRobotForGearPeg(.5, 10.0));
 
 	//joystickButton[LEFT_DRIVE_JOYSTICK][TRIGGER_BUTTON]->ToggleWhenPressed(new GearUpAndDown());
