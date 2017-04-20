@@ -17,7 +17,6 @@ private:
 	static const int NUM_OF_DRIVE_TRAIN_MOTORS = 4;
 	CANTalon* driveTrainMotors[NUM_OF_DRIVE_TRAIN_MOTORS];
 
-	frc::RobotDrive* chassis;
 
 	//  Drive Train Encoder Variables
 	static const bool CB_LEFT_ENCODER_SENSOR_DIRECTION = true;
@@ -117,6 +116,9 @@ public:
 	void DriveStraightWithUltrasonicSensor(double, double, double, bool);
 
 	double GetTalonOutputCurrent(int);
+
+
+	frc::RobotDrive* chassis;
 
 	static const int FRONT_LEFT = 0;
 	static const int REAR_LEFT = 1;

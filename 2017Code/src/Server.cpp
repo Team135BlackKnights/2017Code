@@ -100,8 +100,8 @@ void Server::Run()
 			//std::cout << "getting angle";
 			double d = Server::get_angle(0);
 			frc::SmartDashboard::PutNumber("Angle from camera 0: ", d);
-			d = -Server::get_angle(1);
-			frc::SmartDashboard::PutNumber("Angle from camera 1: ", d - 2);
+			d = Server::get_angle(1);
+			frc::SmartDashboard::PutNumber("offset from camera 1: ", d);
 			//std::cout << "angle recieved from server: " << d << std::endl;
 
 		}
@@ -137,7 +137,6 @@ double Server::get_angle(int cameraNumber)
 	double angle =0;
 	send(new_conn_fd, buf, 20, 0);
 	numbytes = recv(new_conn_fd, buf, 20, 0);
-	std::cout << buf << std::endl;
 	if(numbytes < 1)
 	{
 		new_conn_fd = -1;
