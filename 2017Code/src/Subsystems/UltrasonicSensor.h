@@ -29,8 +29,8 @@ private:
 	frc::DigitalOutput* leftSideUltrasonicSensorPingSignal;
 	frc::DigitalInput* leftSideUltrasonicSensorEchoSignal;
 
-	static const int LEFT_SIDE_ULTRASONIC_SENSOR_PING_SIGNAL_PORT = 12;
-	static const int LEFT_SIDE_ULTRASONIC_SENSOR_ECHO_SIGNAL_PORT = 13;
+	static const int LEFT_SIDE_ULTRASONIC_SENSOR_PING_SIGNAL_PORT = 4;
+	static const int LEFT_SIDE_ULTRASONIC_SENSOR_ECHO_SIGNAL_PORT = 5;
 
 	double sideUltrasonicSensorValue = 0.0;
 
@@ -47,6 +47,8 @@ public:
 	static const bool LEFT_SIDE_ULTRASONIC_SENSOR = !RIGHT_SIDE_ULTRASONIC_SENSOR;
 
 	bool usingRightUltrasonicSensorForGearCamera = false;
+
+	bool usingUltrasonicSensor = false;
 };
 
 #endif  // UltrasonicSensor_H

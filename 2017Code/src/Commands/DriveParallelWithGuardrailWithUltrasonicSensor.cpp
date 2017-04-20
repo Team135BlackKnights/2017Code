@@ -18,10 +18,21 @@ void DriveParallelWithGuardrailWithUltrasonicSensor::Initialize() {
 	initializeEncoderDriveDistance = true;
 
 	doneWithDrivingWithUltrasonicSensor = false;
+
+	CommandBase::driveTrain->is_aiming = true;
+	initializeIsAimingBoolean = true;
+
+	CommandBase::ultrasonicSensor->usingUltrasonicSensor = true;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveParallelWithGuardrailWithUltrasonicSensor::Execute() {
+	if (initializeIsAimingBoolean == false) {
+		CommandBase::driveTrain->is_aiming = true;
+		CommandBase::ultrasonicSensor->usingUltrasonicSensor = true;
+		initializeIsAimingBoolean = true;
+	}
+
 	if (initializeEncoderDriveDistance == false) {
 		initialDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
 		initializeEncoderDriveDistance = true;
@@ -55,6 +66,8 @@ void DriveParallelWithGuardrailWithUltrasonicSensor::Execute() {
 			CommandBase::driveTrain->DriveStraightWithUltrasonicSensor(sideUltrasonicSensorValue, this->distanceAwayFromGuardrailToDrive, this->driveTrainMotorPower, this->rightHopperAndShoot);
 		}
 	}
+
+	std::cout << "Ultrasonic Sensor Value: " << sideUltrasonicSensorValue << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -65,6 +78,9 @@ bool DriveParallelWithGuardrailWithUltrasonicSensor::IsFinished() {
 // Called once after isFinished returns true
 void DriveParallelWithGuardrailWithUltrasonicSensor::End() {
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
+	CommandBase::driveTrain->is_aiming = false;
+	CommandBase::ultrasonicSensor->usingUltrasonicSensor = false;
+	initializeIsAimingBoolean = false;
 	initializeEncoderDriveDistance = false;
 	doneWithDrivingWithUltrasonicSensor = false;
 }

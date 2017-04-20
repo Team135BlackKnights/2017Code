@@ -184,7 +184,17 @@ void DriveTrain::DriveStraightWithUltrasonicSensor(double currentUltrasonicSenso
 	else if (rightSideHopperAndShoot == false) {
 		ultrasonicSensorDriveStraightCurveValue = (ultrasonicSensorDriveStraightProportionalConstant * differenceBetweenCurrentAndDesiredUltrasonicSensorValue);
 	}
+
+	if (ultrasonicSensorDriveStraightCurveValue > 1.0) {
+		ultrasonicSensorDriveStraightCurveValue = 1.0;
+	}
+	else if (ultrasonicSensorDriveStraightCurveValue < -1.0) {
+		ultrasonicSensorDriveStraightCurveValue = -1.0;
+	}
+
 	chassis->Drive(motorPower, ultrasonicSensorDriveStraightCurveValue);
+
+	std::cout << "Curve Value: " << ultrasonicSensorDriveStraightCurveValue << std::endl;
 }
 
 void DriveTrain::InitializeDriveTrainPID() {

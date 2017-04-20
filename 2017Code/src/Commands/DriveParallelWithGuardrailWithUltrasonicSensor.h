@@ -10,6 +10,8 @@ private:
 	double driveTrainMotorPower;
 	bool rightHopperAndShoot;
 
+	bool initializeIsAimingBoolean = false;
+
 	double sideUltrasonicSensorValue = 0.0;
 
 	bool initializeEncoderDriveDistance = false;
@@ -23,7 +25,7 @@ private:
 
 	static const bool DRIVE_UNTIL_ULTRASONIC_SENSOR_IS_HIGH_VALUE = true;
 	static const bool DRIVE_WITH_DISTANCE = !DRIVE_UNTIL_ULTRASONIC_SENSOR_IS_HIGH_VALUE;
-	static const bool DRIVE_ENDING = DRIVE_UNTIL_ULTRASONIC_SENSOR_IS_HIGH_VALUE;
+	static const bool DRIVE_ENDING = DRIVE_WITH_DISTANCE;
 public:
 	DriveParallelWithGuardrailWithUltrasonicSensor(double, double, double, bool);
 	void Initialize();

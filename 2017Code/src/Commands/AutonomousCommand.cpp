@@ -356,7 +356,7 @@ AutonomousCommand::AutonomousCommand() {
 		else if (KPA_AUTONOMOUS_OPTION_1 == false) {
 			AddSequential(new DriveDistance(DISTANCE_TO_DRIVE_FROM_ALLIANCE_WALL_TO_GUARDRAIL, -.35));
 			AddSequential(new TurnOneSideOfRobotAngle(ANGLE_TO_TURN_TO_BE_PARALLEL_WITH_GUARDRAIL, DRIVE_LEFT_SIDE_DRIVE_TRAIN, -.55));
-			AddSequential(new DriveParallelWithGuardrailWithUltrasonicSensor(DISTANCE_TO_DRIVE_TOWARDS_HOPPER, DISTANCE_AWAY_FROM_GUARDRAIL_TO_DRIVE, .45, RIGHT_HOPPER_AND_SHOOT));
+			AddSequential(new DriveParallelWithGuardrailWithUltrasonicSensor(DISTANCE_TO_DRIVE_TOWARDS_HOPPER, DISTANCE_AWAY_FROM_GUARDRAIL_TO_DRIVE, -.45, RIGHT_HOPPER_AND_SHOOT));
 			AddSequential(new WaitTime(.05));
 			AddSequential(new TurnOneSideOfRobotAngle(ANGLE_TO_TURN_TO_LINE_UP_TO_HIT_PANEL, DRIVE_LEFT_SIDE_DRIVE_TRAIN, -.55));
 			AddSequential(new WaitTime(.05));
