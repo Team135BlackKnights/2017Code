@@ -20,11 +20,12 @@ void CameraAdjustWhileDrivingToGear::Execute() {
 	{
 		tableOffset = GetTableOffset(ultrasonicValue);
 		actualOffset = CommandBase::server->get_angle(1); //actually returns an offset
-		if(tableOffset == 0) done = true;
+		//if(tableOffset == 0) done = true;
 		//Curve < 0 will turn left
 		std::cout << "offset value: " << actualOffset << " table offset: " << tableOffset << std::endl;
 		curveValue = ((actualOffset - tableOffset) * proportionalConstant);
 		SmartDashboard::PutNumber("curve Value", curveValue);
+		std::cout << "Curve Value: " << curveValue << std::endl;
 		if(curveValue < -1) curveValue = -1;
 		else if(curveValue > 1) curveValue = 1;
 		driveTrain->chassis->Drive(driveSpeed, curveValue);
@@ -37,14 +38,20 @@ void CameraAdjustWhileDrivingToGear::Execute() {
 
 double CameraAdjustWhileDrivingToGear::GetTableOffset(double ultrasonicInput)
 {
-	if(ultrasonicInput >= 43.5)
-		return -104.5;
-	else if(ultrasonicInput >= 36)
-		return -124.5;
-	else if(ultrasonicInput >= 30.5)
-		return -145.5;
-	else if(ultrasonicInput >= 24.5)
-		return -187.5;
+	if(ultrasonicInput >= 50)
+		return -93.5;
+	else if(ultrasonicInput >= 46.5)
+		return -103.5;
+	else if(ultrasonicInput >= 43)
+		return -110.5;
+	else if(ultrasonicInput >= 39)
+		return -120.5;
+	else if(ultrasonicInput >= 34)
+		return -149.5;
+	else if(ultrasonicInput >= 29)
+		return -167.5;
+	else if(ultrasonicInput >= 24)
+		return -202.5;
 	else
 		return 0;
 }

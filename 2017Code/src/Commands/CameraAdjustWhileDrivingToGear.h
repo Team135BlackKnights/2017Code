@@ -19,7 +19,7 @@ private:
 	double voltageRight = 0.0;
 	double tableOffset = 0.0;
 	double actualOffset = 0.0;
-	static constexpr double driveSpeed = -.35;
+	static constexpr double driveSpeed = -.3;
 	double curveValue = 0.0;
 	static constexpr double proportionalConstant = .01;
 	bool done = false;
