@@ -11,8 +11,8 @@ AimBotWithUltrasonicSensors::AimBotWithUltrasonicSensors(bool* sonarGood) {
 
 // Called just before this Command runs the first time
 void AimBotWithUltrasonicSensors::Initialize() {
-	leftUltrasonicSensorValue = ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::LEFT_ULTRASONIC_SENSOR);
-	rightUltrasonicSensorValue = ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::RIGHT_ULTRASONIC_SENSOR);
+	leftUltrasonicSensorValue = ultrasonicSensor->GetGearUltrasonicSensorValueInches();
+	rightUltrasonicSensorValue = ultrasonicSensor->GetGearUltrasonicSensorValueInches;
 	if(leftUltrasonicSensorValue > 100.0) {
 		*sonBool = false;
 		CommandBase::ultrasonicSensor->usingRightUltrasonicSensorForGearCamera = true;
@@ -25,7 +25,7 @@ void AimBotWithUltrasonicSensors::Initialize() {
 	{
 		*sonBool = true;
 	}
-	desiredAngleToTurnDriveTrain = ultrasonicSensor->GetAngleToTurnForGear(rightUltrasonicSensorValue, leftUltrasonicSensorValue);
+	//desiredAngleToTurnDriveTrain = ultrasonicSensor->GetAngleToTurnForGear(rightUltrasonicSensorValue, leftUltrasonicSensorValue);
 
 	CommandBase::driveTrain->TurnPIDEnable(desiredAngleToTurnDriveTrain);
 
@@ -39,10 +39,10 @@ void AimBotWithUltrasonicSensors::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void AimBotWithUltrasonicSensors::Execute() {
 	if (initializeAimBotWithUltrasonicSensors == false) {
-		leftUltrasonicSensorValue = ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::LEFT_ULTRASONIC_SENSOR);
-		rightUltrasonicSensorValue = ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::RIGHT_ULTRASONIC_SENSOR);
+		leftUltrasonicSensorValue = ultrasonicSensor->GetGearUltrasonicSensorValueInches();
+		rightUltrasonicSensorValue = ultrasonicSensor->GetGearUltrasonicSensorValueInches();
 
-		desiredAngleToTurnDriveTrain = ultrasonicSensor->GetAngleToTurnForGear(rightUltrasonicSensorValue, leftUltrasonicSensorValue);
+		//desiredAngleToTurnDriveTrain = ultrasonicSensor->GetAngleToTurnForGear(rightUltrasonicSensorValue, leftUltrasonicSensorValue);
 
 		CommandBase::driveTrain->TurnPIDEnable(desiredAngleToTurnDriveTrain);
 

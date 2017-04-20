@@ -148,10 +148,12 @@ void DriveTrain::InitializeDriveStraightWithGyro(bool competitionBot) {
 	if (competitionBot) {
 		straightDriveTrainSensitivity = CB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY;
 		straightDriveTrainProportionalConstant = CB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT;
+		ultrasonicSensorDriveStraightProportionalConstant = CB_DRIVE_STRAIGHT_WITH_ULTRASONIC_SENSOR_PROPORTIONAL_CONSTANT;
 	}
 	else if (competitionBot == false) {
 		straightDriveTrainSensitivity = PB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY;
 		straightDriveTrainProportionalConstant = PB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT;
+		ultrasonicSensorDriveStraightProportionalConstant = PB_DRIVE_STRAIGHT_WITH_ULTRASONIC_SENSOR_PROPORTIONAL_CONSTANT;
 	}
 	chassis->SetSensitivity(straightDriveTrainSensitivity);
 }
@@ -172,6 +174,17 @@ void DriveTrain::DriveStraightWithGyro(double motorPower, double gyroAngle) {
 	}
 
 	chassis->Drive(motorPower, curveValue);
+}
+
+void DriveTrain::DriveStraightWithUltrasonicSensor(double currentUltrasonicSensorValue, double desiredDistanceFromGuardrail, double motorPower, bool rightSideHopperAndShoot) {
+	differenceBetweenCurrentAndDesiredUltrasonicSensorValue = (currentUltrasonicSensorValue - desiredDistanceFromGuardrail);
+	if (rightSideHopperAndShoot) {
+		ultrasonicSensorDriveStraightCurveValue = (-1.0 * ultrasonicSensorDriveStraightProportionalConstant * differenceBetweenCurrentAndDesiredUltrasonicSensorValue);
+	}
+	else if (rightSideHopperAndShoot == false) {
+		ultrasonicSensorDriveStraightCurveValue = (ultrasonicSensorDriveStraightProportionalConstant * differenceBetweenCurrentAndDesiredUltrasonicSensorValue);
+	}
+	chassis->Drive(motorPower, ultrasonicSensorDriveStraightCurveValue);
 }
 
 void DriveTrain::InitializeDriveTrainPID() {

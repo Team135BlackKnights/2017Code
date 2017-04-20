@@ -85,7 +85,13 @@ private:
 	static constexpr double DISTANCE_TO_DRIVE_FROM_ALLIANCE_WALL_TO_GUARDRAIL = 15.0;
 	static constexpr double ANGLE_TO_TURN_TO_BE_PARALLEL_WITH_GUARDRAIL = 45.0;
 	static constexpr double DISTANCE_TO_DRIVE_TOWARDS_HOPPER = 37.5;
-	static constexpr double ANGLE_TO_TURN_TOWARDS_OR_AWAY_FROM_HOPPER_PANEL = 30.0;
+	static constexpr double DISTANCE_AWAY_FROM_GUARDRAIL_TO_DRIVE = 5.0;
+	static constexpr double ANGLE_TO_TURN_TO_LINE_UP_TO_HIT_PANEL = 15.0;
+	static constexpr double ANGLE_TO_TURN_AWAY_FROM_HOPPER_PANEL = 40.0;
+	static constexpr double ANGLE_TO_TURN_TOWARDS_HOPPER = 25.0;
+
+	static constexpr double RIGHT_HOPPER_AND_SHOOT = true;
+	static constexpr double LEFT_HOPPER_AND_SHOOT = !RIGHT_HOPPER_AND_SHOOT;
 
 	//  General Variables
 	static const bool TURN_RIGHT = true;

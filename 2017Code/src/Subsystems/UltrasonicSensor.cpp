@@ -14,32 +14,34 @@ void UltrasonicSensor::InitDefaultCommand() {
 }
 
 void UltrasonicSensor::InitializeUltrasonicSensors() {
-	rightUltrasonicPingSignal = new frc::DigitalOutput(RIGHT_ULTRASONIC_DIO_PING_PORT);
-	rightUltrasonicEchoSignal = new frc::DigitalInput(RIGHT_ULTRASONIC_DIO_ECHO_PORT);
-	rightUltrasonicSensor = new frc::Ultrasonic(rightUltrasonicPingSignal, rightUltrasonicEchoSignal, frc::Ultrasonic::DistanceUnit::kInches);
-	rightUltrasonicSensor->SetAutomaticMode(true);
+	gearUltrasonicPingSignal = new frc::DigitalOutput(GEAR_ULTRASONIC_DIO_PING_PORT);
+	gearUltrasonicEchoSignal = new frc::DigitalInput(GEAR_ULTRASONIC_DIO_ECHO_PORT);
+	gearUltrasonicSensor = new frc::Ultrasonic(gearUltrasonicPingSignal, gearUltrasonicEchoSignal, frc::Ultrasonic::DistanceUnit::kInches);
+	gearUltrasonicSensor->SetAutomaticMode(true);
 
-	leftUltrasonicPingSignal = new frc::DigitalOutput(LEFT_ULTRASONIC_DIO_PING_PORT);
-	leftUltrasonicEchoSignal = new frc::DigitalInput(LEFT_ULTRASONIC_DIO_ECHO_PORT);
-	leftUltrasonicSensor = new frc::Ultrasonic(leftUltrasonicPingSignal, leftUltrasonicEchoSignal, frc::Ultrasonic::DistanceUnit::kInches);
-	leftUltrasonicSensor->SetAutomaticMode(true);
+	rightSideUltrasonicSensorPingSignal = new frc::DigitalOutput(RIGHT_SIDE_ULTRASONIC_SENSOR_PING_SIGNAL_PORT);
+	rightSideUltrasonicSensorEchoSignal = new frc::DigitalInput(RIGHT_SIDE_ULTRASONIC_SENSOR_ECHO_SIGNAL_PORT);
+	rightSideUltrasonicSensor = new frc::Ultrasonic(rightSideUltrasonicSensorPingSignal, rightSideUltrasonicSensorEchoSignal, frc::Ultrasonic::DistanceUnit::kInches);
+	rightSideUltrasonicSensor->SetAutomaticMode(true);
+
+	leftSideUltrasonicSensorPingSignal = new frc::DigitalOutput(LEFT_SIDE_ULTRASONIC_SENSOR_PING_SIGNAL_PORT);
+	leftSideUltrasonicSensorEchoSignal = new frc::DigitalInput(LEFT_SIDE_ULTRASONIC_SENSOR_ECHO_SIGNAL_PORT);
+	leftSideUltrasonicSensor = new frc::Ultrasonic(leftSideUltrasonicSensorPingSignal, leftSideUltrasonicSensorEchoSignal, frc::Ultrasonic::DistanceUnit::kInches);
+	leftSideUltrasonicSensor->SetAutomaticMode(true);
 }
 
-double UltrasonicSensor::GetUltrasonicSensorValueInches(bool rightUltrasonic) {
-	if (rightUltrasonic) {
-		ultrasonicSensorValueIN = rightUltrasonicSensor->GetRangeInches();
-	}
-	else if (rightUltrasonic == false) {
-		ultrasonicSensorValueIN = (leftUltrasonicSensor->GetRangeInches());
-	}
-	return ultrasonicSensorValueIN;
+double UltrasonicSensor::GetGearUltrasonicSensorValueInches() {
+	return gearUltrasonicSensor->GetRangeInches();
 }
 
-double UltrasonicSensor::GetAngleToTurnForGear(double rightUltrasonicSensorValue, double leftUltrasonicSensorValue) {
-	differenceBetweenUltrasonicSensorValues = (leftUltrasonicSensorValue - rightUltrasonicSensorValue);
-	desiredAngleToTurnRadians = atan2(differenceBetweenUltrasonicSensorValues, DISTANCE_BETWEEN_RIGHT_AND_LEFT_ULTRASONIC_SENSOR);
-	desiredAngleToTurnDegrees = (desiredAngleToTurnRadians * CONVERT_RADIANS_TO_DEGREES);
-	return desiredAngleToTurnDegrees;
+double UltrasonicSensor::GetSideUltrasonicSensorValueInches(bool sideUltrasonicSensor) {
+	if (sideUltrasonicSensor == RIGHT_SIDE_ULTRASONIC_SENSOR) {
+		sideUltrasonicSensorValue = rightSideUltrasonicSensor->GetRangeInches();
+	}
+	else if (sideUltrasonicSensor == LEFT_SIDE_ULTRASONIC_SENSOR) {
+		sideUltrasonicSensorValue = leftSideUltrasonicSensor->GetRangeInches();
+	}
+	return sideUltrasonicSensorValue;
 }
 
 // Put methods for controlling this subsystem
