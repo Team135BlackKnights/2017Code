@@ -14,7 +14,7 @@ void CameraAdjustWhileDrivingToGear::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void CameraAdjustWhileDrivingToGear::Execute() {
-	ultrasonicValue = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::RIGHT_ULTRASONIC_SENSOR);
+	ultrasonicValue = CommandBase::ultrasonicSensor->GetGearUltrasonicSensorValueInches();
 
 	if(ultrasonicValue > DISTANCE_TO_STOP)
 	{

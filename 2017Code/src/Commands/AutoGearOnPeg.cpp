@@ -38,7 +38,7 @@ void AutoGearOnPeg::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AutoGearOnPeg::Execute() {
-	ultrasonicValue = CommandBase::ultrasonicSensor->GetUltrasonicSensorValueInches(UltrasonicSensor::RIGHT_ULTRASONIC_SENSOR);
+	ultrasonicValue = CommandBase::ultrasonicSensor->GetGearUltrasonicSensorValueInches();
 	timerValue = timer->Get();
 
 	if (startMovingTowardsGear) {

@@ -83,6 +83,14 @@ private:
 	double differenceBetweenCurrentAndInitialGyroAngle = 0.0;
 	bool doneAutoRotateRobot = false;
 
+	//  Variables for DriveStraightWithUltrasonicSensor()
+	double differenceBetweenCurrentAndDesiredUltrasonicSensorValue = 0.0;
+	double ultrasonicSensorDriveStraightProportionalConstant = 0.0;
+	static constexpr double PB_DRIVE_STRAIGHT_WITH_ULTRASONIC_SENSOR_PROPORTIONAL_CONSTANT = .05;
+	static constexpr double CB_DRIVE_STRAIGHT_WITH_ULTRASONIC_SENSOR_PROPORTIONAL_CONSTANT = .05;
+	double ultrasonicSensorDriveStraightCurveValue = 0.0;
+
+
 public:
 	DriveTrain();
 	void InitDefaultCommand();
@@ -104,6 +112,8 @@ public:
 
 	void InitializeDriveStraightWithGyro(bool);
 	void DriveStraightWithGyro(double, double);
+
+	void DriveStraightWithUltrasonicSensor(double, double, double, bool);
 
 	double GetTalonOutputCurrent(int);
 
