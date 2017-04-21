@@ -31,7 +31,6 @@ private:
 
 	double desiredMaxMotorPower = 0.0;
 	bool fastMotorPower = false;
-
 public:
 	DriveWithJoysticks();
 	void Initialize();

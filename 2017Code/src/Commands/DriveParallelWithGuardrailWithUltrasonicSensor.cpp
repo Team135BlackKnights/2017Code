@@ -23,6 +23,9 @@ void DriveParallelWithGuardrailWithUltrasonicSensor::Initialize() {
 	initializeIsAimingBoolean = true;
 
 	CommandBase::ultrasonicSensor->usingUltrasonicSensor = true;
+
+	CommandBase::driveTrain->ZeroGyroAngle();
+	zeroGyro = true;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -31,6 +34,11 @@ void DriveParallelWithGuardrailWithUltrasonicSensor::Execute() {
 		CommandBase::driveTrain->is_aiming = true;
 		CommandBase::ultrasonicSensor->usingUltrasonicSensor = true;
 		initializeIsAimingBoolean = true;
+	}
+
+	if (zeroGyro == false) {
+		CommandBase::driveTrain->ZeroGyroAngle();
+		zeroGyro = true;
 	}
 
 	if (initializeEncoderDriveDistance == false) {
@@ -45,13 +53,16 @@ void DriveParallelWithGuardrailWithUltrasonicSensor::Execute() {
 		sideUltrasonicSensorValue = CommandBase::ultrasonicSensor->GetSideUltrasonicSensorValueInches(UltrasonicSensor::RIGHT_SIDE_ULTRASONIC_SENSOR);
 	}
 
+	gyroAngle = CommandBase::driveTrain->GetGyroAngle();
+	acutalDistanceRobotIsFromWall = CommandBase::ultrasonicSensor->GetActualDistanceFromGuardrail(sideUltrasonicSensorValue, gyroAngle);
+
 	if (DRIVE_ENDING == DRIVE_UNTIL_ULTRASONIC_SENSOR_IS_HIGH_VALUE) {
-		if (sideUltrasonicSensorValue >= THRESHOLD_ULTRASONIC_SENSOR_VALUE) {
+		if (acutalDistanceRobotIsFromWall >= THRESHOLD_ULTRASONIC_SENSOR_VALUE) {
 			CommandBase::driveTrain->DriveTank(0.0, 0.0);
 			doneWithDrivingWithUltrasonicSensor = true;
 		}
-		else if (sideUltrasonicSensorValue <= THRESHOLD_ULTRASONIC_SENSOR_VALUE) {
-			CommandBase::driveTrain->DriveStraightWithUltrasonicSensor(sideUltrasonicSensorValue, this->distanceAwayFromGuardrailToDrive, this->driveTrainMotorPower, this->rightHopperAndShoot);
+		else if (acutalDistanceRobotIsFromWall <= THRESHOLD_ULTRASONIC_SENSOR_VALUE) {
+			CommandBase::driveTrain->DriveStraightWithUltrasonicSensor(acutalDistanceRobotIsFromWall, this->distanceAwayFromGuardrailToDrive, this->driveTrainMotorPower, this->rightHopperAndShoot);
 		}
 	}
 	else if (DRIVE_ENDING == DRIVE_WITH_DISTANCE) {
@@ -63,11 +74,12 @@ void DriveParallelWithGuardrailWithUltrasonicSensor::Execute() {
 			doneWithDrivingWithUltrasonicSensor = true;
 		}
 		else if (differenceBetweenCurrentAndDesiredDistance < this->desiredDistanceToTravel) {
-			CommandBase::driveTrain->DriveStraightWithUltrasonicSensor(sideUltrasonicSensorValue, this->distanceAwayFromGuardrailToDrive, this->driveTrainMotorPower, this->rightHopperAndShoot);
+			CommandBase::driveTrain->DriveStraightWithUltrasonicSensor(acutalDistanceRobotIsFromWall, this->distanceAwayFromGuardrailToDrive, this->driveTrainMotorPower, this->rightHopperAndShoot);
 		}
 	}
 
 	std::cout << "Ultrasonic Sensor Value: " << sideUltrasonicSensorValue << std::endl;
+	std::cout << "Actual Distance From Guardrail: " << acutalDistanceRobotIsFromWall << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -80,6 +92,7 @@ void DriveParallelWithGuardrailWithUltrasonicSensor::End() {
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
 	CommandBase::driveTrain->is_aiming = false;
 	CommandBase::ultrasonicSensor->usingUltrasonicSensor = false;
+	zeroGyro = false;
 	initializeIsAimingBoolean = false;
 	initializeEncoderDriveDistance = false;
 	doneWithDrivingWithUltrasonicSensor = false;

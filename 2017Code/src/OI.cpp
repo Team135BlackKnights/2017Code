@@ -148,7 +148,7 @@ void OI::ConfigureButtonMapping() {
 	//joystickButton[LEFT_DRIVE_JOYSTICK][12]->WhenPressed(new TurnDriveTrainAngle(48.0, .65, false));
 	//joystickButton[LEFT_DRIVE_JOYSTICK][11]->WhenPressed(new TurnDriveTrainAngle(43.0, .65, false));
 
-	joystickButton[LEFT_DRIVE_JOYSTICK][12]->WhenPressed(new DriveParallelWithGuardrailWithUltrasonicSensor(150.0, 12.0, -.45, true));
+	joystickButton[LEFT_DRIVE_JOYSTICK][12]->WhenPressed(new DriveParallelWithGuardrailWithUltrasonicSensor(150.0, 12.0, -.35, true));
 	//joystickButton[LEFT_DRIVE_JOYSTICK][11]->CancelWhenPressed(new DriveParallelWithGuardrailWithUltrasonicSensor(50.0, 5.0, -.45, true));
 }
 

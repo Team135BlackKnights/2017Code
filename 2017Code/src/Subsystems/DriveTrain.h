@@ -54,10 +54,6 @@ private:
 	double straightDriveTrainSensitivity = 0.0;
 	double straightDriveTrainProportionalConstant = 0.0;
 
-	static constexpr double PB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY = .17;  //  .05 DriveStraightWithGyro
-	static constexpr double PB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT = .125;  //  .125
-	static constexpr double CB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY = .07;
-	static constexpr double CB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT = .12;
 	double curveValue = 0.0;
 
 	const CANTalon::FeedbackDeviceStatus UNKNOWN_CONNECTED = CANTalon::FeedbackDeviceStatus::FeedbackStatusUnknown;
@@ -86,9 +82,11 @@ private:
 	//  Variables for DriveStraightWithUltrasonicSensor()
 	double differenceBetweenCurrentAndDesiredUltrasonicSensorValue = 0.0;
 	double ultrasonicSensorDriveStraightProportionalConstant = 0.0;
-	static constexpr double PB_DRIVE_STRAIGHT_WITH_ULTRASONIC_SENSOR_PROPORTIONAL_CONSTANT = .12;
-	static constexpr double CB_DRIVE_STRAIGHT_WITH_ULTRASONIC_SENSOR_PROPORTIONAL_CONSTANT = .05;
 	double ultrasonicSensorDriveStraightCurveValue = 0.0;
+	double ultrasonicSensorSensitivityValue = 0.0;
+
+	bool initializeUltrasonicSensorDriveStraight = false;
+	bool initializeGyroDriveStraight = false;
 
 
 public:
@@ -111,9 +109,20 @@ public:
 	int GetEncoderRPM(int);
 
 	void InitializeDriveStraightWithGyro(bool);
+	void ChangeDriveStraightSensitivity(double);
 	void DriveStraightWithGyro(double, double);
 
+	static constexpr double PB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY = .05;
+	static constexpr double PB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT = .125;
+	static constexpr double CB_STRAIGHT_DRIVE_TRAIN_SENSITIVITY = .07;
+	static constexpr double CB_STRAIGHT_DRIVE_TRAIN_PROPORTIONAL_CONSTANT = .12;
+
 	void DriveStraightWithUltrasonicSensor(double, double, double, bool);
+
+	static constexpr double PB_DRIVE_STRAIGHT_WITH_ULTRASONIC_SENSOR_PROPORTIONAL_CONSTANT = .12;
+	static constexpr double PB_DRIVE_STRAIGHT_WITH_ULTRASONIC_SENSOR_SENSITIVITY_CONSTANT = .17;
+	static constexpr double CB_DRIVE_STRAIGHT_WITH_ULTRASONIC_SENSOR_PROPORTIONAL_CONSTANT = .05;  //  TBD
+	static constexpr double CB_DRIVE_STRAIGHT_WITH_ULTRASONIC_SENSOR_SENSITIVITY_CONSTANT = .17;  //  TBD
 
 	double GetTalonOutputCurrent(int);
 

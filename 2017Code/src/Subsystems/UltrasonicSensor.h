@@ -5,6 +5,7 @@
 #include <Ultrasonic.h>
 #include <DigitalOutput.h>
 #include <DigitalInput.h>
+#include <math.h>
 
 class UltrasonicSensor : public Subsystem {
 private:
@@ -34,6 +35,10 @@ private:
 
 	double sideUltrasonicSensorValue = 0.0;
 
+	double gyroAngleRadians = 0.0;
+	double actualDistanceFromGuardrail = 0.0;
+	static constexpr double DEGREES_TO_RADIANS_CONSTANT = (M_PI/180.0);
+
 public:
 	UltrasonicSensor();
 	void InitDefaultCommand();
@@ -42,6 +47,8 @@ public:
 
 	double GetGearUltrasonicSensorValueInches();
 	double GetSideUltrasonicSensorValueInches(bool);
+
+	double GetActualDistanceFromGuardrail(double, double);
 
 	static const bool RIGHT_SIDE_ULTRASONIC_SENSOR = true;
 	static const bool LEFT_SIDE_ULTRASONIC_SENSOR = !RIGHT_SIDE_ULTRASONIC_SENSOR;

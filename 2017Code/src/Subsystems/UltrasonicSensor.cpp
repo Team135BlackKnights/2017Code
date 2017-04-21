@@ -44,5 +44,11 @@ double UltrasonicSensor::GetSideUltrasonicSensorValueInches(bool sideUltrasonicS
 	return sideUltrasonicSensorValue;
 }
 
+double UltrasonicSensor::GetActualDistanceFromGuardrail(double ultrasonicSensorValue, double gyroAngle) {
+	gyroAngleRadians = (gyroAngle * DEGREES_TO_RADIANS_CONSTANT);
+	actualDistanceFromGuardrail = (cos(gyroAngleRadians) * ultrasonicSensorValue);
+	return actualDistanceFromGuardrail;
+}
+
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
