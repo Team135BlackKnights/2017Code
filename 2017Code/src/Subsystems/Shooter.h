@@ -19,6 +19,8 @@ public:
 	static const int CLOSE_SHOT_PID_VALUES = 0;
 	static const int FAR_SHOT_PID_VALUES = 1;
 
+	bool stopShooterFromDriving = false;
+
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
