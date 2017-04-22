@@ -26,6 +26,10 @@ void DriveParallelWithGuardrailWithUltrasonicSensor::Initialize() {
 
 	CommandBase::driveTrain->ZeroGyroAngle();
 	zeroGyro = true;
+
+	initializeInitialGyroAngle = false;
+
+	adjustRobotWithGyro = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -72,7 +76,37 @@ void DriveParallelWithGuardrailWithUltrasonicSensor::Execute() {
 				doneWithDrivingWithUltrasonicSensor = true;
 			}
 			else if (currentDistanceTraveled < this->desiredDistanceToTravel) {
-				CommandBase::driveTrain->DriveStraightWithUltrasonicSensor(acutalDistanceRobotIsFromWall, this->distanceAwayFromGuardrailToDrive, this->driveTrainMotorPower, this->rightHopperAndShoot);
+				if ((((fabs(currentDistanceTraveled - this->distanceAwayFromGuardrailToDrive)) < THRESHOLD_FOR_ADJUSTING_DRIVE_STRAIGHT_WITH_ULTRSONIC_SENSOR) && ((fabs(gyroAngle)) > THRESHOLD_GYRO_ANGLE_FOR_ADJUSTING)) || adjustRobotWithGyro) {
+					if (initializeInitialGyroAngle == false) {
+						initialGyroAngleForAdjusting = gyroAngle;
+						initializeInitialGyroAngle = true;
+						adjustRobotWithGyro = true;
+					}
+
+					gyroAngle = CommandBase::driveTrain->GetGyroAngle();
+
+					if (initialGyroAngleForAdjusting < 0) {
+						//  Move Right Side Backwards
+						if (gyroAngle >= 0) {
+							adjustRobotWithGyro = false;
+						}
+						else {
+							CommandBase::driveTrain->DriveTank(0.0, -this->driveTrainMotorPower);
+						}
+					}
+					else if (initialGyroAngleForAdjusting > 0) {
+						//  Move Left Side Backwards
+						if (gyroAngle <= 0) {
+							adjustRobotWithGyro = false;
+						}
+						else {
+							CommandBase::driveTrain->DriveTank(-this->driveTrainMotorPower, 0.0);
+						}
+					}
+				}
+				else {
+					CommandBase::driveTrain->DriveStraightWithUltrasonicSensor(acutalDistanceRobotIsFromWall, this->distanceAwayFromGuardrailToDrive, this->driveTrainMotorPower, this->rightHopperAndShoot);
+				}
 			}
 		}
 	}

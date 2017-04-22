@@ -36,6 +36,14 @@ private:
 	static const bool DONT_RECONFIGURE_INITIAL_DISTANCE = !CONFIGURE_INITIAL_DISTANCE;
 	static const bool DRIVING_FORWARDS = true;
 	static const bool DRIVING_BACKWARDS = false;
+
+	static constexpr double THRESHOLD_FOR_ADJUSTING_DRIVE_STRAIGHT_WITH_ULTRSONIC_SENSOR = .5;
+
+	static constexpr double THRESHOLD_GYRO_ANGLE_FOR_ADJUSTING = 10.0;
+
+	bool initializeInitialGyroAngle = false;
+	double initialGyroAngleForAdjusting = 0.0;
+	bool adjustRobotWithGyro = false;
 public:
 	DriveParallelWithGuardrailWithUltrasonicSensor(double, double, double, bool);
 	void Initialize();

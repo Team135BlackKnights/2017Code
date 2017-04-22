@@ -175,8 +175,8 @@ void DriveTrain::InitializeDriveStraightWithGyro(bool competitionBot) {
 	else if (competitionBot == false) {
 		straightDriveTrainSensitivity = .05;  //. 12  Low Battery
 		straightDriveTrainProportionalConstant = .125;  //  .04  Low Battery
-		ultrasonicSensorDriveStraightProportionalConstant = .1;  //  .12
-		ultrasonicSensorSensitivityValue = .5;  //  .17
+		ultrasonicSensorDriveStraightProportionalConstant = .1;  //  .12 ///////////////////
+		ultrasonicSensorSensitivityValue = .5;  //  .17 /////////////////////////
 	}
 	chassis->SetSensitivity(straightDriveTrainSensitivity);
 	initializeGyroDriveStraight = true;
