@@ -175,9 +175,11 @@ AutonomousCommand::AutonomousCommand() {
 		AddSequential(new DriveDistance(SIDE_GEAR_DISTANCE_PART_3, -.15));
 		AddSequential(new WaitTime(.2));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_SIDE_GEAR, .65, TURN_LEFT));
-		AddSequential(new WaitTime(.1));
-		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
-		AddSequential(new WaitTime(.15));
+		AddSequential(new WaitTime(.25));
+		AddSequential(new CameraAdjustWhileDrivingToGear());
+		//AddSequential(new WaitTime(.1));
+		//AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
+		//AddSequential(new WaitTime(.15));
 		//if (USING_GEAR_CAMERA) { AddSequential(new AimToGear(GEAR_CAMERA)); }
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(.001));
@@ -208,9 +210,11 @@ AutonomousCommand::AutonomousCommand() {
 		AddSequential(new DriveDistance(SIDE_GEAR_DISTANCE_PART_3, -.15));
 		AddSequential(new WaitTime(.2));
 		AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TO_FACE_SIDE_GEAR, .65, TURN_LEFT));
-		AddSequential(new WaitTime(.1));
-		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
-		AddSequential(new WaitTime(.15));
+		AddSequential(new WaitTime(.25));
+		AddSequential(new CameraAdjustWhileDrivingToGear());
+		//AddSequential(new WaitTime(.1));
+		//AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
+		//AddSequential(new WaitTime(.15));
 		//if (USING_GEAR_CAMERA) { AddSequential(new AimToGear(GEAR_CAMERA)); }
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(.001));
@@ -264,9 +268,11 @@ AutonomousCommand::AutonomousCommand() {
 		AddSequential(new DriveDistance(SIDE_GEAR_DISTANCE_PART_3, -.15));
 		AddSequential(new WaitTime(.2));
 		AddSequential(new TurnDriveTrainAngle((ANGLE_TO_TURN_TO_FACE_SIDE_GEAR), .65, TURN_RIGHT));
-		AddSequential(new WaitTime(.1));
-		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
-		AddSequential(new WaitTime(.15));
+		AddSequential(new WaitTime(.25));
+		AddSequential(new CameraAdjustWhileDrivingToGear());
+		//AddSequential(new WaitTime(.1));
+		//AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
+		//AddSequential(new WaitTime(.15));
 		//if (USING_GEAR_CAMERA) { AddSequential(new AimToGear(GEAR_CAMERA)); }
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(.001));
@@ -297,9 +303,11 @@ AutonomousCommand::AutonomousCommand() {
 		AddSequential(new DriveDistance(SIDE_GEAR_DISTANCE_PART_3, -.15));
 		AddSequential(new WaitTime(.2));
 		AddSequential(new TurnDriveTrainAngle((ANGLE_TO_TURN_TO_FACE_SIDE_GEAR), .65, TURN_RIGHT));
-		AddSequential(new WaitTime(.1));
-		AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
-		AddSequential(new WaitTime(.15));
+		AddSequential(new WaitTime(.25));
+		AddSequential(new CameraAdjustWhileDrivingToGear());
+		//AddSequential(new WaitTime(.1));
+		//AddSequential(new DriveDistance(DISTANCE_AFTER_TURNING_ONTO_SIDE_GEAR, -.4));
+		//AddSequential(new WaitTime(.15));
 		//if (USING_GEAR_CAMERA) { AddSequential(new AimToGear(GEAR_CAMERA)); }
 		AddSequential(new AutoGearOnPeg());
 		AddSequential(new WaitTime(.001));
