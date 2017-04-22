@@ -34,7 +34,7 @@ void AutoDriveShooter::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void AutoDriveShooter::Execute() {
 	timerValue = timer->Get();
-
+	std::cout << "shooting: " << timerValue << std::endl;
 	if (shooterPIDMode == false) {
 		CommandBase::shooter->ConfigureShooterPID();
 		shooterPIDMode = true;
@@ -44,7 +44,7 @@ void AutoDriveShooter::Execute() {
 	currentShooterWheelRPM = CommandBase::shooter->GetShooterWheelRPM();
 	CommandBase::shooter->DriveShooterMotor(this->setpointRPM);
 
-	if (currentShooterWheelRPM >= this->setpointRPM && beginTimerToLevelOutSetpoint == false) {
+	if (currentShooterWheelRPM >= (this->setpointRPM - 400) && beginTimerToLevelOutSetpoint == false) {
 		beginTimerToLevelOutSetpoint = true;
 		timer->Reset();
 		timer->Start();

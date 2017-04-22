@@ -7,6 +7,8 @@
 class AutoDriveAgitator : public CommandBase {
 private:
 	bool stopCollection;
+	double timeToDriveAgitator;
+	double timeToStartToDriveCollection;
 
 	bool shooterUpToSpeed = false;
 	bool turnOffCollection = false;
@@ -31,8 +33,10 @@ private:
 	bool doneDrivingCollection = false;
 
 	static constexpr double COLLECTION_MOTOR_POWER = 1.0;
+
+	bool initializeContinueDrivingShooter = false;
 public:
-	AutoDriveAgitator(bool);
+	AutoDriveAgitator(bool, double, double);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

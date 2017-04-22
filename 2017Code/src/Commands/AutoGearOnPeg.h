@@ -29,7 +29,7 @@ private:
 	double initialRightEncoderDistance = 0.0;
 	double currentRightEncoderDistance = 0.0;
 	double desiredRightEncoderDistance = 0.0;
-	static constexpr double DISTANCE_TO_MOVE_AWAY_FROM_GEAR = 3.0;  //  In Inches
+	static constexpr double DISTANCE_TO_MOVE_AWAY_FROM_GEAR = 5.0;  //  In Inches
 	bool retryGearLineUp = false;
 	bool moveGearHolderDown = false;
 	bool stopGearHolderDown = false;

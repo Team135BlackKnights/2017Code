@@ -58,6 +58,29 @@ private:
 	static constexpr double DISTANCE_TO_TRAVEL_ABOUT_PARALLEL_WITH_LEFT_ALLIANCE_WALL = 20.0;
 	static constexpr double ANGLE_TO_TURN_TO_DRIVE_TO_BASELINE_AFTER_LEFT_ALLIANCE_WALL = 50.0;
 
+	//  Close Shot Right With Gear Variables
+	static constexpr double DISTANCE_TO_TRAVEL_OFF_OF_BOILER_FOR_RIGHT_CLOSE_SHOT_AND_GEAR = 5.0;
+	static constexpr double ANGLE_TO_TURN_TOWARDS_RIGHT_GEAR = 15.0;
+	static constexpr double DISTANCE_TO_DRIVE_BEFORE_TURNING_ONTO_RIGHT_GEAR = 54.0;
+	static constexpr double ANGLE_TO_TURN_TOWARDS_RIGHT_GEAR_SECOND_TURN = 18.0;
+
+	//  Close Shot Left With Gear Option 1 Variables
+	static constexpr double DISTANCE_TO_DRIVE_OFF_OF_LEFT_ALLIANCE_WALL_AFTER_CLOSE_SHOT = 16.0;
+	static constexpr double ANGLE_TO_TURN_AFTER_MOVING_AWAY_FROM_LEFT_ALLIANCE_WALL = 85.0;
+	static constexpr double DISTANCE_TO_TRAVEL_TOWARDS_LEFT_GEAR = 50.0;
+	static constexpr double ANGLE_TO_TURN_TOWARDS_LEFT_GEAR_FROM_LEFT_CLOSE_SHOT = 70.0;
+
+	//  Close Shot Left With Gear Option 2 Variables
+	static constexpr double DISTANCE_TO_TRAVEL_OFF_OF_LEFT_ALLIANCE_WALL = 28.0;
+	static constexpr double ANGLE_TO_TURN_FOR_ROBOT_TO_BE_PERPENDICULAR_WITH_BOILER = 40.0;
+	static constexpr double TIME_FOR_DRIVE_TRAIN_TO_DRIVE_INTO_BOILER = 1.0;
+	static constexpr double TIME_TO_RUN_AGITATOR_FOR_LEFT_CLOSE_SHOT_AND_GEAR = 5.5;
+	static constexpr double TIME_TO_START_COLLECTION_FOR_LEFT_CLOSE_SHOT_AND_GEAR = 2.75;
+	static constexpr double DISTANCE_TO_DRIVE_AWAY_FROM_BOILER = 6.0;
+	static constexpr double ANGLE_TO_TURN_AFTER_DRIVING_AWAY_FROM_BOILER = 15.0;
+	static constexpr double DISTANCE_TO_DRIVE_TOWARDS_LEFT_GEAR_AIRSHIP = 50.0;
+	static constexpr double ANGLE_TO_TURN_TOWARDS_LEFT_GEAR_PEG = 18.0;
+
 	//  Both Shoot After Right Gear and Shoot After Left Gear
 	static constexpr double DISTANCE_TO_TRAVEL_AFTER_PLACING_SIDE_GEAR = 18.0;
 	static constexpr double DISTANCE_TO_TRAVEL_AFTER_TURNING_TO_DRIVE_TOWARDS_BOILER = 35.0;
@@ -90,6 +113,10 @@ private:
 	static constexpr double ANGLE_TO_TURN_AWAY_FROM_HOPPER_PANEL = 40.0;
 	static constexpr double ANGLE_TO_TURN_TOWARDS_HOPPER = 25.0;
 
+	static constexpr double TIME_TO_RUN_AGITATOR_GEAR_AND_SHOOT = 12.0;
+	static constexpr double TIME_TO_START_RUNNING_COLLECTION_GEAR_AND_SHOOT = 2.75;
+	static constexpr double TIME_TO_START_RUNNING_COLLECTION_40_KPA = 1.0;
+
 	static constexpr double RIGHT_HOPPER_AND_SHOOT = true;
 	static constexpr double LEFT_HOPPER_AND_SHOOT = !RIGHT_HOPPER_AND_SHOOT;
 
@@ -107,6 +134,8 @@ private:
 	static const int SHOOTER_CAMERA = 0;
 
 	static constexpr double RIGHT_ANGLE_DEGREES = 90.0;
+
+	static const bool CLOSE_SHOT_LEFT_OPTION_1 = false;
 
 	//  Booleans for Autonomous Operation
 	static const bool USING_LIDAR_FOR_GEAR_LINEUP = false;
@@ -144,7 +173,9 @@ private:
 	bool rightGearAndNeutralZone = false;
 	bool leftGearAndNeutralZone = false;
 	bool closeShotRightWithBaseline = false;
+	bool closeShotRightWithGear = false;
 	bool closeShotLeftWithBaseline = false;
+	bool closeShotLeftWithGear = false;
 	bool right40KPa = false;
 	bool left40KPa = false;
 public:

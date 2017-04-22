@@ -58,7 +58,7 @@ void AutoGetShooterUpToSpeed::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoGetShooterUpToSpeed::IsFinished() {
-	return false;
+	return CommandBase::shooter->stopShooterFromDriving;
 }
 
 // Called once after isFinished returns true

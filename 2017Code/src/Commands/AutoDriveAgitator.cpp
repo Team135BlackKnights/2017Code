@@ -1,19 +1,21 @@
 #include "AutoDriveAgitator.h"
 
-AutoDriveAgitator::AutoDriveAgitator(bool stopCollection) {
+AutoDriveAgitator::AutoDriveAgitator(bool stopCollection, double timeToDriveAgitator, double timeToStartToDriveCollection) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::agitator.get());
 	Requires(CommandBase::collection.get());
 
 	this->stopCollection = stopCollection;
+	this->timeToDriveAgitator = timeToDriveAgitator;
+	this->timeToStartToDriveCollection = timeToStartToDriveCollection;
 
 	timer = new frc::Timer();
 }
 
 // Called just before this Command runs the first time
 void AutoDriveAgitator::Initialize() {
-	SetTimeout(AUTO_DRIVE_AGITATOR_TIMEOUT);
+	SetTimeout((this->timeToDriveAgitator + .5));
 	shooterUpToSpeed = false;
 	startTimer = false;
 	doneDrivingAgitator = false;
@@ -25,10 +27,18 @@ void AutoDriveAgitator::Initialize() {
 	startDrivingCollection = false;
 	initializeTimerForCollection = false;
 	doneDrivingCollection = false;
+
+	CommandBase::shooter->stopShooterFromDriving = false;
+	initializeContinueDrivingShooter = true;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDriveAgitator::Execute() {
+	if (initializeContinueDrivingShooter == false) {
+		CommandBase::shooter->stopShooterFromDriving = false;
+		initializeContinueDrivingShooter = true;
+	}
+
 	if (this->stopCollection) {
 		if (turnOffCollection == false) {
 			CommandBase::collection->SetAutoDriveCollection(false);
@@ -52,17 +62,17 @@ void AutoDriveAgitator::Execute() {
 			startTimer = true;
 		}
 
-		if (startTimer && timerValue < TIME_TO_WAIT_FOR_FUEL_TO_SHOOT) {
+		if (startTimer && timerValue < this->timeToDriveAgitator) {
 			CommandBase::agitator->DriveAgitator(AGITATOR_MOTOR_POWER);
 		}
-		else if (startTimer && timerValue >= TIME_TO_WAIT_FOR_FUEL_TO_SHOOT) {
+		else if (startTimer && timerValue >= this->timeToDriveAgitator) {
 			CommandBase::agitator->DriveAgitator(0.0);
 			shooterUpToSpeed = false;
 			startTimer = false;
 			doneDrivingAgitator = true;
 		}
 
-		if (timerValue >= TIME_TO_WAIT_BEFORE_RUNNING_COLLECTION && startDrivingCollection == false && doneDrivingCollection == false) {
+		if (timerValue >= this->timeToStartToDriveCollection && startDrivingCollection == false && doneDrivingCollection == false) {
 			startDrivingCollection = true;
 		}
 
@@ -96,6 +106,8 @@ bool AutoDriveAgitator::IsFinished() {
 void AutoDriveAgitator::End() {
 	CommandBase::agitator->DriveAgitator(0.0);
 	CommandBase::collection->DriveCollection(0.0);
+	initializeContinueDrivingShooter = false;
+	CommandBase::shooter->stopShooterFromDriving = true;
 	shooterUpToSpeed = false;
 	turnOffCollection = false;
 	startTimer = false;

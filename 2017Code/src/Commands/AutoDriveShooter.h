@@ -18,14 +18,14 @@ private:
 	double timerValue = 0.0;
 	static constexpr double WAIT_TIME_FOR_SHOOTER = .05;
 
-	static constexpr double WAIT_TIME_FOR_FUEL_TO_SHOOT_WITHOUT_COLLECTION = 7.0;
-	static constexpr double WAIT_TIME_FOR_FUEL_TO_SHOOT_WITH_COLLECTION = 8.5;
+	static constexpr double WAIT_TIME_FOR_FUEL_TO_SHOOT_WITHOUT_COLLECTION = 6.0;
+	static constexpr double WAIT_TIME_FOR_FUEL_TO_SHOOT_WITH_COLLECTION = 6.0;
 
-	static constexpr double TIME_TO_WAIT_UNTIL_RUNNING_COLLECTION_AFTER_AGITATOR_STARTS = 4.5;
+	static constexpr double TIME_TO_WAIT_UNTIL_RUNNING_COLLECTION_AFTER_AGITATOR_STARTS = 2.75;
 
 	static constexpr double TIME_TO_DRIVE_COLLECTION = 1.0;
 
-	static constexpr double AUTO_DRIVE_SHOOTER_TIMEOUT = 9.0;
+	static constexpr double AUTO_DRIVE_SHOOTER_TIMEOUT = 6.0;
 
 	static constexpr double AGITATOR_MOTOR_POWER = .3;
 

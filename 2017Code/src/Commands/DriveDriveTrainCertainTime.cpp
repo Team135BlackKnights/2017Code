@@ -109,7 +109,8 @@ void DriveDriveTrainCertainTime::Execute() {
 			}
 		}
 	}
-	else if (doneDrivingWithTimer && this->rammingIntoHopper == false) {
+
+	if (doneDrivingWithTimer && this->rammingIntoHopper == false) {
 		adjustedAngle = true;
 	}
 }
