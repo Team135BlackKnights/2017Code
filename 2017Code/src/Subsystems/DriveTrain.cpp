@@ -136,6 +136,27 @@ double DriveTrain::GetDistance(int motorEncoderPort) {
 	return (distanceTraveled * DRIVE_TRAIN_SPROCKET_RATIO);
 }
 
+double DriveTrain::GetStraightDistanceTraveled(int motorEncoderPort, double gyroAngleDegrees, bool configureInitialDistanceTraveled, bool drivingForwards) {
+	if (configureInitialDistanceTraveled) {
+		savedDistanceTraveled = this->GetDistance(motorEncoderPort);
+		distanceTraveledStraight = 0.0;
+	}
+	else if (configureInitialDistanceTraveled == false) {
+		currentDistanceTraveled = this->GetDistance(motorEncoderPort);
+		if (drivingForwards) {
+			differenceBetweenCurrentAndSavedDistanceTraveled = (currentDistanceTraveled - savedDistanceTraveled);
+		}
+		else if (drivingForwards == false) {
+			differenceBetweenCurrentAndSavedDistanceTraveled = (savedDistanceTraveled - currentDistanceTraveled);
+		}
+		gyroAngleRadians = (gyroAngleDegrees * DEGREES_TO_RADIANS_CONSTANT);
+		smallPortionOfStraightDistanceTraveled = (differenceBetweenCurrentAndSavedDistanceTraveled * (cos(gyroAngleRadians)));
+		distanceTraveledStraight += smallPortionOfStraightDistanceTraveled;
+		savedDistanceTraveled = currentDistanceTraveled;
+	}
+	return distanceTraveledStraight;
+}
+
 int DriveTrain::GetEncoderRPM(int motorEncoderPort) {
 	return driveTrainMotors[motorEncoderPort]->GetSpeed();
 }

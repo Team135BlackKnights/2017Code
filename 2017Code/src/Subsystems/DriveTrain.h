@@ -105,6 +105,16 @@ public:
 	void ZeroDriveTrainEncoder(int);
 	int GetEncoderPosition(int);
 	double GetDistance(int);
+	double GetStraightDistanceTraveled(int, double, bool, bool);
+
+	double initialDistanceTraveled = 0.0;
+	double savedDistanceTraveled = 0.0;
+	double currentDistanceTraveled = 0.0;
+	double differenceBetweenCurrentAndSavedDistanceTraveled = 0.0;
+	double smallPortionOfStraightDistanceTraveled = 0.0;
+	double distanceTraveledStraight = 0.0;
+	double gyroAngleRadians = 0.0;
+	static constexpr double DEGREES_TO_RADIANS_CONSTANT = (M_PI/180.0);
 
 	int GetEncoderRPM(int);
 

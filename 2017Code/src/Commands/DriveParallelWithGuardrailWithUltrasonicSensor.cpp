@@ -41,11 +41,6 @@ void DriveParallelWithGuardrailWithUltrasonicSensor::Execute() {
 		zeroGyro = true;
 	}
 
-	if (initializeEncoderDriveDistance == false) {
-		initialDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
-		initializeEncoderDriveDistance = true;
-	}
-
 	if (this->rightHopperAndShoot) {
 		sideUltrasonicSensorValue = CommandBase::ultrasonicSensor->GetSideUltrasonicSensorValueInches(UltrasonicSensor::LEFT_SIDE_ULTRASONIC_SENSOR);
 	}
@@ -66,15 +61,19 @@ void DriveParallelWithGuardrailWithUltrasonicSensor::Execute() {
 		}
 	}
 	else if (DRIVE_ENDING == DRIVE_WITH_DISTANCE) {
-		currentDistanceTraveled = CommandBase::driveTrain->GetDistance(DriveTrain::RIGHT_SIDE_ENCODER);
-		differenceBetweenCurrentAndDesiredDistance = (fabs(currentDistanceTraveled - initializeEncoderDriveDistance));
-
-		if (differenceBetweenCurrentAndDesiredDistance >= this->desiredDistanceToTravel) {
-			CommandBase::driveTrain->DriveTank(0.0, 0.0);
-			doneWithDrivingWithUltrasonicSensor = true;
+		if (initializeEncoderDriveDistance == false) {
+			currentDistanceTraveled = CommandBase::driveTrain->GetStraightDistanceTraveled(DriveTrain::RIGHT_SIDE_ENCODER, gyroAngle, CONFIGURE_INITIAL_DISTANCE, DRIVING_BACKWARDS);
+			initializeEncoderDriveDistance = true;
 		}
-		else if (differenceBetweenCurrentAndDesiredDistance < this->desiredDistanceToTravel) {
-			CommandBase::driveTrain->DriveStraightWithUltrasonicSensor(acutalDistanceRobotIsFromWall, this->distanceAwayFromGuardrailToDrive, this->driveTrainMotorPower, this->rightHopperAndShoot);
+		else if (initializeEncoderDriveDistance) {
+			currentDistanceTraveled = CommandBase::driveTrain->GetStraightDistanceTraveled(DriveTrain::RIGHT_SIDE_ENCODER, gyroAngle, DONT_RECONFIGURE_INITIAL_DISTANCE, DRIVING_BACKWARDS);
+			if (currentDistanceTraveled >= this->desiredDistanceToTravel) {
+				CommandBase::driveTrain->DriveTank(0.0, 0.0);
+				doneWithDrivingWithUltrasonicSensor = true;
+			}
+			else if (currentDistanceTraveled < this->desiredDistanceToTravel) {
+				CommandBase::driveTrain->DriveStraightWithUltrasonicSensor(acutalDistanceRobotIsFromWall, this->distanceAwayFromGuardrailToDrive, this->driveTrainMotorPower, this->rightHopperAndShoot);
+			}
 		}
 	}
 

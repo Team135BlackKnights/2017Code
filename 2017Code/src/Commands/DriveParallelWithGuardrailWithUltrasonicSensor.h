@@ -31,6 +31,11 @@ private:
 
 	bool zeroGyro = false;
 	double gyroAngle = 0.0;
+
+	static const bool CONFIGURE_INITIAL_DISTANCE = true;
+	static const bool DONT_RECONFIGURE_INITIAL_DISTANCE = !CONFIGURE_INITIAL_DISTANCE;
+	static const bool DRIVING_FORWARDS = true;
+	static const bool DRIVING_BACKWARDS = false;
 public:
 	DriveParallelWithGuardrailWithUltrasonicSensor(double, double, double, bool);
 	void Initialize();
