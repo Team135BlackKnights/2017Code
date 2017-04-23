@@ -9,7 +9,7 @@ Lidars::Lidars() : Subsystem("Lidar") {
 void Lidars::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	//SetDefaultCommand(new ReadLidarValues());
+	SetDefaultCommand(new ReadLidarValues());
 }
 
 void Lidars::InitializeLidarsAndI2CMultiplexer() {
@@ -103,6 +103,18 @@ int Lidars::ConvertUint8_tPointer_To_Int(uint8_t* data) {
 uint8_t* Lidars::ConvertUint8_t_To_Uint8_tPointer(uint8_t data) {
 	convertedByte = reinterpret_cast<uint8_t&>(data);
 	return &convertedByte;
+}
+
+void Lidars::StoreLidarValueForHopperAndShoot(double lidarValue) {
+	storedLidarValue = lidarValue;
+}
+
+double Lidars::GetDistanceToTravelToHopper(double frontUltrasonicSensorValue) {
+	distanceFromBumperToGuardrail = (frontUltrasonicSensorValue - DISTANCE_FROM_FRONT_ULTRASONIC_SENSOR_TO_BUMPER);
+	desiredLidarValue = (START_OF_DESIRED_LIDAR_VALUE + distanceFromBumperToGuardrail);
+	std::cout << "Desired Lidar Value: " << desiredLidarValue << std::endl;
+	desiredDistanceToTravelToHopper = (desiredLidarValue - storedLidarValue);
+	return desiredDistanceToTravelToHopper;
 }
 
 // Put methods for controlling this subsystem

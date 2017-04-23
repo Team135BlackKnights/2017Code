@@ -50,6 +50,16 @@ public:
 
 	double GetActualDistanceFromGuardrail(double, double);
 
+	double GetAngleToTurnToAlignWithGuardRail(double, double, bool);
+
+	double differenceBetweenFrontAndBackUltrasonicSensorValues = 0.0;
+	static constexpr double DISTANCE_BETWEEN_FRONT_AND_BACK_ULTRASONIC_SENSORS = 28.0;
+	static constexpr double DISTANCE_WIDTH_WISE_FRONT_AND_BACK_ULTRASONIC_SENSORS_ARE_APART = 1.5;
+	double convertedBackUltrasonicSensorValue = 0.0;
+	double desiredAngleToTurnRadians = 0.0;
+	static constexpr double RADIANS_TO_DERGREES_CONSTANT = (180.0/M_PI);
+	double desiredAngleToTurnDegrees = 0.0;
+
 	static const bool RIGHT_SIDE_ULTRASONIC_SENSOR = true;
 	static const bool LEFT_SIDE_ULTRASONIC_SENSOR = !RIGHT_SIDE_ULTRASONIC_SENSOR;
 

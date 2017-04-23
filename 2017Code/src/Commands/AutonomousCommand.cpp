@@ -20,6 +20,9 @@
 #include "AutoMoveGearHolder.h"
 #include "DriveParallelWithGuardrailWithUltrasonicSensor.h"
 #include "CameraAdjustWhileDrivingToGear.h"
+#include "AlignRobotWithGuardrail.h"
+#include "GetLidarValueForHopperAndShoot.h"
+#include "DriveStraightGivenLidarValue.h"
 AutonomousCommand::AutonomousCommand() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
@@ -446,20 +449,27 @@ AutonomousCommand::AutonomousCommand() {
 			AddSequential(new AutoDriveAgitator(STOP_RUNNING_COLLECTION, TIME_TO_RUN_AGITATOR_GEAR_AND_SHOOT, TIME_TO_START_RUNNING_COLLECTION_40_KPA));
 		}
 		else if (KPA_AUTONOMOUS_OPTION_1 == false) {
-			AddSequential(new DriveDistance(DISTANCE_TO_DRIVE_FROM_ALLIANCE_WALL_TO_GUARDRAIL, -.35));
-			AddSequential(new TurnOneSideOfRobotAngle(ANGLE_TO_TURN_TO_BE_PARALLEL_WITH_GUARDRAIL, DRIVE_LEFT_SIDE_DRIVE_TRAIN, -.55));
-			AddSequential(new DriveParallelWithGuardrailWithUltrasonicSensor(DISTANCE_TO_DRIVE_TOWARDS_HOPPER, DISTANCE_AWAY_FROM_GUARDRAIL_TO_DRIVE, -.45, RIGHT_HOPPER_AND_SHOOT));
+			AddSequential(new DriveDistance(DISTANCE_TO_DRIVE_FROM_ALLIANCE_WALL_TO_GUARDRAIL, -.6));
 			AddSequential(new WaitTime(.05));
-			AddSequential(new TurnOneSideOfRobotAngle(ANGLE_TO_TURN_TO_LINE_UP_TO_HIT_PANEL, DRIVE_LEFT_SIDE_DRIVE_TRAIN, -.55));
+			AddSequential(new TurnOneSideOfRobotAngle(ANGLE_TO_TURN_TO_BE_PARALLEL_WITH_GUARDRAIL, DRIVE_LEFT_SIDE_DRIVE_TRAIN, -.65));
+			AddSequential(new WaitTime(.2));
+			AddSequential(new AlignRobotWithGuardrail(.55, RIGHT_HOPPER_AND_SHOOT));
+			AddSequential(new WaitTime(.01));
+			AddParallel(new GetLidarValueForHopperAndShoot());
+			AddSequential(new WaitTime(.15));
+			AddSequential(new DriveStraightGivenLidarValue(-.4));
+			//AddSequential(new DriveParallelWithGuardrailWithUltrasonicSensor(DISTANCE_TO_DRIVE_TOWARDS_HOPPER, DISTANCE_AWAY_FROM_GUARDRAIL_TO_DRIVE, -.35, RIGHT_HOPPER_AND_SHOOT));
+			AddSequential(new WaitTime(.1));
+			AddSequential(new TurnOneSideOfRobotAngle(ANGLE_TO_TURN_TO_LINE_UP_TO_HIT_PANEL, DRIVE_LEFT_SIDE_DRIVE_TRAIN, -.6));
 			AddSequential(new WaitTime(.05));
 			AddParallel(new AutoDriveCollection());
-			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AWAY_FROM_HOPPER_PANEL, .6, TURN_RIGHT));
+			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_AWAY_FROM_HOPPER_PANEL, .7, TURN_RIGHT, true));
 			AddParallel(new AutoGetShooterUpToSpeed(Shooter::SHOOTER_SETPOINT_RPM_FAR_SHOT));
 			AddSequential(new WaitTime(.1));
-			AddSequential(new TurnDriveTrainAngle(ANGLE_TO_TURN_TOWARDS_HOPPER, .6, TURN_LEFT));
+			AddSequential(new TurnDriveTrainAngle((ANGLE_TO_TURN_TOWARDS_HOPPER - 5.0), .8, TURN_LEFT));
 			AddSequential(new WaitTime(.8));
 			//AddSequential(new AimBot(SHOOTER_CAMERA));
-			AddSequential(new AutoDriveAgitator(STOP_RUNNING_COLLECTION, TIME_TO_RUN_AGITATOR_GEAR_AND_SHOOT, TIME_TO_START_RUNNING_COLLECTION_40_KPA));
+			//AddSequential(new AutoDriveAgitator(STOP_RUNNING_COLLECTION, TIME_TO_RUN_AGITATOR_GEAR_AND_SHOOT, TIME_TO_START_RUNNING_COLLECTION_40_KPA)); */
 		}
 	}
 	else if (left40KPa) {

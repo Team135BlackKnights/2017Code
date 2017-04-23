@@ -50,5 +50,23 @@ double UltrasonicSensor::GetActualDistanceFromGuardrail(double ultrasonicSensorV
 	return actualDistanceFromGuardrail;
 }
 
+double UltrasonicSensor::GetAngleToTurnToAlignWithGuardRail(double frontUltrasonicSensorValue, double backUltrasonicSensorValue, bool rightHopper) {
+	//std::cout << "Front Ultrasonic Sensor Value: " << frontUltrasonicSensorValue << std::endl;
+	//std::cout << "Back Ultrasonic Sensor Value: " << backUltrasonicSensorValue << std::endl;
+	convertedBackUltrasonicSensorValue = (backUltrasonicSensorValue + DISTANCE_WIDTH_WISE_FRONT_AND_BACK_ULTRASONIC_SENSORS_ARE_APART);
+	if (rightHopper) {
+		differenceBetweenFrontAndBackUltrasonicSensorValues = (backUltrasonicSensorValue - frontUltrasonicSensorValue);
+	}
+	else if (rightHopper == false) {
+		differenceBetweenFrontAndBackUltrasonicSensorValues = (frontUltrasonicSensorValue - backUltrasonicSensorValue);
+	}
+	//std::cout << "Difference Between Two Ultrasonic Sensor Values: " << differenceBetweenFrontAndBackUltrasonicSensorValues << std::endl;
+	desiredAngleToTurnRadians = atan2(differenceBetweenFrontAndBackUltrasonicSensorValues, DISTANCE_BETWEEN_FRONT_AND_BACK_ULTRASONIC_SENSORS);
+	//std::cout << "Angle To Turn Radians: " << desiredAngleToTurnRadians << std::endl;
+	desiredAngleToTurnDegrees = (desiredAngleToTurnRadians * RADIANS_TO_DERGREES_CONSTANT);
+	//std::cout << "Desired Angle To Turn Degrees: " << desiredAngleToTurnDegrees << std::endl;
+	return desiredAngleToTurnDegrees;
+}
+
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

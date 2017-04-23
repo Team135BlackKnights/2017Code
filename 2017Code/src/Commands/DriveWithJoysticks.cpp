@@ -72,7 +72,7 @@ void DriveWithJoysticks::Execute() {
 		CommandBase::driveTrain->DriveTank(-POV_DRIVE_TRAIN_MOTOR_POWER, POV_DRIVE_TRAIN_MOTOR_POWER);
 	}
 	else {
-		CommandBase::driveTrain->ZeroGyroAngle();
+		//CommandBase::driveTrain->ZeroGyroAngle();
 	}
 }
 

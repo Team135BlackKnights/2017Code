@@ -105,13 +105,13 @@ private:
 	static constexpr double ANGLE_TO_TURN_OUT_OF_HOPPER_PANEL = 20.0;  //  TBD
 
 	//  40 KPa Autonomous Variables Option 2
-	static constexpr double DISTANCE_TO_DRIVE_FROM_ALLIANCE_WALL_TO_GUARDRAIL = 15.0;
-	static constexpr double ANGLE_TO_TURN_TO_BE_PARALLEL_WITH_GUARDRAIL = 45.0;
-	static constexpr double DISTANCE_TO_DRIVE_TOWARDS_HOPPER = 37.5;
-	static constexpr double DISTANCE_AWAY_FROM_GUARDRAIL_TO_DRIVE = 5.0;
-	static constexpr double ANGLE_TO_TURN_TO_LINE_UP_TO_HIT_PANEL = 15.0;
+	static constexpr double DISTANCE_TO_DRIVE_FROM_ALLIANCE_WALL_TO_GUARDRAIL = 20.0;
+	static constexpr double ANGLE_TO_TURN_TO_BE_PARALLEL_WITH_GUARDRAIL = 40.0;
+	static constexpr double DISTANCE_TO_DRIVE_TOWARDS_HOPPER = 12.0;
+	static constexpr double DISTANCE_AWAY_FROM_GUARDRAIL_TO_DRIVE = 6.0;
+	static constexpr double ANGLE_TO_TURN_TO_LINE_UP_TO_HIT_PANEL = 6.0;
 	static constexpr double ANGLE_TO_TURN_AWAY_FROM_HOPPER_PANEL = 40.0;
-	static constexpr double ANGLE_TO_TURN_TOWARDS_HOPPER = 25.0;
+	static constexpr double ANGLE_TO_TURN_TOWARDS_HOPPER = 32.0;
 
 	static constexpr double TIME_TO_RUN_AGITATOR_GEAR_AND_SHOOT = 12.0;
 	static constexpr double TIME_TO_START_RUNNING_COLLECTION_GEAR_AND_SHOOT = 2.75;
@@ -148,7 +148,7 @@ private:
 	static const bool RAMMING_INTO_HOPPER = true;
 	static const bool NOT_RAMMING_INTO_HOPPER = false;
 
-	static const bool KPA_AUTONOMOUS_OPTION_1 = true;
+	static const bool KPA_AUTONOMOUS_OPTION_1 = false;
 
 	static constexpr double ANGLE_TO_ROTATE_FOR_GEAR_PEG = 2.0;
 	static constexpr double AUTO_ROTATE_FOR_GEAR_PEG_MOTOR_POWER = .5;

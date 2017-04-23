@@ -9,41 +9,41 @@ ReadLidarValues::ReadLidarValues() {
 
 // Called just before this Command runs the first time
 void ReadLidarValues::Initialize() {
-	CommandBase::lidars->TurnLidarOnOff(Lidars::TURN_LIDAR_ON);
-	turnLidarOn = true;
+	//CommandBase::lidars->TurnLidarOnOff(Lidars::TURN_LIDAR_ON);
+	//turnLidarOn = true;
 
-	CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_FRONT_LIDAR_CHANNEL_7);
-	openFrontLidarChannel = true;
+	//CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_FRONT_LIDAR_CHANNEL_7);
+	//openFrontLidarChannel = true;
 	configuredLidar = false;
 
-	CommandBase::lidars->TurnOffDetectorBiasBetweenLidarAcquisitions();
-	turnOffDetectorBiasBetweenLidarAcquisitions = true;
+	//CommandBase::lidars->TurnOffDetectorBiasBetweenLidarAcquisitions();
+	//turnOffDetectorBiasBetweenLidarAcquisitions = true;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ReadLidarValues::Execute() {
-	if (turnLidarOn == false) {
+	/*if (turnLidarOn == false) {
 		CommandBase::lidars->TurnLidarOnOff(Lidars::TURN_LIDAR_ON);
 		turnLidarOn = true;
-	}
+	} */
 
-	lidarPowerEnabledButtonPressed = oi->GetButtonPressed(OI::LEFT_DRIVE_JOYSTICK, 8);
+	/* lidarPowerEnabledButtonPressed = oi->GetButtonPressed(OI::LEFT_DRIVE_JOYSTICK, 8);
 	if (lidarPowerEnabledButtonPressed) {
 		CommandBase::lidars->TurnLidarOnOff(Lidars::TURN_LIDAR_OFF);
 	}
 	else {
 		CommandBase::lidars->TurnLidarOnOff(Lidars::TURN_LIDAR_ON);
-	}
+	} */
 
-	if (openFrontLidarChannel == false) {
+	/*if (openFrontLidarChannel == false) {
 		CommandBase::lidars->OpenLidarChannelOnMultiplexer(Lidars::VALUE_TO_OPEN_FRONT_LIDAR_CHANNEL_7);
 		openFrontLidarChannel = true;
-	}
+	} */
 
-	if (turnOffDetectorBiasBetweenLidarAcquisitions == false) {
+	/* if (turnOffDetectorBiasBetweenLidarAcquisitions == false) {
 		CommandBase::lidars->TurnOffDetectorBiasBetweenLidarAcquisitions();
 		turnOffDetectorBiasBetweenLidarAcquisitions = true;
-	}
+	} */
 
 	if (configuredLidar == false) {
 		CommandBase::lidars->ConfigureLidar();
@@ -56,6 +56,8 @@ void ReadLidarValues::Execute() {
 		lidarValueIN = CommandBase::lidars->GetLidarValue(lidarLowerByte, lidarUpperByte, Lidars::DISTANCE_UNIT_ARRAY[Lidars::INCHES]);
 		configuredLidar = false;
 	}
+
+	std::cout << "Lidar Value: " << lidarValueIN << std::endl;
 
 	frc::SmartDashboard::PutNumber("Front Lidar Valuee:", lidarValueIN);
 }

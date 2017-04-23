@@ -175,8 +175,8 @@ void DriveTrain::InitializeDriveStraightWithGyro(bool competitionBot) {
 	else if (competitionBot == false) {
 		straightDriveTrainSensitivity = .05;  //. 12  Low Battery
 		straightDriveTrainProportionalConstant = .125;  //  .04  Low Battery
-		ultrasonicSensorDriveStraightProportionalConstant = .1;  //  .12 ///////////////////
-		ultrasonicSensorSensitivityValue = .5;  //  .17 /////////////////////////
+		ultrasonicSensorDriveStraightProportionalConstant = .15;  //  .12 ///////////////////
+		ultrasonicSensorSensitivityValue = .23;  //  .17 /////////////////////////
 	}
 	chassis->SetSensitivity(straightDriveTrainSensitivity);
 	initializeGyroDriveStraight = true;
@@ -233,14 +233,14 @@ void DriveTrain::DriveStraightWithUltrasonicSensor(double currentUltrasonicSenso
 
 	chassis->Drive(motorPower, ultrasonicSensorDriveStraightCurveValue);
 
-	std::cout << "Curve Value: " << ultrasonicSensorDriveStraightCurveValue << std::endl;
+	//std::cout << "Curve Value: " << ultrasonicSensorDriveStraightCurveValue << std::endl;
 }
 
 void DriveTrain::InitializeDriveTrainPID() {
 	gyro = new ADXRS450_Gyro(); //maybe?
 	gyro->Calibrate();
-	turnController = new frc::PIDController(Preferences::GetInstance()->GetDouble("kP",0.0625), Preferences::GetInstance()->GetDouble("kI",0.0),Preferences::GetInstance()->GetDouble("kD",0.0) , kF, gyro, this);
-	//turnController = new frc::PIDController(kP,kI,kD,kF, gyro, this);
+	//turnController = new frc::PIDController(Preferences::GetInstance()->GetDouble("kP",0.0625), Preferences::GetInstance()->GetDouble("kI",0.0),Preferences::GetInstance()->GetDouble("kD",0.0) , kF, gyro, this);
+	turnController = new frc::PIDController(kP,kI,kD,kF, gyro, this);
 	turnController->SetInputRange(-90.0f,  90.0f);
 	turnController->SetOutputRange(-1.0, 1.0);
 	turnController->SetAbsoluteTolerance(kToleranceDegrees);
