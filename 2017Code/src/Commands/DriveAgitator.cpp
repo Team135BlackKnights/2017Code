@@ -22,7 +22,7 @@ void DriveAgitator::Execute() {
 	}
 	else if (this->driveForwards == false) {
 		CommandBase::agitator->DriveAgitator(-agitatorMotorPower);
-		CommandBase::liftHang->DriveLiftHang(liftHangMotorPower);
+		CommandBase::liftHang->DriveLiftHang(-liftHangMotorPower);
 	}
 }
 

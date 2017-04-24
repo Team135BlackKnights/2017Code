@@ -57,7 +57,7 @@ void DriveWithJoysticks::Execute() {
 
 	gyroAngle = CommandBase::driveTrain->GetGyroAngle();
 
-	std::cout << "Gyro Angle: " << gyroAngle << std::endl;
+	//std::cout << "Gyro Angle: " << gyroAngle << std::endl;
 
 	if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::TOP_POV)) {
 		CommandBase::driveTrain->DriveStraightWithGyro(povMotorPower, gyroAngle);

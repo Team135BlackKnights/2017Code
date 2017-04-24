@@ -57,7 +57,7 @@ void ReadLidarValues::Execute() {
 		configuredLidar = false;
 	}
 
-	std::cout << "Lidar Value: " << lidarValueIN << std::endl;
+	//std::cout << "Lidar Value: " << lidarValueIN << std::endl;
 
 	frc::SmartDashboard::PutNumber("Front Lidar Valuee:", lidarValueIN);
 }
