@@ -3,7 +3,7 @@
 
 #include "../CommandBase.h"
 #include "../Subsystems/DriveTrain.h"
-#include "../Subsystems/Server.h"
+#include "../Server.h"
 #include "../OI.h"
 
 class AimBot : public CommandBase {

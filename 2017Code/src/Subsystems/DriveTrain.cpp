@@ -3,7 +3,6 @@
 #include "Commands/DriveWithJoysticks.h"
 
 DriveTrain::DriveTrain() : frc::PIDOutput(), Subsystem("DriveTrain") {
-
 }
 
 
@@ -11,7 +10,7 @@ DriveTrain::DriveTrain() : frc::PIDOutput(), Subsystem("DriveTrain") {
 void DriveTrain::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	//SetDefaultCommand(new DriveWithJoysticks());
+	SetDefaultCommand(new DriveWithJoysticks());
 }
 
 void DriveTrain::InitializeDriveTrainMotors(bool competitionBot) {
@@ -71,8 +70,9 @@ double DriveTrain::GetDistance(int motorEncoderPort) {
 
 void DriveTrain::InitializeDriveTrainPID() {
 	gyro = new ADXRS450_Gyro(); //maybe?
-	turnController = new frc::PIDController(kP, kI, kD, kF, gyro, this);
-
+	gyro->Calibrate();
+	//for testingturnController = new frc::PIDController(Preferences::GetInstance()->GetDouble("kP",0.0625), Preferences::GetInstance()->GetDouble("kI",0.0),Preferences::GetInstance()->GetDouble("kD",0.0) , kF, gyro, this);
+	turnController = new frc::PIDController(kP,kI,kD,kF, gyro, this);
 
 	turnController->SetInputRange(-90.0f,  90.0f);
 	turnController->SetOutputRange(-1.0, 1.0);

@@ -1,4 +1,5 @@
 #include "DriveWithJoysticks.h"
+#include <iostream>
 
 DriveWithJoysticks::DriveWithJoysticks() {
 	// Use Requires() here to declare subsystem dependencies
@@ -8,11 +9,12 @@ DriveWithJoysticks::DriveWithJoysticks() {
 
 // Called just before this Command runs the first time
 void DriveWithJoysticks::Initialize() {
-
+	std::cout << "running\n";
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoysticks::Execute() {
+	if(CommandBase::driveTrain->is_aiming) return;
 	leftJoystickValue = oi->GetYAxis(OI::LEFT_DRIVE_JOYSTICK);
 	rightJoystickValue = oi->GetYAxis(OI::RIGHT_DRIVE_JOYSTICK);
 	CommandBase::driveTrain->DriveTank(leftJoystickValue, rightJoystickValue);
