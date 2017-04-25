@@ -66,5 +66,9 @@ uint8_t* Lidars::ConvertUint8_t_To_Uint8_tPointer(uint8_t data) {
 	return &convertedByte;
 }
 
+void Lidars::WriteLidarValueToFile(double lidarValue) {
+
+}
+
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

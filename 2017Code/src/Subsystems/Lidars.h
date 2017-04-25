@@ -3,6 +3,7 @@
 
 #include <Commands/Subsystem.h>
 #include <I2C.h>
+#include "LogValues.h"
 
 class Lidars : public Subsystem {
 private:
@@ -82,6 +83,8 @@ public:
 
 	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_6_GEAR = 0b01000000;
 	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_7_SHOOTER = 0b10000000;
+
+	void WriteLidarValueToFile(double);
 };
 
 #endif  // Lidars_H
