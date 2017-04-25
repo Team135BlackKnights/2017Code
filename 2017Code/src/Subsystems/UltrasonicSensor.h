@@ -45,6 +45,9 @@ public:
 
 	void InitializeUltrasonicSensors();
 
+	void PingSideUltrasonicSensor(bool);
+	void PingGearUltrasonicSensor();
+
 	double GetGearUltrasonicSensorValueInches();
 	double GetSideUltrasonicSensorValueInches(bool);
 

@@ -66,6 +66,13 @@ private:
 	frc::DigitalOutput* lidarPowerEnabledDO;
 	static const int LIDAR_POWER_ENABLE_DIGITAL_OUTPUT_PORT = 16;
 	bool lidarTurnedOn = false;
+
+	double storedLidarValue = 0.0;
+	double distanceFromBumperToGuardrail = 0.0;
+	static constexpr double DISTANCE_FROM_FRONT_ULTRASONIC_SENSOR_TO_BUMPER = 2.75;
+	static constexpr double START_OF_DESIRED_LIDAR_VALUE = 35.5;  //  37 //  35
+	double desiredLidarValue = 0.0;
+	double desiredDistanceToTravelToHopper = 0.0;
 public:
 	Lidars();
 	void InitDefaultCommand();
@@ -90,13 +97,6 @@ public:
 
 	void StoreLidarValueForHopperAndShoot(double);
 	double GetDistanceToTravelToHopper(double);
-
-	double storedLidarValue = 0.0;
-	double distanceFromBumperToGuardrail = 0.0;
-	static constexpr double DISTANCE_FROM_FRONT_ULTRASONIC_SENSOR_TO_BUMPER = 2.75;
-	static constexpr double START_OF_DESIRED_LIDAR_VALUE = 37.0;  //  37 //  35
-	double desiredLidarValue = 0.0;
-	double desiredDistanceToTravelToHopper = 0.0;
 
 	static const int NUM_OF_UNITS = 3;
 	static const int CENTIMETERS = 0;

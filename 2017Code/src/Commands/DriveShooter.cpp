@@ -30,7 +30,8 @@ void DriveShooter::Execute() {
 			initializedCloseShotPIDSlot = true;
 			initializedFarShotPIDSlot = false;
 		}
-		chosenSetpoint = 2850.0;
+		throttleValue = CommandBase::oi->GetThrottleValue(OI::MANIPULATOR_JOYSTICK);
+		chosenSetpoint = CommandBase::shooter->GetCloseShotShooterRPMGivenThrottleValue(throttleValue, Shooter::SHOOTER_RANGE_OF_RPM_PART_1, Shooter::SHOOTER_SETPOINT_MINIMUM_PART_1);
 		chosenVoltage = Shooter::DESIRED_VOLTAGE_CLOSE_SHOT;
 	}
 	else if (closeShotMode == false) {
@@ -39,7 +40,8 @@ void DriveShooter::Execute() {
 			initializedFarShotPIDSlot = true;
 			initializedCloseShotPIDSlot = false;
 		}
-		chosenSetpoint = 3150.0;
+		throttleValue = CommandBase::oi->GetThrottleValue(OI::MANIPULATOR_JOYSTICK);
+		chosenSetpoint = CommandBase::shooter->GetCloseShotShooterRPMGivenThrottleValue(throttleValue, Shooter::SHOOTER_RANGE_OF_RPM_PART_2, Shooter::SHOOTER_SETPOINT_MINIMUM_PART_2);
 		chosenVoltage = Shooter::DESIRED_VOLTAGE_FAR_SHOT;
 	}
 
@@ -88,7 +90,7 @@ void DriveShooter::Execute() {
 	shooterMotorRPM = CommandBase::shooter->GetShooterWheelRPM();
 	shooterOutputCurrent = CommandBase::shooter->GetShooterMotorOutputCurrent();
 
-	std::cout << "Shooter RPM: " << shooterMotorRPM << std::endl;
+	//std::cout << "Shooter RPM: " << shooterMotorRPM << std::endl;
 
 	frc::SmartDashboard::PutNumber("Shooter Motor RPM", shooterMotorRPM);
 	frc::SmartDashboard::PutNumber("Shooter Output Current", shooterOutputCurrent);

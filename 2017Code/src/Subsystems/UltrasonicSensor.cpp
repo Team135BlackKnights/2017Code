@@ -17,17 +17,30 @@ void UltrasonicSensor::InitializeUltrasonicSensors() {
 	gearUltrasonicPingSignal = new frc::DigitalOutput(GEAR_ULTRASONIC_DIO_PING_PORT);
 	gearUltrasonicEchoSignal = new frc::DigitalInput(GEAR_ULTRASONIC_DIO_ECHO_PORT);
 	gearUltrasonicSensor = new frc::Ultrasonic(gearUltrasonicPingSignal, gearUltrasonicEchoSignal, frc::Ultrasonic::DistanceUnit::kInches);
-	gearUltrasonicSensor->SetAutomaticMode(true);
+	gearUltrasonicSensor->SetAutomaticMode(false);
 
 	rightSideUltrasonicSensorPingSignal = new frc::DigitalOutput(RIGHT_SIDE_ULTRASONIC_SENSOR_PING_SIGNAL_PORT);
 	rightSideUltrasonicSensorEchoSignal = new frc::DigitalInput(RIGHT_SIDE_ULTRASONIC_SENSOR_ECHO_SIGNAL_PORT);
 	rightSideUltrasonicSensor = new frc::Ultrasonic(rightSideUltrasonicSensorPingSignal, rightSideUltrasonicSensorEchoSignal, frc::Ultrasonic::DistanceUnit::kInches);
-	rightSideUltrasonicSensor->SetAutomaticMode(true);
+	rightSideUltrasonicSensor->SetAutomaticMode(false);
 
 	leftSideUltrasonicSensorPingSignal = new frc::DigitalOutput(LEFT_SIDE_ULTRASONIC_SENSOR_PING_SIGNAL_PORT);
 	leftSideUltrasonicSensorEchoSignal = new frc::DigitalInput(LEFT_SIDE_ULTRASONIC_SENSOR_ECHO_SIGNAL_PORT);
 	leftSideUltrasonicSensor = new frc::Ultrasonic(leftSideUltrasonicSensorPingSignal, leftSideUltrasonicSensorEchoSignal, frc::Ultrasonic::DistanceUnit::kInches);
-	leftSideUltrasonicSensor->SetAutomaticMode(true);
+	leftSideUltrasonicSensor->SetAutomaticMode(false);
+}
+
+void UltrasonicSensor::PingSideUltrasonicSensor(bool rightUltrasonic) {
+	if (rightUltrasonic) {
+		rightSideUltrasonicSensor->Ping();
+	}
+	else if (rightUltrasonic == false) {
+		leftSideUltrasonicSensor->Ping();
+	}
+}
+
+void UltrasonicSensor::PingGearUltrasonicSensor() {
+	gearUltrasonicSensor->Ping();
 }
 
 double UltrasonicSensor::GetGearUltrasonicSensorValueInches() {

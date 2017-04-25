@@ -124,9 +124,9 @@ bool Shooter::GetShooterUpToSpeed() {
 	return (this->shooterUpToSpeed);
 }
 
-double Shooter::GetCloseShotShooterRPMGivenThrottleValue(double throttleValue) {
+double Shooter::GetCloseShotShooterRPMGivenThrottleValue(double throttleValue, double rangeOfShooterRPM, double minimumShooterSetpoint) {
 	convertedThrottleValue = (throttleValue + 1.0);
-	desiredCloseShotShooterSetpoint = (((convertedThrottleValue / 2.0) * RANGE_OF_CLOSE_SHOT_SHOOTER_RPM) + SHOOTER_SETPOINT_MIN_RPM_CLOSE_SHOT);
+	desiredCloseShotShooterSetpoint = (((convertedThrottleValue / 2.0) * rangeOfShooterRPM) + minimumShooterSetpoint);
 	return desiredCloseShotShooterSetpoint;
 }
 

@@ -12,12 +12,10 @@ AlignRobotWithGuardrail::AlignRobotWithGuardrail(double driveTrainMotorPower, bo
 
 // Called just before this Command runs the first time
 void AlignRobotWithGuardrail::Initialize() {
-	initialFrontUltrasonicSensorValue = CommandBase::ultrasonicSensor->GetGearUltrasonicSensorValueInches();
-	initialBackUltrasonicSensorValue = CommandBase::ultrasonicSensor->GetSideUltrasonicSensorValueInches(UltrasonicSensor::LEFT_SIDE_ULTRASONIC_SENSOR);
-	getInitialUltrasonicSensorValues = true;
+	pingedFrontUltrasonicSensor = false;
+	pingedBackUltrasonicSensor = true;
 
-	desiredAngleToTurn = CommandBase::ultrasonicSensor->GetAngleToTurnToAlignWithGuardRail(initialFrontUltrasonicSensorValue, initialBackUltrasonicSensorValue, this->rightHopper);
-	getDesiredAngleToTurn = true;
+	getDesiredAngleToTurn = false;
 
 	CommandBase::driveTrain->ZeroGyroAngle();
 	zeroGyro = true;
@@ -29,51 +27,64 @@ void AlignRobotWithGuardrail::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AlignRobotWithGuardrail::Execute() {
-	if (getInitialUltrasonicSensorValues == false) {
-		initialFrontUltrasonicSensorValue = CommandBase::ultrasonicSensor->GetGearUltrasonicSensorValueInches();
-		initialBackUltrasonicSensorValue = CommandBase::ultrasonicSensor->GetSideUltrasonicSensorValueInches(UltrasonicSensor::LEFT_SIDE_ULTRASONIC_SENSOR);
-		getInitialUltrasonicSensorValues = true;
-	}
-
-	if (getDesiredAngleToTurn == false) {
-		desiredAngleToTurn = CommandBase::ultrasonicSensor->GetAngleToTurnToAlignWithGuardRail(initialFrontUltrasonicSensorValue, initialBackUltrasonicSensorValue, this->rightHopper);
-		getDesiredAngleToTurn = true;
-	}
-
 	if (zeroGyro == false) {
 		CommandBase::driveTrain->ZeroGyroAngle();
 		zeroGyro = true;
 	}
 
-	currentGyroAngle = CommandBase::driveTrain->GetGyroAngle();
-
-	if (desiredAngleToTurn > 0.0) {
-		//std::cout << "Turning Right" << std::endl;
-		if (currentGyroAngle >= desiredAngleToTurn) {
-			CommandBase::driveTrain->DriveTank(0.0, 0.0);
-			alignedRobotWithGuardRail = true;
-		}
-		else {
-			//std::cout << "Moving Right" << std::endl;
-			CommandBase::driveTrain->DriveTank(0.0, (-1 * this->driveTrainMotorPower));
-		}
+	if (pingedFrontUltrasonicSensor == false) {
+		CommandBase::ultrasonicSensor->PingGearUltrasonicSensor();
+		pingedFrontUltrasonicSensor = true;
 	}
-	else if (desiredAngleToTurn < 0.0) {
-		//std::cout << "Turning Left" << std::endl;
-		if (currentGyroAngle <= desiredAngleToTurn) {
-			CommandBase::driveTrain->DriveTank(0.0, 0.0);
-			alignedRobotWithGuardRail = true;
-		}
-		else {
-			//std::cout << "Moving Left" << std::endl;
-			CommandBase::driveTrain->DriveTank((-1 * this->driveTrainMotorPower), 0.0);
-		}
-	}
-	else if (desiredAngleToTurn == 0.0) {
-		alignedRobotWithGuardRail = true;
+	else if (pingedFrontUltrasonicSensor) {
+		initialFrontUltrasonicSensorValue = CommandBase::ultrasonicSensor->GetGearUltrasonicSensorValueInches();
+		pingedFrontUltrasonicSensor = false;
 	}
 
-	//std::cout << "Desired Angle To Turn" << desiredAngleToTurn << std::endl;
+	if (pingedBackUltrasonicSensor == false) {
+		CommandBase::ultrasonicSensor->PingSideUltrasonicSensor(UltrasonicSensor::LEFT_SIDE_ULTRASONIC_SENSOR);
+		pingedBackUltrasonicSensor = true;
+	}
+	else if (pingedBackUltrasonicSensor) {
+		initialBackUltrasonicSensorValue = CommandBase::ultrasonicSensor->GetSideUltrasonicSensorValueInches(UltrasonicSensor::LEFT_SIDE_ULTRASONIC_SENSOR);
+		pingedBackUltrasonicSensor = false;
+	}
+
+	if (getDesiredAngleToTurn == false) {
+		if (initialFrontUltrasonicSensorValue < 5000.0 && initialFrontUltrasonicSensorValue > 0.0 && initialBackUltrasonicSensorValue < 5000.0 && initialBackUltrasonicSensorValue > 0.0) {
+			desiredAngleToTurn = CommandBase::ultrasonicSensor->GetAngleToTurnToAlignWithGuardRail(initialFrontUltrasonicSensorValue, initialBackUltrasonicSensorValue, this->rightHopper);
+			getDesiredAngleToTurn = true;
+		}
+	}
+	else if (getDesiredAngleToTurn) {
+		currentGyroAngle = CommandBase::driveTrain->GetGyroAngle();
+
+		if (desiredAngleToTurn > 0.0) {
+			//std::cout << "Turning Right" << std::endl;
+			if (currentGyroAngle >= desiredAngleToTurn) {
+				CommandBase::driveTrain->DriveTank(0.0, 0.0);
+				alignedRobotWithGuardRail = true;
+			}
+			else {
+				//std::cout << "Moving Right" << std::endl;
+				CommandBase::driveTrain->DriveTank(0.0, (-1 * this->driveTrainMotorPower));
+			}
+		}
+		else if (desiredAngleToTurn < 0.0) {
+			//std::cout << "Turning Left" << std::endl;
+			if (currentGyroAngle <= desiredAngleToTurn) {
+				CommandBase::driveTrain->DriveTank(0.0, 0.0);
+				alignedRobotWithGuardRail = true;
+			}
+			else {
+				//std::cout << "Moving Left" << std::endl;
+				CommandBase::driveTrain->DriveTank((-1 * this->driveTrainMotorPower), 0.0);
+			}
+		}
+		else if (desiredAngleToTurn == 0.0) {
+			alignedRobotWithGuardRail = true;
+		}
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -83,9 +94,7 @@ bool AlignRobotWithGuardrail::IsFinished() {
 
 // Called once after isFinished returns true
 void AlignRobotWithGuardrail::End() {
-	std::cout << "Done" << std::endl;
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
-	getInitialUltrasonicSensorValues = false;
 	getDesiredAngleToTurn = false;
 	alignedRobotWithGuardRail = false;
 	CommandBase::ultrasonicSensor->usingUltrasonicSensor = false;

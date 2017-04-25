@@ -8,7 +8,6 @@ private:
 	double driveTrainMotorPower;
 	bool rightHopper;
 
-	bool getInitialUltrasonicSensorValues = false;
 	double initialFrontUltrasonicSensorValue = 0.0;
 	double initialBackUltrasonicSensorValue = 0.0;
 
@@ -19,6 +18,9 @@ private:
 	double currentGyroAngle = 0.0;
 
 	bool alignedRobotWithGuardRail = false;
+
+	bool pingedFrontUltrasonicSensor = false;
+	bool pingedBackUltrasonicSensor = true;
 public:
 	AlignRobotWithGuardrail(double, bool);
 	void Initialize();

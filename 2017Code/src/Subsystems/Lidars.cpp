@@ -114,6 +114,8 @@ double Lidars::GetDistanceToTravelToHopper(double frontUltrasonicSensorValue) {
 	desiredLidarValue = (START_OF_DESIRED_LIDAR_VALUE + distanceFromBumperToGuardrail);
 	std::cout << "Desired Lidar Value: " << desiredLidarValue << std::endl;
 	desiredDistanceToTravelToHopper = (desiredLidarValue - storedLidarValue);
+	std::cout << "Stored Lidar Value: " << storedLidarValue << std::endl;
+	std::cout << "Desired Distance To Travel: " << desiredDistanceToTravelToHopper << std::endl;
 	return desiredDistanceToTravelToHopper;
 }
 

@@ -21,6 +21,16 @@ public:
 
 	bool stopShooterFromDriving = false;
 
+	static constexpr double SHOOTER_SETPOINT_MINIMUM_PART_1 = 2700.0;
+	static constexpr double SHOOTER_SETPOINT_MAXIMUM_PART_1 = 3000.0;
+	static constexpr double SHOOTER_SETPOINT_MINIMUM_PART_2 = 3000.0;
+	static constexpr double SHOOTER_SETPOINT_MAXIMUM_PART_2 = 3300.0;
+
+	static constexpr double SHOOTER_CLOSE_SHOT_SETPOINT = 2850.0;
+
+	static constexpr double SHOOTER_RANGE_OF_RPM_PART_1 = (SHOOTER_SETPOINT_MAXIMUM_PART_1 - SHOOTER_SETPOINT_MINIMUM_PART_1);
+	static constexpr double SHOOTER_RANGE_OF_RPM_PART_2 = (SHOOTER_SETPOINT_MAXIMUM_PART_2 - SHOOTER_SETPOINT_MINIMUM_PART_2);
+
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
@@ -75,6 +85,12 @@ private:
 	static constexpr double PB_FAR_SHOT_POSITIVE_PEAK_VOLTAGE = 10.2;
 	static constexpr double PB_FAR_SHOT_NEGATIVE_PEAK_VOLTAGE = -6.0;
 
+	static constexpr double PB_NEW_PID_CLOSE_SHOT_Kp = .4;
+	static constexpr double PB_NEW_PID_CLOSE_SHOT_Ki = .00015;
+	static constexpr double PB_NEW_PID_CLOSE_SHOT_Kd = 2.0;
+	static constexpr double PB_NEW_PID_CLOSE_SHOT_Kf = .032;
+	static constexpr double PB_NEW_PID_CLOSE_SHOT_IZone = 8196.0;
+
 	static constexpr double CB_CLOSE_SHOT_Kp = .25;  //  1.3
 	static constexpr double CB_CLOSE_SHOT_Ki = 0.0;
 	static constexpr double CB_CLOSE_SHOT_Kd = .5;  //  8.0
@@ -120,7 +136,7 @@ public:
 	void ShooterUpToSpeed(bool);
 	bool GetShooterUpToSpeed();
 
-	double GetCloseShotShooterRPMGivenThrottleValue(double);
+	double GetCloseShotShooterRPMGivenThrottleValue(double, double, double);
 	void SetSwitchFarAndCloseShotShooterRPM(bool);
 	bool GetSwitchBetweenFarAndCloseShotShooterRPM();
 };
