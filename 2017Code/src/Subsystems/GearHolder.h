@@ -31,6 +31,8 @@ private:
 	frc::DigitalInput* photoElectricSensor;
 	static const int PHOTO_ELECTRIC_SENSOR_PORT = 3;
 
+	bool overrideUpperLimitSwitch = false;
+
 public:
 	GearHolder();
 	void InitDefaultCommand();
@@ -38,6 +40,7 @@ public:
 	void InitializeGearHolderMotor(bool);
 
 	void DriveGearHolderMotor(double);
+	void OverrideUpperLimitSwitch();
 
 	bool GetLimitSwitchValue(int);
 

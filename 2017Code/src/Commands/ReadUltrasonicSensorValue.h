@@ -9,6 +9,8 @@ private:
 	double rightUltrasonicSensorValueInches = 0.0;
 
 	int readingUltrasonicSensorsCounter = 1;
+
+	double gearUltrasonicSensorValue = 0.0;
 public:
 	ReadUltrasonicSensorValue();
 	void Initialize();

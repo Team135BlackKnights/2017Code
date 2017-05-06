@@ -20,7 +20,7 @@ void AutoGearOnPeg::Initialize() {
 	timer->Reset();
 	timer->Start();
 
-	startMovingRobot = true;
+	startMovingRobot = false;
 	retryGearLineUp = false;
 	moveGearHolderDown = false;
 	stopGearHolderDown = false;
@@ -40,6 +40,10 @@ void AutoGearOnPeg::Initialize() {
 void AutoGearOnPeg::Execute() {
 	ultrasonicValue = CommandBase::ultrasonicSensor->GetGearUltrasonicSensorValueInches();
 	timerValue = timer->Get();
+
+	if (ultrasonicValue > 0.0 && ultrasonicValue < 5000.0) {
+		startMovingTowardsGear = true;
+	}
 
 	if (startMovingTowardsGear) {
 		if (ultrasonicValue > DISTANCE_AWAY_FROM_AIRSHIP_TO_DROP_GEAR_IN) {
@@ -225,7 +229,7 @@ void AutoGearOnPeg::End() {
 	gearOnPeg = false;
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
 	CommandBase::gearHolder->DriveGearHolderMotor(0.0);
-	startMovingRobot = true;
+	startMovingRobot = false;
 	retryGearLineUp = false;
 	moveGearHolderDown = false;
 	stopGearHolderDown = false;

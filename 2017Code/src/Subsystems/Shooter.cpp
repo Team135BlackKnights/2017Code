@@ -35,10 +35,10 @@ void Shooter::ConfigureShooterMotorEncoder(bool competitionBot) {
 	shooterMotor->SetNominalClosedLoopVoltage(SHOOTER_MAX_VOLTAGE);
 
 	if (competitionBot) {
-		closeShotKp = CB_CLOSE_SHOT_Kp;
-		closeShotKi = CB_CLOSE_SHOT_Ki;
-		closeShotKd = CB_CLOSE_SHOT_Kd;
-		closeShotKf = CB_CLOSE_SHOT_Kf;
+		closeShotKp = CB_NEW_PID_CLOSE_SHOT_Kp;
+		closeShotKi = CB_NEW_PID_CLOSE_SHOT_Ki;
+		closeShotKd = CB_NEW_PID_CLOSE_SHOT_Kd;
+		closeShotKf = CB_NEW_PID_CLOSE_SHOT_Kf;
 		closeShotPositivePeakVoltage = CB_CLOSE_SHOT_POSITIVE_PEAK_VOLTAGE;
 		closeShotNegativePeakVoltage = CB_CLOSE_SHOT_NEGATIVE_PEAK_VOLTAGE;
 
@@ -68,18 +68,18 @@ void Shooter::ConfigureShooterMotorEncoder(bool competitionBot) {
 	this->SelectPIDProfileSlot(CLOSE_SHOT_PID_VALUES);
 	shooterMotor->ConfigPeakOutputVoltage(12.0, -12.0);
 	shooterMotor->ConfigNominalOutputVoltage(0.0, -0.0);
-	//shooterMotor->SetP(closeShotKp);
-	//shooterMotor->SetI(closeShotKi);
-	//shooterMotor->SetD(closeShotKd);
-	//shooterMotor->SetF(closeShotKf);
+	shooterMotor->SetP(closeShotKp);
+	shooterMotor->SetI(closeShotKi);
+	shooterMotor->SetD(closeShotKd);
+	shooterMotor->SetF(closeShotKf);
 
 	this->SelectPIDProfileSlot(FAR_SHOT_PID_VALUES);
 	shooterMotor->ConfigPeakOutputVoltage(12.0, -12.0);
 	shooterMotor->ConfigNominalOutputVoltage(0.0, -0.0);
-	//shooterMotor->SetP(farShotKp);
-	//shooterMotor->SetI(farShotKi);
-	//shooterMotor->SetD(farShotKd);
-	//shooterMotor->SetF(farShotKf);
+	shooterMotor->SetP(farShotKp);
+	shooterMotor->SetI(farShotKi);
+	shooterMotor->SetD(farShotKd);
+	shooterMotor->SetF(farShotKf);
 }
 
 void Shooter::ConfigureShooterVoltageMode() {

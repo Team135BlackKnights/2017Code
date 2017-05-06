@@ -31,6 +31,9 @@ private:
 
 	double desiredMaxMotorPower = 0.0;
 	bool fastMotorPower = false;
+
+	int rightEncoderValue = 0;
+	int leftEncoderValue = 0;
 public:
 	DriveWithJoysticks();
 	void Initialize();

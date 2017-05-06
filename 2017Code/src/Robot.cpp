@@ -29,9 +29,6 @@ public:
 		autonomousChooser.AddObject("Right 40Kpa", new AutonomousCommand(AutonomousSelection::RightKPaAutonomous, SecondTask::None));
 		autonomousChooser.AddObject("Left 40KPa", new AutonomousCommand(AutonomousSelection::LeftKPaAutonomous, SecondTask::None)); */
 
-		autonomousChooser.AddDefault("Autonomous", new AutonomousCommand());
-		frc::SmartDashboard::PutData("Autonomouss Modes", &autonomousChooser);
-
 		CommandBase::agitator->InitializeAgitatorMotor(COMPETITION_BOT);
 		//CommandBase::cameraServo->InitializeCameraServo();
 		CommandBase::collection->InitializeCollectionMotor(COMPETITION_BOT);
@@ -50,6 +47,9 @@ public:
 		CommandBase::shooterHood->InitializeShooterHoodMotor(COMPETITION_BOT);
 		CommandBase::shooterHood->ConfigureShooterHoodEncoder();
 		CommandBase::ultrasonicSensor->InitializeUltrasonicSensors();
+
+		autonomousChooser.AddDefault("Autonomous", new AutonomousCommand());
+		frc::SmartDashboard::PutData("Autonomouss Modes", &autonomousChooser);
 
 		//CameraServer::GetInstance()->StartAutomaticCapture();
 	}

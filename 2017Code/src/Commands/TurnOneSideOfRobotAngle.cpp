@@ -15,6 +15,8 @@ void TurnOneSideOfRobotAngle::Initialize() {
 	CommandBase::driveTrain->ZeroGyroAngle();
 	zeroGyro = true;
 	turnedDesiredAngle = false;
+
+	CommandBase::driveTrain->is_aiming = true;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -54,6 +56,8 @@ bool TurnOneSideOfRobotAngle::IsFinished() {
 void TurnOneSideOfRobotAngle::End() {
 	zeroGyro = false;
 	turnedDesiredAngle = false;
+
+	CommandBase::driveTrain->is_aiming = false;
 }
 
 // Called when another command which requires one or more of the same

@@ -18,7 +18,7 @@ void DriveWithJoysticks::Initialize() {
 void DriveWithJoysticks::Execute() {
 	if(CommandBase::driveTrain->is_aiming) return;
 
-	rightDriveEncoderDetected = CommandBase::driveTrain->MakeSureDriveTrainEncoderIsPluggedIn(DriveTrain::RIGHT_SIDE_ENCODER_BOOLEAN);
+	/*rightDriveEncoderDetected = CommandBase::driveTrain->MakeSureDriveTrainEncoderIsPluggedIn(DriveTrain::RIGHT_SIDE_ENCODER_BOOLEAN);
 	leftDriveEncoderDetected = CommandBase::driveTrain->MakeSureDriveTrainEncoderIsPluggedIn(DriveTrain::LEFT_SIDE_ENCODER_BOOLEAN);
 	if (rightDriveEncoderDetected == false) {
 		std::cout << "Right Drive Train Encoder Is Unplugged" << std::endl;
@@ -26,7 +26,7 @@ void DriveWithJoysticks::Execute() {
 
 	if (leftDriveEncoderDetected == false) {
 		std::cout << "Left Drive Train Encoder Is Unplugged" << std::endl;
-	}
+	} */
 
 	leftJoystickValue = oi->GetYAxis(OI::LEFT_DRIVE_JOYSTICK);
 	rightJoystickValue = oi->GetYAxis(OI::RIGHT_DRIVE_JOYSTICK);
@@ -56,8 +56,7 @@ void DriveWithJoysticks::Execute() {
 	}
 
 	gyroAngle = CommandBase::driveTrain->GetGyroAngle();
-
-	//std::cout << "Gyro Angle: " << gyroAngle << std::endl;
+	frc::SmartDashboard::PutNumber("Gyro Angle", gyroAngle);
 
 	if (CommandBase::oi->POVDirectionPressed(OI::RIGHT_DRIVE_JOYSTICK, OI::TOP_POV)) {
 		CommandBase::driveTrain->DriveStraightWithGyro(povMotorPower, gyroAngle);
@@ -72,8 +71,13 @@ void DriveWithJoysticks::Execute() {
 		CommandBase::driveTrain->DriveTank(-POV_DRIVE_TRAIN_MOTOR_POWER, POV_DRIVE_TRAIN_MOTOR_POWER);
 	}
 	else {
-		//CommandBase::driveTrain->ZeroGyroAngle();
+		CommandBase::driveTrain->ZeroGyroAngle();
 	}
+
+	rightEncoderValue = CommandBase::driveTrain->GetEncoderPosition(DriveTrain::RIGHT_SIDE_ENCODER);
+	leftEncoderValue = CommandBase::driveTrain->GetEncoderPosition(DriveTrain::LEFT_SIDE_ENCODER);
+	frc::SmartDashboard::PutNumber("Right Drive Train Encoder Value", rightEncoderValue);
+	frc::SmartDashboard::PutNumber("Left Drive Train Encoder Value", leftEncoderValue);
 }
 
 // Make this return true when this Command no longer needs to run execute()

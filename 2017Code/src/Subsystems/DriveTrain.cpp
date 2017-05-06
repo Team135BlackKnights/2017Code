@@ -33,9 +33,6 @@ void DriveTrain::InitializeDriveTrainMotors(bool competitionBot) {
 
 	chassis = new frc::RobotDrive(driveTrainMotors[FRONT_LEFT], driveTrainMotors[REAR_LEFT], driveTrainMotors[FRONT_RIGHT], driveTrainMotors[REAR_RIGHT]);
 	chassis->SetSafetyEnabled(false);
-
-	chassis->SetInvertedMotor(frc::RobotDrive::MotorType::kFrontLeftMotor, true);
-	chassis->SetInvertedMotor(frc::RobotDrive::MotorType::kRearLeftMotor, true);
 }
 
 void DriveTrain::DriveTank(double leftMotorPower, double rightMotorPower) {
@@ -239,8 +236,8 @@ void DriveTrain::DriveStraightWithUltrasonicSensor(double currentUltrasonicSenso
 void DriveTrain::InitializeDriveTrainPID() {
 	gyro = new ADXRS450_Gyro(); //maybe?
 	gyro->Calibrate();
-	//turnController = new frc::PIDController(Preferences::GetInstance()->GetDouble("kP",0.0625), Preferences::GetInstance()->GetDouble("kI",0.0),Preferences::GetInstance()->GetDouble("kD",0.0) , kF, gyro, this);
-	turnController = new frc::PIDController(kP,kI,kD,kF, gyro, this);
+	turnController = new frc::PIDController(Preferences::GetInstance()->GetDouble("kP",0.0625), Preferences::GetInstance()->GetDouble("kI",0.0),Preferences::GetInstance()->GetDouble("kD",0.0) , kF, gyro, this);
+	//turnController = new frc::PIDController(kP,kI,kD,kF, gyro, this);
 	turnController->SetInputRange(-90.0f,  90.0f);
 	turnController->SetOutputRange(-1.0, 1.0);
 	turnController->SetAbsoluteTolerance(kToleranceDegrees);

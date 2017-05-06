@@ -21,7 +21,7 @@ private:
 	double actualOffset = 0.0;
 	static constexpr double driveSpeed = -.25;
 	double curveValue = 0.0;
-	static constexpr double proportionalConstant = .0125;//.01;
+	static constexpr double proportionalConstant = .01;//.01;
 	bool done = false;
 };
 

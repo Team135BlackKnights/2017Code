@@ -13,8 +13,8 @@ AimBot::AimBot(int camNumber) {
 void AimBot::Initialize() {
 	std::cout << "running \n\n\n:";
 	double angleToTurn = -CommandBase::server->get_angle(cameraNumber);
-	if(angleToTurn == 0) isbad = true;
-	else isbad = false;
+	/*if(angleToTurn == 0) isbad = true;
+	else isbad = false;*/
 	if(cameraNumber == 1)
 	{
 		std::cout << "\n\n\n\n\n\n\n\n\n\nCAMERA NUMBER IS ONE \n\n\n\n\n\n\n\n";
@@ -32,7 +32,7 @@ void AimBot::Initialize() {
 	else
 	{
 		std::cout << "\n\n\n\nCAMERA !\n\n\n\n";
-		CommandBase::driveTrain->TurnPIDEnable(angleToTurn);//- 18);
+		CommandBase::driveTrain->TurnPIDEnable(2.5);//- 18);
 	}
 	frc::SmartDashboard::PutNumber("Angle to Turn Starting: ", angleToTurn);
 	time.Start();
@@ -46,18 +46,20 @@ void AimBot::Initialize() {
 void AimBot::Execute() {
 	frc::SmartDashboard::PutNumber("Angle to Turn: ", CommandBase::driveTrain->GetGyroAngle());
 	CommandBase::driveTrain->PIDTurning();
+	std::cout << "Time: " << time.Get() << std::endl;
 	//std::cout << "testing\n";
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AimBot::IsFinished() {
 	//return false;
-	return time.Get() > .5 || !CommandBase::driveTrain->turnController->IsEnabled() || isbad == true || (CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 11) && CommandBase::oi->GetAction(CommandBase::oi->LEFT_DRIVE_JOYSTICK, 8)) ;
+	return time.Get() > 3  || isbad == true;
 }
 
 // Called once after isFinished returns true
 void AimBot::End() {
 	time.Stop();
+	CommandBase::driveTrain->DriveTank(0,0);
 	CommandBase::driveTrain->is_aiming = false;
 }
 

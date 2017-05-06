@@ -1,13 +1,13 @@
 #include "TurnDriveTrainAngle.h"
 
-TurnDriveTrainAngle::TurnDriveTrainAngle(double desiredAngleToTurn, double motorPower, bool turnRight, bool setTimeout) {
+TurnDriveTrainAngle::TurnDriveTrainAngle(double desiredAngleToTurn, double motorPower, bool turnRight) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::driveTrain.get());
 	this->desiredAngleToTurn = desiredAngleToTurn;
 	this->motorPower = motorPower;
 	this->turnRight = turnRight;
-	this->setTimeout = setTimeout;
+	//this->setTimeout = setTimeout;
 
 	timer = new frc::Timer();
 }
@@ -57,12 +57,13 @@ void TurnDriveTrainAngle::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool TurnDriveTrainAngle::IsFinished() {
-	if (setTimeout) {
+	/*if (setTimeout) {
 		return (turnAngleComplete || (timerValue >= TURN_ROBOT_INTO_HOPPER_TIMEOUT));
 	}
 	else if (setTimeout == false) {
-		return turnAngleComplete;
-	}
+
+	} */
+	return turnAngleComplete;
 }
 
 // Called once after isFinished returns true

@@ -1,12 +1,15 @@
 #include "AutoDriveShooter.h"
 
-AutoDriveShooter::AutoDriveShooter(int setpointRPM) {
+AutoDriveShooter::AutoDriveShooter(int setpointRPM, bool closeShotPIDSlot) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::shooter.get());
 	Requires(CommandBase::agitator.get());
 	Requires(CommandBase::collection.get());
+
 	this->setpointRPM = setpointRPM;
+	this->closeShotPIDSlot = closeShotPIDSlot;
+
 	timer = new frc::Timer();
 }
 
@@ -29,6 +32,8 @@ void AutoDriveShooter::Initialize() {
 	startRunningCollection = false;
 
 	doneDrivingCollection = false;
+
+	initializePIDSlot = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -41,10 +46,20 @@ void AutoDriveShooter::Execute() {
 		shooterVoltageMode = false;
 	}
 
+	if (initializePIDSlot == false) {
+		if (this->closeShotPIDSlot) {
+			CommandBase::shooter->SelectPIDProfileSlot(Shooter::CLOSE_SHOT_PID_VALUES);
+		}
+		else if (this->closeShotPIDSlot == false) {
+			CommandBase::shooter->SelectPIDProfileSlot(Shooter::FAR_SHOT_PID_VALUES);
+		}
+		initializePIDSlot = true;
+	}
+
 	currentShooterWheelRPM = CommandBase::shooter->GetShooterWheelRPM();
 	CommandBase::shooter->DriveShooterMotor(this->setpointRPM);
 
-	if (currentShooterWheelRPM >= (this->setpointRPM - 400) && beginTimerToLevelOutSetpoint == false) {
+	if ((currentShooterWheelRPM >= this->setpointRPM) && beginTimerToLevelOutSetpoint == false) {
 		beginTimerToLevelOutSetpoint = true;
 		timer->Reset();
 		timer->Start();
@@ -57,16 +72,16 @@ void AutoDriveShooter::Execute() {
 
 	if (moveAgitatorToShootFuel) {
 		if (startTimerForAgitator == false) {
-			CommandBase::agitator->DriveAgitator(AGITATOR_MOTOR_POWER);
+			CommandBase::agitator->DriveAgitator(AGITATOR_MOTOR_POWER, AGITATOR_2_MOTOR_POWER);
 			timer->Reset();
 			timer->Start();
 			startTimerForAgitator = true;
 		}
 		else if (startTimerForAgitator && timerValue < WAIT_TIME_FOR_FUEL_TO_SHOOT_WITH_COLLECTION) {
-			CommandBase::agitator->DriveAgitator(AGITATOR_MOTOR_POWER);
+			CommandBase::agitator->DriveAgitator(AGITATOR_MOTOR_POWER, AGITATOR_2_MOTOR_POWER);
 		}
 		else if (startTimerForAgitator && timerValue >= WAIT_TIME_FOR_FUEL_TO_SHOOT_WITH_COLLECTION) {
-			CommandBase::agitator->DriveAgitator(0.0);
+			CommandBase::agitator->DriveAgitator(0.0, 0.0);
 			timer->Stop();
 			timer->Reset();
 			if (shooterVoltageMode == false) {
@@ -112,7 +127,7 @@ void AutoDriveShooter::End() {
 	shooterPIDMode = false;
 	shooterVoltageMode = true;
 	CommandBase::shooter->DriveShooterMotor(0.0);
-	CommandBase::agitator->DriveAgitator(0.0);
+	CommandBase::agitator->DriveAgitator(0.0, 0.0);
 	CommandBase::collection->DriveCollection(0.0);
 
 	beginTimerToLevelOutSetpoint = false;
@@ -123,6 +138,8 @@ void AutoDriveShooter::End() {
 	startRunningCollection = false;
 	initializeTimerToRunCollection = false;
 	doneDrivingCollection = false;
+
+	initializePIDSlot = false;
 }
 
 // Called when another command which requires one or more of the same

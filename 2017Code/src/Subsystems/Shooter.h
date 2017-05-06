@@ -21,7 +21,7 @@ public:
 
 	bool stopShooterFromDriving = false;
 
-	static constexpr double SHOOTER_SETPOINT_MINIMUM_PART_1 = 2700.0;
+	static constexpr double SHOOTER_SETPOINT_MINIMUM_PART_1 = 2650.0;
 	static constexpr double SHOOTER_SETPOINT_MAXIMUM_PART_1 = 3000.0;
 	static constexpr double SHOOTER_SETPOINT_MINIMUM_PART_2 = 3000.0;
 	static constexpr double SHOOTER_SETPOINT_MAXIMUM_PART_2 = 3300.0;
@@ -105,6 +105,12 @@ private:
 	static constexpr double CB_FAR_SHOT_POSITIVE_PEAK_VOLTAGE = 10.2;  //
 	static constexpr double CB_FAR_SHOT_NEGATIVE_PEAK_VOLTAGE = -6.0;
 
+	static constexpr double CB_NEW_PID_CLOSE_SHOT_Kp = .5;
+	static constexpr double CB_NEW_PID_CLOSE_SHOT_Ki = .00015;
+	static constexpr double CB_NEW_PID_CLOSE_SHOT_Kd = 2.0;
+	static constexpr double CB_NEW_PID_CLOSE_SHOT_Kf = .032;
+	static constexpr double CB_NEW_PID_CLOSE_SHOT_IZONE = 8196.0;
+
 	//  Variable for ShooterUpToSpeed() and GetShooterUpToSpeed()
 	bool shooterUpToSpeed = false;
 
@@ -139,6 +145,8 @@ public:
 	double GetCloseShotShooterRPMGivenThrottleValue(double, double, double);
 	void SetSwitchFarAndCloseShotShooterRPM(bool);
 	bool GetSwitchBetweenFarAndCloseShotShooterRPM();
+
+	bool usingShooterSubsystem = false;
 };
 
 #endif  // Shooter_H

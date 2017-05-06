@@ -19,7 +19,7 @@ private:
 	static const int GEAR_ULTRASONIC_DIO_PING_PORT = 9;
 	static const int GEAR_ULTRASONIC_DIO_ECHO_PORT = 8;
 
-	frc::Ultrasonic* rightSideUltrasonicSensor;
+	/*frc::Ultrasonic* rightSideUltrasonicSensor;
 	frc::DigitalOutput* rightSideUltrasonicSensorPingSignal;
 	frc::DigitalInput* rightSideUltrasonicSensorEchoSignal;
 
@@ -31,7 +31,7 @@ private:
 	frc::DigitalInput* leftSideUltrasonicSensorEchoSignal;
 
 	static const int LEFT_SIDE_ULTRASONIC_SENSOR_PING_SIGNAL_PORT = 4;
-	static const int LEFT_SIDE_ULTRASONIC_SENSOR_ECHO_SIGNAL_PORT = 5;
+	static const int LEFT_SIDE_ULTRASONIC_SENSOR_ECHO_SIGNAL_PORT = 5; */
 
 	double sideUltrasonicSensorValue = 0.0;
 

@@ -148,6 +148,11 @@ public:
 	int GetMaxAngleLimitSwitch();
 	int GetMinAngleLimitSwitch();
 
+	int GetDesiredHoodEncoderPositionGivenLidarValue(double);
+
+	int desiredHoodEncoderValueGivenLidarValue = 0;
+	static constexpr double LIDAR_DISTANCE_TO_DESIRED_HOOD_ENCODER_VALUE = 1.0;
+
 	double ConvertDegreesToRadians(double);
 
 	static const int NUM_OF_SHOOTER_ANGLED_POSITIONS = 2;

@@ -6,7 +6,6 @@
 class ReadLiftHangEncoderValue : public CommandBase {
 private:
 	int liftHangRawEncoderValue = 0;
-	int liftHangEncoderValue = 0;
 public:
 	ReadLiftHangEncoderValue();
 	void Initialize();

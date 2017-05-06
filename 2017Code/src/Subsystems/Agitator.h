@@ -10,6 +10,7 @@ private:
 	// for methods that implement subsystem capabilities
 
 	frc::VictorSP* agitatorMotor;
+	frc::VictorSP* agitatorMotorPart2;
 
 public:
 	Agitator();
@@ -17,7 +18,7 @@ public:
 
 	void InitializeAgitatorMotor(bool);
 
-	void DriveAgitator(double);
+	void DriveAgitator(double, double);
 };
 
 #endif  // Agitator_H

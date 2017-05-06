@@ -7,6 +7,10 @@
 class AutoDriveShooter : public CommandBase {
 private:
 	int setpointRPM;
+	bool closeShotPIDSlot;
+
+	bool initializePIDSlot = false;
+
 	int currentShooterWheelRPM = 0;
 	bool shooterVoltageMode = false;
 	bool shooterPIDMode = false;
@@ -27,7 +31,8 @@ private:
 
 	static constexpr double AUTO_DRIVE_SHOOTER_TIMEOUT = 6.0;
 
-	static constexpr double AGITATOR_MOTOR_POWER = .3;
+	static constexpr double AGITATOR_MOTOR_POWER = 1.0;
+	static constexpr double AGITATOR_2_MOTOR_POWER = 1.0;
 
 	bool startTimerForAgitator = false;
 	bool shotFuelIntoBoiler = false;
@@ -41,7 +46,7 @@ private:
 
 	bool doneDrivingCollection = false;
 public:
-	AutoDriveShooter(int);
+	AutoDriveShooter(int, bool);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

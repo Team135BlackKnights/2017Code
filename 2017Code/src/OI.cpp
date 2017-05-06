@@ -21,6 +21,8 @@
 #include "Commands/TurnDriveTrainAngle.h"
 #include "Commands/CameraAdjustWhileDrivingToGear.h"
 #include "Commands/DriveParallelWithGuardrailWithUltrasonicSensor.h"
+#include "Commands/TurnOneSideOfRobotAngle.h"
+#include "Commands/OverrideGearHolderLimitSwitches.h"
 #include <iostream>
 
 OI::OI() {
@@ -116,7 +118,7 @@ bool OI::POVDirectionPressed(int joystickNumber, int povDirection) {
 
 void OI::ConfigureButtonMapping() {
 	joystickButton[MANIPULATOR_JOYSTICK][AGITATOR_FORWARD_BUTTON]->WhileHeld(new DriveAgitator(true));
-	joystickButton[MANIPULATOR_JOYSTICK][AGITATOR_BACKWARDS_BUTTON]->WhileHeld(new DriveAgitator(false));
+	//joystickButton[MANIPULATOR_JOYSTICK][AGITATOR_BACKWARDS_BUTTON]->WhileHeld(new DriveAgitator(false));
 
 	joystickButton[MANIPULATOR_JOYSTICK][COLLECTION_FORWARD_BUTTON]->WhileHeld(new DriveCollection(true));
 	joystickButton[MANIPULATOR_JOYSTICK][COLLECTION_BACKWARDS_BUTTON]->WhileHeld(new DriveCollection(false));
@@ -138,7 +140,10 @@ void OI::ConfigureButtonMapping() {
 	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_40_KPA_AUTONOMOUS_BUTTON]->WhenPressed(new AutoDriveShooterHood(KPA_AUTONOMOUS_HOOD_ENCODER_VALUE));
 	joystickButton[RIGHT_DRIVE_JOYSTICK][SHOOTER_HOOD_LEFT_CLOSE_SHOT_BUTTON]->WhenPressed(new AutoDriveShooterHood(LEFT_CLOSE_SHOT_SHOOTER_AUTONOMOUS_HOOD_ENCODER_VALUE));
 
-	joystickButton[LEFT_DRIVE_JOYSTICK][10]->WhenPressed(new CameraAdjustWhileDrivingToGear());
+	joystickButton[MANIPULATOR_JOYSTICK][OVERRIDE_GEAR_LIMIT_SWITCHES_BUTTON]->WhenPressed(new OverrideGearHolderLimitSwitches());
+
+	//joystickButton[LEFT_DRIVE_JOYSTICK][10]->WhenPressed(new CameraAdjustWhileDrivingToGear());
+	//joystickButton[LEFT_DRIVE_JOYSTICK][10]->WhenPressed(new TurnOneSideOfRobotAngle(2.5,false,.5));
 	//joystickButton[LEFT_DRIVE_JOYSTICK][3]->WhenPressed(new AutoRotateRobotForGearPeg(.5, 10.0));
 
 	//joystickButton[LEFT_DRIVE_JOYSTICK][TRIGGER_BUTTON]->ToggleWhenPressed(new GearUpAndDown());
@@ -148,8 +153,10 @@ void OI::ConfigureButtonMapping() {
 	//joystickButton[LEFT_DRIVE_JOYSTICK][12]->WhenPressed(new TurnDriveTrainAngle(48.0, .65, false));
 	//joystickButton[LEFT_DRIVE_JOYSTICK][11]->WhenPressed(new TurnDriveTrainAngle(43.0, .65, false));
 
-	joystickButton[LEFT_DRIVE_JOYSTICK][12]->WhenPressed(new DriveParallelWithGuardrailWithUltrasonicSensor(16.0, 5.0, -.35, true));
+	//joystickButton[LEFT_DRIVE_JOYSTICK][12]->WhenPressed(new DriveParallelWithGuardrailWithUltrasonicSensor(16.0, 5.0, -.35, true));
 	//joystickButton[LEFT_DRIVE_JOYSTICK][11]->CancelWhenPressed(new DriveParallelWithGuardrailWithUltrasonicSensor(50.0, 5.0, -.45, true));
+
+	//joystickButton[LEFT_DRIVE_JOYSTICK][9]->ToggleWhenPressed(new GearUpAndDown());
 }
 
 bool OI::GetAction(int JoyException, int ButtonException)

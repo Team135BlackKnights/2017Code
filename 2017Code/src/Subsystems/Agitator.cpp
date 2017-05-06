@@ -19,10 +19,13 @@ void Agitator::InitializeAgitatorMotor(bool competitionBot) {
 		agitatorMotor = new frc::VictorSP(PB_AGITATOR_VICTOR_PWM_PORT);
 		agitatorMotor->SetInverted(PB_AGITATOR_INVERTED);
 	}
+	agitatorMotorPart2 = new frc::VictorSP(CB_AGITATOR_2_VICTOR_PWM_PORT);
+	agitatorMotorPart2->SetInverted(CB_AGITATOR_2_INVERTED);
 }
 
-void Agitator::DriveAgitator(double motorPower) {
-	agitatorMotor->Set(motorPower);
+void Agitator::DriveAgitator(double agitator1MotorPower, double agitator2MotorPower) {
+	agitatorMotor->Set(agitator1MotorPower);
+	agitatorMotorPart2->Set(agitator2MotorPower);
 }
 
 // Put methods for controlling this subsystem

@@ -19,7 +19,7 @@
 // constexpr int RANGE_FINDER_PORT = 1;
 // constexpr int RANGE_FINDER_MODULE = 1;
 
-	const bool COMPETITION_BOT = false;
+	const bool COMPETITION_BOT = true;
 
 	//  Practice Bot Motor Ports
 	//  VictorSP motor ports
@@ -59,6 +59,7 @@
 	const int CB_HANG_VICTOR_PWM_PORT = 10;
 	const int CB_GEAR_VICTOR_PWM_PORT = 17;
 	const int CB_AGITATOR_VICTOR_PWM_PORT = 18;
+	const int CB_AGITATOR_2_VICTOR_PWM_PORT = 12;
 
 	//  CANTalon Motor Ports
 	const int CB_FRONT_LEFT_TALON_ID = 1;
@@ -74,6 +75,7 @@
 	//  Motor Inversions
 	//  To Be Determined
 	const bool CB_AGITATOR_INVERTED = true;
+	const bool CB_AGITATOR_2_INVERTED = false;
 	const bool CB_COLLECTION_INVERTED = true;
 	const bool CB_DRIVE_TRAIN_FRONT_LEFT_INVERTED = false;
 	const bool CB_DRIVE_TRAIN_REAR_RIGHT_INVERTED = true;

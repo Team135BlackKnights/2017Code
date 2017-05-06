@@ -9,7 +9,7 @@ private:
 	double desiredAngleToTurn;
 	double motorPower;
 	bool turnRight;
-	bool setTimeout;
+	//bool setTimeout;
 
 	bool zeroedGyro = false;
 
@@ -24,7 +24,7 @@ private:
 	double timerValue = 0.0;
 	static constexpr double TURN_ROBOT_INTO_HOPPER_TIMEOUT = 1.0;
 public:
-	TurnDriveTrainAngle(double, double, bool, bool setTimeout = false);
+	TurnDriveTrainAngle(double, double, bool);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

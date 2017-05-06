@@ -1,13 +1,12 @@
 #include "DriveDriveTrainCertainTime.h"
 
-DriveDriveTrainCertainTime::DriveDriveTrainCertainTime(double desiredTimerValue, double motorPower, bool rammingIntoHopper) {
+DriveDriveTrainCertainTime::DriveDriveTrainCertainTime(double desiredTimerValue, double motorPower) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::driveTrain.get());
 
 	this->desiredTimerValue = desiredTimerValue;
 	this->motorPower = motorPower;
-	this->rammingIntoHopper = rammingIntoHopper;
 
 	timer = new frc::Timer();
 }
@@ -17,13 +16,7 @@ void DriveDriveTrainCertainTime::Initialize() {
 	timer->Reset();
 	timer->Start();
 	restartTimer = true;
-	CommandBase::driveTrain->ZeroGyroAngle();
-	zeroGyro = true;
 	doneDrivingWithTimer = false;
-	initializeTimerForWaitingBeforeAdjustingAngle = false;
-	waitBeforeAdjustingAngle = false;
-	initializeTurnToAdjustAngle = false;
-	adjustedAngle = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -33,13 +26,6 @@ void DriveDriveTrainCertainTime::Execute() {
 		timer->Start();
 		restartTimer = true;
 	}
-
-	if (zeroGyro == false) {
-		CommandBase::driveTrain->ZeroGyroAngle();
-		zeroGyro = true;
-	}
-
-	currentGyroAngle = CommandBase::driveTrain->GetGyroAngle();
 
 	currentTime = timer->Get();
 
@@ -55,81 +41,20 @@ void DriveDriveTrainCertainTime::Execute() {
 			doneDrivingWithTimer = false;
 		}
 	}
-	else if (doneDrivingWithTimer && this->rammingIntoHopper) {
-		if (waitBeforeAdjustingAngle == false) {
-			if (initializeTimerForWaitingBeforeAdjustingAngle == false) {
-				timer->Reset();
-				timer->Start();
-				initializeTimerForWaitingBeforeAdjustingAngle = true;
-			}
-
-			currentTime = timer->Get();
-
-			if (currentTime >= WAIT_TIME_BEFORE_ADJUSTING_ANGLE) {
-				timer->Stop();
-				timer->Reset();
-				waitBeforeAdjustingAngle = true;
-			}
-
-			CommandBase::driveTrain->DriveTank(0.0, 0.0);
-		}
-		else if (waitBeforeAdjustingAngle) {
-			if (initializeTurnToAdjustAngle == false) {
-				if (currentGyroAngle < 0.0) {
-					turnRightToAdjustAngle = true;
-				}
-				else if (currentGyroAngle > 0.0) {
-					turnRightToAdjustAngle = false;
-				}
-				else {
-					adjustedAngle = true;
-				}
-				initializeTurnToAdjustAngle = true;
-			}
-
-			if (turnRightToAdjustAngle) {
-				if (currentGyroAngle >= 0.0) {
-					CommandBase::driveTrain->DriveTank(0.0, 0.0);
-					adjustedAngle = true;
-				}
-				else {
-					CommandBase::driveTrain->DriveTank(0.0, -ADJUST_ANGLE_MOTOR_POWER);
-					adjustedAngle = false;
-				}
-			}
-			else if (turnRightToAdjustAngle == false) {
-				if (currentGyroAngle <= 0.0) {
-					CommandBase::driveTrain->DriveTank(0.0, 0.0);
-					adjustedAngle = true;
-				}
-				else {
-					CommandBase::driveTrain->DriveTank(-ADJUST_ANGLE_MOTOR_POWER, 0.0);
-					adjustedAngle = false;
-				}
-			}
-		}
-	}
-
-	if (doneDrivingWithTimer && this->rammingIntoHopper == false) {
-		adjustedAngle = true;
-	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveDriveTrainCertainTime::IsFinished() {
-	return adjustedAngle;
+	return doneDrivingWithTimer;
 }
 
 // Called once after isFinished returns true
 void DriveDriveTrainCertainTime::End() {
 	CommandBase::driveTrain->DriveTank(0.0, 0.0);
+	timer->Stop();
+	timer->Reset();
 	restartTimer = false;
-	zeroGyro = false;
 	doneDrivingWithTimer = false;
-	initializeTimerForWaitingBeforeAdjustingAngle = false;
-	waitBeforeAdjustingAngle = false;
-	initializeTurnToAdjustAngle = false;
-	adjustedAngle = false;
 }
 
 // Called when another command which requires one or more of the same

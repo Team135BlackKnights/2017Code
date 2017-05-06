@@ -17,25 +17,25 @@ void UltrasonicSensor::InitializeUltrasonicSensors() {
 	gearUltrasonicPingSignal = new frc::DigitalOutput(GEAR_ULTRASONIC_DIO_PING_PORT);
 	gearUltrasonicEchoSignal = new frc::DigitalInput(GEAR_ULTRASONIC_DIO_ECHO_PORT);
 	gearUltrasonicSensor = new frc::Ultrasonic(gearUltrasonicPingSignal, gearUltrasonicEchoSignal, frc::Ultrasonic::DistanceUnit::kInches);
-	gearUltrasonicSensor->SetAutomaticMode(false);
+	gearUltrasonicSensor->SetAutomaticMode(true);
 
-	rightSideUltrasonicSensorPingSignal = new frc::DigitalOutput(RIGHT_SIDE_ULTRASONIC_SENSOR_PING_SIGNAL_PORT);
+	/*rightSideUltrasonicSensorPingSignal = new frc::DigitalOutput(RIGHT_SIDE_ULTRASONIC_SENSOR_PING_SIGNAL_PORT);
 	rightSideUltrasonicSensorEchoSignal = new frc::DigitalInput(RIGHT_SIDE_ULTRASONIC_SENSOR_ECHO_SIGNAL_PORT);
 	rightSideUltrasonicSensor = new frc::Ultrasonic(rightSideUltrasonicSensorPingSignal, rightSideUltrasonicSensorEchoSignal, frc::Ultrasonic::DistanceUnit::kInches);
-	rightSideUltrasonicSensor->SetAutomaticMode(false);
+	rightSideUltrasonicSensor->SetAutomaticMode(true);
 
 	leftSideUltrasonicSensorPingSignal = new frc::DigitalOutput(LEFT_SIDE_ULTRASONIC_SENSOR_PING_SIGNAL_PORT);
 	leftSideUltrasonicSensorEchoSignal = new frc::DigitalInput(LEFT_SIDE_ULTRASONIC_SENSOR_ECHO_SIGNAL_PORT);
 	leftSideUltrasonicSensor = new frc::Ultrasonic(leftSideUltrasonicSensorPingSignal, leftSideUltrasonicSensorEchoSignal, frc::Ultrasonic::DistanceUnit::kInches);
-	leftSideUltrasonicSensor->SetAutomaticMode(false);
+	leftSideUltrasonicSensor->SetAutomaticMode(true); */
 }
 
 void UltrasonicSensor::PingSideUltrasonicSensor(bool rightUltrasonic) {
 	if (rightUltrasonic) {
-		rightSideUltrasonicSensor->Ping();
+		//rightSideUltrasonicSensor->Ping();
 	}
 	else if (rightUltrasonic == false) {
-		leftSideUltrasonicSensor->Ping();
+		//leftSideUltrasonicSensor->Ping();
 	}
 }
 
@@ -49,10 +49,10 @@ double UltrasonicSensor::GetGearUltrasonicSensorValueInches() {
 
 double UltrasonicSensor::GetSideUltrasonicSensorValueInches(bool sideUltrasonicSensor) {
 	if (sideUltrasonicSensor == RIGHT_SIDE_ULTRASONIC_SENSOR) {
-		sideUltrasonicSensorValue = rightSideUltrasonicSensor->GetRangeInches();
+		//sideUltrasonicSensorValue = rightSideUltrasonicSensor->GetRangeInches();
 	}
 	else if (sideUltrasonicSensor == LEFT_SIDE_ULTRASONIC_SENSOR) {
-		sideUltrasonicSensorValue = leftSideUltrasonicSensor->GetRangeInches();
+		//sideUltrasonicSensorValue = leftSideUltrasonicSensor->GetRangeInches();
 	}
 	return sideUltrasonicSensorValue;
 }

@@ -14,10 +14,8 @@ void ReadLiftHangEncoderValue::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void ReadLiftHangEncoderValue::Execute() {
 	liftHangRawEncoderValue = CommandBase::liftHang->GetLiftHangEncoderRawValue();
-	liftHangEncoderValue = CommandBase::liftHang->GetLiftHangEncoderValue();
 
-	frc::SmartDashboard::PutNumber("Raw Lift Hang Encoder Value", liftHangRawEncoderValue);
-	frc::SmartDashboard::PutNumber("Lift Hang Encoder Value", liftHangEncoderValue);
+	frc::SmartDashboard::PutNumber("Lift Hang Encoder Valueee", liftHangRawEncoderValue);
 }
 
 // Make this return true when this Command no longer needs to run execute()

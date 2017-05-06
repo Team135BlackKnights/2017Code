@@ -7,6 +7,7 @@
 class AutoGetShooterUpToSpeed : public CommandBase {
 private:
 	double desiredShooterRPM;
+	bool closeShotPID;
 
 	bool initializePID = false;
 	bool initializeVoltageMode = false;
@@ -15,14 +16,16 @@ private:
 	frc::Timer* timer;
 	bool startTimer = false;
 	double timerValue = 0.0;
-	static constexpr double TIME_TO_WAIT_FOR_SHOOTER_TO_MAINTAIN_VELOCITY = .05;
+	static constexpr double TIME_TO_WAIT_FOR_SHOOTER_TO_MAINTAIN_VELOCITY = .1;
 
 	double currentShooterRPMValue = 0.0;
 
 	bool maintainShooterRPM = false;
 	bool shooterUpToSpeed = false;
+
+	bool initializePIDSlot = false;
 public:
-	AutoGetShooterUpToSpeed(double);
+	AutoGetShooterUpToSpeed(double, bool);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -108,6 +108,7 @@ public:
 	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_6_RIGHT_LIDAR = 0b01000000;
 	static const uint8_t VALUE_TO_OPEN_LIDAR_CHANNEL_7_LEFT_LIDAR = 0b10000000;
 	static const uint8_t VALUE_TO_OPEN_FRONT_LIDAR_CHANNEL_7 = 0b10000000;
+	static const uint8_t VALUE_TO_OPEN_FRONT_LIDAR_CHANNEL_6 = 0b01000000;
 
 	static const bool TURN_LIDAR_ON = true;
 	static const bool TURN_LIDAR_OFF = !TURN_LIDAR_ON;

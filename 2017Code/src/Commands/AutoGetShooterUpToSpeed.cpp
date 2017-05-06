@@ -1,11 +1,12 @@
 #include "AutoGetShooterUpToSpeed.h"
 
-AutoGetShooterUpToSpeed::AutoGetShooterUpToSpeed(double desiredShooterRPM) {
+AutoGetShooterUpToSpeed::AutoGetShooterUpToSpeed(double desiredShooterRPM, bool closeShotPID) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::shooter.get());
 
 	this->desiredShooterRPM = desiredShooterRPM;
+	this->closeShotPID = closeShotPID;
 
 	timer = new frc::Timer();
 }
@@ -20,6 +21,8 @@ void AutoGetShooterUpToSpeed::Initialize() {
 	timer->Reset();
 	timer->Start();
 	startTimer = true;
+
+	initializePIDSlot = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -28,6 +31,16 @@ void AutoGetShooterUpToSpeed::Execute() {
 		CommandBase::shooter->ConfigureShooterPID();
 		initializeVoltageMode = false;
 		initializePID = true;
+	}
+
+	if (initializePIDSlot == false) {
+		if (this->closeShotPID) {
+			CommandBase::shooter->SelectPIDProfileSlot(Shooter::CLOSE_SHOT_PID_VALUES);
+		}
+		else if (this->closeShotPID == false) {
+			CommandBase::shooter->SelectPIDProfileSlot(Shooter::FAR_SHOT_PID_VALUES);
+		}
+		initializePIDSlot = true;
 	}
 
 	timerValue = timer->Get();
@@ -45,6 +58,7 @@ void AutoGetShooterUpToSpeed::Execute() {
 
 		if (startTimer && (timerValue < TIME_TO_WAIT_FOR_SHOOTER_TO_MAINTAIN_VELOCITY)) {
 			shooterUpToSpeed = false;
+			maintainShooterRPM = true;
 		}
 		else if (startTimer && (timerValue >= TIME_TO_WAIT_FOR_SHOOTER_TO_MAINTAIN_VELOCITY)) {
 			maintainShooterRPM = false;
@@ -52,8 +66,6 @@ void AutoGetShooterUpToSpeed::Execute() {
 		}
 		CommandBase::shooter->ShooterUpToSpeed(shooterUpToSpeed);
 	}
-
-	frc::SmartDashboard::PutNumber("Shooter Autonomous RPM", currentShooterRPMValue);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -65,6 +77,7 @@ bool AutoGetShooterUpToSpeed::IsFinished() {
 void AutoGetShooterUpToSpeed::End() {
 	CommandBase::shooter->ConfigureShooterVoltageMode();
 	initializePID = false;
+	initializePIDSlot = true;
 	initializeVoltageMode = true;
 	CommandBase::shooter->DriveShooterMotor(0.0);
 	maintainShooterRPM = false;

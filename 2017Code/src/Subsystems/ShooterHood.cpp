@@ -370,6 +370,11 @@ int ShooterHood::GetMinAngleLimitSwitch() {
 	return minLimitSwitchValue;
 }
 
+int ShooterHood::GetDesiredHoodEncoderPositionGivenLidarValue(double lidarValueIN) {
+	desiredHoodEncoderValueGivenLidarValue = ((int)(rint(LIDAR_DISTANCE_TO_DESIRED_HOOD_ENCODER_VALUE * lidarValueIN)));
+	return desiredHoodEncoderValueGivenLidarValue;
+}
+
 double ShooterHood::ConvertDegreesToRadians(double degrees) {
 	return (degrees * DEGREES_TO_RADIANS_CONSTANT);
 }

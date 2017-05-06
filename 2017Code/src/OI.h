@@ -40,6 +40,8 @@ private:
 
 	static const int READ_LIDAR_VALUE_BUTTON = 8;  //  Left Drive Joystick
 
+	static const int OVERRIDE_GEAR_LIMIT_SWITCHES_BUTTON = 7;
+
 	static const int CLOSE_SHOT_HOOD_ENCODER_VALUE = 0;
 	static const int RIGHT_CLOSE_SHOT_SHOOTER_AUTONOMOUS_HOOD_ENCODER_VALUE = 0;
 	static const int LEFT_CLOSE_SHOT_SHOOTER_AUTONOMOUS_HOOD_ENCODER_VALUE = 1250;
